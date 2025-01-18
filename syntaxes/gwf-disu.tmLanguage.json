@@ -1,0 +1,32 @@
+{
+  "scopeName": "source.mf6.gwf-disu",
+  "patterns": [
+    {
+      "include": "source.mf6.common"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#keyword"
+    }
+  ],
+  "repository": {
+    "block": {
+      "patterns": [
+        {
+          "name": "entity.name.type",
+          "match": "(?i)\\b(OPTIONS|DIMENSIONS|GRIDDATA|CONNECTIONDATA|VERTICES|CELL2D)\\b"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "(?i)\\b(LENGTH_UNITS|NOGRB|XORIGIN|YORIGIN|ANGROT|VERTICAL_OFFSET_TOLERANCE|EXPORT_ARRAY_ASCII|NODES|NJA|NVERT|TOP|BOT|AREA|IDOMAIN|IAC|JA|IHC|CL12|HWVA|ANGLDEGX|IV|XV|YV|ICELL2D|XC|YC|NCVERT|ICVERT)\\b"
+        }
+      ]
+    }
+  }
+}

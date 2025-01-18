@@ -1,0 +1,32 @@
+{
+  "scopeName": "source.mf6.gwf-evta",
+  "patterns": [
+    {
+      "include": "source.mf6.common"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#keyword"
+    }
+  ],
+  "repository": {
+    "block": {
+      "patterns": [
+        {
+          "name": "entity.name.type",
+          "match": "(?i)\\b(OPTIONS|PERIOD)\\b"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "(?i)\\b(READASARRAYS|FIXED_CELL|AUXILIARY|AUXMULTNAME|PRINT_INPUT|PRINT_FLOWS|SAVE_FLOWS|TAS6|FILEIN|OBS6|EXPORT_ARRAY_NETCDF|IPER|IEVT|SURFACE|RATE|DEPTH|AUX)\\b"
+        }
+      ]
+    }
+  }
+}

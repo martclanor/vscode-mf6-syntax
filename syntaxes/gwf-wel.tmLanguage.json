@@ -1,0 +1,32 @@
+{
+  "scopeName": "source.mf6.gwf-wel",
+  "patterns": [
+    {
+      "include": "source.mf6.common"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#keyword"
+    }
+  ],
+  "repository": {
+    "block": {
+      "patterns": [
+        {
+          "name": "entity.name.type",
+          "match": "(?i)\\b(OPTIONS|DIMENSIONS|PERIOD)\\b"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "(?i)\\b(AUXILIARY|AUXMULTNAME|BOUNDNAMES|PRINT_INPUT|PRINT_FLOWS|SAVE_FLOWS|AUTO_FLOW_REDUCE_CSV|TS6|FILEIN|FILEOUT|OBS6|MAXBOUND|IPER|STRESS_PERIOD_DATA|CELLID|Q|AUX|BOUNDNAME)\\b"
+        }
+      ]
+    }
+  }
+}

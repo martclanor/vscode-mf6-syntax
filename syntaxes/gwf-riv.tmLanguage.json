@@ -1,0 +1,32 @@
+{
+  "scopeName": "source.mf6.gwf-riv",
+  "patterns": [
+    {
+      "include": "source.mf6.common"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#keyword"
+    }
+  ],
+  "repository": {
+    "block": {
+      "patterns": [
+        {
+          "name": "entity.name.type",
+          "match": "(?i)\\b(OPTIONS|DIMENSIONS|PERIOD)\\b"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "(?i)\\b(AUXILIARY|AUXMULTNAME|BOUNDNAMES|PRINT_INPUT|PRINT_FLOWS|SAVE_FLOWS|TS6|FILEIN|OBS6|MOVER|MAXBOUND|IPER|STRESS_PERIOD_DATA|CELLID|STAGE|COND|RBOT|AUX|BOUNDNAME)\\b"
+        }
+      ]
+    }
+  }
+}

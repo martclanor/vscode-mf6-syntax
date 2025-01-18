@@ -1,12 +1,12 @@
 {
-  "name": "mf6-syntax",
-  "displayName": "mf6-syntax",
-  "description": "MODFLOW6 input text file syntax highlighting support",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.96.0"
-  },
-  "categories": [
+    "name": "mf6-syntax",
+    "displayName": "mf6-syntax",
+    "description": "MODFLOW6 input text file syntax highlighting support",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.96.0"
+    },
+    "categories": [
         "Programming Languages",
         "Other"
     ],
@@ -26,9 +26,65 @@
                 "configuration": "./language-configuration.json"
             },
             {
-                "id": "sim-nam",
-                "filenames": [
-                    "mfsim.nam"
+                "id": "gwf-chd",
+                "extensions": [
+                    ".chd"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-dis",
+                "extensions": [
+                    ".dis"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-disu",
+                "extensions": [
+                    ".disu"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-disv",
+                "extensions": [
+                    ".disv"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-drn",
+                "extensions": [
+                    ".drn"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-evt",
+                "extensions": [
+                    ".evt"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-evta",
+                "extensions": [
+                    ".evta"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-ghb",
+                "extensions": [
+                    ".ghb"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-ic",
+                "extensions": [
+                    ".ic"
                 ],
                 "configuration": "./language-configuration.json"
             },
@@ -36,6 +92,83 @@
                 "id": "gwf-nam",
                 "extensions": [
                     ".nam"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-npf",
+                "extensions": [
+                    ".npf"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-oc",
+                "extensions": [
+                    ".oc"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-rch",
+                "extensions": [
+                    ".rch"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-rcha",
+                "extensions": [
+                    ".rcha"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-riv",
+                "extensions": [
+                    ".riv"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-sto",
+                "extensions": [
+                    ".sto"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-uzf",
+                "extensions": [
+                    ".uzf"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-wel",
+                "extensions": [
+                    ".wel"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "sim-nam",
+                "filenames": [
+                    "mfsim.nam"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "sim-tdis",
+                "extensions": [
+                    ".tdis"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "sln-ims",
+                "extensions": [
+                    ".ims"
                 ],
                 "configuration": "./language-configuration.json"
             }
@@ -47,14 +180,109 @@
                 "path": "./syntaxes/common.tmLanguage.json"
             },
             {
-                "language": "sim-nam",
-                "scopeName": "source.mf6.sim-nam",
-                "path": "./syntaxes/sim-nam.tmLanguage.json"
+                "language": "gwf-chd",
+                "scopeName": "source.mf6.gwf-chd",
+                "path": "./syntaxes/gwf-chd.tmLanguage.json"
+            },
+            {
+                "language": "gwf-dis",
+                "scopeName": "source.mf6.gwf-dis",
+                "path": "./syntaxes/gwf-dis.tmLanguage.json"
+            },
+            {
+                "language": "gwf-disu",
+                "scopeName": "source.mf6.gwf-disu",
+                "path": "./syntaxes/gwf-disu.tmLanguage.json"
+            },
+            {
+                "language": "gwf-disv",
+                "scopeName": "source.mf6.gwf-disv",
+                "path": "./syntaxes/gwf-disv.tmLanguage.json"
+            },
+            {
+                "language": "gwf-drn",
+                "scopeName": "source.mf6.gwf-drn",
+                "path": "./syntaxes/gwf-drn.tmLanguage.json"
+            },
+            {
+                "language": "gwf-evt",
+                "scopeName": "source.mf6.gwf-evt",
+                "path": "./syntaxes/gwf-evt.tmLanguage.json"
+            },
+            {
+                "language": "gwf-evta",
+                "scopeName": "source.mf6.gwf-evta",
+                "path": "./syntaxes/gwf-evta.tmLanguage.json"
+            },
+            {
+                "language": "gwf-ghb",
+                "scopeName": "source.mf6.gwf-ghb",
+                "path": "./syntaxes/gwf-ghb.tmLanguage.json"
+            },
+            {
+                "language": "gwf-ic",
+                "scopeName": "source.mf6.gwf-ic",
+                "path": "./syntaxes/gwf-ic.tmLanguage.json"
             },
             {
                 "language": "gwf-nam",
                 "scopeName": "source.mf6.gwf-nam",
                 "path": "./syntaxes/gwf-nam.tmLanguage.json"
+            },
+            {
+                "language": "gwf-npf",
+                "scopeName": "source.mf6.gwf-npf",
+                "path": "./syntaxes/gwf-npf.tmLanguage.json"
+            },
+            {
+                "language": "gwf-oc",
+                "scopeName": "source.mf6.gwf-oc",
+                "path": "./syntaxes/gwf-oc.tmLanguage.json"
+            },
+            {
+                "language": "gwf-rch",
+                "scopeName": "source.mf6.gwf-rch",
+                "path": "./syntaxes/gwf-rch.tmLanguage.json"
+            },
+            {
+                "language": "gwf-rcha",
+                "scopeName": "source.mf6.gwf-rcha",
+                "path": "./syntaxes/gwf-rcha.tmLanguage.json"
+            },
+            {
+                "language": "gwf-riv",
+                "scopeName": "source.mf6.gwf-riv",
+                "path": "./syntaxes/gwf-riv.tmLanguage.json"
+            },
+            {
+                "language": "gwf-sto",
+                "scopeName": "source.mf6.gwf-sto",
+                "path": "./syntaxes/gwf-sto.tmLanguage.json"
+            },
+            {
+                "language": "gwf-uzf",
+                "scopeName": "source.mf6.gwf-uzf",
+                "path": "./syntaxes/gwf-uzf.tmLanguage.json"
+            },
+            {
+                "language": "gwf-wel",
+                "scopeName": "source.mf6.gwf-wel",
+                "path": "./syntaxes/gwf-wel.tmLanguage.json"
+            },
+            {
+                "language": "sim-nam",
+                "scopeName": "source.mf6.sim-nam",
+                "path": "./syntaxes/sim-nam.tmLanguage.json"
+            },
+            {
+                "language": "sim-tdis",
+                "scopeName": "source.mf6.sim-tdis",
+                "path": "./syntaxes/sim-tdis.tmLanguage.json"
+            },
+            {
+                "language": "sln-ims",
+                "scopeName": "source.mf6.sln-ims",
+                "path": "./syntaxes/sln-ims.tmLanguage.json"
             }
         ]
     },

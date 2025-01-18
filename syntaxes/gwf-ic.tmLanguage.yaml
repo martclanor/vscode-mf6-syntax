@@ -1,0 +1,14 @@
+scopeName: source.mf6.gwf-ic
+patterns:
+  - include: 'source.mf6.common'
+  - include: '#block'
+  - include: '#keyword'
+repository:
+  block:
+    patterns:
+      - name: entity.name.type
+        match: (?i)\b(OPTIONS|GRIDDATA)\b
+  keyword:
+    patterns:
+      - name: variable.parameter
+        match: (?i)\b(EXPORT_ARRAY_ASCII|EXPORT_ARRAY_NETCDF|STRT)\b
