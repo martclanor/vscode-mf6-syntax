@@ -7,19 +7,58 @@
     "vscode": "^1.96.0"
   },
   "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [{
-      "id": "mf6",
-      "aliases": ["mf6", "mf6"],
-      "extensions": [""],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "mf6",
-      "scopeName": "source.mf6",
-      "path": "./syntaxes/mf6.tmLanguage.json"
-    }]
-  }
+        "Programming Languages",
+        "Other"
+    ],
+    "keywords": [
+        "mf6",
+        "modflow6",
+        "syntax"
+    ],
+    "scripts": {
+        "build": "npm run compile:grammar",
+        "compile:grammar": "for file in syntaxes/*.yaml; do js-yaml \"$file\" > \"${file%.yaml}.json\"; done"
+    },
+    "contributes": {
+        "languages": [
+            {
+                "id": "common",
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "sim-nam",
+                "filenames": [
+                    "mfsim.nam"
+                ],
+                "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "gwf-nam",
+                "extensions": [
+                    ".nam"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "common",
+                "scopeName": "source.mf6.common",
+                "path": "./syntaxes/common.tmLanguage.json"
+            },
+            {
+                "language": "sim-nam",
+                "scopeName": "source.mf6.sim-nam",
+                "path": "./syntaxes/sim-nam.tmLanguage.json"
+            },
+            {
+                "language": "gwf-nam",
+                "scopeName": "source.mf6.gwf-nam",
+                "path": "./syntaxes/gwf-nam.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "js-yaml": "^4.1.0"
+    }
 }

@@ -1,0 +1,14 @@
+scopeName: source.mf6.sim-nam
+patterns:
+  - include: 'source.mf6.common'
+  - include: '#block'
+  - include: '#keyword'
+repository:
+  block:
+    patterns:
+      - name: entity.name.type
+        match: (?i)\b(OPTIONS|TIMING|MODELS|EXCHANGES|SOLUTIONGROUP)\b
+  keyword:
+    patterns:
+      - name: variable.parameter
+        match: (?i)\b(CONTINUE|NOCHECK|MEMORY_PRINT_OPTION|MAXERRORS|TDIS6|MTYPE|MFNAME|MNAME|EXGTYPE|EXGFILE|EXGNAMEA|EXGMNAMEB|GROUP_NM|MXITER|SLNTYPE|SLNFNAME|SLNAMES)\b

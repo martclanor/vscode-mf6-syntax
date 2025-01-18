@@ -1,30 +1,23 @@
 {
-    "comments": {
-        // symbol used for single line comment. Remove this entry if your language does not support line comments
-        "lineComment": "//",
-        // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
-        "blockComment": [ "/*", "*/" ]
+    "folding": { // indentation in mf6 input files is not enforced thus folding is specified
+        "markers": {
+            "start": "^(?i:BEGIN)",
+            "end": "^(?i:END)"
+        }
     },
-    // symbols used as brackets
-    "brackets": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"]
-    ],
-    // symbols that are auto closed when typing
+    "comments": {
+        "lineComment": "#", // for toggling line comment
+    },
     "autoClosingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["\"", "\""],
-        ["'", "'"]
+        {
+            "open": "'",
+            "close": "'"
+        }
     ],
-    // symbols that can be used to surround a selection
     "surroundingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["\"", "\""],
-        ["'", "'"]
+        [
+            "'",
+            "'"
+        ]
     ]
 }

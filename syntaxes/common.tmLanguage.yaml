@@ -1,0 +1,13 @@
+scopeName: source.mf6.common
+patterns:
+  - include: '#comment'
+  - include: '#reserved'
+repository:
+  comment:
+    patterns:
+      - name: comment.line
+        match: (^|\s)(#|!|//).*$
+  reserved:
+    patterns:
+      - name: keyword.control
+        match: (?i)\b(BEGIN|END)\b
