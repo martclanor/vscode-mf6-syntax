@@ -1,19 +1,17 @@
 {
     "name": "mf6-syntax",
-    "displayName": "mf6-syntax",
+    "displayName": "MODFLOW6 Syntax",
     "description": "MODFLOW6 input text file syntax highlighting support",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.96.0"
     },
     "categories": [
-        "Programming Languages",
         "Other"
     ],
     "keywords": [
         "mf6",
-        "modflow6",
-        "syntax"
+        "modflow6"
     ],
     "scripts": {
         "build": "npm run compile:grammar",
