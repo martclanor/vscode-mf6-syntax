@@ -13,6 +13,15 @@
         "mf6",
         "modflow6"
     ],
+    "homepage": "https://github.com/martclanor/vscode-mf6-syntax/blob/main/README.md",
+    "bugs": {
+        "url": "https://github.com/martclanor/vscode-mf6-syntax/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/martclanor/vscode-mf6-syntax.git"
+    },
+    "license": "MIT",
     "scripts": {
         "build": "npm run compile:grammar",
         "compile:grammar": "for file in syntaxes/*.yaml; do js-yaml \"$file\" > \"${file%.yaml}.json\"; done"
