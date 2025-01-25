@@ -3,6 +3,7 @@ patterns:
   - include: '#comment'
   - include: '#reserved'
   - include: '#readarrayctrl'
+  - include: '#readarrayvar'
 repository:
   comment:
     patterns:
@@ -16,3 +17,7 @@ repository:
     patterns:
       - name: keyword.control
         match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR|OPEN/CLOSE)\b
+  readarrayvar:
+    patterns:
+      - name: keyword.control
+        match: (?i)(FACTOR|\(BINARY\)|IPRN)

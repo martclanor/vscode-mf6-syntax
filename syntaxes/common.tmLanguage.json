@@ -9,6 +9,9 @@
     },
     {
       "include": "#readarrayctrl"
+    },
+    {
+      "include": "#readarrayvar"
     }
   ],
   "repository": {
@@ -33,6 +36,14 @@
         {
           "name": "keyword.control",
           "match": "^\\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR|OPEN/CLOSE)\\b"
+        }
+      ]
+    },
+    "readarrayvar": {
+      "patterns": [
+        {
+          "name": "keyword.control",
+          "match": "(?i)(FACTOR|\\(BINARY\\)|IPRN)"
         }
       ]
     }
