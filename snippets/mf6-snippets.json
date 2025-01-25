@@ -4,9 +4,9 @@
             "BEGIN"
         ],
         "body": [
-            "BEGIN ${1:word}",
+            "BEGIN ${1:words}",
             "$0",
-            "END ${1:word}"
+            "END ${1:words}"
         ],
         "description": "Inserts an MF6 block with a matching keyword"
     }
