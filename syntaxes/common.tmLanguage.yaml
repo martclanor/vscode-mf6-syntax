@@ -2,6 +2,7 @@ scopeName: source.mf6.common
 patterns:
   - include: '#comment'
   - include: '#reserved'
+  - include: '#type'
 repository:
   comment:
     patterns:
@@ -11,3 +12,7 @@ repository:
     patterns:
       - name: entity.name.section
         match: ^\s*(?i)(BEGIN|END)\b
+  type:
+    patterns:
+      - name: keyword.control
+        match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\b

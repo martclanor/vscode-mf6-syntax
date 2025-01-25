@@ -6,6 +6,9 @@
     },
     {
       "include": "#reserved"
+    },
+    {
+      "include": "#type"
     }
   ],
   "repository": {
@@ -22,6 +25,14 @@
         {
           "name": "entity.name.section",
           "match": "^\\s*(?i)(BEGIN|END)\\b"
+        }
+      ]
+    },
+    "type": {
+      "patterns": [
+        {
+          "name": "keyword.control",
+          "match": "^\\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\\b"
         }
       ]
     }
