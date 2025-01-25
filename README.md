@@ -1,6 +1,6 @@
 # VS Code MODFLOW 6 Syntax
 
-This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code based on TextMate grammar.
+This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code. This is based on TextMate grammar that is derived from MF6 definition files. The primary goal of this project is to make MF6 input files a bit easier on the eyes.
 
 ## Features
 
@@ -8,6 +8,10 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 - Code folding based on MF6 block structure
 - Code snippets based on MF6 block structure
 - Others: comment-toggling, auto-closing quotes, surrounding quotes
+
+## Usage
+
+The extension activates based on the file's extension. If not detected, use `Change Language Mode` in VS Code and set it to `MODFLOW 6`.
 
 ## Release Notes
 
