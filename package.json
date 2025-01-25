@@ -1,7 +1,7 @@
 {
     "name": "mf6-syntax",
-    "displayName": "MODFLOW6 Syntax",
-    "description": "MODFLOW6 input text file syntax highlighting support",
+    "displayName": "MODFLOW 6 Syntax",
+    "description": "MODFLOW 6 input text file syntax highlighting support",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.96.0"
@@ -35,7 +35,7 @@
             {
                 "id": "mf6",
                 "aliases": [
-                    "MODFLOW6"
+                    "MODFLOW 6"
                 ],
                 "extensions": [
                     ".adv",

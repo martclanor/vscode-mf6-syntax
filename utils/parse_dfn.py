@@ -1,5 +1,5 @@
 """
-This script parses MODFLOW6 definition (dfn) files and extracts metadata for each block
+This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
 file, and provides methods to parse and access this data.
 
@@ -59,7 +59,7 @@ class Section:
 
 @dataclass
 class Dfn:
-    """Abstraction of each dfn file. Dfn files are definition files from MODFLOW6 which
+    """Abstraction of each dfn file. Dfn files are definition files from MODFLOW 6 which
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
