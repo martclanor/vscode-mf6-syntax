@@ -117,6 +117,12 @@
                 "scopeName": "source.mf6.all",
                 "path": "./syntaxes/all.tmLanguage.json"
             }
+        ],
+        "snippets": [
+            {
+                "language": "mf6",
+                "path": "./snippets/mf6-snippets.json"
+            }
         ]
     },
     "devDependencies": {
