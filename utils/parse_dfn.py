@@ -98,12 +98,12 @@ class Dfn:
 if __name__ == "__main__":
     blocks = set()
     keywords = set()
-    valid = set()
+    valids = set()
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks |= dfn.blocks
         keywords |= dfn.keywords
-        valid.update(*dfn.valids)
+        valids.update(*dfn.valids)
         if ext := dfn.extension:
             extensions.add(dfn.extension)
