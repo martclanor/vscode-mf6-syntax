@@ -97,7 +97,21 @@ class Dfn:
         return f".{parts[-1]}" if len(parts) > 1 else None
 
 
+def render_template(template_name: str, output_path: str, **context):
+    """Render a Jinja2 template and write the output to a file."""
+    template = Environment(loader=FileSystemLoader("templates")).get_template(
+        template_name
+    )
+    sorted_context = {
+        k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
+    }
+    output = template.render(**sorted_context)
+    Path(output_path).write_text(output)
+    print(f"{output_path} has been generated")
+
+
 if __name__ == "__main__":
+    # Collect blocks, keywords, valids, and extensions from dfn files
     blocks = set()
     keywords = set()
     valids = set()
@@ -110,18 +124,12 @@ if __name__ == "__main__":
         if ext := dfn.extension:
             extensions.add(dfn.extension)
 
-    env = Environment(loader=FileSystemLoader("templates"))
-
-    # package.json from template
-    template = env.get_template("package.json.j2")
-    output = template.render(extensions=sorted(extensions))
-    Path("package.json").write_text(output)
-    print("package.json has been generated.")
-
-    # all.tmLanguage.yaml from template
-    template = env.get_template("all.tmLanguage.yaml.j2")
-    output = template.render(
-        blocks=sorted(blocks), keywords=sorted(keywords), valids=sorted(valids)
+    # Insert the collected data into the Jinja2 templates
+    render_template("package.json.j2", "package.json", extensions=extensions)
+    render_template(
+        "all.tmLanguage.yaml.j2",
+        "syntaxes/all.tmLanguage.yaml",
+        blocks=blocks,
+        keywords=keywords,
+        valids=valids,
     )
-    Path("syntaxes/all.tmLanguage.yaml").write_text(output)
-    print("syntaxes/all.tmLanguage.yaml has been generated.")
