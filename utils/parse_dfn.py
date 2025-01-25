@@ -117,3 +117,11 @@ if __name__ == "__main__":
     output = template.render(extensions=sorted(extensions))
     Path("package.json").write_text(output)
     print("package.json has been generated.")
+
+    # all.tmLanguage.yaml from template
+    template = env.get_template("all.tmLanguage.yaml.j2")
+    output = template.render(
+        blocks=sorted(blocks), keywords=sorted(keywords), valids=sorted(valids)
+    )
+    Path("syntaxes/all.tmLanguage.yaml").write_text(output)
+    print("syntaxes/all.tmLanguage.yaml has been generated.")
