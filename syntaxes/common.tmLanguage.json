@@ -8,7 +8,7 @@
       "include": "#reserved"
     },
     {
-      "include": "#type"
+      "include": "#readarrayctrl"
     }
   ],
   "repository": {
@@ -28,11 +28,11 @@
         }
       ]
     },
-    "type": {
+    "readarrayctrl": {
       "patterns": [
         {
           "name": "keyword.control",
-          "match": "^\\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\\b"
+          "match": "^\\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR|OPEN/CLOSE)\\b"
         }
       ]
     }
