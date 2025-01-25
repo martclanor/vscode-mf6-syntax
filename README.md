@@ -1,6 +1,6 @@
 # VS Code MODFLOW 6 Syntax
 
-This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code based on TextMate grammars.
+This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code based on TextMate grammar.
 
 ## Features
 
