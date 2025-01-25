@@ -22,6 +22,7 @@
         "url": "https://github.com/martclanor/vscode-mf6-syntax.git"
     },
     "license": "MIT",
+    "publisher": "mart-clanor",
     "scripts": {
         "build": "npm run compile:grammar",
         "compile:grammar": "for file in syntaxes/*.yaml; do js-yaml \"$file\" > \"${file%.yaml}.json\"; done"
