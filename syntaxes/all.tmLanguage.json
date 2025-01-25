@@ -12,6 +12,9 @@
     },
     {
       "include": "#valid"
+    },
+    {
+      "include": "#model"
     }
   ],
   "repository": {
@@ -36,6 +39,14 @@
         {
           "name": "variable.parameter",
           "match": "(?i)\\b(langmuir|nonlinear|amt-hmk|ims6|tvd|stay|central|amt-lmk|drop|stop|freundlich|ems6|upstream|stepwise|linear|logarithmic|linearend|harmonic)\\b"
+        }
+      ]
+    },
+    "model": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "^\\s*(?i)(gwf6|gwt6|gwf6-gwf6|gwf6-gwt6)\\b"
         }
       ]
     }
