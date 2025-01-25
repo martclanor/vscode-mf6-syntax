@@ -5,7 +5,7 @@ file, and provides methods to parse and access this data.
 
 Classes:
     Line: Represents a single line in a dfn file.
-    Group: Represents a group of lines in a dfn file.
+    Section: Represents a section of lines in a dfn file.
     Dfn: Represents an entire dfn file.
 
 Usage:
@@ -21,7 +21,7 @@ from typing import Optional, Tuple
 @dataclass
 class Line:
     """Abstraction of each line as read from the dfn file.
-    Line objects form a Group object."""
+    Line objects form a Section object."""
 
     key: str
     value: Optional[str] = None
@@ -32,9 +32,9 @@ class Line:
 
 
 @dataclass
-class Group:
+class Section:
     """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
-    A Group object is made up of Line objects."""
+    A Section object is made up of Line objects."""
 
     name: str
     block: str
@@ -42,7 +42,7 @@ class Group:
     valid: Optional[Tuple[str, ...]] = None
 
     @classmethod
-    def from_file(cls, data: str) -> "Group":
+    def from_file(cls, data: str) -> "Section":
         lines = (
             Line.from_file(line)
             for line in data.split("\n")
@@ -74,20 +74,20 @@ class Dfn:
         return self._data
 
     @property
-    def groups(self) -> Tuple[Group, ...]:
-        return tuple(Group.from_file(x) for x in self.data if x.startswith("block"))
+    def sections(self) -> Tuple[Section, ...]:
+        return tuple(Section.from_file(x) for x in self.data if x.startswith("block"))
 
     @property
     def blocks(self) -> set:
-        return {p.block for p in self.groups}
+        return {p.block for p in self.sections}
 
     @property
     def names(self) -> set:
-        return {p.name for p in self.groups}
+        return {p.name for p in self.sections}
 
     @property
     def valids(self) -> set:
-        return {p.valid for p in self.groups if p.valid is not None}
+        return {p.valid for p in self.sections if p.valid is not None}
 
     @property
     def extension(self) -> Optional[str]:
