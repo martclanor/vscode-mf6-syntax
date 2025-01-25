@@ -36,7 +36,7 @@ class Section:
     """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
     A Section object is made up of Line objects."""
 
-    name: str
+    keyword: str
     block: str
     data_type: Optional[str] = None
     valid: Optional[Tuple[str, ...]] = None
@@ -51,7 +51,7 @@ class Section:
         line_dict = {line.key: line.value for line in lines}
         return cls(
             block=line_dict.get("block", ""),
-            name=line_dict.get("name", ""),
+            keyword=line_dict.get("name", ""),
             data_type=line_dict.get("type", None),
             valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
         )
@@ -82,8 +82,8 @@ class Dfn:
         return {p.block for p in self.sections}
 
     @property
-    def names(self) -> set:
-        return {p.name for p in self.sections}
+    def keywords(self) -> set:
+        return {p.keyword for p in self.sections}
 
     @property
     def valids(self) -> set:
@@ -97,13 +97,13 @@ class Dfn:
 
 if __name__ == "__main__":
     blocks = set()
-    names = set()
+    keywords = set()
     valid = set()
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks |= dfn.blocks
-        names |= dfn.names
+        keywords |= dfn.keywords
         valid.update(*dfn.valids)
         if ext := dfn.extension:
             extensions.add(dfn.extension)
