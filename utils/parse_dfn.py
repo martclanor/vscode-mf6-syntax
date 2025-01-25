@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Tuple
 
+from jinja2 import Environment, FileSystemLoader
+
 
 @dataclass
 class Line:
@@ -107,3 +109,11 @@ if __name__ == "__main__":
         valids.update(*dfn.valids)
         if ext := dfn.extension:
             extensions.add(dfn.extension)
+
+    env = Environment(loader=FileSystemLoader("templates"))
+
+    # package.json from template
+    template = env.get_template("package.json.j2")
+    output = template.render(extensions=sorted(extensions))
+    Path("package.json").write_text(output)
+    print("package.json has been generated.")
