@@ -9,5 +9,5 @@ repository:
         match: (^|\s)(#|!|//).*$
   reserved:
     patterns:
-      - name: keyword.control
-        match: (?i)\b(BEGIN|END)\b
+      - name: entity.name.section
+        match: ^\s*(?i)(BEGIN|END)\b
