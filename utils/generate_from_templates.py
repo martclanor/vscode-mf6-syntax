@@ -15,7 +15,7 @@ Usage:
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -41,7 +41,7 @@ class Section:
     keyword: str
     block: str
     data_type: Optional[str] = None
-    valid: Optional[Tuple[str, ...]] = None
+    valid: Optional[tuple[str, ...]] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
@@ -50,7 +50,7 @@ class Section:
             for line in data.split("\n")
             if any(line.startswith(s) for s in {"block", "name", "type", "valid"})
         )
-        line_dict = {line.key: line.value for line in lines}
+        line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
@@ -72,23 +72,23 @@ class Dfn:
         self._data = data
 
     @property
-    def data(self) -> Tuple[str, ...]:
+    def data(self) -> tuple[str, ...]:
         return self._data
 
     @property
-    def sections(self) -> Tuple[Section, ...]:
+    def sections(self) -> tuple[Section, ...]:
         return tuple(Section.from_file(x) for x in self.data if x.startswith("block"))
 
     @property
-    def blocks(self) -> set:
+    def blocks(self) -> set[str]:
         return {p.block for p in self.sections}
 
     @property
-    def keywords(self) -> set:
+    def keywords(self) -> set[str]:
         return {p.keyword for p in self.sections}
 
     @property
-    def valids(self) -> set:
+    def valids(self) -> set[tuple[str, ...]]:
         return {p.valid for p in self.sections if p.valid is not None}
 
     @property
