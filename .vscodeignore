@@ -4,3 +4,8 @@
 .venv/**
 data/**
 utils/**
+node_modules/**
+test/**
+templates/**
+*.yaml
+*.py
