@@ -16,6 +16,12 @@ The extension activates based on the file's extension. If not detected, use `Cha
 
 ## Release Notes
 
+### 0.0.2
+
+- Automate generation of package.json and all.tmLanugage.yaml from jinja template
+- Add icon
+- Add READARRAY keywords
+
 ### 0.0.1
 
-Alpha release
+- Alpha release
