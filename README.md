@@ -5,7 +5,8 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Features
 
-- Basic syntax highlighting based on MF6 definition files
+- Basic syntax highlighting based on MF6 definition files. For example:
+  ![Syntax Highlighting](images/sample.png)
 - Code folding based on MF6 block structure
 - Code snippets based on MF6 block structure
 - Others: comment-toggling, auto-closing quotes, surrounding quotes
