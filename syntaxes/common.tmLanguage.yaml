@@ -4,6 +4,7 @@ patterns:
   - include: '#reserved'
   - include: '#readarrayctrl'
   - include: '#readarrayvar'
+  - include: '#filehandler'
 repository:
   comment:
     patterns:
@@ -16,8 +17,12 @@ repository:
   readarrayctrl:
     patterns:
       - name: keyword.control
-        match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR|OPEN/CLOSE)\b
+        match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\b
   readarrayvar:
     patterns:
       - name: keyword.control
         match: (?i)(FACTOR|\(BINARY\)|IPRN)
+  filehandler:
+    patterns:
+      - name: keyword.control
+        match: (?i)(OPEN/CLOSE|FILEIN|FILEOUT)
