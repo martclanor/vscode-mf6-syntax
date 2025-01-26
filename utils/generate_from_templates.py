@@ -9,8 +9,8 @@ Classes:
     Dfn: Represents an entire dfn file.
 
 Usage:
-    The script can be run as a standalone program to parse dfn files in the 'data/dfn'
-    directory and preprocess the data to be copied into the regex in the grammar files.
+    The script can be run to parse dfn files in the 'data/dfn' directory and preprocess
+    the data to generate 'package.json' and 'syntaxes/all.tmLanguage.yaml' files.
 """
 
 from dataclasses import dataclass
@@ -22,8 +22,8 @@ from jinja2 import Environment, FileSystemLoader
 
 @dataclass
 class Line:
-    """Abstraction of each line as read from the dfn file.
-    Line objects form a Section object."""
+    """Abstraction of each line as read from the dfn file. Line objects form a Section
+    object."""
 
     key: str
     value: Optional[str] = None
