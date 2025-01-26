@@ -1,4 +1,5 @@
 # VS Code MODFLOW 6 Syntax
+![Icon](images/icon_banner.png)
 
 This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code. This is based on TextMate grammar that is derived from MF6 definition files. The primary goal of this project is to make MF6 input files a bit easier on the eyes.
 
