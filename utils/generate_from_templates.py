@@ -10,7 +10,7 @@ Classes:
 
 Usage:
     The script can be run to parse dfn files in the 'data/dfn' directory and preprocess
-    the data to generate 'package.json' and 'syntaxes/all.tmLanguage.yaml' files.
+    the data to generate 'package.json' and 'syntaxes/mf6.tmLanguage.yaml' files.
 """
 
 from dataclasses import dataclass
@@ -127,8 +127,8 @@ if __name__ == "__main__":
     # Insert the collected data into the Jinja2 templates
     render_template("package.json.j2", "package.json", extensions=extensions)
     render_template(
-        "all.tmLanguage.yaml.j2",
-        "syntaxes/all.tmLanguage.yaml",
+        "mf6.tmLanguage.yaml.j2",
+        "syntaxes/mf6.tmLanguage.yaml",
         blocks=blocks,
         keywords=keywords,
         valids=valids,
