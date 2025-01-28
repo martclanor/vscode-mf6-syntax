@@ -39,7 +39,11 @@
                     {% for ext in extensions %}"{{ ext }}"{% if not loop.last %},
                     {% endif %}{% endfor %}
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "dark": "images/icon.svg",
+                    "light": "images/icon.svg"
+                }
             }
         ],
         "grammars": [
