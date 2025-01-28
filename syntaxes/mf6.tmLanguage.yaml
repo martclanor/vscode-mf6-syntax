@@ -13,41 +13,41 @@ patterns:
 repository:
   comment:
     patterns:
-      - name: comment
+      - name: comment.mf6
         match: (^|\s)(#|!|//).*$
   reserved:
     patterns:
-      - name: keyword.control
+      - name: keyword.control.mf6
         match: ^\s*(?i)(BEGIN|END)\b
   readarrayctrl:
     patterns:
-      - name: entity.other.attribute-name
+      - name: entity.other.attribute-name.mf6
         match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\b
   readarrayvar:
     patterns:
-      - name: entity.other.attribute-name
+      - name: entity.other.attribute-name.mf6
         match: (?i)(FACTOR|\(BINARY\)|IPRN)
   filehandler:
     patterns:
-      - name: entity.other.attribute-name
+      - name: entity.other.attribute-name.mf6
         match: (?i)(OPEN/CLOSE|FILEIN|FILEOUT)
   model:
     patterns:
-      - name: entity.name.function
+      - name: entity.name.function.mf6
         match: ^\s*(?i)(gwf6|gwt6|gwf6-gwf6|gwf6-gwt6)\b
   package:
     patterns:
-      - name: entity.name.function
+      - name: entity.name.function.mf6
         match: ^\s*(?i)(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)\b
   block:
     patterns:
-      - name: entity.name.type
+      - name: entity.name.type.mf6
         match: (?i)(?<=\bBEGIN\b|\bEND\b)\s*\b(attributes|cell2d|connectiondata|continuous|crosssections|dimensions|diversions|exchangedata|exchanges|fileinput|gncdata|griddata|initialstages|linear|models|nonlinear|options|outlets|packagedata|packages|partitions|period|perioddata|releasetimes|solutiongroup|sources|table|tables|time|timeseries|timing|tracktimes|vertices)\b
   keyword:
     patterns:
-      - name: entity.name.function
+      - name: entity.name.function.mf6
         match: ^\s*(?i)(adv_scheme|afrcsv_filerecord|afrcsvfile|alh|all|alphasj|alternative_cell_averaging|alv|angldegx|angle1|angle2|angle3|angrot|area|ath1|ath2|ats6|ats6_filename|ats_filerecord|ats_outer_maximum_fraction|ats_percel|atv|auto_flow_reduce|auto_flow_reduce_csv|aux|auxdepthname|auxiliary|auxiliaryrecord|auxmultname|auxname|auxspeciesname|auxval|backtracking_number|backtracking_reduction_factor|backtracking_residual_limit|backtracking_tolerance|barea|bedk|bedleak|belev|beta|bhead|binary|bndno|bot|botm|bottom|boundname|boundnames|budget|budget_filerecord|budgetcsv|budgetcsv_filerecord|budgetcsvfile|budgetfile|bulk_density|cdelay|cell2d|cell_averaging|cell_fraction|cellid|cellid1|cellid2|cellidm|cellidm1|cellidm2|cellidn|cellidsj|cg_ske_cr|cg_theta|chunk_face|chunk_time|chunk_x|chunk_y|chunk_z|cim|cim_filerecord|cimfile|cimprintrecord|cl1|cl12|cl2|claktype|cnd_xt3d_off|cnd_xt3d_rhs|coarse_compaction_filename|coarsestrain_filename|columns|compaction|compaction_coarse|compaction_coarse_filerecord|compaction_elastic|compaction_elastic_filerecord|compaction_filename|compaction_inelastic|compaction_inelastic_filerecord|compaction_interbed|compaction_interbed_filerecord|complexity|compression_indices|conc|concentration|concentration_filerecord|concentrationfile|concentrationprintrecord|concfile|cond|condeqn|connectiondata|connlen|connwidth|continue|continuous|couttype|cprior|crhoref|cross_section|cross_sectionrecord|crosssections|csv_inner_output|csv_inner_output_filerecord|csv_outer_output|csv_outer_output_filerecord|csv_output|csv_output_filerecord|csvfile|cviscref|cvoptions|decay|decay_sorbed|deflate|delc|delr|denseref|density|density_filerecord|density_solid|density_water|densityfile|depth|dev_efh_formulation|dev_exit_solve_method|dev_forceternary|dev_interfacemodel_on|dev_log_mpi|dev_no_newton|dev_oldstorageformulation|dev_omega|dev_storage_weight|dewatered|diffc|digits|disable_storage_change_integration|distcoef|diversion|diversionrecord|diversions|divflow|drape|drhodc|dry_tracking_method|dsp_xt3d_off|dsp_xt3d_rhs|dt0|dtadj|dtfailadj|dtmax|dtmin|dviscdc|effective_stress_lag|elastic_compaction_filename|elev|eps|evaporation|exchangedata|exchanges|exgfile|exgmnamea|exgmnameb|exgtype|exit_solve_tolerance|explicit|export_array_ascii|export_array_netcdf|ext-inflow|extdp|extend_tracking|extwc|filein|fileinput|fileout|finf|first|first_order_decay|fixed_cell|flow_correction|flow_imbalance_correction|flow_package_auxiliary_name|flow_package_name|flowing_well|flowing_wellrecord|flowing_wells|flowtype|fname|format|formatrecord|fraction|frequency|fthk|ftype|fwcond|fwelev|fwrlen|gnc6|gnc6_filename|gnc_filerecord|gncdata|group_num|gwfmodelname1|gwfmodelname2|h0|ha|head|head_based|head_filerecord|head_limit|headfile|headprintrecord|heat_capacity_solid|heat_capacity_water|height|hhformulation_rhs|hk_skin|hpc6|hpc6_filename|hpc_filerecord|hroot|hwva|hydchr|iac|ic|icell2d|icelltype|icon|iconn|iconr|iconvert|icsubno|icvert|id|id1|id2|idomain|idv|ievt|ifno|ihc|ihdwet|inelastic_compaction_filename|infiltration|inflow|initial_preconsolidation_head|initialstage|initialstages|inner_csvfile|inner_dvclose|inner_hclose|inner_maximum|inner_rclose|interbed_compaction_filename|interbedstrain_filename|interpolation_method|interpolation_method_single|interpolation_methodrecord|interpolation_methodrecord_single|invert|iper|iperats|irch|irhospec|irptno|istopzone|iv|ivertcon|iviscspec|iwetit|izone|ja|k|k22|k22overk|k33|k33overk|ktf|kts|ktw|kv|lakein|lakeno|lakeout|lakeperioddata|laksetting|landflag|last|latent_heat_vaporization|latitude|length_conversion|length_units|linear_acceleration|linear_gwet|list|local_z|longitude|man|manfraction|manning|maw_flow_reduce_csv|mawno|mawsetting|maxats|maxbound|maxerrors|maxhfb|maximum_depth_change|maximum_iterations|maximum_picard_iterations|maximum_stage_change|maxmvr|maxpackages|maxrate|maxsig0|memory_print_option|method|methods|mfname|mfrcsv_filerecord|mfrcsvfile|minrate|mixed|mname|mname1|mname2|modelname|modelnames|models|modflow6_attr_off|mover|mrank|mtype|mve6|mve6_filename|mve_filerecord|mvr6|mvr6_filename|mvr_filerecord|mvrtype|mvt6|mvt6_filename|mvt_filerecord|mweperioddata|mwesetting|mwtperioddata|mwtsetting|mxiter|name|names|nc_filerecord|nc_mesh2d_filerecord|nc_structured_filerecord|ncf6|ncf6_filename|ncf_filerecord|ncmesh2dfile|ncol|ncon|ncpl|ncstructfile|ncvert|ndelaycells|ndv|netcdf|netcdf_filename|netcdf_mesh2d|netcdf_structured|newton|newtonoptions|nexg|ngwfnodes|ninterbeds|nja|nlakeconn|nlakes|nlay|nmawwells|no_ptc|no_ptc_option|no_ptcrecord|no_well_storage|nocheck|nodes|nogrb|noutlets|nper|nreaches|nreleasepts|nreleasetimes|nrhospecies|nrow|nseg|nstp|ntables|ntracktimes|ntrailwaves|numalphaj|number|number_orthogonalizations|numgnc|nuzfcells|nvert|nviscspecies|nwavesets|obs6|obs6_filename|obs_filerecord|obs_output_file_name|obsname|obstype|ocsetting|outer_csvfile|outer_dvclose|outer_hclose|outer_maximum|outer_rclosebnd|outletno|outlets|output|package_convergence|package_convergence_filename|package_convergence_filerecord|packagedata|packages|partitions|pcs0|perched|perioddata|perlen|pet|petm|petm0|pname|pname1|pname2|porosity|preconditioner_drop_tolerance|preconditioner_levels|print|print_concentration|print_flows|print_format|print_head|print_input|print_option|print_stage|print_table|print_temperature|printrecord|pump_elevation|pxdp|q|radius|radius_skin|rainfall|rate|rate_scaling|rate_scalingrecord|rbot|rbth|rbthcnd|rclose_option|rcloserecord|reachperioddata|reachsetting|readasarrays|recharge|relaxation_factor|release_time_frequency|release_time_tolerance|releasesetting|releasetimes|reordering_method|retfactor|rewet|rewet_record|rgrd|rhk|rhs|rlen|rnb|rno|rootact|rough|rtp|rtype|runoff|rwid|sarea|save|save_flows|save_saturation|save_specific_discharge|saverecord|scaling_length|scaling_method|scheme|scrn_bot|scrn_top|senerrate|sfac|sfacrecord|sfacrecord_single|sfacs|sfacval|sfrsetting|sgm|sgs|shuffle|shut_off|shutdown_kappa|shutdown_theta|shutoffrecord|sig0|simulate_et|simulate_gwseep|slnfname|slnmnames|slntype|slope|smassrate|solutiongroup|sorbate|sorbate_filerecord|sorbatefile|sorption|sources|sp2|spc6_filename|spcsetting|specified_initial_delay_head|specified_initial_interbed_state|specified_initial_preconsolidation_stress|square_gwet|srctype|ss|ss_confined_only|sse_cr|ssv_cc|stage|stage_filerecord|stagefile|start_date_time|status|steady-state|steps|stop_at_weak_sink|stoptime|stoptraveltime|storage|storagecoefficient|strain_csv_coarse|strain_csv_interbed|straincg_filerecord|stress_period_data|strt|surf_rate_specified|surface|surfdep|sy|tab6|tab6_filename|table|tables|tas6|tas6_filename|tas_array|tas_filerecord|tdis6|telev|temp|temperature|temperature_filerecord|temperature_species_name|temperaturefile|temperatureprintrecord|tempfile|thermal_a2|thermal_a3|thermal_a4|thermal_formulation|theta|thick_frac|thickstrt|thti|thtr|thts|time|time_conversion|time_from_model_start|time_series_name|time_series_namerecord|time_series_names|time_units|timeseries|top|track|track_exit|track_filerecord|track_release|track_terminate|track_timestep|track_usertime|track_weaksink|trackcsv|trackcsv_filerecord|trackcsvfile|trackfile|tracktimes|transient|ts6|ts6_filename|ts_array|ts_filerecord|ts_time|tsmult|tvk6|tvk6_filename|tvk_filerecord|tvksetting|tvs6|tvs6_filename|tvs_filerecord|tvssetting|under_relaxation|under_relaxation_gamma|under_relaxation_kappa|under_relaxation_momentum|under_relaxation_theta|unit_conversion|unsat_etae|unsat_etwc|update_material_properties|upstream_fraction|ustrf|uzeperioddata|uzesetting|uzet|uzfno|uztperioddata|uztsetting|value|variablecv|vertical_offset_tolerance|vertices|viscosity|viscosity_filerecord|viscosityfile|viscref|vks|volfrac|volume|water_content|wc_filerecord|wcfile|well_head|wetdry|wetfct|width|withdrawal|wkt|xc|xfraction|xorigin|xrpt|xt3d|xt3d_off|xt3d_rhs|xt3doptions|xv|yc|yorigin|yrpt|yv|zdisplacement|zdisplacement_filename|zdisplacement_filerecord|zero_order_decay|zetaim|zrpt)\b
   valid:
     patterns:
-      - name: entity.name.function
+      - name: entity.name.function.mf6
         match: (?i)\b(amt-hmk|amt-lmk|central|drop|ems6|freundlich|harmonic|ims6|langmuir|linear|linearend|logarithmic|nonlinear|stay|stepwise|stop|tvd|upstream)\b
