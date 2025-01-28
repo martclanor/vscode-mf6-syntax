@@ -68,8 +68,7 @@ class Dfn:
 
     def __post_init__(self):
         with self.path.open() as f:
-            data = tuple(f.read().split("\n\n"))
-        self._data = data
+            self._data = tuple(f.read().split("\n\n"))
 
     @property
     def data(self) -> tuple[str, ...]:
@@ -118,11 +117,11 @@ if __name__ == "__main__":
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
-        blocks |= dfn.blocks
-        keywords |= dfn.keywords
+        blocks.update(dfn.blocks)
+        keywords.update(dfn.keywords)
         valids.update(*dfn.valids)
         if ext := dfn.extension:
-            extensions.add(dfn.extension)
+            extensions.add(ext)
 
     # Insert the collected data into the Jinja2 templates
     render_template("package.json.j2", "package.json", extensions=extensions)
