@@ -13,42 +13,42 @@ patterns:
 repository:
   comment:
     patterns:
-      - name: comment.line
+      - name: comment.mf6
         match: (^|\s)(#|!|//).*$
   reserved:
     patterns:
-      - name: entity.name.section
+      - name: keyword.control.mf6
         match: ^\s*(?i)(BEGIN|END)\b
   readarrayctrl:
     patterns:
-      - name: keyword.control
+      - name: entity.other.attribute-name.mf6
         match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\b
   readarrayvar:
     patterns:
-      - name: keyword.control
+      - name: entity.other.attribute-name.mf6
         match: (?i)(FACTOR|\(BINARY\)|IPRN)
   filehandler:
     patterns:
-      - name: keyword.control
+      - name: entity.other.attribute-name.mf6
         match: (?i)(OPEN/CLOSE|FILEIN|FILEOUT)
   model:
     patterns:
-      - name: variable.parameter
+      - name: entity.name.function.mf6
         match: ^\s*(?i)(gwf6|gwt6|gwf6-gwf6|gwf6-gwt6)\b
   package:
     patterns:
-      - name: variable.parameter
+      - name: entity.name.function.mf6
         match: ^\s*(?i)(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)\b
   block:
     patterns:
-      - name: entity.name.type
+      - name: entity.name.type.mf6
         match: (?i)(?<=\bBEGIN\b|\bEND\b)\s*\b({% for block in blocks %}{{ block }}{% if not loop.last %}|{% endif %}{% endfor %})\b
   keyword:
     patterns:
-      - name: variable.parameter
+      - name: entity.name.function.mf6
         match: ^\s*(?i)({% for keyword in keywords %}{{ keyword }}{% if not loop.last %}|{% endif %}{% endfor %})\b
   valid:
     patterns:
-      - name: variable.parameter
+      - name: entity.name.function.mf6
         match: (?i)\b({% for valid in valids %}{{ valid }}{% if not loop.last %}|{% endif %}{% endfor %})\b
 
