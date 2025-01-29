@@ -2,16 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "npm: build",
-            "type": "npm",
-            "script": "build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "dependsOn": "Generate from templates"
-        },
-        {
             "label": "Generate from templates",
             "type": "shell",
             "command": "python3",

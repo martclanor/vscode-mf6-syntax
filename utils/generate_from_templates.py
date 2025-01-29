@@ -126,8 +126,8 @@ if __name__ == "__main__":
     # Insert the collected data into the Jinja2 templates
     render_template("package.json.j2", "package.json", extensions=extensions)
     render_template(
-        "mf6.tmLanguage.yaml.j2",
-        "syntaxes/mf6.tmLanguage.yaml",
+        "mf6.tmLanguage.json.j2",
+        "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
         valids=valids,

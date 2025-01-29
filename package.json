@@ -24,10 +24,6 @@
     },
     "license": "MIT",
     "publisher": "mart-clanor",
-    "scripts": {
-        "build": "npm run compile:grammar",
-        "compile:grammar": "for file in syntaxes/*.yaml; do js-yaml \"$file\" > \"${file%.yaml}.json\"; done"
-    },
     "contributes": {
         "languages": [
             {
@@ -131,8 +127,5 @@
                 "path": "./snippets/mf6-snippets.json"
             }
         ]
-    },
-    "devDependencies": {
-        "js-yaml": "^4.1.0"
     }
 }
