@@ -9,3 +9,4 @@ test/**
 templates/**
 *.yaml
 *.py
+.mypy_cache/**
