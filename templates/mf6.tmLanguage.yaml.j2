@@ -21,16 +21,16 @@ repository:
         match: ^\s*(?i)(BEGIN|END)\b
   readarrayctrl:
     patterns:
-      - name: entity.other.attribute-name.mf6
-        match: ^\s*(?i)(CONSTANT|INTERNAL FACTOR|INTERNAL  FACTOR)\b
+    - name: entity.other.attribute-name.mf6
+      match: ^\s*(?i)(CONSTANT|INTERNAL\s{1,2}FACTOR)\b
   readarrayvar:
     patterns:
       - name: entity.other.attribute-name.mf6
-        match: (?i)(FACTOR|\(BINARY\)|IPRN)
+        match: (?i)(FACTOR|\(BINARY\)|IPRN)(?=\W|$)
   filehandler:
     patterns:
       - name: entity.other.attribute-name.mf6
-        match: (?i)(OPEN/CLOSE|FILEIN|FILEOUT)
+        match: (?i)(OPEN\/CLOSE|FILEIN|FILEOUT)\b
   model:
     patterns:
       - name: entity.name.function.mf6
