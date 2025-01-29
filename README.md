@@ -18,6 +18,13 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Release Notes
 
+### 0.0.3
+
+- Combine grammar files into one file
+- Reset TextMate naming to be compatible with more themes
+- Add and fix some regex patterns
+- Add file icon and sample image
+
 ### 0.0.2
 
 - Automate generation of package.json and all.tmLanugage.yaml from jinja template

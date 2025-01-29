@@ -2,7 +2,7 @@
     "name": "mf6-syntax",
     "displayName": "MODFLOW 6 Syntax",
     "description": "MODFLOW 6 input text file syntax highlighting support",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.96.0"
