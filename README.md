@@ -18,6 +18,10 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Release Notes
 
+### 0.0.4
+
+- Reduce extension file size
+
 ### 0.0.3
 
 - Combine grammar files into one file
