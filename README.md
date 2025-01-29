@@ -20,6 +20,7 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ### 0.0.4
 
+- Replace YAML with direct JSON template conversion
 - Reduce extension file size
 
 ### 0.0.3
