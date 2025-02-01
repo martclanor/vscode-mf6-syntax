@@ -1,0 +1,33 @@
+# This workflow runs Ruff linter and formatter on the python script.
+
+name: Ruff
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  ruff-lint-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout python script
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            utils/generate_from_templates.py
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+      - name: Run Ruff linter
+        run: |
+          ruff check --output-format=github .
+      - name: Run Ruff formatter
+        run: |
+          ruff format --diff .
