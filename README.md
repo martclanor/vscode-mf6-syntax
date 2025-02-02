@@ -19,6 +19,12 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Release Notes
 
+### 0.0.5
+
+- Lint and format with ruff, codespell and prettier
+- Add pre-commit hooks
+- Add ci
+
 ### 0.0.4
 
 - Replace YAML with direct JSON template conversion
