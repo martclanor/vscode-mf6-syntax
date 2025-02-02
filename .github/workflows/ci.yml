@@ -1,24 +1,19 @@
-# This workflow runs Ruff linter, Prettier, and Codespell on the repository.
+# This workflow runs Ruff, Prettier, Codespell, Mypy on the repository.
 
 name: CI
 
 on: push
 
 jobs:
-  checkout:
+  ruff-lint-format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-  ruff-lint-format:
-    runs-on: ubuntu-latest
-    needs: checkout
-    steps:
       - name: Run ruff linter
         uses: astral-sh/ruff-action@v3
         with:
-          args: check --output-format=github
+          args: check --fix
       - name: Run ruff formatter
         uses: astral-sh/ruff-action@v3
         with:
@@ -26,8 +21,9 @@ jobs:
 
   prettier:
     runs-on: ubuntu-latest
-    needs: checkout
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Run prettier
         uses: creyD/prettier_action@v4.3
         with:
@@ -35,7 +31,18 @@ jobs:
 
   codespell:
     runs-on: ubuntu-latest
-    needs: checkout
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Run codespell
         uses: codespell-project/actions-codespell@v2
+
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run mypy
+        uses: jpetrucciani/mypy-check@master
+        with:
+          python_version: "3.13"
