@@ -1,13 +1,7 @@
 {
-    "MF6 block": {
-        "prefix": [
-            "BEGIN"
-        ],
-        "body": [
-            "BEGIN ${1:words}",
-            "$0",
-            "END ${1:words}"
-        ],
-        "description": "Inserts an MF6 block with a matching keyword"
-    }
+  "MF6 block": {
+    "prefix": ["BEGIN"],
+    "body": ["BEGIN ${1:words}", "$0", "END ${1:words}"],
+    "description": "Inserts an MF6 block with a matching keyword"
+  }
 }
