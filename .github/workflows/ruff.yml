@@ -2,12 +2,7 @@
 
 name: Ruff
 
-on:
-  push:
-  pull_request:
-    branches:
-      - main
-      - develop
+on: push
 
 jobs:
   ruff-lint-format:
