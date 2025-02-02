@@ -111,9 +111,9 @@ def render_template(template_name: str, output_path: str, **context):
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from dfn files
-    blocks = set()
-    keywords = set()
-    valids = set()
+    blocks: set[str] = set()
+    keywords: set[str] = set()
+    valids: set[str] = set()
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
