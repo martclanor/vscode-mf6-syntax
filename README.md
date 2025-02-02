@@ -1,6 +1,7 @@
 # VS Code MODFLOW 6 Syntax
 
 [![CI](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/ci.yml)
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/mart-clanor.mf6-syntax)
 
 ![Icon](images/icon_banner.png)
 
