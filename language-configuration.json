@@ -1,23 +1,18 @@
 {
-    "folding": { // indentation in mf6 input files is not enforced thus folding is specified
-        "markers": {
-            "start": "^(?i:BEGIN)",
-            "end": "^(?i:END)"
-        }
-    },
-    "comments": {
-        "lineComment": "#", // for toggling line comment
-    },
-    "autoClosingPairs": [
-        {
-            "open": "'",
-            "close": "'"
-        }
-    ],
-    "surroundingPairs": [
-        [
-            "'",
-            "'"
-        ]
-    ]
+  "folding": {
+    "markers": {
+      "start": "^(?i:BEGIN)",
+      "end": "^(?i:END)"
+    }
+  },
+  "comments": {
+    "lineComment": "#"
+  },
+  "autoClosingPairs": [
+    {
+      "open": "'",
+      "close": "'"
+    }
+  ],
+  "surroundingPairs": [["'", "'"]]
 }
