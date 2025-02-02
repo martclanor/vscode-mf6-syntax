@@ -1,0 +1,19 @@
+# This workflow runs codespell on the repository.
+
+name: Codespell
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run codespell
+        uses: codespell-project/actions-codespell@v2
