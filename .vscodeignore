@@ -6,6 +6,8 @@ test/**
 
 utils/**
 templates/**
+.github/**
 .venv/**
 .mypy_cache/**
+.ruff_cache/**
 data/**
