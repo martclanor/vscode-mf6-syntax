@@ -14,3 +14,4 @@ data/**
 .codespellrc
 .pre-commit-config.yaml
 .prettierignore
+.git-blame-ignore-revs
