@@ -1,18 +1,16 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Generate from templates",
-            "type": "shell",
-            "command": "python3",
-            "args": [
-                "${workspaceFolder}/utils/generate_from_templates.py"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": []
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate from templates",
+      "type": "shell",
+      "command": "python3",
+      "args": ["${workspaceFolder}/utils/generate_from_templates.py"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
 }

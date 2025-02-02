@@ -1,60 +1,60 @@
 {
-    "name": "mf6-syntax",
-    "displayName": "MODFLOW 6 Syntax",
-    "description": "MODFLOW 6 input text file syntax highlighting support",
-    "version": "0.0.4",
-    "icon": "images/icon.png",
-    "engines": {
-        "vscode": "^1.96.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "keywords": [
-        "mf6",
-        "modflow6"
-    ],
-    "homepage": "https://github.com/martclanor/vscode-mf6-syntax/blob/main/README.md",
-    "bugs": {
-        "url": "https://github.com/martclanor/vscode-mf6-syntax/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/martclanor/vscode-mf6-syntax.git"
-    },
-    "license": "MIT",
-    "publisher": "mart-clanor",
-    "contributes": {
-        "languages": [
-            {
-                "id": "mf6",
-                "aliases": [
-                    "MODFLOW 6"
-                ],
-                "extensions": [
-                    {% for ext in extensions %}"{{ ext }}"{% if not loop.last %},
-                    {% endif %}{% endfor %}
-                ],
-                "configuration": "./language-configuration.json",
-                "icon": {
-                    "dark": "images/icon.svg",
-                    "light": "images/icon.svg"
-                }
-            }
+  "name": "mf6-syntax",
+  "displayName": "MODFLOW 6 Syntax",
+  "description": "MODFLOW 6 input text file syntax highlighting support",
+  "version": "0.0.5",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "mf6",
+    "modflow6"
+  ],
+  "homepage": "https://github.com/martclanor/vscode-mf6-syntax/blob/main/README.md",
+  "bugs": {
+    "url": "https://github.com/martclanor/vscode-mf6-syntax/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martclanor/vscode-mf6-syntax.git"
+  },
+  "license": "MIT",
+  "publisher": "mart-clanor",
+  "contributes": {
+    "languages": [
+      {
+        "id": "mf6",
+        "aliases": [
+          "MODFLOW 6"
         ],
-        "grammars": [
-            {
-                "language": "mf6",
-                "scopeName": "source.mf6",
-                "path": "./syntaxes/mf6.tmLanguage.json"
-            }
+        "extensions": [
+          {% for ext in extensions %}"{{ ext }}"{% if not loop.last %},
+          {% endif %}{% endfor %}
         ],
-        "snippets": [
-            {
-                "language": "mf6",
-                "path": "./snippets/mf6-snippets.json"
-            }
-        ]
-    }
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "images/icon.svg",
+          "light": "images/icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mf6",
+        "scopeName": "source.mf6",
+        "path": "./syntaxes/mf6.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "mf6",
+        "path": "./snippets/mf6-snippets.json"
+      }
+    ]
+  }
 }
 

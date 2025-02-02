@@ -1,0 +1,20 @@
+# This workflow runs Ruff linter and formatter on the python script.
+
+name: Ruff
+
+on: push
+
+jobs:
+  ruff-lint-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run ruff linter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --output-format=github
+      - name: Run ruff formatter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: format --diff
