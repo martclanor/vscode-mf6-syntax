@@ -1,0 +1,41 @@
+# This workflow runs Ruff linter, Prettier, and Codespell on the repository.
+
+name: CI
+
+on: push
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+  ruff-lint-format:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Run ruff linter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --output-format=github
+      - name: Run ruff formatter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: format --diff
+
+  prettier:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Run prettier
+        uses: creyD/prettier_action@v4.3
+        with:
+          prettier_options: --check
+
+  codespell:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Run codespell
+        uses: codespell-project/actions-codespell@v2
