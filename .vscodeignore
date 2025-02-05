@@ -11,6 +11,7 @@ templates/**
 .mypy_cache/**
 .ruff_cache/**
 data/**
+syntaxes/samples/**
 .codespellrc
 .pre-commit-config.yaml
 .prettierignore
