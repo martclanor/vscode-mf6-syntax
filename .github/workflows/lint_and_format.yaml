@@ -1,6 +1,6 @@
 # This workflow runs Ruff, Prettier, Codespell on the repository.
 
-name: CI
+name: Lint and Format
 
 on: push
 
