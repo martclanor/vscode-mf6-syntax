@@ -1,6 +1,6 @@
 # VS Code MODFLOW 6 Syntax
 
-[![CI](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/ci.yml)
+[![TextMate Grammar](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/tmgrammar.yaml/badge.svg)](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/tmgrammar.yaml)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/martclanor/vscode-mf6-syntax)
 ![GitHub License](https://img.shields.io/github/license/martclanor/vscode-mf6-syntax)
 

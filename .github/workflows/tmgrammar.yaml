@@ -1,6 +1,6 @@
 # This workflow runs vscode-tmgrammar-snap on the samples.
 #
-name: Grammar Tests
+name: TextMate Grammar
 
 on: push
 
