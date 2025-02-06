@@ -24,3 +24,11 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
+  - repo: local
+    hooks:
+      - id: run-grammar-tests
+        name: Run grammar tests
+        entry: npm run test:grammar
+        language: node
+        pass_filenames: false
+        verbose: true
