@@ -24,6 +24,9 @@
   },
   "license": "MIT",
   "publisher": "mart-clanor",
+  "scripts": {
+    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*"
+  },
   "contributes": {
     "languages": [
       {
@@ -55,5 +58,8 @@
         "path": "./snippets/mf6-snippets.json"
       }
     ]
+  },
+  "devDependencies": {
+    "vscode-tmgrammar-test": "^0.1.3"
   }
 }
