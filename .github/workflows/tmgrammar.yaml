@@ -1,11 +1,11 @@
 # This workflow runs vscode-tmgrammar-snap on the samples.
-#
+
 name: TextMate Grammar
 
 on: push
 
 jobs:
-  grammar_tests:
+  grammar-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
