@@ -1,5 +1,9 @@
 # VS Code MODFLOW 6 Syntax
 
+[![TextMate Grammar](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/tmgrammar.yaml/badge.svg)](https://github.com/martclanor/vscode-mf6-syntax/actions/workflows/tmgrammar.yaml)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/martclanor/vscode-mf6-syntax)
+![GitHub License](https://img.shields.io/github/license/martclanor/vscode-mf6-syntax)
+
 ![Icon](images/icon_banner.png)
 
 This extension provides syntax highlighting support for MODFLOW 6 input files in VS Code. This is based on TextMate grammar that is derived from MF6 definition files. The primary goal of this project is to make MF6 input files a bit easier on the eyes.
@@ -18,6 +22,13 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 - VS Code's minimap can display enlarged section headers (block names), which may appear cluttered. To simplify the view, disable this feature by setting `editor.minimap.showRegionSectionHeaders` to `false`.
 
 ## Release Notes
+
+### 0.0.6
+
+- Add gh release workflow
+- Add grammar testing
+- Rework workflows
+- Add badges
 
 ### 0.0.5
 

@@ -98,9 +98,9 @@ class Dfn:
 
 def render_template(template_name: str, output_path: str, **context):
     """Render a Jinja2 template and write the output to a file."""
-    template = Environment(loader=FileSystemLoader("templates")).get_template(
-        template_name
-    )
+    template = Environment(
+        loader=FileSystemLoader("templates"), keep_trailing_newline=True
+    ).get_template(template_name)
     sorted_context = {
         k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
     }

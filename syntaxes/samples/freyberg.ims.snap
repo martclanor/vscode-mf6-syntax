@@ -1,0 +1,60 @@
+>begin options
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^^ source.mf6 entity.name.type.mf6
+>  PRINT_OPTION SUMMARY
+#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#              ^^^^^^^^^ source.mf6
+>end options
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^^ source.mf6 entity.name.type.mf6
+>
+>begin nonlinear
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^^^^ source.mf6 entity.name.type.mf6
+>	outer_dvclose 1.e-8
+#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#              ^^^^^^^ source.mf6
+>	outer_maximum 500
+#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#              ^^^^^ source.mf6
+>	under_relaxation none
+#^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#                 ^^^^^^ source.mf6
+>end nonlinear
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^^^^ source.mf6 entity.name.type.mf6
+>
+>begin linear
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^ source.mf6 entity.name.type.mf6
+>	inner_dvclose 1.0e-9
+#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#              ^^^^^^^^ source.mf6
+>	inner_rclose 1e-6 strict
+#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#             ^^^^^^^^^^^^^ source.mf6
+>	inner_maximum 100
+#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#              ^^^^^ source.mf6
+>	linear_acceleration cg
+#^^^^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#                    ^^^^ source.mf6
+>	scaling_method none
+#^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#               ^^^^^^ source.mf6
+>	REORDERING_METHOD none
+#^^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#                  ^^^^^^ source.mf6
+>	relaxation_factor 0.97
+#^^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#                  ^^^^^^ source.mf6
+>end linear
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^ source.mf6 entity.name.type.mf6
+>

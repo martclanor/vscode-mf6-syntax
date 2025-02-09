@@ -1,0 +1,58 @@
+>BEGIN OPTIONS
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^^ source.mf6 entity.name.type.mf6
+>  PRINT_INPUT
+#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+>  PRINT_FLOWS
+#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+>  SAVE_FLOWS
+#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+>END OPTIONS
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^^ source.mf6 entity.name.type.mf6
+>
+>BEGIN DIMENSIONS
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^^^^^ source.mf6 entity.name.type.mf6
+>  MAXBOUND 10
+#^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#          ^^^^ source.mf6
+>END DIMENSIONS
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^^^^^ source.mf6 entity.name.type.mf6
+>
+>BEGIN PERIOD 1
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^ source.mf6 entity.name.type.mf6
+#            ^^^ source.mf6
+>  1  40  6   1.6900e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  7   1.6400e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  8   1.6100e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  9   1.5600e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  10  1.5100e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  11  1.5100e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  12  1.4000e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  13  1.3000e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  14  1.2500e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>  1  40  15  1.2000e+01
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>END PERIOD 1
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^ source.mf6 entity.name.type.mf6
+#          ^^^ source.mf6
+>
