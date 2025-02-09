@@ -2,7 +2,7 @@
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
   "description": "MODFLOW 6 input text file syntax highlighting support",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.96.0"
@@ -25,8 +25,7 @@
   "license": "MIT",
   "publisher": "mart-clanor",
   "scripts": {
-    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
-    "package": "vsce package"
+    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*"
   },
   "contributes": {
     "languages": [

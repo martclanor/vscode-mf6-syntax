@@ -23,6 +23,13 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Release Notes
 
+### 0.0.6
+
+- Add gh release workflow
+- Add grammar testing
+- Rework workflows
+- Add badges
+
 ### 0.0.5
 
 - Lint and format with ruff, codespell and prettier
