@@ -1,8 +1,15 @@
 # This workflow runs Ruff, Prettier, Codespell on the repository.
 
-name: Lint and Format
+name: Lint-Format
 
-on: push
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
   ruff-lint-format:
