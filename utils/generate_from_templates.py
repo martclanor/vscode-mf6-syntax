@@ -1,3 +1,10 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "jinja2",
+# ]
+# ///
+
 """
 This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
