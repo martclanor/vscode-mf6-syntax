@@ -3,11 +3,14 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  PRINT_INPUT
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  PRINT_FLOWS
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  SAVE_FLOWS
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -18,7 +21,8 @@
 #     ^ source.mf6
 #      ^^^^^^^^^^ source.mf6 entity.name.type.mf6
 >  MAXBOUND 10
-#^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^ source.mf6 entity.name.function.mf6
 #          ^^^^ source.mf6
 >END DIMENSIONS
 #^^^ source.mf6 keyword.control.mf6

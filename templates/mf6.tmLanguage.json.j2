@@ -37,7 +37,7 @@
       "patterns": [
         {
           "name": "comment.mf6",
-          "match": "(^|\\s)(#|!|//).*$"
+          "match": "(#|!|//)(.*\\S)"
         }
       ]
     },
@@ -45,7 +45,7 @@
       "patterns": [
         {
           "name": "keyword.control.mf6",
-          "match": "^\\s*(?i)(BEGIN|END)\\b"
+          "match": "(?i)\\b(BEGIN|END)\\b"
         }
       ]
     },
@@ -53,7 +53,7 @@
       "patterns": [
         {
           "name": "entity.other.attribute-name.mf6",
-          "match": "^\\s*(?i)(CONSTANT|INTERNAL\\s{1,2}FACTOR)\\b"
+          "match": "(?i)\\b(CONSTANT|INTERNAL\\s{1,2}FACTOR)\\b"
         }
       ]
     },
@@ -69,7 +69,7 @@
       "patterns": [
         {
           "name": "entity.other.attribute-name.mf6",
-          "match": "(?i)(OPEN\\/CLOSE|FILEIN|FILEOUT)\\b"
+          "match": "(?i)\\b(OPEN\\/CLOSE|FILEIN|FILEOUT)\\b"
         }
       ]
     },
@@ -77,7 +77,7 @@
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "^\\s*(?i)(gwf6|gwt6|gwf6-gwf6|gwf6-gwt6)\\b"
+          "match": "(?i)\\b(gwf6-gwf6|gwf6-gwt6|gwf6|gwt6)\\b"
         }
       ]
     },
@@ -85,7 +85,7 @@
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "^\\s*(?i)(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)\\b"
+          "match": "(?i)\\b(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)\\b"
         }
       ]
     },
@@ -101,7 +101,7 @@
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "^\\s*(?i)({% for keyword in keywords %}{{ keyword }}{% if not loop.last %}|{% endif %}{% endfor %})\\b"
+          "match": "(?i)\\b({% for keyword in keywords %}{{ keyword }}{% if not loop.last %}|{% endif %}{% endfor %})\\b"
         }
       ]
     },

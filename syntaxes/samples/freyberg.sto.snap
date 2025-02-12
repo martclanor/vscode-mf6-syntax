@@ -3,7 +3,8 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  SAVE_FLOWS
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -14,19 +15,25 @@
 #     ^ source.mf6
 #      ^^^^^^^^ source.mf6 entity.name.type.mf6
 >  ICONVERT
-#^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 1
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^ source.mf6
 >  SS
-#^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 1.0e-05
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^^^^^^^ source.mf6
 >  SY
-#^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 0.20
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^^^^ source.mf6
 >END GRIDDATA
 #^^^ source.mf6 keyword.control.mf6
@@ -39,7 +46,8 @@
 #      ^^^^^^ source.mf6 entity.name.type.mf6
 #            ^^^ source.mf6
 >  STEADY-STATE
-#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END PERIOD
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6

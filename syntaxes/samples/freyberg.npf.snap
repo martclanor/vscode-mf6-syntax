@@ -3,9 +3,11 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  SAVE_FLOWS
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  SAVE_SPECIFIC_DISCHARGE
-#^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -16,14 +18,18 @@
 #     ^ source.mf6
 #      ^^^^^^^^ source.mf6 entity.name.type.mf6
 >  ICELLTYPE
-#^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 1
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^ source.mf6
 >  K
-#^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^ source.mf6 entity.name.function.mf6
 >    INTERNAL FACTOR 1.
-#^^^^^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #                   ^^^^ source.mf6
 >1.4519e-04  1.4133e-04  1.4430e-04  1.1095e-04  1.1270e-04  1.1874e-04  1.0534e-04  1.1486e-04  1.2146e-04  1.0406e-04
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
