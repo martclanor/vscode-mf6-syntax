@@ -1,12 +1,8 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "description": "MODFLOW 6 input text file syntax highlighting support",
   "version": "0.0.6",
-  "icon": "images/icon.png",
-  "engines": {
-    "vscode": "^1.96.0"
-  },
+  "description": "MODFLOW 6 input text file syntax highlighting support",
   "categories": [
     "Other"
   ],
@@ -25,12 +21,19 @@
   "license": "MIT",
   "publisher": "mart-clanor",
   "scripts": {
-    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
-    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
     "check:prettier": "prettier --check .",
-    "package": "vsce package"
+    "package": "vsce package",
+    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
+    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*"
   },
   "contributes": {
+    "grammars": [
+      {
+        "language": "mf6",
+        "scopeName": "source.mf6",
+        "path": "./syntaxes/mf6.tmLanguage.json"
+      }
+    ],
     "languages": [
       {
         "id": "mf6",
@@ -130,13 +133,6 @@
         }
       }
     ],
-    "grammars": [
-      {
-        "language": "mf6",
-        "scopeName": "source.mf6",
-        "path": "./syntaxes/mf6.tmLanguage.json"
-      }
-    ],
     "snippets": [
       {
         "language": "mf6",
@@ -148,5 +144,9 @@
     "@vscode/vsce": "^3.2.2",
     "prettier": "^3.5.0",
     "vscode-tmgrammar-test": "^0.1.3"
-  }
+  },
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "icon": "images/icon.png"
 }
