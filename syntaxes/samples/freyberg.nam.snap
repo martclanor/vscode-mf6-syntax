@@ -3,14 +3,18 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  LIST freyberg.lst
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^ source.mf6
 >  PRINT_INPUT
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  PRINT_FLOWS
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  SAVE_FLOWS
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -21,31 +25,41 @@
 #     ^ source.mf6
 #      ^^^^^^^^ source.mf6 entity.name.type.mf6
 >  DIS6  freyberg.dis
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  IC6   freyberg.ic
-#^^^^^ source.mf6 entity.name.function.mf6
-#     ^^^^^^^^^^^^^^^ source.mf6
+#^^ source.mf6
+#  ^^^ source.mf6 entity.name.function.mf6
+#     ^^^^^^^^^^^^ source.mf6
+#                 ^^ source.mf6 entity.name.function.mf6
 >  OC6   freyberg.oc
-#^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^ source.mf6 entity.name.function.mf6
 #     ^^^^^^^^^^^^^^^ source.mf6
 >  NPF6  freyberg.npf
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  STO6  freyberg.sto
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  CHD6  freyberg.chd
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  RIV6  freyberg.riv
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  WEL6  freyberg.wel
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >  RCH6  freyberg.rch
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^^^^^^^^^^^ source.mf6
 >END PACKAGES
 #^^^ source.mf6 keyword.control.mf6

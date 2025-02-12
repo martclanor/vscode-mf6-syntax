@@ -3,7 +3,8 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  LENGTH_UNITS  METERS
-#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 #              ^^^^^^^^^ source.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
@@ -15,13 +16,16 @@
 #     ^ source.mf6
 #      ^^^^^^^^^^ source.mf6 entity.name.type.mf6
 >  NLAY  1
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^ source.mf6
 >  NROW  40
-#^^^^^^ source.mf6 entity.name.function.mf6
-#      ^^^^^^ source.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
+#      ^^^^^ source.mf6
 >  NCOL  20
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^^^ source.mf6
 >END DIMENSIONS
 #^^^ source.mf6 keyword.control.mf6
@@ -33,24 +37,32 @@
 #     ^ source.mf6
 #      ^^^^^^^^ source.mf6 entity.name.type.mf6
 >  DELR
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 250.0
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^^^^^ source.mf6
 >  DELC
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 250.0
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^^^^^ source.mf6
 >  TOP
-#^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^ source.mf6 entity.name.function.mf6
 >	CONSTANT 35.0
-#^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^ source.mf6
+# ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #         ^^^^^^ source.mf6
 >  BOTM
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 >    INTERNAL FACTOR 1.
-#^^^^^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #                   ^^^^ source.mf6
 >1.7008e+01  1.8507e+01  1.8672e+01  1.5930e+01  1.3961e+01  1.4462e+01  8.0190e+00  1.0600e+01  8.8847e+00  7.2274e+00
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
@@ -213,9 +225,11 @@
 >5.3652e-01  2.2531e-01  5.8956e-01  6.0786e-01  5.0599e-01  0.0000e+00  0.0000e+00  0.0000e+00  0.0000e+00  0.0000e+00
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
 >  IDOMAIN
-#^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^ source.mf6 entity.name.function.mf6
 >    INTERNAL FACTOR 1
-#^^^^^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #                   ^^^ source.mf6
 >1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6

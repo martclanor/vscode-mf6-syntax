@@ -12,9 +12,11 @@
 #     ^ source.mf6
 #      ^^^^^^^^ source.mf6 entity.name.type.mf6
 >  STRT
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 >    INTERNAL FACTOR 1.
-#^^^^^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #                   ^^^^ source.mf6
 >4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01  4.5000e+01
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
