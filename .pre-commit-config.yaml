@@ -26,6 +26,12 @@ repos:
       - id: codespell
   - repo: local
     hooks:
+      - id: run-prettier-check
+        name: Run prettier check
+        entry: npm run check:prettier
+        language: node
+        pass_filenames: false
+        verbose: true
       - id: run-grammar-tests
         name: Run grammar tests
         entry: npm run test:grammar

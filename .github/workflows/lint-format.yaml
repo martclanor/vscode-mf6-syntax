@@ -31,10 +31,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Run prettier
-        uses: creyD/prettier_action@v4.3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          prettier_options: --check .
+          node-version: "20"
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run prettier check
+        run: npm run check:prettier
 
   codespell:
     runs-on: ubuntu-latest
