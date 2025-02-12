@@ -37,7 +37,8 @@
       "patterns": [
         {
           "name": "comment.mf6",
-          "match": "(#|!|//).*$"
+          "match": "(#|!|//)(.*\\S)"
+
         }
       ]
     },
