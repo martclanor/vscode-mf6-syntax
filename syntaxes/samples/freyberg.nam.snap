@@ -31,8 +31,7 @@
 >  IC6   freyberg.ic
 #^^ source.mf6
 #  ^^^ source.mf6 entity.name.function.mf6
-#     ^^^^^^^^^^^^ source.mf6
-#                 ^^ source.mf6 entity.name.function.mf6
+#     ^^^^^^^^^^^^^^^ source.mf6
 >  OC6   freyberg.oc
 #^^ source.mf6
 #  ^^^ source.mf6 entity.name.function.mf6
