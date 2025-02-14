@@ -3,6 +3,7 @@
 name: TextMate Grammar
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - develop
