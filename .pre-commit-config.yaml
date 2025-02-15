@@ -31,10 +31,8 @@ repos:
         entry: npm run check:prettier
         language: node
         pass_filenames: false
-        verbose: true
       - id: run-grammar-tests
         name: Run grammar tests
         entry: npm run test:grammar
         language: node
         pass_filenames: false
-        verbose: true
