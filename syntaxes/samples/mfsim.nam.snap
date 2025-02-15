@@ -12,7 +12,8 @@
 #     ^ source.mf6
 #      ^^^^^^ source.mf6 entity.name.type.mf6
 >  TDIS6  freyberg.tdis
-#^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^ source.mf6 entity.name.function.mf6
 #       ^^^^^^^^^^^^^^^^ source.mf6
 >END TIMING
 #^^^ source.mf6 keyword.control.mf6
@@ -24,10 +25,11 @@
 #     ^ source.mf6
 #      ^^^^^^ source.mf6 entity.name.type.mf6
 >  #modeltype   namefile       modelname
-#^ source.mf6
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6 comment.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6 comment.mf6
 >	GWF6    freyberg.nam     freyberg
-#^^^^^ source.mf6 entity.name.function.mf6
+#^ source.mf6
+# ^^^^ source.mf6 entity.name.function.mf6
 #     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
 >END MODELS
 #^^^ source.mf6 keyword.control.mf6
@@ -49,7 +51,8 @@
 #      ^^^^^^^^^^^^^ source.mf6 entity.name.type.mf6
 #                   ^^^ source.mf6
 >  MXITER 1
-#^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^ source.mf6 entity.name.function.mf6
 #        ^^^ source.mf6
 >  IMS6 freyberg.ims  freyberg
 #^^ source.mf6

@@ -1,0 +1,45 @@
+# Scratch test data
+
+# dfdf # sdfdf
+BEGIN MODELS
+  gwf6 sdfdsf#modeltype      namefile      modelname
+  gwf6 sdfdsf #modeltype      namefile      modelname
+         GWF6     model.nam          GWF_1
+END MODELS
+
+  BEGIN     EXCHAngES
+  BEGIN     EXCHAngES.
+  BEGIN     .EXCHAngES
+  BEGIN.     EXCHAngES
+  .BEGIN     EXCHAngES
+END EXCHANGES
+
+BEGIN
+  BEGIN
+  .BEGIN.
+  BEGIN.
+  .BEGIN
+    dfdf CONSTANT #dfdf  dfdfdf
+    dfdf .CONSTANT
+     ...OPEN/CLOSE
+     OPEN/CLOSE
+     internal   factor #df
+     Internal  factor#dfdf
+        .gwf6-gwf6.
+        gwf6-gwt6
+        gwf6 - gwf6
+
+    (BINARY)   12323
+    .(BINARY)   12323
+    (BINARY).   12323
+
+alh
+.alh.
+alh.
+.alh
+
+
+drop
+.drop.
+drop.
+drop.

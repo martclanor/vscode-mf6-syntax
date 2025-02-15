@@ -3,13 +3,17 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  READASARRAYS
-#^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  PRINT_INPUT
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  PRINT_FLOWS
-#^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >  SAVE_FLOWS
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -21,9 +25,11 @@
 #      ^^^^^^ source.mf6 entity.name.type.mf6
 #            ^^^ source.mf6
 >  RECHARGE
-#^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^ source.mf6 entity.name.function.mf6
 >    CONSTANT 1.6000e-09
-#^^^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #            ^^^^^^^^^^^^ source.mf6
 >END PERIOD
 #^^^ source.mf6 keyword.control.mf6

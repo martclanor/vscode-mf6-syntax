@@ -25,14 +25,14 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Package Extension
+      - name: Package extension
         run: npm run package
 
-      - name: Create Release
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} *.vsix \
           --title ${{ github.ref_name }}-alpha \
-          --prerelease \
+          --draft \
           --generate-notes

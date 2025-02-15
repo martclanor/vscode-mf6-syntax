@@ -3,7 +3,8 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  TIME_UNITS seconds
-#^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^^^^^ source.mf6 entity.name.function.mf6
 #            ^^^^^^^^^ source.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
@@ -15,7 +16,8 @@
 #     ^ source.mf6
 #      ^^^^^^^^^^ source.mf6 entity.name.type.mf6
 >  NPER 1
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^^^ source.mf6
 >END DIMENSIONS
 #^^^ source.mf6 keyword.control.mf6

@@ -4,8 +4,8 @@
     {
       "label": "Generate from templates",
       "type": "shell",
-      "command": "python3",
-      "args": ["${workspaceFolder}/utils/generate_from_templates.py"],
+      "command": "uv",
+      "args": ["run", "${workspaceFolder}/utils/generate_from_templates.py"],
       "group": {
         "kind": "build",
         "isDefault": true

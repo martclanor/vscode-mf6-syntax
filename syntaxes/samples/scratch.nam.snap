@@ -1,0 +1,121 @@
+># Scratch test data
+#^^^^^^^^^^^^^^^^^^^ source.mf6 comment.mf6
+>
+># dfdf # sdfdf
+#^^^^^^^^^^^^^^ source.mf6 comment.mf6
+>BEGIN MODELS
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^^^ source.mf6 entity.name.type.mf6
+>  gwf6 sdfdsf#modeltype      namefile      modelname
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+#                                           ^^^^^^^^^ source.mf6 entity.name.function.mf6
+>  gwf6 sdfdsf #modeltype      namefile      modelname
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
+#      ^^^^^^^^ source.mf6
+#              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6 comment.mf6
+>         GWF6     model.nam          GWF_1
+#^^^^^^^^^ source.mf6
+#         ^^^^ source.mf6 entity.name.function.mf6
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>END MODELS
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^ source.mf6 entity.name.type.mf6
+>
+>  BEGIN     EXCHAngES
+#^^ source.mf6
+#  ^^^^^ source.mf6 keyword.control.mf6
+#       ^^^^^ source.mf6
+#            ^^^^^^^^^ source.mf6 entity.name.type.mf6
+>  BEGIN     EXCHAngES.
+#^^ source.mf6
+#  ^^^^^ source.mf6 keyword.control.mf6
+#       ^^^^^^^^^^^^^^^^ source.mf6
+>  BEGIN     .EXCHAngES
+#^^ source.mf6
+#  ^^^^^ source.mf6 keyword.control.mf6
+#       ^^^^^^^^^^^^^^^^ source.mf6
+>  BEGIN.     EXCHAngES
+#^^^^^^^^^^^^^ source.mf6
+#             ^^^^^^^^^ source.mf6 entity.name.function.mf6
+>  .BEGIN     EXCHAngES
+#^^^^^^^^^^^^^ source.mf6
+#             ^^^^^^^^^ source.mf6 entity.name.type.mf6
+>END EXCHANGES
+#^^^ source.mf6 keyword.control.mf6
+#   ^ source.mf6
+#    ^^^^^^^^^ source.mf6 entity.name.type.mf6
+>
+>BEGIN
+#^^^^^ source.mf6 keyword.control.mf6
+>  BEGIN
+#^^ source.mf6
+#  ^^^^^ source.mf6 keyword.control.mf6
+>  .BEGIN.
+#^^^^^^^^^^ source.mf6
+>  BEGIN.
+#^^^^^^^^^ source.mf6
+>  .BEGIN
+#^^^^^^^^^ source.mf6
+>    dfdf CONSTANT #dfdf  dfdfdf
+#^^^^^^^^^ source.mf6
+#         ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#                 ^ source.mf6
+#                  ^^^^^^^^^^^^^ source.mf6 comment.mf6
+>    dfdf .CONSTANT
+#^^^^^^^^^^^^^^^^^^^ source.mf6
+>     ...OPEN/CLOSE
+#^^^^^^^^^^^^^^^^^^^ source.mf6
+>     OPEN/CLOSE
+#^^^^^ source.mf6
+#     ^^^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+>     internal   factor #df
+#^^^^^^^^^^^^^^^^ source.mf6
+#                ^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#                      ^ source.mf6
+#                       ^^^ source.mf6 comment.mf6
+>     Internal  factor#dfdf
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>        .gwf6-gwf6.
+#^^^^^^^^^^^^^^^^^^^^ source.mf6
+>        gwf6-gwt6
+#^^^^^^^^ source.mf6
+#        ^^^^^^^^^ source.mf6 entity.name.function.mf6
+>        gwf6 - gwf6
+#^^^^^^^^ source.mf6
+#        ^^^^ source.mf6 entity.name.function.mf6
+#            ^^^ source.mf6
+#               ^^^^ source.mf6 entity.name.function.mf6
+>
+>    (BINARY)   12323
+#^^^^ source.mf6
+#    ^^^^^^^^ source.mf6 entity.other.attribute-name.mf6
+#            ^^^^^^^^^ source.mf6
+>    .(BINARY)   12323
+#^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>    (BINARY).   12323
+#^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+>
+>alh
+#^^^ source.mf6 entity.name.function.mf6
+>.alh.
+#^^^^^^ source.mf6
+>alh.
+#^^^^^ source.mf6
+>.alh
+#^^^^^ source.mf6
+>
+>
+>drop
+#^^^^ source.mf6 entity.name.function.mf6
+>.drop.
+#^^^^^^^ source.mf6
+>drop.
+#^^^^^^ source.mf6
+>drop.
+#^^^^^^ source.mf6
+>

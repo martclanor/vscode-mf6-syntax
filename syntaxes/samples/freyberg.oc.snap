@@ -3,12 +3,14 @@
 #     ^ source.mf6
 #      ^^^^^^^ source.mf6 entity.name.type.mf6
 >  BUDGET FILEOUT freyberg.cbc
-#^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^^^ source.mf6 entity.name.function.mf6
 #        ^ source.mf6
 #         ^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #                ^^^^^^^^^^^^^^ source.mf6
 >  HEAD FILEOUT freyberg.hds
-#^^^^^^ source.mf6 entity.name.function.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
 #      ^ source.mf6
 #       ^^^^^^^ source.mf6 entity.other.attribute-name.mf6
 #              ^^^^^^^^^^^^^^ source.mf6
@@ -23,14 +25,26 @@
 #      ^^^^^^ source.mf6 entity.name.type.mf6
 #            ^^^ source.mf6
 >  PRINT BUDGET ALL
-#^^^^^^^ source.mf6 entity.name.function.mf6
-#       ^^^^^^^^^^^^ source.mf6
+#^^ source.mf6
+#  ^^^^^ source.mf6 entity.name.function.mf6
+#       ^ source.mf6
+#        ^^^^^^ source.mf6 entity.name.function.mf6
+#              ^ source.mf6
+#               ^^^ source.mf6 entity.name.function.mf6
 >  SAVE HEAD ALL
-#^^^^^^ source.mf6 entity.name.function.mf6
-#      ^^^^^^^^^^ source.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
+#      ^ source.mf6
+#       ^^^^ source.mf6 entity.name.function.mf6
+#           ^ source.mf6
+#            ^^^ source.mf6 entity.name.function.mf6
 >  SAVE BUDGET ALL
-#^^^^^^ source.mf6 entity.name.function.mf6
-#      ^^^^^^^^^^^^ source.mf6
+#^^ source.mf6
+#  ^^^^ source.mf6 entity.name.function.mf6
+#      ^ source.mf6
+#       ^^^^^^ source.mf6 entity.name.function.mf6
+#             ^ source.mf6
+#              ^^^ source.mf6 entity.name.function.mf6
 >END PERIOD
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
