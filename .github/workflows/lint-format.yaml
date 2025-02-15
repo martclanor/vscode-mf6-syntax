@@ -4,9 +4,6 @@ name: Lint-Format
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
   pull_request:
     branches:
       - main
