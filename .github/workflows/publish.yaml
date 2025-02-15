@@ -23,7 +23,7 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Publish Extension
+      - name: Publish extension
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |

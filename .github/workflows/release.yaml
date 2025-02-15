@@ -25,10 +25,10 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Package Extension
+      - name: Package extension
         run: npm run package
 
-      - name: Create Release
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
