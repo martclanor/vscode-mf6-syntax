@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.0.7-alpha
+
+- Remove workflow trigger on push
+- Add workflow for publishing to VS marketplace
+- Move changelog from readme.md to changelog.md
+- Allow manual workflow trigger
+- Enhance regex accuracy with boundary assertions
+- Sort package.json
+- Integrate prettier as script
+- Fix regex matching
+- Update dfn files (MODFLOW 6.6.0)
+- Check template generation in ci
+- Use python's inline script metadata
+
 ## 0.0.6-alpha
 
 - Add gh release workflow

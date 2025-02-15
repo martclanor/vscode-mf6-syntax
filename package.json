@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "MODFLOW 6 input text file syntax highlighting support",
   "categories": [
     "Other"
