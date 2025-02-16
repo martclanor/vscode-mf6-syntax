@@ -29,6 +29,7 @@ jobs:
         run: npm run package
 
       - name: Create release
+        if: github.ref_type == 'tag' && github.base_ref == 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
