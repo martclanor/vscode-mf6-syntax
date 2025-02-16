@@ -34,6 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.ref_name }} *.vsix \
-          --title ${{ github.ref_name }}-alpha \
+          --title ${{ github.ref_name }}-beta \
           --draft \
           --generate-notes
