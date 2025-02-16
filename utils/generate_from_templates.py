@@ -62,7 +62,7 @@ class Section:
                 line.startswith(s) for s in {"block", "name", "type", "valid", "tagged"}
             )
         )
-        line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
+        line_dict: dict[str, str] = {line.key: line.value for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
