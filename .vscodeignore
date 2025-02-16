@@ -3,6 +3,7 @@
 node_modules/**
 test/**
 .gitignore
+out/
 
 utils/**
 templates/**

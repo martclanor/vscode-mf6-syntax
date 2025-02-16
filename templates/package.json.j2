@@ -20,14 +20,23 @@
   },
   "license": "MIT",
   "publisher": "mart-clanor",
+  "main": "./out/extension.js",
   "scripts": {
     "check:prettier": "prettier --check .",
+    "compile:ts": "tsc -p ./",
     "package": "vsce package",
     "publish": "vsce publish",
     "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
     "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*"
   },
   "contributes": {
+    "commands": [
+      {
+        "command": "mf6-syntax.mf6-ify",
+        "title": "Syntax-highlight as MF6 file",
+        "category": "MF6 Syntax"
+      }
+    ],
     "grammars": [
       {
         "language": "mf6",
@@ -60,8 +69,10 @@
     ]
   },
   "devDependencies": {
+    "@types/vscode": "^1.97.0",
     "@vscode/vsce": "^3.2.2",
     "prettier": "^3.5.0",
+    "typescript": "^5.7.3",
     "vscode-tmgrammar-test": "^0.1.3"
   },
   "engines": {

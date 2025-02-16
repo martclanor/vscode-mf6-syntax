@@ -6,7 +6,7 @@
       "type": "extensionHost",
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "preLaunchTask": "Generate from templates"
+      "preLaunchTask": "PreLaunch Tasks"
     }
   ]
 }

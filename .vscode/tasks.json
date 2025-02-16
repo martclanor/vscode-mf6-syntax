@@ -9,8 +9,22 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "problemMatcher": []
+      }
+    },
+    {
+      "label": "Compile TypeScript",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "compile:ts"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "PreLaunch Tasks",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Generate from templates", "Compile TypeScript"]
     }
   ]
 }
