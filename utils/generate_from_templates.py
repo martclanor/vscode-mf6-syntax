@@ -48,21 +48,19 @@ class Section:
     keyword: str
     block: str
     data_type: Optional[str] = None
-    valid: Optional[tuple[str, ...]] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
         lines = (
             Line.from_file(line)
             for line in data.split("\n")
-            if any(line.startswith(s) for s in {"block", "name", "type", "valid"})
+            if any(line.startswith(s) for s in {"block", "name", "type"})
         )
         line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
             data_type=line_dict.get("type", None),
-            valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
         )
 
 
@@ -94,10 +92,6 @@ class Dfn:
         return {p.keyword for p in self.sections}
 
     @property
-    def valids(self) -> set[tuple[str, ...]]:
-        return {p.valid for p in self.sections if p.valid is not None}
-
-    @property
     def extension(self) -> Optional[str]:
         parts = self.path.stem.split("-")
         return f".{parts[-1]}" if len(parts) > 1 else None
@@ -117,16 +111,14 @@ def render_template(template_name: str, output_path: str, **context):
 
 
 if __name__ == "__main__":
-    # Collect blocks, keywords, valids, and extensions from dfn files
+    # Collect blocks, keywords, and extensions from dfn files
     blocks = set()
     keywords = set()
-    valids = set()
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
-        valids.update(*dfn.valids)
         if ext := dfn.extension:
             extensions.add(ext)
 
@@ -137,5 +129,4 @@ if __name__ == "__main__":
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
-        valids=valids,
     )
