@@ -33,10 +33,12 @@ class Line:
     object."""
 
     key: str
-    value: Optional[str] = None
+    value: Optional[str | bool] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
+        if "tagged" in data:
+            return cls("tagged", "true" in data)
         return cls(*data.split(maxsplit=1))
 
 
@@ -45,22 +47,24 @@ class Section:
     """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
     A Section object is made up of Line objects."""
 
-    keyword: str
     block: str
-    data_type: Optional[str] = None
+    keyword: str
+    data_type: Optional[str] = ""
+    tagged: bool = True
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
         lines = (
             Line.from_file(line)
             for line in data.split("\n")
-            if any(line.startswith(s) for s in {"block", "name", "type"})
+            if any(line.startswith(s) for s in {"block", "name", "type", "tagged"})
         )
         line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
-            data_type=line_dict.get("type", None),
+            data_type=line_dict.get("type", ""),
+            tagged=line_dict.get("tagged", True),
         )
 
 
@@ -87,6 +91,8 @@ class Dfn:
                 continue
             section = Section.from_file(data)
             if "record" in section.keyword or "recarray" in section.keyword:
+                continue
+            if not section.tagged:
                 continue
             sections.append(section)
         return tuple(sections)
