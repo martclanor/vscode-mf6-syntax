@@ -47,9 +47,10 @@ class Section:
     """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
     A Section object is made up of Line objects."""
 
-    block: str
     keyword: str
-    data_type: Optional[str] = ""
+    block: str
+    data_type: Optional[str] = None
+    valid: Optional[tuple[str, ...]] = None
     tagged: bool = True
 
     @classmethod
@@ -57,13 +58,16 @@ class Section:
         lines = (
             Line.from_file(line)
             for line in data.split("\n")
-            if any(line.startswith(s) for s in {"block", "name", "type", "tagged"})
+            if any(
+                line.startswith(s) for s in {"block", "name", "type", "valid", "tagged"}
+            )
         )
         line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
-            data_type=line_dict.get("type", ""),
+            data_type=line_dict.get("type", None),
+            valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
             tagged=line_dict.get("tagged", True),
         )
 
@@ -106,6 +110,10 @@ class Dfn:
         return {p.keyword for p in self.sections}
 
     @property
+    def valids(self) -> set[tuple[str, ...]]:
+        return {p.valid for p in self.sections if p.valid is not None}
+
+    @property
     def extension(self) -> Optional[str]:
         parts = self.path.stem.split("-")
         return f".{parts[-1]}" if len(parts) > 1 else None
@@ -125,14 +133,16 @@ def render_template(template_name: str, output_path: str, **context):
 
 
 if __name__ == "__main__":
-    # Collect blocks, keywords, and extensions from dfn files
+    # Collect blocks, keywords, valids, and extensions from dfn files
     blocks = set()
     keywords = set()
+    valids = set()
     extensions = set()
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
+        valids.update(*dfn.valids)
         if ext := dfn.extension:
             extensions.add(ext)
 
@@ -143,4 +153,5 @@ if __name__ == "__main__":
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
+        valids=valids,
     )
