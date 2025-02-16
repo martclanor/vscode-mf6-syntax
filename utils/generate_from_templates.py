@@ -81,7 +81,15 @@ class Dfn:
 
     @property
     def sections(self) -> tuple[Section, ...]:
-        return tuple(Section.from_file(x) for x in self.data if x.startswith("block"))
+        sections = []
+        for data in self.data:
+            if not data.startswith("block"):
+                continue
+            section = Section.from_file(data)
+            if "record" in section.keyword or "recarray" in section.keyword:
+                continue
+            sections.append(section)
+        return tuple(sections)
 
     @property
     def blocks(self) -> set[str]:
