@@ -18,5 +18,5 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Usage
 
-- The extension activates based on the file's extension. If not detected, use `Change Language Mode` in VS Code and set it to `MODFLOW 6`.
+- The extension activates based on the file's extension. If not detected, use `MF6 Syntax: Syntax-highlight as MF6 file` command to set MF6 as the language mode.
 - VS Code's minimap can display enlarged section headers (block names), which may appear cluttered. To simplify the view, disable this feature by setting `editor.minimap.showRegionSectionHeaders` to `false`.
