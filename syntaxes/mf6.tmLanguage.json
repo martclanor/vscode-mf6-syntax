@@ -93,7 +93,7 @@
       "patterns": [
         {
           "name": "entity.name.type.mf6",
-          "match": "(?i)(?<=\\bBEGIN\\s*|\\bEND\\s*)(?<=^|\\s)(attributes|cell1d|cell2d|connectiondata|continuous|crosssectiondata|crosssections|dimensions|diversions|exchangedata|exchanges|fileinput|gncdata|griddata|initialstages|linear|models|nonlinear|options|outlets|packagedata|packages|partitions|period|perioddata|releasetimes|solutiongroup|sources|table|tables|timeseries|timing|tracktimes|vertices)(?=\\s|$)"
+          "match": "(?i)(?<=\\bBEGIN\\s*|\\bEND\\s*)(?<=^|\\s)(attributes|cell1d|cell2d|connectiondata|continuous|crosssectiondata|crosssections|dimensions|diversions|exchangedata|exchanges|fileinput|gncdata|griddata|initialstages|linear|models|nonlinear|options|outlets|packagedata|packages|partitions|period|perioddata|releasetimes|solutiongroup|sources|table|tables|time|timeseries|timing|tracktimes|vertices)(?=\\s|$)"
         }
       ]
     },

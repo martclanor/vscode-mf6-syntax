@@ -96,8 +96,6 @@ class Dfn:
             section = Section.from_file(data)
             if "record" in section.keyword or "recarray" in section.keyword:
                 continue
-            if not section.tagged:
-                continue
             sections.append(section)
         return tuple(sections)
 
@@ -107,7 +105,12 @@ class Dfn:
 
     @property
     def keywords(self) -> set[str]:
-        return {p.keyword for p in self.sections}
+        keywords = set()
+        for section in self.sections:
+            if not section.tagged:
+                continue
+            keywords.add(section.keyword)
+        return keywords
 
     @property
     def valids(self) -> set[tuple[str, ...]]:
