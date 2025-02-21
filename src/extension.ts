@@ -1,4 +1,7 @@
 import * as vscode from "vscode";
+import { MF6DefinitionProvider } from "./providers/go-to-definition";
+
+const MF6 = { language: "mf6", scheme: "file" };
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand("mf6-syntax.mf6-ify", () => {
@@ -14,6 +17,14 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(disposable);
+
+  // Show definitions of a symbol
+  context.subscriptions.push(
+    vscode.languages.registerDefinitionProvider(
+      MF6,
+      new MF6DefinitionProvider(),
+    ),
+  );
 }
 
 export function deactivate() {}
