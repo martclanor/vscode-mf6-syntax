@@ -1,22 +1,14 @@
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "./providers/go-to-definition";
+import { mf6ify } from "./commands/mf6-ify";
 
 const MF6 = { language: "mf6", scheme: "file" };
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand("mf6-syntax.mf6-ify", () => {
-    if (vscode.window.activeTextEditor) {
-      const activeEditor = vscode.window.activeTextEditor;
-      const fileName = activeEditor.document.fileName.split("/").pop();
-
-      vscode.languages.setTextDocumentLanguage(activeEditor.document, "mf6");
-      vscode.window.showInformationMessage(
-        `MODFLOW 6 language mode set for: ${fileName}`,
-      );
-    }
-  });
-
-  context.subscriptions.push(disposable);
+  // MF6-ify command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("mf6-syntax.mf6-ify", mf6ify),
+  );
 
   // Show definitions of a symbol
   context.subscriptions.push(
