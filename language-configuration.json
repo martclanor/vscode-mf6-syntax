@@ -14,5 +14,8 @@
       "close": "'"
     }
   ],
-  "surroundingPairs": [["'", "'"]]
+  "surroundingPairs": [["'", "'"]],
+  "indentationRules": {
+    "increaseIndentPattern": "^\\s*(?i:BEGIN|k|DELR).*$"
+  }
 }

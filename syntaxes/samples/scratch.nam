@@ -48,3 +48,6 @@ BEGIN time
 METHODS linear linear
 IMS6
 EMS6
+
+BEGIN time
+  df
