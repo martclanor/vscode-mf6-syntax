@@ -10,8 +10,15 @@ This extension provides syntax highlighting support for MODFLOW 6 input files in
 
 ## Features
 
-- Basic syntax highlighting based on MF6 definition files. For example:
+- Basic syntax highlighting based on MF6 definition files
   ![Syntax Highlighting](images/sample.png)
+- Go-to-definition for linked files with different methods:
+
+  - ctrl + click
+  - `Go To Definition` keybinding (default: `F12`)
+  - right-click -> `Go To Definition`
+  - right-click -> `Peek` -> `Peek Definition`
+
 - Code folding based on MF6 block structure
 - Code snippets based on MF6 block structure
 - Others: comment-toggling, auto-closing quotes, surrounding quotes
