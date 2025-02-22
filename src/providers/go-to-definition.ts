@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { checkFileExists } from "../utils/file-utils";
 
 export class MF6DefinitionProvider implements vscode.DefinitionProvider {
   public async provideDefinition(
@@ -12,12 +13,10 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
     const word = document.getText(wordRange);
     const fileUri = vscode.Uri.joinPath(document.uri, "..", word);
 
-    try {
-      await vscode.workspace.fs.stat(fileUri);
-      return new vscode.Location(fileUri, new vscode.Position(0, 0));
-    } catch (error) {
+    if (!checkFileExists(fileUri)) {
       vscode.window.showWarningMessage(`File ${word} not found`);
       return null;
     }
+    return new vscode.Location(fileUri, new vscode.Position(0, 0));
   }
 }
