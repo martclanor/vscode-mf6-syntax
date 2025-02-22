@@ -7,7 +7,7 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
   ) {
     const wordRange = document.getWordRangeAtPosition(position);
     if (!wordRange) {
-      return [];
+      return null;
     }
     const word = document.getText(wordRange);
     const fileUri = vscode.Uri.joinPath(document.uri, "..", word);
@@ -17,7 +17,7 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
       return new vscode.Location(fileUri, new vscode.Position(0, 0));
     } catch (error) {
       vscode.window.showWarningMessage(`File ${word} not found`);
-      return [];
+      return null;
     }
   }
 }
