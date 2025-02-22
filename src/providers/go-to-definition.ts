@@ -13,7 +13,7 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
     const word = document.getText(wordRange);
     const fileUri = vscode.Uri.joinPath(document.uri, "..", word);
 
-    if (!checkFileExists(fileUri)) {
+    if (!(await checkFileExists(fileUri))) {
       vscode.window.showWarningMessage(`File ${word} not found`);
       return null;
     }
