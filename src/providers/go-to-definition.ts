@@ -4,7 +4,7 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
   public async provideDefinition(
     document: vscode.TextDocument,
     position: vscode.Position,
-  ): Promise<vscode.Location | vscode.Location[]> {
+  ) {
     const wordRange = document.getWordRangeAtPosition(position);
     if (!wordRange) {
       return [];
