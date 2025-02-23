@@ -2,7 +2,7 @@
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
   "version": "0.0.7",
-  "description": "MODFLOW 6 input text file syntax highlighting support",
+  "description": "Provides syntax highlighting support and rich language features for MODFLOW 6",
   "categories": [
     "Other"
   ],
@@ -36,7 +36,7 @@
     "commands": [
       {
         "command": "mf6-syntax.mf6-ify",
-        "title": "Syntax-highlight as MF6 file",
+        "title": "Set language to MF6",
         "category": "MF6 Syntax"
       }
     ],
