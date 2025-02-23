@@ -74,6 +74,8 @@ jobs:
           cp  modflow6/doc/mf6io/mf6ivar/dfn/* data/dfn/
       - name: Install uv
         uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
       - name: Regenerate from templates
         run: uv run utils/generate_from_templates.py
       - name: Check for changes
