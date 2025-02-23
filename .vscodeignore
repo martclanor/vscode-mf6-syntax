@@ -1,5 +1,6 @@
 .vscode/**
 .vscode-test/**
+.vscode-test.mjs
 node_modules/**
 test/**
 .gitignore
@@ -16,3 +17,4 @@ syntaxes/samples/**
 .pre-commit-config.yaml
 .prettierignore
 .git-blame-ignore-revs
+**/*.js.map

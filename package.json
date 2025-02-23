@@ -26,9 +26,11 @@
     "compile:ts": "tsc -p ./",
     "format:prettier": "prettier --write .",
     "package": "vsce package",
+    "pretest": "npm run check:prettier && npm run compile:ts",
     "publish": "vsce publish",
     "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
-    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*"
+    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
+    "test": "vscode-test"
   },
   "contributes": {
     "commands": [
@@ -154,10 +156,14 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.13.5",
     "@types/vscode": "^1.96.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
     "@vscode/vsce": "^3.2.2",
     "prettier": "^3.5.0",
     "typescript": "^5.7.3",
+    "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
   "engines": {

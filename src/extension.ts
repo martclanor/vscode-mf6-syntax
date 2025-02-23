@@ -7,7 +7,9 @@ const MF6 = { language: "mf6", scheme: "file" };
 export function activate(context: vscode.ExtensionContext) {
   // MF6-ify command
   context.subscriptions.push(
-    vscode.commands.registerCommand("mf6-syntax.mf6-ify", mf6ify),
+    vscode.commands.registerCommand("mf6-syntax.mf6-ify", async () => {
+      await mf6ify();
+    }),
   );
 
   // Show definitions of a symbol
