@@ -21,6 +21,8 @@ This VS Code extension provides syntax highlighting support and rich language fe
   - `Go To Definition` keybinding (default: `F12`)
   - right-click -> `Go To Definition`
 
+  ![Demo](images/demo.gif)
+
 - Others: code folding, snippets, comment-toggling, auto-closing quotes, surrounding quotes
 
 ## Usage
