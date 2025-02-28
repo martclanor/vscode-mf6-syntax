@@ -5,7 +5,7 @@
       "label": "Generate from templates",
       "type": "shell",
       "command": "uv",
-      "args": ["run", "${workspaceFolder}/utils/generate_from_templates.py"],
+      "args": ["run", "${workspaceFolder}/utils/gen_from_dfn.py"],
       "group": {
         "kind": "build",
         "isDefault": true
