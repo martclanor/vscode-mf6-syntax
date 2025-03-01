@@ -7,7 +7,8 @@ on:
     tags:
       - "*.*.*"
     branches:
-      - main
+      - "main"
+      - "!develop"
 
 jobs:
   create-release:
