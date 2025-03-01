@@ -1,2 +1,4 @@
 .venv/**
 .ruff_cache/**
+out/
+.vscode-test/

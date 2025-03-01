@@ -1,0 +1,108 @@
+# This workflow runs the following jobs:
+# - ruff-lint-format
+# - prettier
+# - codespell
+# - gen_from_templates
+# - grammar-tests
+# - vscode-integration-tests
+
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  ruff-lint-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run ruff linter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --output-format=github
+      - name: Run ruff formatter
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: format --diff
+
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run prettier check
+        run: npm run check:prettier
+
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run codespell
+        uses: codespell-project/actions-codespell@v2
+
+  gen_from_templates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Clone MODFLOW repository
+        uses: actions/checkout@v4
+        with:
+          repository: "MODFLOW-ORG/modflow6"
+          path: "modflow6"
+          ref: "6.6.1"
+          sparse-checkout: "doc/mf6io/mf6ivar/dfn"
+      - name: Copy DFN files
+        run: |
+          mkdir -p data/dfn
+          cp  modflow6/doc/mf6io/mf6ivar/dfn/* data/dfn/
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Regenerate from templates
+        run: uv run utils/gen_from_dfn.py
+      - name: Check for changes
+        run: git diff --exit-code
+
+  grammar-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Run grammar tests
+        run: npm run test:grammar
+
+  vscode-integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Run integration tests
+        run: xvfb-run -a npm test

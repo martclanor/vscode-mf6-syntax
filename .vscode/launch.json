@@ -5,8 +5,11 @@
       "name": "Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "preLaunchTask": "Generate from templates"
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--disable-extensions"
+      ],
+      "preLaunchTask": "PreLaunch Tasks"
     }
   ]
 }

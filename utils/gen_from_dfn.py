@@ -8,7 +8,8 @@
 """
 This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
-file, and provides methods to parse and access this data.
+file, and provides methods to parse and access this data in order to generate
+configuration files for the syntax highlighting feature.
 
 Classes:
     Line: Represents a single line in a dfn file.
@@ -16,8 +17,9 @@ Classes:
     Dfn: Represents an entire dfn file.
 
 Usage:
-    The script can be run to parse dfn files in the 'data/dfn' directory and preprocess
-    the data to generate 'package.json' and 'syntaxes/mf6.tmLanguage.yaml' files.
+    The script can be run to parse dfn files in the 'data/dfn' (downloaded from mf6
+    github repo) directory and preprocess the data to generate 'package.json' and
+    'syntaxes/mf6.tmLanguage.json' files.
 """
 
 from dataclasses import dataclass
@@ -33,10 +35,12 @@ class Line:
     object."""
 
     key: str
-    value: Optional[str] = None
+    value: Optional[str | bool] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
+        if "tagged" in data:
+            return cls("tagged", "true" in data)
         return cls(*data.split(maxsplit=1))
 
 
@@ -49,20 +53,24 @@ class Section:
     block: str
     data_type: Optional[str] = None
     valid: Optional[tuple[str, ...]] = None
+    tagged: bool = True
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
         lines = (
             Line.from_file(line)
             for line in data.split("\n")
-            if any(line.startswith(s) for s in {"block", "name", "type", "valid"})
+            if any(
+                line.startswith(s) for s in {"block", "name", "type", "valid", "tagged"}
+            )
         )
-        line_dict: dict[str, str] = {line.key: (line.value or "") for line in lines}
+        line_dict: dict[str, str] = {line.key: line.value for line in lines}
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
             data_type=line_dict.get("type", None),
             valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
+            tagged=line_dict.get("tagged", True),
         )
 
 
@@ -83,7 +91,15 @@ class Dfn:
 
     @property
     def sections(self) -> tuple[Section, ...]:
-        return tuple(Section.from_file(x) for x in self.data if x.startswith("block"))
+        sections = []
+        for data in self.data:
+            if not data.startswith("block"):
+                continue
+            section = Section.from_file(data)
+            if "record" in section.keyword or "recarray" in section.keyword:
+                continue
+            sections.append(section)
+        return tuple(sections)
 
     @property
     def blocks(self) -> set[str]:
@@ -91,7 +107,12 @@ class Dfn:
 
     @property
     def keywords(self) -> set[str]:
-        return {p.keyword for p in self.sections}
+        keywords = set()
+        for section in self.sections:
+            if not section.tagged:
+                continue
+            keywords.add(section.keyword)
+        return keywords
 
     @property
     def valids(self) -> set[tuple[str, ...]]:

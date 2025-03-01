@@ -10,8 +10,7 @@
 >  gwf6 sdfdsf#modeltype      namefile      modelname
 #^^ source.mf6
 #  ^^^^ source.mf6 entity.name.function.mf6
-#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
-#                                           ^^^^^^^^^ source.mf6 entity.name.function.mf6
+#      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
 >  gwf6 sdfdsf #modeltype      namefile      modelname
 #^^ source.mf6
 #  ^^^^ source.mf6 entity.name.function.mf6
@@ -118,4 +117,19 @@
 #^^^^^^ source.mf6
 >drop.
 #^^^^^^ source.mf6
+>
+>BEGIN time
+#^^^^^ source.mf6 keyword.control.mf6
+#     ^ source.mf6
+#      ^^^^ source.mf6 entity.name.type.mf6
+>METHODS linear linear
+#^^^^^^^ source.mf6 entity.name.function.mf6
+#       ^ source.mf6
+#        ^^^^^^ source.mf6 entity.name.function.mf6
+#              ^ source.mf6
+#               ^^^^^^ source.mf6 entity.name.function.mf6
+>IMS6
+#^^^^ source.mf6 entity.name.function.mf6
+>EMS6
+#^^^^ source.mf6 entity.name.function.mf6
 >

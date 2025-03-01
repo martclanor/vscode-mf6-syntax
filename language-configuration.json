@@ -14,5 +14,6 @@
       "close": "'"
     }
   ],
-  "surroundingPairs": [["'", "'"]]
+  "surroundingPairs": [["'", "'"]],
+  "wordPattern": "\\b(?!\\d+\\b)[a-zA-Z0-9_-]+\\.[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)*\\b|(?<=')[^']*(?=')"
 }

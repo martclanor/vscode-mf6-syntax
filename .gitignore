@@ -2,3 +2,5 @@ node_modules
 *.vsix
 .vscode/settings.json
 data/
+out/
+.vscode-test/
