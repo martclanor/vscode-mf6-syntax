@@ -75,7 +75,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
       - name: Regenerate from templates
-        run: uv run utils/generate_from_templates.py
+        run: uv run utils/gen_from_dfn.py
       - name: Check for changes
         run: git diff --exit-code
 

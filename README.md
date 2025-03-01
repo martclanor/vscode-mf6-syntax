@@ -17,16 +17,20 @@ This VS Code extension provides syntax highlighting support and rich language fe
   ![Syntax Highlighting](images/sample.png)
 - Go-to-definition for linked files with different methods:
 
-  - ctrl + click
+  - `Ctrl + click`
   - `Go To Definition` keybinding (default: `F12`)
-  - right-click -> `Go To Definition`
+  - `Right-click` -> `Go To Definition`
 
   ![Demo](images/demo.gif)
 
-- Others: code folding, snippets, comment-toggling, auto-closing quotes, surrounding quotes
+- Others:
+  - Block folding
+  - Snippet (MF6 block)
+  - Comment-toggling
+  - Auto-closing quotes
+  - Surrounding quotes
 
 ## Usage
 
 - The extension activates based on the file's extension. If not detected, use `MF6 Syntax: Set language to MF6`. Alternatively, use the `Change Language Mode` command to set the language manually.
-- To navigate to a linked file, use the `Go To Definition` keybinding or right-click on the linked file and select `Go To Definition`.
 - VS Code's minimap can display enlarged section headers (MF6 block names), which may appear cluttered. To simplify the view, disable this feature by setting `editor.minimap.showRegionSectionHeaders` to `false`.
