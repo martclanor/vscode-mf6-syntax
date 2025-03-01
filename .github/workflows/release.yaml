@@ -7,7 +7,8 @@ on:
     tags:
       - "*.*.*"
     branches:
-      - main
+      - "main"
+      - "!develop"
 
 jobs:
   create-release:
@@ -25,11 +26,14 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
+      - name: Compile TypeScript
+        run: npm run compile:ts
+
       - name: Package extension
         run: npm run package
 
       - name: Create release
-        if: github.ref_type == 'tag' && github.base_ref == 'main'
+        if: ${{ github.ref_type == 'tag' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
