@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-beta
+
+- Final clean-up for beta release
+- Update modflow repo org name
+- Update readme for beta release
+- Enable source maps for easier debugging
+- Exclude unnecessary ts and test files in packaging
+- Restructure gh workflow files
+- Add VS Code integration tests
+- Add go-to-definition feature
+- Add prettier format script
+- Show info message for mf6-ify command
+- Fix packaging issues
+- Add mf6-ify extension command to manually set language mode
+- Update gh release name suffix from alpha to beta
+- Add condition to release workflow
+- Rework regex grammar to disregard unused keywords
+- Set local pre-commit hooks to run concisely
+- Add workflow trigger on push
+- Update dfn files (MODFLOW 6.6.1)
+
 ## 0.0.7-alpha
 
 - Remove workflow trigger on push
