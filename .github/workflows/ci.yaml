@@ -22,6 +22,8 @@ on:
 jobs:
   ruff-lint-format:
     runs-on: ubuntu-latest
+    env:
+      RUFF_OUTPUT_FORMAT: github
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
