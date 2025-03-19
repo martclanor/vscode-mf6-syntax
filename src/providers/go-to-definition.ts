@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { checkFileExists } from "../utils/file-utils";
+import * as fs from "fs/promises";
 
 export class MF6DefinitionProvider implements vscode.DefinitionProvider {
   public async provideDefinition(
@@ -17,6 +18,19 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
       vscode.window.showWarningMessage(`File ${word} not found`);
       return null;
     }
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+    const maxFileSizeMB = config.get<number>("maxFileSizeMB", 4); // Default to 4MB
+    const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
+
+    const fileStats = await fs.stat(fileUri.fsPath);
+    if (fileStats.size > maxFileSizeBytes) {
+      vscode.window.showWarningMessage(
+        `File ${word} is too large to open through the extension (over ${maxFileSizeMB}MB).`,
+      );
+      return null;
+    }
+
     return new vscode.Location(fileUri, new vscode.Position(0, 0));
   }
 }
