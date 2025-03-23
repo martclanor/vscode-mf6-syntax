@@ -194,7 +194,7 @@ if __name__ == "__main__":
                     replacement = eval(section.description.strip(f"REPLACE {keyword} "))
                     for key, value in replacement.items():
                         description = description.replace(key, value)
-                hover[section.keyword][section.block][dfn.extension] = description
+                hover[section.keyword][section.block][dfn.path.stem] = description
 
     # Sort hover before exporting
     sorted_hover = {
