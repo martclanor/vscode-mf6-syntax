@@ -178,7 +178,7 @@ if __name__ == "__main__":
             continue
         common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
 
-    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     # Some dfn keywords have to be replaced with a different keyword from common.dfn
     # e.g. see  gwe-ctp.dfn, "auxiliary" keyword is replaced with "auxnames" from common
     keyword_alias = {"auxiliary": "auxnames", "print_stage": "print_head"}
@@ -194,12 +194,12 @@ if __name__ == "__main__":
                     replacement = eval(section.description.strip(f"REPLACE {keyword} "))
                     for key, value in replacement.items():
                         description = description.replace(key, value)
-                hover[section.keyword][section.block][dfn.path.stem] = description
+                hover[section.keyword][section.block][description].append(dfn.path.stem)
 
     # Sort hover before exporting
     sorted_hover = {
         key: {
-            subkey: dict(sorted(subval.items()))
+            subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
             for subkey, subval in sorted(val.items())
         }
         for key, val in sorted(hover.items())
