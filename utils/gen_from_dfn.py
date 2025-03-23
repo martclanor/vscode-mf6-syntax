@@ -196,7 +196,15 @@ if __name__ == "__main__":
                         description = description.replace(key, value)
                 hover[section.keyword][section.block][dfn.extension] = description
 
+    # Sort hover before exporting
+    sorted_hover = {
+        key: {
+            subkey: dict(sorted(subval.items()))
+            for subkey, subval in sorted(val.items())
+        }
+        for key, val in sorted(hover.items())
+    }
     with open("src/providers/hover.json", "w") as f:
-        json.dump(hover, f, indent=2)
+        json.dump(sorted_hover, f, indent=2)
         f.write("\n")
     print("src/providers/hover.json has been generated")
