@@ -22,6 +22,8 @@ Usage:
     'syntaxes/mf6.tmLanguage.json' files.
 """
 
+import json
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -54,6 +56,7 @@ class Section:
     data_type: Optional[str] = None
     valid: Optional[tuple[str, ...]] = None
     tagged: bool = True
+    description: Optional[str] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
@@ -61,7 +64,8 @@ class Section:
             Line.from_file(line)
             for line in data.split("\n")
             if any(
-                line.startswith(s) for s in {"block", "name", "type", "valid", "tagged"}
+                line.startswith(s)
+                for s in {"block", "name", "type", "valid", "tagged", "description"}
             )
         )
         line_dict: dict[str, str] = {line.key: line.value for line in lines}
@@ -71,6 +75,7 @@ class Section:
             data_type=line_dict.get("type", None),
             valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
             tagged=line_dict.get("tagged", True),
+            description=line_dict.get("description", None),
         )
 
 
@@ -160,3 +165,38 @@ if __name__ == "__main__":
         keywords=keywords,
         valids=valids,
     )
+
+    # Export hover data from dfn files
+    # common.dfn is a special file that contains common descriptions for keywords
+    # which are used to replace placeholders in other dfn files
+    common = {}
+    for section in Dfn(Path("data/dfn/common.dfn")).data:
+        if not section.startswith("name"):
+            continue
+        name, description = section.strip().split("\n")
+        if not (name.startswith("name") and description.startswith("description")):
+            continue
+        common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
+
+    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+    # Some dfn keywords have to be replaced with a different keyword from common.dfn
+    # e.g. see  gwe-ctp.dfn, "auxiliary" keyword is replaced with "auxnames" from common
+    keyword_alias = {"auxiliary": "auxnames", "print_stage": "print_head"}
+
+    for dfn_file in Path("data/dfn").glob("*.dfn"):
+        dfn = Dfn(dfn_file)
+        for section in dfn.sections:
+            if section.tagged and (description := section.description):
+                if "REPLACE" in description:  # Replace placeholders from common
+                    keyword = keyword_alias.get(section.keyword, section.keyword)
+                    description = common[keyword]
+                    # Create replacement dictionary from the description
+                    replacement = eval(section.description.strip(f"REPLACE {keyword} "))
+                    for key, value in replacement.items():
+                        description = description.replace(key, value)
+                hover[section.keyword][section.block][dfn.extension] = description
+
+    with open("src/providers/hover.json", "w") as f:
+        json.dump(hover, f, indent=2)
+        f.write("\n")
+    print("src/providers/hover.json has been generated")
