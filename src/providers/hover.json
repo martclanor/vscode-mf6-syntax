@@ -33,7 +33,7 @@
   },
   "alternative_cell_averaging": {
     "options": {
-      "is a text keyword to indicate that an alternative method will be used for calculating the conductance for horizontal cell connections.  The text value for ALTERNATIVE\\_CELL\\_AVERAGING can be ``LOGARITHMIC'', ``AMT-LMK'', or ``AMT-HMK''.  ``AMT-LMK'' signifies that the conductance will be calculated using arithmetic-mean thickness and logarithmic-mean hydraulic conductivity.  ``AMT-HMK'' signifies that the conductance will be calculated using arithmetic-mean thickness and harmonic-mean hydraulic conductivity. If the user does not specify a value for ALTERNATIVE\\_CELL\\_AVERAGING, then the harmonic-mean method will be used.  This option cannot be used if the XT3D option is invoked.": [
+      "is a text keyword to indicate that an alternative method will be used for calculating the conductance for horizontal cell connections.  The text value for ALTERNATIVE\\_CELL\\_AVERAGING can be `LOGARITHMIC`, `AMT-LMK`, or `AMT-HMK`.  `AMT-LMK` signifies that the conductance will be calculated using arithmetic-mean thickness and logarithmic-mean hydraulic conductivity.  `AMT-HMK` signifies that the conductance will be calculated using arithmetic-mean thickness and harmonic-mean hydraulic conductivity. If the user does not specify a value for ALTERNATIVE\\_CELL\\_AVERAGING, then the harmonic-mean method will be used.  This option cannot be used if the XT3D option is invoked.": [
         "gwf-npf"
       ]
     }
@@ -159,7 +159,7 @@
   },
   "auto_flow_reduce": {
     "options": {
-      "keyword and real value that defines the fraction of the cell thickness used as an interval for smoothly adjusting negative pumping rates to 0 in cells with head values less than or equal to the bottom of the cell. Negative pumping rates are adjusted to 0 or a smaller negative value when the head in the cell is equal to or less than the calculated interval above the cell bottom. AUTO\\_FLOW\\_REDUCE is set to 0.1 if the specified value is less than or equal to zero. By default, negative pumping rates are not reduced during a simulation.  This AUTO\\_FLOW\\_REDUCE option only applies to wells in model cells that are marked as ``convertible'' (ICELLTYPE /= 0) in the Node Property Flow (NPF) input file. Reduction in flow will not occur for wells in cells marked as confined (ICELLTYPE = 0).": [
+      "keyword and real value that defines the fraction of the cell thickness used as an interval for smoothly adjusting negative pumping rates to 0 in cells with head values less than or equal to the bottom of the cell. Negative pumping rates are adjusted to 0 or a smaller negative value when the head in the cell is equal to or less than the calculated interval above the cell bottom. AUTO\\_FLOW\\_REDUCE is set to 0.1 if the specified value is less than or equal to zero. By default, negative pumping rates are not reduced during a simulation.  This AUTO\\_FLOW\\_REDUCE option only applies to wells in model cells that are marked as `convertible` (ICELLTYPE /= 0) in the Node Property Flow (NPF) input file. Reduction in flow will not occur for wells in cells marked as confined (ICELLTYPE = 0).": [
         "gwf-wel"
       ]
     }
@@ -190,13 +190,13 @@
   },
   "auxiliary": {
     "options": {
-      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWE-GWE Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name ``ANGLDEGX'' is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on ``ANGLDEGX'' is provided in the description of the DISU Package.  If an auxiliary variable with the name ``CDIST'' is found, then this information will be used as the straight-line connection distance, including the vertical component, between the two cell centers.  Both ANGLDEGX and CDIST are required if specific discharge is calculated for either of the groundwater models.": [
+      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWE-GWE Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name `ANGLDEGX` is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on `ANGLDEGX` is provided in the description of the DISU Package.  If an auxiliary variable with the name `CDIST` is found, then this information will be used as the straight-line connection distance, including the vertical component, between the two cell centers.  Both ANGLDEGX and CDIST are required if specific discharge is calculated for either of the groundwater models.": [
         "exg-gwegwe"
       ],
-      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWF-GWF Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name ``ANGLDEGX'' is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on ``ANGLDEGX'' and when it is required is provided in the description of the DISU Package.  If an auxiliary variable with the name ``CDIST'' is found, then this information will be used in the calculation of specific discharge within model cells connected by the exchange.  For a horizontal connection, CDIST should be specified as the horizontal distance between the cell centers, and should not include the vertical component.  For vertical connections, CDIST should be specified as the difference in elevation between the two cell centers.  Both ANGLDEGX and CDIST are required if specific discharge is calculated for either of the groundwater models.": [
+      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWF-GWF Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name `ANGLDEGX` is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on `ANGLDEGX` and when it is required is provided in the description of the DISU Package.  If an auxiliary variable with the name `CDIST` is found, then this information will be used in the calculation of specific discharge within model cells connected by the exchange.  For a horizontal connection, CDIST should be specified as the horizontal distance between the cell centers, and should not include the vertical component.  For vertical connections, CDIST should be specified as the difference in elevation between the two cell centers.  Both ANGLDEGX and CDIST are required if specific discharge is calculated for either of the groundwater models.": [
         "exg-gwfgwf"
       ],
-      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWT-GWT Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name ``ANGLDEGX'' is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on ``ANGLDEGX'' is provided in the description of the DISU Package.  ANGLDEGX must be specified if dispersion is simulated in the connected GWT models.": [
+      "an array of auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided. Most auxiliary variables will not be used by the GWT-GWT Exchange, but they will be available for use by other parts of the program.  If an auxiliary variable with the name `ANGLDEGX` is found, then this information will be used as the angle (provided in degrees) between the connection face normal and the x axis, where a value of zero indicates that a normal vector points directly along the positive x axis.  The connection face normal is a normal vector on the cell face shared between the cell in model 1 and the cell in model 2 pointing away from the model 1 cell.  Additional information on `ANGLDEGX` is provided in the description of the DISU Package.  ANGLDEGX must be specified if dispersion is simulated in the connected GWT models.": [
         "exg-gwtgwt"
       ],
       "defines an array of one or more auxiliary variable names.  There is no limit on the number of auxiliary variables that can be provided on this line; however, lists of information provided in subsequent blocks must have a column of data for each auxiliary variable name defined here.   The number of auxiliary variables detected on this line determines the value for naux.  Comments cannot be provided anywhere on this line as they will be interpreted as auxiliary variable names.  Auxiliary variables may not be used by the package, but they will be available for use by other parts of the program.  The program will terminate with an error if auxiliary variables are specified on more than one line in the options block.": [
@@ -351,7 +351,7 @@
   },
   "bedk": {
     "period": {
-      "real or character value that defines the hydraulic conductivity of the reach streambed. BEDK can be any positive value if the reach is not connected to an underlying GWF cell. Otherwise, BEDK must be greater than zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the hydraulic conductivity of the reach streambed. BEDK can be any positive value if the reach is not connected to an underlying GWF cell. Otherwise, BEDK must be greater than zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-sfr"
       ]
     }
@@ -583,7 +583,7 @@
   },
   "cell_averaging": {
     "options": {
-      "is a keyword and text keyword to indicate the method that will be used for calculating the conductance for horizontal cell connections.  The text value for CELL\\_AVERAGING can be ``HARMONIC'', ``LOGARITHMIC'', or ``AMT-LMK'', which means ``arithmetic-mean thickness and logarithmic-mean hydraulic conductivity''. If the user does not specify a value for CELL\\_AVERAGING, then the harmonic-mean method will be used.": [
+      "is a keyword and text keyword to indicate the method that will be used for calculating the conductance for horizontal cell connections.  The text value for CELL\\_AVERAGING can be `HARMONIC`, `LOGARITHMIC`, or `AMT-LMK`, which means `arithmetic-mean thickness and logarithmic-mean hydraulic conductivity`. If the user does not specify a value for CELL\\_AVERAGING, then the harmonic-mean method will be used.": [
         "exg-gwfgwf"
       ]
     }
@@ -762,22 +762,22 @@
       ]
     },
     "period": {
-      "is the boundary concentration. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the CONCENTRATION for each boundary feature is zero.": [
+      "is the boundary concentration. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the CONCENTRATION for each boundary feature is zero.": [
         "utl-spc"
       ],
       "is the concentration of the associated Recharge or Evapotranspiration stress package.  The concentration array may be defined by a time-array series (see the \"Using Time-Array Series in a Package\" section).": [
         "utl-spca"
       ],
-      "real or character value that defines the concentration for the lake. The specified CONCENTRATION is only applied if the lake is a constant concentration lake. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration for the lake. The specified CONCENTRATION is only applied if the lake is a constant concentration lake. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-lkt"
       ],
-      "real or character value that defines the concentration for the reach. The specified CONCENTRATION is only applied if the reach is a constant concentration reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration for the reach. The specified CONCENTRATION is only applied if the reach is a constant concentration reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-sft"
       ],
-      "real or character value that defines the concentration for the unsaturated zone flow cell. The specified CONCENTRATION is only applied if the unsaturated zone flow cell is a constant concentration cell. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration for the unsaturated zone flow cell. The specified CONCENTRATION is only applied if the unsaturated zone flow cell is a constant concentration cell. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-uzt"
       ],
-      "real or character value that defines the concentration for the well. The specified CONCENTRATION is only applied if the well is a constant concentration well. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration for the well. The specified CONCENTRATION is only applied if the well is a constant concentration well. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-mwt"
       ]
     }
@@ -1066,7 +1066,7 @@
   },
   "dry_tracking_method": {
     "options": {
-      "is a string indicating how particles should behave in dry-but-active cells (as can occur with the Newton formulation).  The value can be ``DROP'', ``STOP'', or ``STAY''.  The default is ``DROP'', which passes particles vertically and instantaneously to the water table. ``STOP'' causes particles to terminate. ``STAY'' causes particles to remain stationary but active.": [
+      "is a string indicating how particles should behave in dry-but-active cells (as can occur with the Newton formulation).  The value can be `DROP`, `STOP`, or `STAY`.  The default is `DROP`, which passes particles vertically and instantaneously to the water table. `STOP` causes particles to terminate. `STAY` causes particles to remain stationary but active.": [
         "prt-prp"
       ]
     }
@@ -1094,16 +1094,16 @@
   },
   "evaporation": {
     "period": {
-      "real or character value that defines the concentration of evaporated water $(ML^{-3})$ for the lake. If this concentration value is larger than the simulated concentration in the lake, then the evaporated water will be removed at the same concentration as the lake.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of evaporated water $(ML^{-3})$ for the lake. If this concentration value is larger than the simulated concentration in the lake, then the evaporated water will be removed at the same concentration as the lake.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-lkt"
       ],
-      "real or character value that defines the concentration of evaporated water $(ML^{-3})$ for the reach. If this concentration value is larger than the simulated concentration in the reach, then the evaporated water will be removed at the same concentration as the reach.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of evaporated water $(ML^{-3})$ for the reach. If this concentration value is larger than the simulated concentration in the reach, then the evaporated water will be removed at the same concentration as the reach.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-sft"
       ],
-      "real or character value that defines the maximum evaporation rate $(LT^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the maximum evaporation rate $(LT^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ],
-      "real or character value that defines the volumetric rate per unit area of water subtracted by evaporation from the streamflow routing reach. A positive evaporation rate should be provided. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. If the volumetric evaporation rate for a reach exceeds the sources of water to the reach (upstream and specified inflows, rainfall, and runoff but excluding groundwater leakage into the reach) the volumetric evaporation rate is limited to the sources of water to the reach. By default, evaporation rates are zero for each reach.": [
+      "real or character value that defines the volumetric rate per unit area of water subtracted by evaporation from the streamflow routing reach. A positive evaporation rate should be provided. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. If the volumetric evaporation rate for a reach exceeds the sources of water to the reach (upstream and specified inflows, rainfall, and runoff but excluding groundwater leakage into the reach) the volumetric evaporation rate is limited to the sources of water to the reach. By default, evaporation rates are zero for each reach.": [
         "gwf-sfr"
       ],
       "use of the EVAPORATION keyword is allowed in the LKE package; however, the specified value is not currently used in LKE calculations.  Instead, the latent heat of evaporation is multiplied by the simulated evaporation rate for determining the thermal energy lost from a stream reach.": [
@@ -1203,10 +1203,10 @@
   },
   "ext-inflow": {
     "period": {
-      "real or character value that defines the concentration of external inflow $(ML^{-3})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of external inflow $(ML^{-3})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-lkt"
       ],
-      "real or character value that defines the temperature of external inflow for the lake.  Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature of external inflow for the lake.  Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-lke"
       ]
     }
@@ -1627,7 +1627,7 @@
         "gwf-disu",
         "gwt-disu"
       ],
-      "is an optional array that characterizes the existence status of a cell.  If the IDOMAIN array is not specified, then all model cells exist within the solution.  If the IDOMAIN value for a cell is 0, the cell does not exist in the simulation.  Input and output values will be read and written for the cell, but internal to the program, the cell is excluded from the solution.  If the IDOMAIN value for a cell is 1 or greater, the cell exists in the simulation.  If the IDOMAIN value for a cell is -1, the cell does not exist in the simulation.  Furthermore, the first existing cell above will be connected to the first existing cell below.  This type of cell is referred to as a ``vertical pass through'' cell.": [
+      "is an optional array that characterizes the existence status of a cell.  If the IDOMAIN array is not specified, then all model cells exist within the solution.  If the IDOMAIN value for a cell is 0, the cell does not exist in the simulation.  Input and output values will be read and written for the cell, but internal to the program, the cell is excluded from the solution.  If the IDOMAIN value for a cell is 1 or greater, the cell exists in the simulation.  If the IDOMAIN value for a cell is -1, the cell does not exist in the simulation.  Furthermore, the first existing cell above will be connected to the first existing cell below.  This type of cell is referred to as a `vertical pass through` cell.": [
         "gwf-dis",
         "gwf-disv",
         "olf-disv2d",
@@ -1638,7 +1638,7 @@
         "olf-disv1d",
         "swf-disv1d"
       ],
-      "is an optional array that characterizes the existence status of a cell.  If the IDOMAIN array is not specified, then all model cells exist within the solution.  If the IDOMAIN value for a cell is 0, the cell does not exist in the simulation.  Input and output values will be read and written for the cell, but internal to the program, the cell is excluded from the solution.  If the IDOMAIN value for a cell is 1, the cell exists in the simulation.  If the IDOMAIN value for a cell is -1, the cell does not exist in the simulation.  Furthermore, the first existing cell above will be connected to the first existing cell below.  This type of cell is referred to as a ``vertical pass through'' cell.": [
+      "is an optional array that characterizes the existence status of a cell.  If the IDOMAIN array is not specified, then all model cells exist within the solution.  If the IDOMAIN value for a cell is 0, the cell does not exist in the simulation.  Input and output values will be read and written for the cell, but internal to the program, the cell is excluded from the solution.  If the IDOMAIN value for a cell is 1, the cell exists in the simulation.  If the IDOMAIN value for a cell is -1, the cell does not exist in the simulation.  Furthermore, the first existing cell above will be connected to the first existing cell below.  This type of cell is referred to as a `vertical pass through` cell.": [
         "gwe-dis",
         "gwe-disv",
         "gwt-dis",
@@ -1675,26 +1675,26 @@
   },
   "infiltration": {
     "period": {
-      "real or character value that defines the infiltration solute concentration $(ML^{-3})$ for the UZF cell. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the infiltration solute concentration $(ML^{-3})$ for the UZF cell. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-uzt"
       ],
-      "real or character value that defines the temperature of the infiltration $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the UZF cell. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature of the infiltration $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the UZF cell. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-uze"
       ]
     }
   },
   "inflow": {
     "period": {
-      "real or character value that defines the concentration of inflow $(ML^{-3})$ for the reach. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of inflow $(ML^{-3})$ for the reach. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-sft"
       ],
-      "real or character value that defines the temperature of inflow $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach. Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature of inflow $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach. Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-sfe"
       ],
-      "real or character value that defines the volumetric inflow rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, inflow rates are zero for each lake.": [
+      "real or character value that defines the volumetric inflow rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, inflow rates are zero for each lake.": [
         "gwf-lak"
       ],
-      "real or character value that defines the volumetric inflow rate for the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, inflow rates are zero for each reach.": [
+      "real or character value that defines the volumetric inflow rate for the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, inflow rates are zero for each reach.": [
         "gwf-sfr"
       ]
     }
@@ -1736,7 +1736,7 @@
   },
   "invert": {
     "period": {
-      "real or character value that defines the invert elevation for the lake outlet. A specified INVERT value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is not SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the invert elevation for the lake outlet. A specified INVERT value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is not SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ]
     }
@@ -1789,7 +1789,7 @@
       ]
     },
     "period": {
-      "is the new value to be assigned as the cell's hydraulic conductivity from the start of the specified stress period, as per K in the NPF package.  If the OPTIONS block includes a TS6 entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "is the new value to be assigned as the cell's hydraulic conductivity from the start of the specified stress period, as per K in the NPF package.  If the OPTIONS block includes a TS6 entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "utl-tvk"
       ]
     }
@@ -1801,7 +1801,7 @@
       ]
     },
     "period": {
-      "is the new value to be assigned as the cell's hydraulic conductivity of the second ellipsoid axis (or the ratio of K22/K if the K22OVERK NPF package option is specified) from the start of the specified stress period, as per K22 in the NPF package.  For an unrotated case this is the hydraulic conductivity in the y direction.  If the OPTIONS block includes a TS6 entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "is the new value to be assigned as the cell's hydraulic conductivity of the second ellipsoid axis (or the ratio of K22/K if the K22OVERK NPF package option is specified) from the start of the specified stress period, as per K22 in the NPF package.  For an unrotated case this is the hydraulic conductivity in the y direction.  If the OPTIONS block includes a TS6 entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "utl-tvk"
       ]
     }
@@ -1820,7 +1820,7 @@
       ]
     },
     "period": {
-      "is the new value to be assigned as the cell's hydraulic conductivity of the third ellipsoid axis (or the ratio of K33/K if the K33OVERK NPF package option is specified) from the start of the specified stress period, as per K33 in the NPF package.  For an unrotated case, this is the vertical hydraulic conductivity.  If the OPTIONS block includes a TS6 entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "is the new value to be assigned as the cell's hydraulic conductivity of the third ellipsoid axis (or the ratio of K33/K if the K33OVERK NPF package option is specified) from the start of the specified stress period, as per K33 in the NPF package.  For an unrotated case, this is the vertical hydraulic conductivity.  If the OPTIONS block includes a TS6 entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "utl-tvk"
       ]
     }
@@ -1898,7 +1898,7 @@
   },
   "length_units": {
     "options": {
-      "is the length units used for this model.  Values can be ``FEET'', ``METERS'', or ``CENTIMETERS''.  If not specified, the default is ``UNKNOWN''.": [
+      "is the length units used for this model.  Values can be `FEET`, `METERS`, or `CENTIMETERS`.  If not specified, the default is `UNKNOWN`.": [
         "chf-disv1d",
         "gwe-dis",
         "gwe-disu",
@@ -1936,32 +1936,32 @@
   },
   "list": {
     "options": {
-      "is name of the listing file to create for this CHF model.  If not specified, then the name of the list file will be the basename of the CHF model name file and the '.lst' extension.  For example, if the CHF name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this CHF model.  If not specified, then the name of the list file will be the basename of the CHF model name file and the '.lst' extension.  For example, if the CHF name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "chf-nam"
       ],
-      "is name of the listing file to create for this GWE model.  If not specified, then the name of the list file will be the basename of the GWE model name file and the ``.lst'' extension.  For example, if the GWE name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this GWE model.  If not specified, then the name of the list file will be the basename of the GWE model name file and the `.lst` extension.  For example, if the GWE name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "gwe-nam"
       ],
-      "is name of the listing file to create for this GWF model.  If not specified, then the name of the list file will be the basename of the GWF model name file and the '.lst' extension.  For example, if the GWF name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this GWF model.  If not specified, then the name of the list file will be the basename of the GWF model name file and the '.lst' extension.  For example, if the GWF name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "gwf-nam"
       ],
-      "is name of the listing file to create for this GWT model.  If not specified, then the name of the list file will be the basename of the GWT model name file and the '.lst' extension.  For example, if the GWT name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this GWT model.  If not specified, then the name of the list file will be the basename of the GWT model name file and the '.lst' extension.  For example, if the GWT name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "gwt-nam"
       ],
-      "is name of the listing file to create for this OLF model.  If not specified, then the name of the list file will be the basename of the OLF model name file and the '.lst' extension.  For example, if the OLF name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this OLF model.  If not specified, then the name of the list file will be the basename of the OLF model name file and the '.lst' extension.  For example, if the OLF name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "olf-nam"
       ],
-      "is name of the listing file to create for this PRT model.  If not specified, then the name of the list file will be the basename of the PRT model name file and the '.lst' extension.  For example, if the PRT name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this PRT model.  If not specified, then the name of the list file will be the basename of the PRT model name file and the '.lst' extension.  For example, if the PRT name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "prt-nam"
       ],
-      "is name of the listing file to create for this SWF model.  If not specified, then the name of the list file will be the basename of the SWF model name file and the '.lst' extension.  For example, if the SWF name file is called ``my.model.nam'' then the list file will be called ``my.model.lst''.": [
+      "is name of the listing file to create for this SWF model.  If not specified, then the name of the list file will be the basename of the SWF model name file and the '.lst' extension.  For example, if the SWF name file is called `my.model.nam` then the list file will be called `my.model.lst`.": [
         "swf-nam"
       ]
     }
   },
   "local_z": {
     "options": {
-      "indicates that ``zrpt'' defines the local z coordinate of the release point within the cell, with value of 0 at the bottom and 1 at the top of the cell.  If the cell is partially saturated at release time, the top of the cell is considered to be the water table elevation (the head in the cell) rather than the top defined by the user.": [
+      "indicates that `zrpt` defines the local z coordinate of the release point within the cell, with value of 0 at the bottom and 1 at the top of the cell.  If the cell is partially saturated at release time, the top of the cell is considered to be the water table elevation (the head in the cell) rather than the top defined by the user.": [
         "prt-prp"
       ]
     }
@@ -1975,7 +1975,7 @@
   },
   "manning": {
     "period": {
-      "real or character value that defines the Manning's roughness coefficient for the reach. MANNING must be greater than zero.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the Manning's roughness coefficient for the reach. MANNING must be greater than zero.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-sfr"
       ]
     }
@@ -2828,44 +2828,44 @@
   },
   "print_concentration": {
     "options": {
-      "keyword to indicate that the list of UZF cell concentration will be printed to the listing file for every stress period in which ``CONCENTRATION PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of UZF cell concentration will be printed to the listing file for every stress period in which `CONCENTRATION PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
         "gwt-uzt"
       ],
-      "keyword to indicate that the list of lake concentration will be printed to the listing file for every stress period in which ``CONCENTRATION PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of lake concentration will be printed to the listing file for every stress period in which `CONCENTRATION PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
         "gwt-lkt"
       ],
-      "keyword to indicate that the list of reach concentration will be printed to the listing file for every stress period in which ``CONCENTRATION PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of reach concentration will be printed to the listing file for every stress period in which `CONCENTRATION PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
         "gwt-sft"
       ],
-      "keyword to indicate that the list of well concentration will be printed to the listing file for every stress period in which ``CONCENTRATION PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of well concentration will be printed to the listing file for every stress period in which `CONCENTRATION PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_CONCENTRATION is specified, then concentration are printed for the last time step of each stress period.": [
         "gwt-mwt"
       ]
     }
   },
   "print_flows": {
     "options": {
-      "keyword to indicate that calculated flows between cells will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control. If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.  This option can produce extremely large list files because all cell-by-cell flows are printed.  It should only be used with the DFW Package for models that have a small number of cells.": [
+      "keyword to indicate that calculated flows between cells will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control. If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.  This option can produce extremely large list files because all cell-by-cell flows are printed.  It should only be used with the DFW Package for models that have a small number of cells.": [
         "chf-dfw",
         "olf-dfw",
         "swf-dfw"
       ],
-      "keyword to indicate that calculated flows between cells will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control. If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.  This option can produce extremely large list files because all cell-by-cell flows are printed.  It should only be used with the NPF Package for models that have a small number of cells.": [
+      "keyword to indicate that calculated flows between cells will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control. If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.  This option can produce extremely large list files because all cell-by-cell flows are printed.  It should only be used with the NPF Package for models that have a small number of cells.": [
         "gwf-npf"
       ],
-      "keyword to indicate that the list of GNC flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of GNC flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-gnc"
       ],
-      "keyword to indicate that the list of MVR flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of MVR flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-mvr"
       ],
-      "keyword to indicate that the list of SSM flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of SSM flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-ssm",
         "gwt-ssm"
       ],
-      "keyword to indicate that the list of UZF flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of UZF flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-uzf"
       ],
-      "keyword to indicate that the list of all model package flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of all model package flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-nam",
         "gwe-nam",
         "gwf-nam",
@@ -2874,99 +2874,99 @@
         "prt-nam",
         "swf-nam"
       ],
-      "keyword to indicate that the list of api boundary flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of api boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-api",
         "gwt-api"
       ],
-      "keyword to indicate that the list of constant concentration flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of constant concentration flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwt-cnc"
       ],
-      "keyword to indicate that the list of constant temperature flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of constant temperature flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-ctp"
       ],
-      "keyword to indicate that the list of constant-head flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of constant-head flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-chd",
         "gwf-chd",
         "olf-chd",
         "swf-chd"
       ],
-      "keyword to indicate that the list of critical depth boundary flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of critical depth boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-cdb",
         "olf-cdb",
         "swf-cdb"
       ],
-      "keyword to indicate that the list of drain flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of drain flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-drn"
       ],
-      "keyword to indicate that the list of energy source loading flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of energy source loading flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-esl"
       ],
-      "keyword to indicate that the list of evaporation flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of evaporation flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-evp",
         "olf-evp",
         "swf-evp"
       ],
-      "keyword to indicate that the list of evapotranspiration flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of evapotranspiration flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-evt",
         "gwf-evta"
       ],
-      "keyword to indicate that the list of exchange flow rates will be printed to the listing file for every stress period in which ``SAVE BUDGET'' is specified in Output Control.": [
+      "keyword to indicate that the list of exchange flow rates will be printed to the listing file for every stress period in which `SAVE BUDGET` is specified in Output Control.": [
         "exg-chfgwf",
         "exg-gwegwe",
         "exg-gwfgwf",
         "exg-gwtgwt",
         "exg-olfgwf"
       ],
-      "keyword to indicate that the list of general-head boundary flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of general-head boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-ghb"
       ],
-      "keyword to indicate that the list of inflow flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of inflow flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-flw",
         "olf-flw",
         "swf-flw"
       ],
-      "keyword to indicate that the list of lake flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of lake flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-lke",
         "gwe-mve",
         "gwf-lak",
         "gwt-lkt",
         "gwt-mvt"
       ],
-      "keyword to indicate that the list of mass source flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of mass source flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwt-src"
       ],
-      "keyword to indicate that the list of multi-aquifer well flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of multi-aquifer well flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-maw"
       ],
-      "keyword to indicate that the list of precipitation flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of precipitation flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-pcp",
         "olf-pcp",
         "swf-pcp"
       ],
-      "keyword to indicate that the list of reach flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of reach flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-sfe",
         "gwt-sft"
       ],
-      "keyword to indicate that the list of recharge flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of recharge flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-rch",
         "gwf-rcha"
       ],
-      "keyword to indicate that the list of river flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of river flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-riv"
       ],
-      "keyword to indicate that the list of stream reach flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of stream reach flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-sfr"
       ],
-      "keyword to indicate that the list of unsaturated zone flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of unsaturated zone flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-uze",
         "gwt-uzt"
       ],
-      "keyword to indicate that the list of well flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of well flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-mwe",
         "gwf-wel",
         "gwt-mwt"
       ],
-      "keyword to indicate that the list of zero-depth-gradient boundary flow rates will be printed to the listing file for every stress period time step in which ``BUDGET PRINT'' is specified in Output Control.  If there is no Output Control option and ``PRINT\\_FLOWS'' is specified, then flow rates are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of zero-depth-gradient boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT\\_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-zdg",
         "olf-zdg",
         "swf-zdg"
@@ -2988,7 +2988,7 @@
   },
   "print_head": {
     "options": {
-      "keyword to indicate that the list of multi-aquifer well heads will be printed to the listing file for every stress period in which ``HEAD PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_HEAD is specified, then heads are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of multi-aquifer well heads will be printed to the listing file for every stress period in which `HEAD PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_HEAD is specified, then heads are printed for the last time step of each stress period.": [
         "gwf-maw"
       ]
     }
@@ -3150,10 +3150,10 @@
   },
   "print_stage": {
     "options": {
-      "keyword to indicate that the list of lake stages will be printed to the listing file for every stress period in which ``HEAD PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_STAGE is specified, then stages are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of lake stages will be printed to the listing file for every stress period in which `HEAD PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_STAGE is specified, then stages are printed for the last time step of each stress period.": [
         "gwf-lak"
       ],
-      "keyword to indicate that the list of stream reach stages will be printed to the listing file for every stress period in which ``HEAD PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_STAGE is specified, then stages are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of stream reach stages will be printed to the listing file for every stress period in which `HEAD PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_STAGE is specified, then stages are printed for the last time step of each stress period.": [
         "gwf-sfr"
       ]
     }
@@ -3167,16 +3167,16 @@
   },
   "print_temperature": {
     "options": {
-      "keyword to indicate that the list of UZF cell temperatures will be printed to the listing file for every stress period in which ``TEMPERATURE PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperatures are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of UZF cell temperatures will be printed to the listing file for every stress period in which `TEMPERATURE PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperatures are printed for the last time step of each stress period.": [
         "gwe-uze"
       ],
-      "keyword to indicate that the list of lake temperature will be printed to the listing file for every stress period in which ``TEMPERATURE PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperature are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of lake temperature will be printed to the listing file for every stress period in which `TEMPERATURE PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperature are printed for the last time step of each stress period.": [
         "gwe-lke"
       ],
-      "keyword to indicate that the list of reach temperatures will be printed to the listing file for every stress period in which ``TEMPERATURE PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperatures are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of reach temperatures will be printed to the listing file for every stress period in which `TEMPERATURE PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperatures are printed for the last time step of each stress period.": [
         "gwe-sfe"
       ],
-      "keyword to indicate that the list of well temperature will be printed to the listing file for every stress period in which ``TEMPERATURE PRINT'' is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperature are printed for the last time step of each stress period.": [
+      "keyword to indicate that the list of well temperature will be printed to the listing file for every stress period in which `TEMPERATURE PRINT` is specified in Output Control.  If there is no Output Control option and PRINT\\_TEMPERATURE is specified, then temperature are printed for the last time step of each stress period.": [
         "gwe-mwe"
       ]
     }
@@ -3199,22 +3199,22 @@
   },
   "rainfall": {
     "period": {
-      "real or character value that defines the  volumetric rate per unit area of water added by precipitation directly on the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, rainfall  rates are zero for each reach.": [
+      "real or character value that defines the  volumetric rate per unit area of water added by precipitation directly on the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, rainfall  rates are zero for each reach.": [
         "gwf-sfr"
       ],
-      "real or character value that defines the rainfall rate $(LT^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the rainfall rate $(LT^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ],
-      "real or character value that defines the rainfall solute concentration $(ML^{-3})$ for the lake. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the rainfall solute concentration $(ML^{-3})$ for the lake. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-lkt"
       ],
-      "real or character value that defines the rainfall solute concentration $(ML^{-3})$ for the reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the rainfall solute concentration $(ML^{-3})$ for the reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-sft"
       ],
-      "real or character value that defines the rainfall temperature $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the rainfall temperature $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-sfe"
       ],
-      "real or character value that defines the rainfall temperature for the lake. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the rainfall temperature for the lake. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-lke"
       ]
     }
@@ -3224,16 +3224,16 @@
       "is the maximum ET flux rate ($LT^{-1}$).": [
         "gwf-evta"
       ],
-      "is the volumetric pumping rate for the multi-aquifer well. A positive value indicates recharge and a negative value indicates discharge (pumping). RATE only applies to active (STATUS is ACTIVE) multi-aquifer wells. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the RATE for each multi-aquifer well is zero.": [
+      "is the volumetric pumping rate for the multi-aquifer well. A positive value indicates recharge and a negative value indicates discharge (pumping). RATE only applies to active (STATUS is ACTIVE) multi-aquifer wells. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the RATE for each multi-aquifer well is zero.": [
         "gwf-maw"
       ],
-      "real or character value that defines the extraction rate for the lake outflow. A positive value indicates inflow and a negative value indicates outflow from the lake. RATE only applies to outlets associated with active lakes (STATUS is ACTIVE). A specified RATE is only applied if COUTTYPE for the OUTLETNO is SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the RATE for each SPECIFIED lake outlet is zero.": [
+      "real or character value that defines the extraction rate for the lake outflow. A positive value indicates inflow and a negative value indicates outflow from the lake. RATE only applies to outlets associated with active lakes (STATUS is ACTIVE). A specified RATE is only applied if COUTTYPE for the OUTLETNO is SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the RATE for each SPECIFIED lake outlet is zero.": [
         "gwf-lak"
       ],
-      "real or character value that defines the injection solute concentration $(ML^{-3})$ for the well. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the injection solute concentration $(ML^{-3})$ for the well. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-mwt"
       ],
-      "real or character value that defines the injection temperature $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the well. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the injection temperature $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the well. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-mwe"
       ]
     }
@@ -3260,7 +3260,7 @@
   },
   "recharge": {
     "period": {
-      "is the recharge flux rate ($LT^{-1}$).  This rate is multiplied inside the program by the surface area of the cell to calculate the volumetric recharge rate. The recharge array may be defined by a time-array series (see the ``Using Time-Array Series in a Package'' section).": [
+      "is the recharge flux rate ($LT^{-1}$).  This rate is multiplied inside the program by the surface area of the cell to calculate the volumetric recharge rate. The recharge array may be defined by a time-array series (see the `Using Time-Array Series in a Package` section).": [
         "gwf-rcha"
       ]
     }
@@ -3316,26 +3316,26 @@
   },
   "rough": {
     "period": {
-      "real value that defines the roughness coefficient for the lake outlet. Any value can be specified if COUTTYPE is not MANNING. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real value that defines the roughness coefficient for the lake outlet. Any value can be specified if COUTTYPE is not MANNING. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ]
     }
   },
   "runoff": {
     "period": {
-      "real or character value that defines the concentration of runoff $(ML^{-3})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of runoff $(ML^{-3})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-lkt"
       ],
-      "real or character value that defines the concentration of runoff $(ML^{-3})$ for the reach. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of runoff $(ML^{-3})$ for the reach. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-sft"
       ],
-      "real or character value that defines the runoff rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the runoff rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ],
-      "real or character value that defines the temperature of runoff $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach.  Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature of runoff $(e.g.,\\:^{\\circ}C\\:or\\:^{\\circ}F)$ for the reach.  Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-sfe"
       ],
-      "real or character value that defines the volumetric rate of diffuse overland runoff that enters the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. If the volumetric runoff rate for a reach is negative and exceeds inflows to the reach (upstream and specified inflows, and rainfall but excluding groundwater leakage into the reach) the volumetric runoff rate is limited to inflows to the reach and the volumetric evaporation rate for the reach is set to zero. By default, runoff rates are zero for each reach.": [
+      "real or character value that defines the volumetric rate of diffuse overland runoff that enters the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. If the volumetric runoff rate for a reach is negative and exceeds inflows to the reach (upstream and specified inflows, and rainfall but excluding groundwater leakage into the reach) the volumetric runoff rate is limited to inflows to the reach and the volumetric evaporation rate for the reach is set to zero. By default, runoff rates are zero for each reach.": [
         "gwf-sfr"
       ]
     }
@@ -3355,28 +3355,28 @@
   },
   "save_flows": {
     "options": {
-      "keyword to indicate that EST flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that EST flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-est"
       ],
-      "keyword to indicate that FMI flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that FMI flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-fmi",
         "gwt-fmi",
         "prt-fmi"
       ],
-      "keyword to indicate that IST flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that IST flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwt-ist"
       ],
-      "keyword to indicate that MST flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that MST flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwt-mst"
       ],
-      "keyword to indicate that SSM flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that SSM flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-ssm",
         "gwt-ssm"
       ],
-      "keyword to indicate that UZF flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that UZF flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-uzf"
       ],
-      "keyword to indicate that all model package flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that all model package flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-nam",
         "gwe-nam",
         "gwf-nam",
@@ -3385,110 +3385,110 @@
         "prt-nam",
         "swf-nam"
       ],
-      "keyword to indicate that api boundary flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that api boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-api",
         "gwt-api"
       ],
-      "keyword to indicate that budget flow terms will be written to the file specified with ``BUDGET SAVE FILE'' in Output Control.": [
+      "keyword to indicate that budget flow terms will be written to the file specified with `BUDGET SAVE FILE` in Output Control.": [
         "chf-dfw",
         "gwf-npf",
         "olf-dfw",
         "swf-dfw"
       ],
-      "keyword to indicate that cell-by-cell flow terms will be written to the budget file for each model provided that the Output Control for the models are set up with the ``BUDGET SAVE FILE'' option.": [
+      "keyword to indicate that cell-by-cell flow terms will be written to the budget file for each model provided that the Output Control for the models are set up with the `BUDGET SAVE FILE` option.": [
         "exg-gwegwe",
         "exg-gwfgwf",
         "exg-gwtgwt"
       ],
-      "keyword to indicate that cell-by-cell flow terms will be written to the file specified with ``BUDGET SAVE FILE'' in Output Control.": [
+      "keyword to indicate that cell-by-cell flow terms will be written to the file specified with `BUDGET SAVE FILE` in Output Control.": [
         "chf-sto",
         "gwf-csub",
         "gwf-sto",
         "olf-sto",
         "swf-sto"
       ],
-      "keyword to indicate that constant concentration flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that constant concentration flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwt-cnc"
       ],
-      "keyword to indicate that constant temperature flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that constant temperature flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-ctp"
       ],
-      "keyword to indicate that constant-head flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that constant-head flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-chd",
         "gwf-chd",
         "olf-chd",
         "swf-chd"
       ],
-      "keyword to indicate that critical depth boundary flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that critical depth boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-cdb",
         "olf-cdb",
         "swf-cdb"
       ],
-      "keyword to indicate that drain flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that drain flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-drn"
       ],
-      "keyword to indicate that energy source loading flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that energy source loading flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-esl"
       ],
-      "keyword to indicate that evaporation flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that evaporation flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-evp",
         "olf-evp",
         "swf-evp"
       ],
-      "keyword to indicate that evapotranspiration flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that evapotranspiration flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-evt",
         "gwf-evta"
       ],
-      "keyword to indicate that general-head boundary flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that general-head boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-ghb"
       ],
-      "keyword to indicate that inflow flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that inflow flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-flw",
         "olf-flw",
         "swf-flw"
       ],
-      "keyword to indicate that lake flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that lake flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-lke",
         "gwe-mve",
         "gwf-lak",
         "gwt-lkt",
         "gwt-mvt"
       ],
-      "keyword to indicate that mass source flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that mass source flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwt-src"
       ],
-      "keyword to indicate that multi-aquifer well flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that multi-aquifer well flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-maw"
       ],
-      "keyword to indicate that precipitation flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that precipitation flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-pcp",
         "olf-pcp",
         "swf-pcp"
       ],
-      "keyword to indicate that reach flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that reach flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-sfe",
         "gwt-sft"
       ],
-      "keyword to indicate that recharge flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that recharge flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-rch",
         "gwf-rcha"
       ],
-      "keyword to indicate that river flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that river flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-riv"
       ],
-      "keyword to indicate that stream reach flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that stream reach flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-sfr"
       ],
-      "keyword to indicate that unsaturated zone flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that unsaturated zone flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-uze",
         "gwt-uzt"
       ],
-      "keyword to indicate that well flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that well flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-mwe",
         "gwf-wel",
         "gwt-mwt"
       ],
-      "keyword to indicate that zero-depth-gradient boundary flow terms will be written to the file specified with ``BUDGET FILEOUT'' in Output Control.": [
+      "keyword to indicate that zero-depth-gradient boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-zdg",
         "olf-zdg",
         "swf-zdg"
@@ -3497,21 +3497,21 @@
   },
   "save_saturation": {
     "options": {
-      "keyword to indicate that cell saturation will be written to the budget file, which is specified with ``BUDGET SAVE FILE'' in Output Control.  Saturation will be saved to the budget file as an auxiliary variable saved with the DATA-SAT text label.  Saturation is a cell variable that ranges from zero to one and can be used by post processing programs to determine how much of a cell volume is saturated.  If ICELLTYPE is 0, then saturation is always one.": [
+      "keyword to indicate that cell saturation will be written to the budget file, which is specified with `BUDGET SAVE FILE` in Output Control.  Saturation will be saved to the budget file as an auxiliary variable saved with the DATA-SAT text label.  Saturation is a cell variable that ranges from zero to one and can be used by post processing programs to determine how much of a cell volume is saturated.  If ICELLTYPE is 0, then saturation is always one.": [
         "gwf-npf"
       ]
     }
   },
   "save_specific_discharge": {
     "options": {
-      "keyword to indicate that x, y, and z components of specific discharge will be calculated at cell centers and written to the budget file, which is specified with ``BUDGET SAVE FILE'' in Output Control.  If this option is activated, then additional information may be required in the discretization packages and the GWF Exchange package (if GWF models are coupled).  Specifically, ANGLDEGX must be specified in the CONNECTIONDATA block of the DISU Package; ANGLDEGX must also be specified for the GWF Exchange as an auxiliary variable.": [
+      "keyword to indicate that x, y, and z components of specific discharge will be calculated at cell centers and written to the budget file, which is specified with `BUDGET SAVE FILE` in Output Control.  If this option is activated, then additional information may be required in the discretization packages and the GWF Exchange package (if GWF models are coupled).  Specifically, ANGLDEGX must be specified in the CONNECTIONDATA block of the DISU Package; ANGLDEGX must also be specified for the GWF Exchange as an auxiliary variable.": [
         "gwf-npf"
       ]
     }
   },
   "save_velocity": {
     "options": {
-      "keyword to indicate that x, y, and z components of velocity will be calculated at cell centers and written to the budget file, which is specified with ``BUDGET SAVE FILE'' in Output Control.  If this option is activated, then additional information may be required in the discretization packages and the GWF Exchange package (if GWF models are coupled).  Specifically, ANGLDEGX must be specified in the CONNECTIONDATA block of the DISU Package; ANGLDEGX must also be specified for the GWF Exchange as an auxiliary variable.": [
+      "keyword to indicate that x, y, and z components of velocity will be calculated at cell centers and written to the budget file, which is specified with `BUDGET SAVE FILE` in Output Control.  If this option is activated, then additional information may be required in the discretization packages and the GWF Exchange package (if GWF models are coupled).  Specifically, ANGLDEGX must be specified in the CONNECTIONDATA block of the DISU Package; ANGLDEGX must also be specified for the GWF Exchange as an auxiliary variable.": [
         "chf-dfw",
         "olf-dfw",
         "swf-dfw"
@@ -3605,7 +3605,7 @@
   },
   "slope": {
     "period": {
-      "real or character value that defines the bed slope for the lake outlet. A specified SLOPE value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is MANNING. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the bed slope for the lake outlet. A specified SLOPE value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is MANNING. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ]
     }
@@ -3682,7 +3682,7 @@
       ]
     },
     "period": {
-      "is the new value to be assigned as the cell's specific storage (or storage coefficient if the STORAGECOEFFICIENT STO package option is specified) from the start of the specified stress period, as per SS in the STO package.  Specific storage values must be greater than or equal to 0.  If the OPTIONS block includes a TS6 entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "is the new value to be assigned as the cell's specific storage (or storage coefficient if the STORAGECOEFFICIENT STO package option is specified) from the start of the specified stress period, as per SS in the STO package.  Specific storage values must be greater than or equal to 0.  If the OPTIONS block includes a TS6 entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "utl-tvs"
       ]
     }
@@ -3705,10 +3705,10 @@
       ]
     },
     "period": {
-      "real or character value that defines the stage for the lake. The specified STAGE is only applied if the lake is a constant stage lake. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the stage for the lake. The specified STAGE is only applied if the lake is a constant stage lake. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ],
-      "real or character value that defines the stage for the reach. The specified STAGE is only applied if the reach uses the simple routing option. If STAGE is not specified for reaches that use the simple routing option, the specified stage is set to the top of the reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the stage for the reach. The specified STAGE is only applied if the reach uses the simple routing option. If STAGE is not specified for reaches that use the simple routing option, the specified stage is set to the top of the reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-sfr"
       ]
     }
@@ -3884,7 +3884,7 @@
       ]
     },
     "period": {
-      "is the new value to be assigned as the cell's specific yield from the start of the specified stress period, as per SY in the STO package.  Specific yield values must be greater than or equal to 0.  If the OPTIONS block includes a TS6 entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "is the new value to be assigned as the cell's specific yield from the start of the specified stress period, as per SY in the STO package.  Specific yield values must be greater than or equal to 0.  If the OPTIONS block includes a TS6 entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "utl-tvs"
       ]
     }
@@ -3936,19 +3936,19 @@
       "is the temperature of the associated Recharge or Evapotranspiration stress package.  The temperature array may be defined by a time-array series (see the \"Using Time-Array Series in a Package\" section).": [
         "utl-spca"
       ],
-      "is the user-supplied boundary temperature. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the TEMPERATURE for each boundary feature is zero.": [
+      "is the user-supplied boundary temperature. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. By default, the TEMPERATURE for each boundary feature is zero.": [
         "utl-spc"
       ],
-      "real or character value that defines the temperature for the lake. The specified TEMPERATURE is only applied if the lake is a constant temperature lake. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature for the lake. The specified TEMPERATURE is only applied if the lake is a constant temperature lake. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-lke"
       ],
-      "real or character value that defines the temperature for the reach. The specified TEMPERATURE is only applied if the reach is a constant temperature reach. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature for the reach. The specified TEMPERATURE is only applied if the reach is a constant temperature reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-sfe"
       ],
-      "real or character value that defines the temperature for the unsaturated zone flow cell. The specified TEMPERATURE is only applied if the unsaturated zone flow cell is a constant temperature cell. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature for the unsaturated zone flow cell. The specified TEMPERATURE is only applied if the unsaturated zone flow cell is a constant temperature cell. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-uze"
       ],
-      "real or character value that defines the temperature for the well. The specified TEMPERATURE is only applied if the well is a constant temperature well. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the temperature for the well. The specified TEMPERATURE is only applied if the well is a constant temperature well. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-mwe"
       ]
     }
@@ -4010,7 +4010,7 @@
   },
   "time_units": {
     "options": {
-      "is the time units of the simulation.  This is a text string that is used as a label within model output files.  Values for time\\_units may be ``unknown'',  ``seconds'', ``minutes'', ``hours'', ``days'', or ``years''.  The default time unit is ``unknown''.": [
+      "is the time units of the simulation.  This is a text string that is used as a label within model output files.  Values for time\\_units may be `unknown`,  `seconds`, `minutes`, `hours`, `days`, or `years`.  The default time unit is `unknown`.": [
         "sim-tdis"
       ]
     }
@@ -4257,10 +4257,10 @@
   },
   "uzet": {
     "period": {
-      "real or character value that defines the concentration of unsaturated zone evapotranspiration water $(ML^{-3})$ for the UZF cell. If this concentration value is larger than the simulated concentration in the UZF cell, then the unsaturated zone ET water will be removed at the same concentration as the UZF cell.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the concentration of unsaturated zone evapotranspiration water $(ML^{-3})$ for the UZF cell. If this concentration value is larger than the simulated concentration in the UZF cell, then the unsaturated zone ET water will be removed at the same concentration as the UZF cell.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwt-uzt"
       ],
-      "real or character value that states what fraction of the simulated unsaturated zone evapotranspiration is associated with evaporation.  The evaporative losses from the unsaturated zone moisture content will have an evaporative cooling effect on the GWE cell from which the evaporation originated. If this value is larger than 1, then it will be reset to 1.  If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that states what fraction of the simulated unsaturated zone evapotranspiration is associated with evaporation.  The evaporative losses from the unsaturated zone moisture content will have an evaporative cooling effect on the GWE cell from which the evaporation originated. If this value is larger than 1, then it will be reset to 1.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-uze"
       ]
     }
@@ -4312,14 +4312,14 @@
   },
   "well_head": {
     "period": {
-      "is the head in the multi-aquifer well. WELL\\_HEAD is only applied to constant head (STATUS is CONSTANT) and inactive (STATUS is INACTIVE) multi-aquifer wells. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value. The program will terminate with an error if WELL\\_HEAD is less than the bottom of the well.": [
+      "is the head in the multi-aquifer well. WELL\\_HEAD is only applied to constant head (STATUS is CONSTANT) and inactive (STATUS is INACTIVE) multi-aquifer wells. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. The program will terminate with an error if WELL\\_HEAD is less than the bottom of the well.": [
         "gwf-maw"
       ]
     }
   },
   "wetdry": {
     "griddata": {
-      "is a combination of the wetting threshold and a flag to indicate which neighboring cells can cause a cell to become wet. If WETDRY $<$ 0, only a cell below a dry cell can cause the cell to become wet. If WETDRY $>$ 0, the cell below a dry cell and horizontally adjacent cells can cause a cell to become wet. If WETDRY is 0, the cell cannot be wetted. The absolute value of WETDRY is the wetting threshold. When the sum of BOT and the absolute value of WETDRY at a dry cell is equaled or exceeded by the head at an adjacent cell, the cell is wetted.  WETDRY must be specified if ``REWET'' is specified in the OPTIONS block.  If ``REWET'' is not specified in the options block, then WETDRY can be entered, and memory will be allocated for it, even though it is not used.": [
+      "is a combination of the wetting threshold and a flag to indicate which neighboring cells can cause a cell to become wet. If WETDRY $<$ 0, only a cell below a dry cell can cause the cell to become wet. If WETDRY $>$ 0, the cell below a dry cell and horizontally adjacent cells can cause a cell to become wet. If WETDRY is 0, the cell cannot be wetted. The absolute value of WETDRY is the wetting threshold. When the sum of BOT and the absolute value of WETDRY at a dry cell is equaled or exceeded by the head at an adjacent cell, the cell is wetted.  WETDRY must be specified if `REWET` is specified in the OPTIONS block.  If `REWET` is not specified in the options block, then WETDRY can be entered, and memory will be allocated for it, even though it is not used.": [
         "gwf-npf"
       ]
     }
@@ -4351,14 +4351,14 @@
       ]
     },
     "period": {
-      "real or character value that defines the width of the lake outlet. A specified WIDTH value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is not SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the width of the lake outlet. A specified WIDTH value is only used for active lakes if COUTTYPE for lake outlet OUTLETNO is not SPECIFIED. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ]
     }
   },
   "withdrawal": {
     "period": {
-      "real or character value that defines the maximum withdrawal rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the ``Time-Variable Input'' section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+      "real or character value that defines the maximum withdrawal rate $(L^3 T^{-1})$ for the lake. Value must be greater than or equal to zero. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-lak"
       ]
     }

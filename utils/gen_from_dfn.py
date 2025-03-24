@@ -194,6 +194,7 @@ if __name__ == "__main__":
                     replacement = eval(section.description.strip(f"REPLACE {keyword} "))
                     for key, value in replacement.items():
                         description = description.replace(key, value)
+                description = description.replace("``", "`").replace("''", "`")
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
     # Sort hover before exporting
