@@ -9,7 +9,8 @@
 This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
 file, and provides methods to parse and access this data in order to generate
-configuration files for the syntax highlighting feature.
+configuration files for the syntax highlighting feature. Moreover, it extracts hover
+data from the dfn files and exports it to a JSON file.
 
 Classes:
     Line: Represents a single line in a dfn file.
@@ -18,8 +19,8 @@ Classes:
 
 Usage:
     The script can be run to parse dfn files in the 'data/dfn' (downloaded from mf6
-    github repo) directory and preprocess the data to generate 'package.json' and
-    'syntaxes/mf6.tmLanguage.json' files.
+    github repo) directory and preprocess the data to generate 'package.json',
+    'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
 """
 
 import json
