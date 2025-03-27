@@ -5,7 +5,7 @@ import * as path from "path";
 interface HoverData {
   [keyword: string]: {
     [block: string]: {
-      [description: string]: string; // dfn_name
+      [description: string]: string[]; // dfn_name
     };
   };
 }
@@ -57,13 +57,10 @@ export class MF6HoverProvider implements vscode.HoverProvider {
       const fileExtension = path.extname(document.fileName).slice(1);
       let matchingKeys = Object.keys(blockData).filter((key) => {
         const value = blockData[key];
-        return (
-          Array.isArray(value) &&
-          value.some((item) => {
-            const parts = item.split("-");
-            return parts[parts.length - 1] === fileExtension;
-          })
-        );
+        return value.some((item) => {
+          const parts = item.split("-");
+          return parts[parts.length - 1] === fileExtension;
+        });
       });
 
       if (matchingKeys.length === 1) {
@@ -77,9 +74,9 @@ export class MF6HoverProvider implements vscode.HoverProvider {
         hoverValue = matchingKeys
           .map((key, index) => {
             const values = matchingValues[index];
-            const formattedValues = Array.isArray(values)
-              ? values.map((value) => `*${value}*`).join(", ")
-              : `*${values}*`;
+            const formattedValues = values
+              .map((value) => `*${value}*`)
+              .join(", ");
             return `${formattedValues}\n- ${key}`;
           })
           .join("\n\n");
