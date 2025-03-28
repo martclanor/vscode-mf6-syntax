@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
-import * as fs from "fs/promises";
 import * as path from "path";
+import * as hoverDataJson from "./hover.json";
 
-interface HoverData {
+interface HoverDataStructure {
   [keyword: string]: {
     [block: string]: {
       [description: string]: string[]; // dfn_name
@@ -11,17 +11,7 @@ interface HoverData {
 }
 
 export class MF6HoverProvider implements vscode.HoverProvider {
-  private hoverData: HoverData = {};
-
-  constructor() {
-    this.loadHoverData();
-  }
-
-  private async loadHoverData() {
-    const filePath = path.resolve(__dirname, "../../src/providers/hover.json");
-    const fileContent = await fs.readFile(filePath, "utf-8");
-    this.hoverData = JSON.parse(fileContent);
-  }
+  hoverData: HoverDataStructure = hoverDataJson as HoverDataStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
