@@ -30,6 +30,9 @@
     },
     {
       "include": "#valid"
+    },
+    {
+      "include": "#file"
     }
   ],
   "repository": {
@@ -110,6 +113,14 @@
         {
           "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)(amt-hmk|amt-lmk|central|drop|ems6|freundlich|harmonic|ims6|langmuir|linear|linearend|logarithmic|nonlinear|stay|stepwise|stop|tvd|upstream)(?=\\s|$)"
+        }
+      ]
+    },
+    "file": {
+      "patterns": [
+        {
+          "name": "string.mf6",
+          "match": "'[^']*'|\\b(?!\\d+\\b)[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)*\\b|\\.\\./[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+"
         }
       ]
     }
