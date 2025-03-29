@@ -14,7 +14,8 @@
 >  TDIS6  freyberg.tdis
 #^^ source.mf6
 #  ^^^^^ source.mf6 entity.name.function.mf6
-#       ^^^^^^^^^^^^^^^^ source.mf6
+#       ^^ source.mf6
+#         ^^^^^^^^^^^^^ source.mf6 string.mf6
 >END TIMING
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -30,7 +31,9 @@
 >	GWF6    freyberg.nam     freyberg
 #^ source.mf6
 # ^^^^ source.mf6 entity.name.function.mf6
-#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+#     ^^^^ source.mf6
+#         ^^^^^^^^^^^^ source.mf6 string.mf6
+#                     ^^^^^^^^^^^^^^ source.mf6
 >END MODELS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -57,7 +60,9 @@
 >  IMS6 freyberg.ims  freyberg
 #^^ source.mf6
 #  ^^^^ source.mf6 entity.name.function.mf6
-#      ^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
+#      ^ source.mf6
+#       ^^^^^^^^^^^^ source.mf6 string.mf6
+#                   ^^^^^^^^^^^ source.mf6
 >END SOLUTIONGROUP
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
