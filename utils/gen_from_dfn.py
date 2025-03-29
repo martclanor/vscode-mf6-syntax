@@ -23,6 +23,7 @@ Usage:
     'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
 """
 
+import ast
 import json
 from collections import defaultdict
 from dataclasses import dataclass
@@ -192,7 +193,9 @@ if __name__ == "__main__":
                     keyword = keyword_alias.get(section.keyword, section.keyword)
                     description = common[keyword]
                     # Create replacement dictionary from the description
-                    replacement = eval(section.description.strip(f"REPLACE {keyword} "))
+                    replacement = ast.literal_eval(
+                        section.description.strip(f"REPLACE {keyword} ")
+                    )
                     for key, value in replacement.items():
                         description = description.replace(key, value)
                 description = description.replace("``", "`").replace("''", "`")
