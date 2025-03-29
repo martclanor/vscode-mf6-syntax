@@ -181,28 +181,27 @@ if __name__ == "__main__":
         common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
 
     hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    # Some dfn keywords have to be replaced with a different keyword from common.dfn
-    # e.g. see  gwe-ctp.dfn, "auxiliary" keyword is replaced with "auxnames" from common
-    keyword_alias = {"auxiliary": "auxnames", "print_stage": "print_head"}
-
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         for section in dfn.sections:
-            if section.tagged and (description := section.description):
-                if "REPLACE" in description:  # Replace placeholders from common
-                    keyword = keyword_alias.get(section.keyword, section.keyword)
-                    # Create replacement dictionary from the description
-                    replacement = ast.literal_eval(
-                        section.description.strip(f"REPLACE {keyword} ")
-                    )
-                    # Replace text from common
-                    description = common[keyword].format_map(
-                        {k.strip("{}"): v for k, v in replacement.items()}
-                    )
+            if description := section.description:
+                if "REPLACE" in description:  # Replace description from common
+                    keyword = description.split()[1]
+                    if r"{}" in description:
+                        # No placeholders to replace
+                        description = common[keyword]
+                    else:
+                        # Create replacement dictionary from the orig description
+                        replacement = ast.literal_eval(
+                            section.description.strip(f"REPLACE {keyword} ")
+                        )
+                        # Take new description from common, then replace placeholders
+                        description = common[keyword]
+                        for key, value in replacement.items():
+                            description = description.replace(key, value)
                 description = description.replace("``", "`").replace("''", "`")
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
-    # Sort hover before exporting
     sorted_hover = {
         key: {
             subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
