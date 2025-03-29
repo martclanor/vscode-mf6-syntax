@@ -191,13 +191,14 @@ if __name__ == "__main__":
             if section.tagged and (description := section.description):
                 if "REPLACE" in description:  # Replace placeholders from common
                     keyword = keyword_alias.get(section.keyword, section.keyword)
-                    description = common[keyword]
                     # Create replacement dictionary from the description
                     replacement = ast.literal_eval(
                         section.description.strip(f"REPLACE {keyword} ")
                     )
-                    for key, value in replacement.items():
-                        description = description.replace(key, value)
+                    # Replace text from common
+                    description = common[keyword].format_map(
+                        {k.strip("{}"): v for k, v in replacement.items()}
+                    )
                 description = description.replace("``", "`").replace("''", "`")
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
