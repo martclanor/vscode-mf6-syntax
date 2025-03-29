@@ -46,7 +46,7 @@
       "properties": {
         "mf6Syntax.maxFileSizeMB": {
           "type": "number",
-          "default": 4,
+          "default": 50,
           "description": "The maximum file size (in MB) that can be opened through the extension."
         }
       }

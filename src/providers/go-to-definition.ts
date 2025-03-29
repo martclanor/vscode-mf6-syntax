@@ -20,13 +20,13 @@ export class MF6DefinitionProvider implements vscode.DefinitionProvider {
     }
 
     const config = vscode.workspace.getConfiguration("mf6Syntax");
-    const maxFileSizeMB = config.get<number>("maxFileSizeMB", 4); // Default to 4MB
+    const maxFileSizeMB = config.get<number>("maxFileSizeMB", 50); // Default to 50MB
     const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024;
 
     const fileStats = await fs.stat(fileUri.fsPath);
     if (fileStats.size > maxFileSizeBytes) {
       vscode.window.showWarningMessage(
-        `File ${word} is too large to open through the extension (over ${maxFileSizeMB}MB).`,
+        `File ${word} exceeds size limit (${maxFileSizeMB}MB).\nSee setting 'mf6Syntax.maxFileSizeMB' to adjust.`,
       );
       return null;
     }

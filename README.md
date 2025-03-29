@@ -33,4 +33,5 @@ This VS Code extension provides syntax highlighting support and rich language fe
 ## Usage
 
 - The extension activates based on the file's extension. If not detected, use `MF6 Syntax: Set language to MF6`. Alternatively, use the `Change Language Mode` command to set the language manually.
+- To avoid performance issues when opening huge files, a maximum file size that can be opened through the go-to-definition feature is set with the setting: `mf6Syntax.maxFileSizeMB` (default 50MB).
 - VS Code's minimap can display enlarged section headers (MF6 block names), which may appear cluttered. To simplify the view, disable this feature by setting `editor.minimap.showRegionSectionHeaders` to `false`.
