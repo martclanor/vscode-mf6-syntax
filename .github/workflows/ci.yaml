@@ -61,17 +61,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Clone MODFLOW repository
-        uses: actions/checkout@v4
-        with:
-          repository: "MODFLOW-ORG/modflow6"
-          path: "modflow6"
-          ref: "6.6.1"
-          sparse-checkout: "doc/mf6io/mf6ivar/dfn"
-      - name: Copy DFN files
-        run: |
-          mkdir -p data/dfn
-          cp  modflow6/doc/mf6io/mf6ivar/dfn/* data/dfn/
+      - name: Download DFN files from MF6 repository
+        run: utils/download_dfn.sh
       - name: Install uv
         uses: astral-sh/setup-uv@v5
       - name: Regenerate from templates
