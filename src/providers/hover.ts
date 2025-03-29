@@ -30,7 +30,7 @@ export class MF6HoverProvider implements vscode.HoverProvider {
       if (lineText.toLowerCase().startsWith("begin")) {
         const parts = lineText.split(/\s+/);
         if (parts.length > 1) {
-          block = parts[1];
+          block = parts[1].toLowerCase();
         }
         break;
       }
@@ -44,7 +44,10 @@ export class MF6HoverProvider implements vscode.HoverProvider {
       let hoverValue: string | undefined = undefined;
 
       const blockData = this.hoverData[keyword][block];
-      const fileExtension = path.extname(document.fileName).slice(1);
+      const fileExtension = path
+        .extname(document.fileName)
+        .slice(1)
+        .toLowerCase();
       let matchingKeys = Object.keys(blockData).filter((key) => {
         const value = blockData[key];
         return value.some((item) => {
