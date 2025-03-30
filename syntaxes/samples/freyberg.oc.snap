@@ -7,13 +7,15 @@
 #  ^^^^^^ source.mf6 entity.name.function.mf6
 #        ^ source.mf6
 #         ^^^^^^^ source.mf6 entity.other.attribute-name.mf6
-#                ^^^^^^^^^^^^^^ source.mf6
+#                ^ source.mf6
+#                 ^^^^^^^^^^^^ source.mf6 string.mf6
 >  HEAD FILEOUT freyberg.hds
 #^^ source.mf6
 #  ^^^^ source.mf6 entity.name.function.mf6
 #      ^ source.mf6
 #       ^^^^^^^ source.mf6 entity.other.attribute-name.mf6
-#              ^^^^^^^^^^^^^^ source.mf6
+#              ^ source.mf6
+#               ^^^^^^^^^^^^ source.mf6 string.mf6
 >END OPTIONS
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6

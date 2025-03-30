@@ -1,9 +1,2 @@
 # Set default behavior to automatically normalize line endings.
 * text=auto
-
-# Specify the primary languages of the repository
-# Ensure JSON and YAML are included in language statistics
-*.json linguist-language=JSON
-*.yaml linguist-language=YAML
-*.json linguist-detectable=true
-*.yaml linguist-detectable=true

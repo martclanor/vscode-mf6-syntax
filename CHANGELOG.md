@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0-beta
+
+- Remove explicit json-yml language detection
+- Add support for relative path filenames in go-to-def
+- Add configurable file size limit to go-to-def
+- Add positive test case for go-to-def
+- Increase default file size limit in go-to-def
+- Include specific syntax-highlighting for files
+- Add script to download dfn files
+- Add hover feature to show keyword description
+- Fix no-hover cases and rework hover data generation
+- Exclude typescript hover.json from packaging
+- Update readme: summarize key features into one gif
+
 ## 0.1.0-beta
 
 - Fix gh release workflow

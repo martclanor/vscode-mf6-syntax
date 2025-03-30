@@ -9,7 +9,8 @@
 This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
 file, and provides methods to parse and access this data in order to generate
-configuration files for the syntax highlighting feature.
+configuration files for the syntax highlighting feature. Moreover, it extracts hover
+data from the dfn files and exports it to a JSON file.
 
 Classes:
     Line: Represents a single line in a dfn file.
@@ -18,10 +19,13 @@ Classes:
 
 Usage:
     The script can be run to parse dfn files in the 'data/dfn' (downloaded from mf6
-    github repo) directory and preprocess the data to generate 'package.json' and
-    'syntaxes/mf6.tmLanguage.json' files.
+    github repo) directory and preprocess the data to generate 'package.json',
+    'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
 """
 
+import ast
+import json
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -54,6 +58,7 @@ class Section:
     data_type: Optional[str] = None
     valid: Optional[tuple[str, ...]] = None
     tagged: bool = True
+    description: Optional[str] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
@@ -61,7 +66,8 @@ class Section:
             Line.from_file(line)
             for line in data.split("\n")
             if any(
-                line.startswith(s) for s in {"block", "name", "type", "valid", "tagged"}
+                line.startswith(s)
+                for s in {"block", "name", "type", "valid", "tagged", "description"}
             )
         )
         line_dict: dict[str, str] = {line.key: line.value for line in lines}
@@ -71,6 +77,7 @@ class Section:
             data_type=line_dict.get("type", None),
             valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
             tagged=line_dict.get("tagged", True),
+            description=line_dict.get("description", None),
         )
 
 
@@ -160,3 +167,49 @@ if __name__ == "__main__":
         keywords=keywords,
         valids=valids,
     )
+
+    # Export hover data from dfn files
+    # common.dfn is a special file that contains common descriptions for keywords
+    # which are used to replace placeholders in other dfn files
+    common = {}
+    for section in Dfn(Path("data/dfn/common.dfn")).data:
+        if not section.startswith("name"):
+            continue
+        name, description = section.strip().split("\n")
+        if not (name.startswith("name") and description.startswith("description")):
+            continue
+        common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
+
+    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    for dfn_file in Path("data/dfn").glob("*.dfn"):
+        dfn = Dfn(dfn_file)
+        for section in dfn.sections:
+            if description := section.description:
+                if "REPLACE" in description:  # Replace description from common
+                    keyword = description.split()[1]
+                    if r"{}" in description:
+                        # No placeholders to replace
+                        description = common[keyword]
+                    else:
+                        # Create replacement dictionary from the orig description
+                        replacement = ast.literal_eval(
+                            section.description.strip(f"REPLACE {keyword} ")
+                        )
+                        # Take new description from common, then replace placeholders
+                        description = common[keyword]
+                        for key, value in replacement.items():
+                            description = description.replace(key, value)
+                description = description.replace("``", "`").replace("''", "`")
+                hover[section.keyword][section.block][description].append(dfn.path.stem)
+
+    sorted_hover = {
+        key: {
+            subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
+            for subkey, subval in sorted(val.items())
+        }
+        for key, val in sorted(hover.items())
+    }
+    with open("src/providers/hover.json", "w") as f:
+        json.dump(sorted_hover, f, indent=2)
+        f.write("\n")
+    print("src/providers/hover.json has been generated")

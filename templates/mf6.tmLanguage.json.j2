@@ -30,6 +30,9 @@
     },
     {
       "include": "#valid"
+    },
+    {
+      "include": "#file"
     }
   ],
   "repository": {
@@ -110,6 +113,14 @@
         {
           "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)({% for valid in valids %}{{ valid }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
+        }
+      ]
+    },
+    "file": {
+      "patterns": [
+        {
+          "name": "string.mf6",
+          "match": "'[^']*'|\\b(?!\\d+\\b)[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)*\\b|\\.\\./[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+"
         }
       ]
     }
