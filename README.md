@@ -7,21 +7,21 @@
 ![Icon](images/icon_banner.png)
 
 > [!NOTE]
-> This project is currently in beta. Features and functionality may change, and there may be bugs. Feedback and contributions to help improve the project are much appreciated.
+> This project is currently in beta. Features and functionality may change, and there may be bugs. Feedback and contributions to help improve the project are welcome.
 
 This VS Code extension provides syntax highlighting support and rich language features for [MODFLOW 6](https://modflow6.readthedocs.io/en/stable/index.html). It enhances the readability and editing experience for MF6 files by leveraging specifications directly from MF6 [DFN](https://modflow6.readthedocs.io/en/stable/_dev/dfn.html) files.
 
 ## Features
 
-- Syntax highlighting based on MF6 DFN files
-  ![Syntax Highlighting](images/sample.png)
-- Go-to-definition for linked files with different methods:
+![Demo](images/demo.gif)
+
+- Syntax highlighting
+- Go-to-definition for linked files:
 
   - `Ctrl + click`
   - `Go To Definition` keybinding (default: `F12`)
-  - `Right-click` -> `Go To Definition`
 
-  ![Demo](images/demo.gif)
+- Hover for keyword description
 
 - Others:
   - Block folding
