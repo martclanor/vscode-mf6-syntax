@@ -161,12 +161,13 @@ def render_template(template_name: str, output_path: str, **context):
 
 
 if __name__ == "__main__":
+    DFN_PATH = Path("data/dfn")
     # Collect blocks, keywords, valids, and extensions from dfn files
     blocks = set()
     keywords = set()
     valids = set()
     extensions = set()
-    for dfn_file in Path("data/dfn").glob("*.dfn"):
+    for dfn_file in DFN_PATH.glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
@@ -186,8 +187,8 @@ if __name__ == "__main__":
 
     # Export hover data from dfn files
     hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    common = Dfn.parse_common(Path("data/dfn/common.dfn"))
-    for dfn_file in Path("data/dfn").glob("*.dfn"):
+    common = Dfn.parse_common(DFN_PATH / "common.dfn")
+    for dfn_file in DFN_PATH.glob("*.dfn"):
         dfn = Dfn(dfn_file)
         for section in dfn.sections:
             if description := section.description:
