@@ -132,6 +132,20 @@ class Dfn:
         parts = self.path.stem.split("-")
         return f".{parts[-1]}" if len(parts) > 1 else None
 
+    @staticmethod
+    def parse_common(dfn_file: Path) -> dict[str, str]:
+        # common.dfn is a special file that contains common descriptions for keywords
+        # which are used to replace placeholders in other dfn files
+        common = {}
+        for section in Dfn(dfn_file).data:
+            if not section.startswith("name"):
+                continue
+            name, description = section.strip().split("\n")
+            if not (name.startswith("name") and description.startswith("description")):
+                continue
+            common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
+        return common
+
 
 def render_template(template_name: str, output_path: str, **context):
     """Render a Jinja2 template and write the output to a file."""
@@ -171,18 +185,8 @@ if __name__ == "__main__":
     )
 
     # Export hover data from dfn files
-    # common.dfn is a special file that contains common descriptions for keywords
-    # which are used to replace placeholders in other dfn files
-    common = {}
-    for section in Dfn(Path("data/dfn/common.dfn")).data:
-        if not section.startswith("name"):
-            continue
-        name, description = section.strip().split("\n")
-        if not (name.startswith("name") and description.startswith("description")):
-            continue
-        common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
-
     hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    common = Dfn.parse_common(Path("data/dfn/common.dfn"))
     for dfn_file in Path("data/dfn").glob("*.dfn"):
         dfn = Dfn(dfn_file)
         for section in dfn.sections:
