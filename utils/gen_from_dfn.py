@@ -55,7 +55,7 @@ class Section:
 
     keyword: str
     block: str
-    data_type: Optional[str] = None
+    data_type: Optional[tuple[str, ...]] = None
     valid: Optional[tuple[str, ...]] = None
     tagged: bool = True
     description: Optional[str] = None
@@ -74,7 +74,9 @@ class Section:
         return cls(
             block=line_dict.get("block", ""),
             keyword=line_dict.get("name", ""),
-            data_type=line_dict.get("type", None),
+            data_type=None
+            if (x := line_dict.get("type")) is None
+            else tuple(x.split()),
             valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
             tagged=line_dict.get("tagged", True),
             description=line_dict.get("description", None),
