@@ -133,11 +133,11 @@ class Dfn:
         return f".{parts[-1]}" if len(parts) > 1 else None
 
     @staticmethod
-    def parse_common(dfn_file: Path) -> dict[str, str]:
+    def parse_common(dfn_path: Path) -> dict[str, str]:
         # common.dfn is a special file that contains common descriptions for keywords
         # which are used to replace placeholders in other dfn files
         common = {}
-        for section in Dfn(dfn_file).data:
+        for section in Dfn(dfn_path / "common.dfn").data:
             if not section.startswith("name"):
                 continue
             name, description = section.strip().split("\n")
@@ -145,6 +145,47 @@ class Dfn:
                 continue
             common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
         return common
+
+    @staticmethod
+    def export_hover_keyword(
+        dfn_path: Path,
+    ) -> dict[str, dict[str, dict[str, list[str]]]]:
+        hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        common = Dfn.parse_common(dfn_path)
+
+        for dfn_file in dfn_path.glob("*.dfn"):
+            dfn = Dfn(dfn_file)
+            for section in dfn.sections:
+                if description := section.description:
+                    if "REPLACE" in description:
+                        keyword = description.split()[1]
+                        if r"{}" in description:
+                            # No placeholders to replace
+                            description = common[keyword]
+                        else:
+                            # Create replacement dictionary from the orig description
+                            replacement = ast.literal_eval(
+                                section.description.strip(f"REPLACE {keyword} ")
+                            )
+                            # Take new description from common, then replace placeholders
+                            description = common[keyword]
+                            for key, value in replacement.items():
+                                description = description.replace(key, value)
+                    description = description.replace("``", "`").replace("''", "`")
+                    hover[section.keyword][section.block][description].append(
+                        dfn.path.stem
+                    )
+        sorted_hover = {
+            key: {
+                subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
+                for subkey, subval in sorted(val.items())
+            }
+            for key, val in sorted(hover.items())
+        }
+        with open("src/providers/hover.json", "w") as f:
+            json.dump(sorted_hover, f, indent=2)
+            f.write("\n")
+        print("src/providers/hover.json has been generated")
 
 
 def render_template(template_name: str, output_path: str, **context):
@@ -185,38 +226,5 @@ if __name__ == "__main__":
         valids=valids,
     )
 
-    # Export hover data from dfn files
-    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    common = Dfn.parse_common(DFN_PATH / "common.dfn")
-    for dfn_file in DFN_PATH.glob("*.dfn"):
-        dfn = Dfn(dfn_file)
-        for section in dfn.sections:
-            if description := section.description:
-                if "REPLACE" in description:  # Replace description from common
-                    keyword = description.split()[1]
-                    if r"{}" in description:
-                        # No placeholders to replace
-                        description = common[keyword]
-                    else:
-                        # Create replacement dictionary from the orig description
-                        replacement = ast.literal_eval(
-                            section.description.strip(f"REPLACE {keyword} ")
-                        )
-                        # Take new description from common, then replace placeholders
-                        description = common[keyword]
-                        for key, value in replacement.items():
-                            description = description.replace(key, value)
-                description = description.replace("``", "`").replace("''", "`")
-                hover[section.keyword][section.block][description].append(dfn.path.stem)
-
-    sorted_hover = {
-        key: {
-            subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
-            for subkey, subval in sorted(val.items())
-        }
-        for key, val in sorted(hover.items())
-    }
-    with open("src/providers/hover.json", "w") as f:
-        json.dump(sorted_hover, f, indent=2)
-        f.write("\n")
-    print("src/providers/hover.json has been generated")
+    # Export keyword hover data from dfn files
+    Dfn.export_hover_keyword(DFN_PATH)
