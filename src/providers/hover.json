@@ -1486,14 +1486,6 @@
       ]
     }
   },
-  "cvoptions": {
-    "options": {
-      "none": [
-        "exg-gwfgwf",
-        "gwf-npf"
-      ]
-    }
-  },
   "decay": {
     "griddata": {
       "is the rate coefficient for first or zero-order decay for the aqueous phase of the immobile domain.  A negative value indicates solute production.  The dimensions of decay for first-order decay is one over time.  The dimensions of decay for zero-order decay is mass per length cubed per time.  Decay will have no effect on simulation results unless either first- or zero-order decay is specified in the options block.": [
@@ -1869,13 +1861,6 @@
       ],
       "use of the EVAPORATION keyword is allowed in the SFE package; however, the specified value is not currently used in SFE calculations.  Instead, the latent heat of evaporation is multiplied by the simulated evaporation rate for determining the thermal energy lost from a stream reach.": [
         "gwe-sfe"
-      ]
-    }
-  },
-  "exchanges": {
-    "exchanges": {
-      "is the list of exchange types, exchange files, and model names.": [
-        "sim-nam"
       ]
     }
   },
@@ -3775,13 +3760,6 @@
       ]
     }
   },
-  "models": {
-    "models": {
-      "is the list of model types, model name files, and model names.": [
-        "sim-nam"
-      ]
-    }
-  },
   "modflow6_attr_off": {
     "options": {
       "is the keyword used to turn off internal input tagging in the model netcdf file. Tagging adds internal modflow 6 attribute(s) to variables which facilitate identification. Currently this applies to gridded arrays.": [
@@ -4087,16 +4065,6 @@
       ],
       "keyword that activates the Newton-Raphson formulation for surface water flow between connected reaches and stress packages that support calculation of Newton-Raphson terms. ": [
         "chf-nam",
-        "olf-nam",
-        "swf-nam"
-      ]
-    }
-  },
-  "newtonoptions": {
-    "options": {
-      "none": [
-        "chf-nam",
-        "gwf-nam",
         "olf-nam",
         "swf-nam"
       ]
@@ -4726,13 +4694,6 @@
         "gwf-lak",
         "gwf-sfr",
         "gwf-uzf"
-      ]
-    }
-  },
-  "partitions": {
-    "partitions": {
-      "is the list of zero-based partition numbers.": [
-        "utl-hpc"
       ]
     }
   },
@@ -5965,13 +5926,6 @@
       ]
     }
   },
-  "solutiongroup": {
-    "solutiongroup": {
-      "is the list of solution types and models in the solution.": [
-        "sim-nam"
-      ]
-    }
-  },
   "sorbate": {
     "options": {
       "keyword to specify that record corresponds to immobile sorbate concentration.": [
@@ -6616,13 +6570,6 @@
       ]
     }
   },
-  "timeseries": {
-    "timeseries": {
-      "xxx": [
-        "utl-ts"
-      ]
-    }
-  },
   "top": {
     "griddata": {
       "is the top elevation for each cell in the model grid.": [
@@ -7250,13 +7197,6 @@
       "add xt3d terms to right-hand side, when possible.  This option uses less memory, but may require more iterations.": [
         "gwe-cnd",
         "gwt-dsp"
-      ]
-    }
-  },
-  "xt3doptions": {
-    "options": {
-      "none": [
-        "gwf-npf"
       ]
     }
   },
