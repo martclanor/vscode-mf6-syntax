@@ -189,11 +189,11 @@ class Dfn:
                 )
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
         hover_sorted = {
-            key: {
-                subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
-                for subkey, subval in sorted(val.items())
+            keyword: {
+                block: {desc: sorted(dfn) for desc, dfn in sorted(subval.items())}
+                for block, subval in sorted(val.items())
             }
-            for key, val in sorted(hover.items())
+            for keyword, val in sorted(hover.items())
         }
         output_path = "src/providers/hover.json"
         with open(output_path, "w") as f:
@@ -208,9 +208,7 @@ def render_template(output: str, **context):
     template = Environment(
         loader=FileSystemLoader("templates"), keep_trailing_newline=True
     ).get_template(f"{output_path.name}.j2")
-    context_sorted = {
-        k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
-    }
+    context_sorted = {k: sorted(v) for k, v in context.items()}
     output_path.write_text(template.render(**context_sorted))
     log.info(f"Generated from DFN: {output_path}")
 
