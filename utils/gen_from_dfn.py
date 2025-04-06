@@ -152,10 +152,12 @@ class Dfn:
         for section in Dfn(Dfn.dfn_path / "common.dfn").data:
             if not section.startswith("name"):
                 continue
-            name, description = section.strip().split("\n")
-            if not (name.startswith("name") and description.startswith("description")):
+            name, description = [
+                Line.from_file(data) for data in section.strip().split("\n")
+            ]
+            if not (name.key == "name" and description.key == "description"):
                 continue
-            common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
+            common[name.value] = description.value
         return common
 
     @staticmethod
