@@ -134,6 +134,10 @@ class Dfn:
         return f".{parts[-1]}" if len(parts) > 1 else None
 
     @staticmethod
+    def get_dfn_files() -> tuple[str, ...]:
+        return Dfn.dfn_path.glob("*.dfn")
+
+    @staticmethod
     def parse_common(dfn_path: Path) -> dict[str, str]:
         # common.dfn is a special file that contains common descriptions for keywords
         # which are used to replace placeholders in other dfn files
@@ -152,7 +156,7 @@ class Dfn:
         hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         common = Dfn.parse_common(Dfn.dfn_path)
 
-        for dfn_file in Dfn.dfn_path.glob("*.dfn"):
+        for dfn_file in Dfn.get_dfn_files():
             dfn = Dfn(dfn_file)
             for section in dfn.sections:
                 if description := section.description:
@@ -211,7 +215,7 @@ if __name__ == "__main__":
     keywords = set()
     valids = set()
     extensions = set()
-    for dfn_file in Dfn.dfn_path.glob("*.dfn"):
+    for dfn_file in Dfn.get_dfn_files():
         dfn = Dfn(dfn_file)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
