@@ -205,8 +205,9 @@ class Dfn:
         log.info(f"Generated from DFN: {output_path}")
 
 
-def render_template(output_path: Path, **context):
+def render_template(output: str, **context):
     """Render a Jinja2 template and write the output to a file."""
+    output_path = Path(output)
     template = Environment(
         loader=FileSystemLoader("templates"), keep_trailing_newline=True
     ).get_template(f"{output_path.name}.j2")
@@ -227,9 +228,9 @@ if __name__ == "__main__":
         valids.update(*dfn.valids)
 
     # Insert the collected data into the Jinja2 templates
-    render_template(Path("package.json"), extensions=extensions)
+    render_template("package.json", extensions=extensions)
     render_template(
-        Path("syntaxes/mf6.tmLanguage.json"),
+        "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
         valids=valids,
