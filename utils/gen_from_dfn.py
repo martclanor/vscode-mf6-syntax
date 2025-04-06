@@ -51,6 +51,10 @@ class Line:
             return cls("tagged", "true" in data)
         return cls(*data.split(maxsplit=1))
 
+    @classmethod
+    def from_replace(cls, data: str) -> "Line":
+        return cls(data.split()[1], value=None)
+
 
 @dataclass
 class Section:
@@ -170,7 +174,7 @@ class Dfn:
                 if (description := section.description) is None:
                     continue
                 if "REPLACE" in description:
-                    keyword = description.split()[1]
+                    keyword = Line.from_replace(description).key
                     if r"{}" in description:
                         # No placeholders to replace
                         description = common[keyword]
