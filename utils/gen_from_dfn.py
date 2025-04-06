@@ -195,16 +195,15 @@ class Dfn:
         print(f"{output_path} has been generated")
 
 
-def render_template(template_name: str, output_path: str, **context):
+def render_template(output_path: Path, **context):
     """Render a Jinja2 template and write the output to a file."""
     template = Environment(
         loader=FileSystemLoader("templates"), keep_trailing_newline=True
-    ).get_template(template_name)
+    ).get_template(f"{output_path.name}.j2")
     sorted_context = {
         k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
     }
-    output = template.render(**sorted_context)
-    Path(output_path).write_text(output)
+    output_path.write_text(template.render(**sorted_context))
     print(f"{output_path} has been generated")
 
 
@@ -219,10 +218,9 @@ if __name__ == "__main__":
             extensions.add(ext)
 
     # Insert the collected data into the Jinja2 templates
-    render_template("package.json.j2", "package.json", extensions=extensions)
+    render_template(Path("package.json"), extensions=extensions)
     render_template(
-        "mf6.tmLanguage.json.j2",
-        "syntaxes/mf6.tmLanguage.json",
+        Path("syntaxes/mf6.tmLanguage.json"),
         blocks=blocks,
         keywords=keywords,
         valids=valids,
