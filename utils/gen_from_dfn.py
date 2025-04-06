@@ -130,8 +130,7 @@ class Dfn:
 
     @property
     def extension(self) -> Optional[str]:
-        parts = self.path.stem.split("-")
-        return f".{parts[-1]}" if len(parts) > 1 else None
+        return f".{self.path.stem.partition('-')[-1]}"
 
     @staticmethod
     def get_dfns() -> tuple[str, ...]:
@@ -218,8 +217,7 @@ if __name__ == "__main__":
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
         valids.update(*dfn.valids)
-        if ext := dfn.extension:
-            extensions.add(ext)
+        extensions.add(dfn.extension)
 
     # Insert the collected data into the Jinja2 templates
     render_template(Path("package.json"), extensions=extensions)
