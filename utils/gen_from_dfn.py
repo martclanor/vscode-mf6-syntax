@@ -212,12 +212,12 @@ def render_template(output_path: Path, **context):
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from dfn files
-    blocks, keywords, valids, extensions = set(), set(), set(), set()
+    extensions, blocks, keywords, valids = set(), set(), set(), set()
     for dfn in Dfn.get_dfns():
+        extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
         valids.update(*dfn.valids)
-        extensions.add(dfn.extension)
 
     # Insert the collected data into the Jinja2 templates
     render_template(Path("package.json"), extensions=extensions)
