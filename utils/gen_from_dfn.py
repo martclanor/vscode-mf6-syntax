@@ -210,10 +210,7 @@ def render_template(template_name: str, output_path: str, **context):
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from dfn files
-    blocks = set()
-    keywords = set()
-    valids = set()
-    extensions = set()
+    blocks, keywords, valids, extensions = set(), set(), set(), set()
     for dfn in Dfn.get_dfns():
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
