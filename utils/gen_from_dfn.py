@@ -9,8 +9,7 @@
 This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
 and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
 file, and provides methods to parse and access this data in order to generate
-configuration files for the syntax highlighting feature. Moreover, it extracts hover
-data from the dfn files and exports it to a JSON file.
+configuration files for the syntax highlighting and hover feature.
 
 Classes:
     Line: Represents a single line in a dfn file.
@@ -18,8 +17,8 @@ Classes:
     Dfn: Represents an entire dfn file.
 
 Usage:
-    The script can be run to parse dfn files in the 'data/dfn' (downloaded from mf6
-    github repo) directory and preprocess the data to generate 'package.json',
+    The script can be run to parse dfn files in 'data/dfn' (downloaded from mf6 repo via
+    'utils/download_dfn.sh') and preprocess the data to generate 'package.json',
     'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
 """
 
@@ -39,8 +38,7 @@ log = logging.getLogger(__name__)
 
 @dataclass
 class Line:
-    """Abstraction of each line as read from the dfn file. Line objects form a Section
-    object."""
+    """Abstraction of each line from the dfn file."""
 
     key: str
     value: Optional[str | bool] = None
@@ -58,8 +56,7 @@ class Line:
 
 @dataclass
 class Section:
-    """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
-    A Section object is made up of Line objects."""
+    """Abstraction of each group of lines (separated by \n\n) from the dfn file."""
 
     keyword: str
     block: str
@@ -179,7 +176,7 @@ class Dfn:
                         # No placeholders to replace
                         description = common[keyword]
                     else:
-                        # Create replacement dictionary from the orig description
+                        # Create replacement dictionary from the original description
                         replacement = ast.literal_eval(
                             section.description.strip(f"REPLACE {keyword} ")
                         )
@@ -227,7 +224,7 @@ if __name__ == "__main__":
         keywords.update(dfn.keywords)
         valids.update(*dfn.valids)
 
-    # Insert the collected data into the Jinja2 templates
+    # Insert collected data into the corresponding Jinja2 templates
     render_template("package.json", extensions=extensions)
     render_template(
         "syntaxes/mf6.tmLanguage.json",
@@ -236,5 +233,5 @@ if __name__ == "__main__":
         valids=valids,
     )
 
-    # Export keyword hover data from dfn files
+    # Export hover keyword data from dfn files
     Dfn.export_hover_keyword()
