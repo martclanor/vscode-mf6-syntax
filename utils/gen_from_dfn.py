@@ -141,7 +141,7 @@ class Dfn:
         return (
             Dfn(filename)
             for filename in Dfn.dfn_path.glob("*.dfn")
-            if "common" not in filename.name
+            if filename.name != "common.dfn"
         )
 
     @staticmethod
