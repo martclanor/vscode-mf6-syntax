@@ -135,7 +135,11 @@ class Dfn:
 
     @staticmethod
     def get_dfns() -> tuple[str, ...]:
-        return (Dfn(filename) for filename in Dfn.dfn_path.glob("*.dfn"))
+        return (
+            Dfn(filename)
+            for filename in Dfn.dfn_path.glob("*.dfn")
+            if "common" not in filename.name
+        )
 
     @staticmethod
     def parse_common() -> dict[str, str]:
