@@ -165,29 +165,26 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.sections:
-                if description := section.description:
-                    if "REPLACE" in description:
-                        keyword = description.split()[1]
-                        if r"{}" in description:
-                            # No placeholders to replace
-                            description = common[keyword]
-                        else:
-                            # Create replacement dictionary from the orig description
-                            replacement = ast.literal_eval(
-                                section.description.strip(f"REPLACE {keyword} ")
-                            )
-                            # Take new description from common, then replace placeholders
-                            description = common[keyword]
-                            for key, value in replacement.items():
-                                description = description.replace(key, value)
-                    description = (
-                        description.replace("``", "`")
-                        .replace("''", "`")
-                        .replace("\\", "")
-                    )
-                    hover[section.keyword][section.block][description].append(
-                        dfn.path.stem
-                    )
+                if (description := section.description) is None:
+                    continue
+                if "REPLACE" in description:
+                    keyword = description.split()[1]
+                    if r"{}" in description:
+                        # No placeholders to replace
+                        description = common[keyword]
+                    else:
+                        # Create replacement dictionary from the orig description
+                        replacement = ast.literal_eval(
+                            section.description.strip(f"REPLACE {keyword} ")
+                        )
+                        # Take new description from common, then replace placeholders
+                        description = common[keyword]
+                        for key, value in replacement.items():
+                            description = description.replace(key, value)
+                description = (
+                    description.replace("``", "`").replace("''", "`").replace("\\", "")
+                )
+                hover[section.keyword][section.block][description].append(dfn.path.stem)
         sorted_hover = {
             key: {
                 subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
