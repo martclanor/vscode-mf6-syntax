@@ -25,12 +25,16 @@ Usage:
 
 import ast
 import json
+import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import ClassVar, Optional
 
 from jinja2 import Environment, FileSystemLoader
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+log = logging.getLogger(__name__)
 
 
 @dataclass
@@ -195,7 +199,7 @@ class Dfn:
         with open(output_path, "w") as f:
             json.dump(sorted_hover, f, indent=2)
             f.write("\n")
-        print(f"Generated from DFN: {output_path}")
+        log.info(f"Generated from DFN: {output_path}")
 
 
 def render_template(output_path: Path, **context):
@@ -207,7 +211,7 @@ def render_template(output_path: Path, **context):
         k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
     }
     output_path.write_text(template.render(**sorted_context))
-    print(f"Generated from DFN: {output_path}")
+    log.info(f"Generated from DFN: {output_path}")
 
 
 if __name__ == "__main__":
