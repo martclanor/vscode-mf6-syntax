@@ -195,7 +195,7 @@ class Dfn:
         with open(output_path, "w") as f:
             json.dump(sorted_hover, f, indent=2)
             f.write("\n")
-        print(f"{output_path} has been generated")
+        print(f"Generated from DFN: {output_path}")
 
 
 def render_template(output_path: Path, **context):
@@ -207,7 +207,7 @@ def render_template(output_path: Path, **context):
         k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
     }
     output_path.write_text(template.render(**sorted_context))
-    print(f"{output_path} has been generated")
+    print(f"Generated from DFN: {output_path}")
 
 
 if __name__ == "__main__":
