@@ -171,7 +171,11 @@ class Dfn:
                             description = common[keyword]
                             for key, value in replacement.items():
                                 description = description.replace(key, value)
-                    description = description.replace("``", "`").replace("''", "`")
+                    description = (
+                        description.replace("``", "`")
+                        .replace("''", "`")
+                        .replace("\\", "")
+                    )
                     hover[section.keyword][section.block][description].append(
                         dfn.path.stem
                     )
