@@ -28,7 +28,7 @@ import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import ClassVar, Optional
+from typing import ClassVar, Generator, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -138,7 +138,7 @@ class Dfn:
         return f".{self.path.stem.partition('-')[-1]}"
 
     @staticmethod
-    def get_dfns() -> tuple[str, ...]:
+    def get_dfns() -> Generator["Dfn", None, None]:
         return (
             Dfn(filename)
             for filename in Dfn.dfn_path.glob("*.dfn")
