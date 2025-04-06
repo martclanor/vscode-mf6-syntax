@@ -28,7 +28,7 @@ import json
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import ClassVar, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -89,6 +89,7 @@ class Dfn:
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
+    dfn_path: ClassVar[Path] = Path("data/dfn")
 
     def __post_init__(self):
         with self.path.open() as f:
@@ -147,13 +148,11 @@ class Dfn:
         return common
 
     @staticmethod
-    def export_hover_keyword(
-        dfn_path: Path,
-    ) -> dict[str, dict[str, dict[str, list[str]]]]:
+    def export_hover_keyword() -> dict[str, dict[str, dict[str, list[str]]]]:
         hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-        common = Dfn.parse_common(dfn_path)
+        common = Dfn.parse_common(Dfn.dfn_path)
 
-        for dfn_file in dfn_path.glob("*.dfn"):
+        for dfn_file in Dfn.dfn_path.glob("*.dfn"):
             dfn = Dfn(dfn_file)
             for section in dfn.sections:
                 if description := section.description:
@@ -207,13 +206,12 @@ def render_template(template_name: str, output_path: str, **context):
 
 
 if __name__ == "__main__":
-    DFN_PATH = Path("data/dfn")
     # Collect blocks, keywords, valids, and extensions from dfn files
     blocks = set()
     keywords = set()
     valids = set()
     extensions = set()
-    for dfn_file in DFN_PATH.glob("*.dfn"):
+    for dfn_file in Dfn.dfn_path.glob("*.dfn"):
         dfn = Dfn(dfn_file)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
@@ -232,4 +230,4 @@ if __name__ == "__main__":
     )
 
     # Export keyword hover data from dfn files
-    Dfn.export_hover_keyword(DFN_PATH)
+    Dfn.export_hover_keyword()
