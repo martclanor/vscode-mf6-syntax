@@ -182,10 +182,11 @@ class Dfn:
             }
             for key, val in sorted(hover.items())
         }
-        with open("src/providers/hover.json", "w") as f:
+        output_path = "src/providers/hover.json"
+        with open(output_path, "w") as f:
             json.dump(sorted_hover, f, indent=2)
             f.write("\n")
-        print("src/providers/hover.json has been generated")
+        print(f"{output_path} has been generated")
 
 
 def render_template(template_name: str, output_path: str, **context):
