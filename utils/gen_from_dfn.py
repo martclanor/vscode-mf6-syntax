@@ -94,8 +94,8 @@ class Section:
                 if (value := line.value) is not None:
                     valid = tuple(value.split())
             elif line.key == "tagged":
-                if line.value is not None and "true" in line.value:
-                    tagged = True
+                if line.value is not None and "false" in line.value:
+                    tagged = False
             elif line.key == "description":
                 description = line.value
 
