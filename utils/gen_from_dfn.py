@@ -83,21 +83,22 @@ class Section:
                 continue
 
             line = Line.from_file(_line)
-            if line.key == "block":
-                block = line.value
-            elif line.key == "name":
-                keyword = line.value
-            elif line.key == "type":
-                if (value := line.value) is not None:
-                    data_type = tuple(value.split())
-            elif line.key == "valid":
-                if (value := line.value) is not None:
-                    valid = tuple(value.split())
-            elif line.key == "tagged":
-                if line.value is not None and "false" in line.value:
-                    tagged = False
-            elif line.key == "description":
-                description = line.value
+            match line.key:
+                case "block":
+                    block = line.value
+                case "name":
+                    keyword = line.value
+                case "type":
+                    if (value := line.value) is not None:
+                        data_type = tuple(value.split())
+                case "valid":
+                    if (value := line.value) is not None:
+                        valid = tuple(value.split())
+                case "tagged":
+                    if line.value is not None and "false" in line.value:
+                        tagged = False
+                case "description":
+                    description = line.value
 
         return cls(
             block=block,
