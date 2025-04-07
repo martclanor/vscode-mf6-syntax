@@ -180,10 +180,12 @@ class Dfn:
                     description = common[keyword]
                     for key, value in replacement.items():
                         description = description.replace(key, value)
+
                 description = (
                     description.replace("``", "`").replace("''", "`").replace("\\", "")
                 )
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
+
         hover_sorted = {
             keyword: {
                 block: {desc: sorted(dfn) for desc, dfn in sorted(subval.items())}
@@ -191,6 +193,7 @@ class Dfn:
             }
             for keyword, val in sorted(hover.items())
         }
+
         output_path = "src/providers/hover.json"
         with open(output_path, "w") as f:
             json.dump(hover_sorted, f, indent=2)
