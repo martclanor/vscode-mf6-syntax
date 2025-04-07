@@ -146,7 +146,7 @@ class Dfn:
         )
 
     @staticmethod
-    def parse_common() -> dict[str, str]:
+    def _parse_common() -> dict[str, str]:
         # common.dfn is a special file that contains common descriptions for keywords
         # which are used to replace placeholders in other dfn files
         common = {}
@@ -164,7 +164,7 @@ class Dfn:
     @staticmethod
     def export_hover_keyword() -> dict[str, dict[str, dict[str, list[str]]]]:
         hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-        common = Dfn.parse_common()
+        common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
             for section in dfn.sections:
