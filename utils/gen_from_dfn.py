@@ -65,24 +65,47 @@ class Section:
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
-        lines = (
-            Line.from_file(line)
-            for line in data.split("\n")
-            if any(
-                line.startswith(s)
-                for s in {"block", "name", "type", "valid", "tagged", "description"}
-            )
-        )
-        line_dict: dict[str, str] = {line.key: line.value for line in lines}
+        # Set default values
+        data_type = None
+        valid = None
+        tagged = True
+        description = None
+
+        for _line in data.strip().split("\n"):
+            if _line.split(maxsplit=1)[0] not in {
+                "block",
+                "name",
+                "type",
+                "valid",
+                "tagged",
+                "description",
+            }:
+                continue
+
+            line = Line.from_file(_line)
+            if line.key == "block":
+                block = line.value
+            elif line.key == "name":
+                keyword = line.value
+            elif line.key == "type":
+                if (value := line.value) is not None:
+                    data_type = tuple(value.split())
+            elif line.key == "valid":
+                if (value := line.value) is not None:
+                    valid = tuple(value.split())
+            elif line.key == "tagged":
+                if line.value is not None and "true" in line.value:
+                    tagged = True
+            elif line.key == "description":
+                description = line.value
+
         return cls(
-            block=line_dict.get("block", ""),
-            keyword=line_dict.get("name", ""),
-            data_type=None
-            if (x := line_dict.get("type")) is None
-            else tuple(x.split()),
-            valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
-            tagged=line_dict.get("tagged", True),
-            description=line_dict.get("description", None),
+            block=block,
+            keyword=keyword,
+            data_type=data_type,
+            valid=valid,
+            tagged=tagged,
+            description=description,
         )
 
 

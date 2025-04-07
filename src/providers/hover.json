@@ -963,7 +963,7 @@
       "is the bulk density of the aquifer in mass per length cubed.  bulk_density is not required unless the SORPTION keyword is specified.  Bulk density is defined as the mobile domain solid mass per mobile domain volume.  Additional information on bulk density is included in the MODFLOW 6 Supplemental Technical Information document.": [
         "gwt-mst"
       ],
-      "is the bulk density of this immobile domain in mass per length cubed.  Bulk density is defined as the immobile domain solid mass per volume of the immobile domain.  bulk_density is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, bulk_density will have no effect on simulation results.  ": [
+      "is the bulk density of this immobile domain in mass per length cubed.  Bulk density is defined as the immobile domain solid mass per volume of the immobile domain.  bulk_density is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, bulk_density will have no effect on simulation results.": [
         "gwt-ist"
       ]
     }
@@ -1004,7 +1004,7 @@
         "gwf-uzf",
         "prt-prp"
       ],
-      "is the cell identifier, and depends on the type of grid that is used for the simulation. For a structured grid that uses the DIS input file, CELLID is the layer, row, and column. For a grid that uses the DISV input file, CELLID is the layer and CELL2D number. If the model uses the unstructured discretization (DISU) input file, CELLID is the node number for the cell. For reaches that are not connected to an underlying GWF cell, a zero should be specified for each grid dimension. For example, for a DIS grid a CELLID of 0 0 0 should be specified. Reach-aquifer flow is not calculated for unconnected reaches. The keyword NONE can be still be specified to identify unconnected reaches for backward compatibility with previous versions of MODFLOW 6 but eventually NONE will be deprecated and will cause MODFLOW 6 to terminate with an error. ": [
+      "is the cell identifier, and depends on the type of grid that is used for the simulation. For a structured grid that uses the DIS input file, CELLID is the layer, row, and column. For a grid that uses the DISV input file, CELLID is the layer and CELL2D number. If the model uses the unstructured discretization (DISU) input file, CELLID is the node number for the cell. For reaches that are not connected to an underlying GWF cell, a zero should be specified for each grid dimension. For example, for a DIS grid a CELLID of 0 0 0 should be specified. Reach-aquifer flow is not calculated for unconnected reaches. The keyword NONE can be still be specified to identify unconnected reaches for backward compatibility with previous versions of MODFLOW 6 but eventually NONE will be deprecated and will cause MODFLOW 6 to terminate with an error.": [
         "gwf-sfr"
       ]
     },
@@ -1117,7 +1117,7 @@
   },
   "cfact": {
     "exchangedata": {
-      "is the factor used for the conductance calculation.  The definition for this parameter depends the type of surface water model and whether or not the fixed_conductance option is specified.  If the fixed_conductance option is specified, then the hydraulic conductance is calculated as the product of bedleak and cfact.  In this case, the conductance is fixed and does not change as a function of the calculated surface water and groundwater head.  If the fixed_conductance option is not specified, then the definition of cfact depends on whether the surface water model represents one-dimensional channel flow or two-dimensional overland flow.  If the surface water model represents one-dimensional channel flow, then cfact is the length of the channel cell in the groundwater model cell.  If the surface water model represents two-dimensional overland flow, then cfact is the intersection area of the overland flow cell and the underlying groundwater model cell. ": [
+      "is the factor used for the conductance calculation.  The definition for this parameter depends the type of surface water model and whether or not the fixed_conductance option is specified.  If the fixed_conductance option is specified, then the hydraulic conductance is calculated as the product of bedleak and cfact.  In this case, the conductance is fixed and does not change as a function of the calculated surface water and groundwater head.  If the fixed_conductance option is not specified, then the definition of cfact depends on whether the surface water model represents one-dimensional channel flow or two-dimensional overland flow.  If the surface water model represents one-dimensional channel flow, then cfact is the length of the channel cell in the groundwater model cell.  If the surface water model represents two-dimensional overland flow, then cfact is the intersection area of the overland flow cell and the underlying groundwater model cell.": [
         "exg-chfgwf",
         "exg-olfgwf"
       ]
@@ -1713,7 +1713,7 @@
       "is the distribution coefficient for the equilibrium-controlled linear sorption isotherm in dimensions of length cubed per mass.  If the Freunchlich isotherm is specified, then discoef is the Freundlich constant.  If the Langmuir isotherm is specified, then distcoef is the Langmuir constant.  distcoef is not required unless the SORPTION keyword is specified.": [
         "gwt-mst"
       ],
-      "is the distribution coefficient for the equilibrium-controlled linear sorption isotherm in dimensions of length cubed per mass.  distcoef is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, distcoef will have no effect on simulation results. ": [
+      "is the distribution coefficient for the equilibrium-controlled linear sorption isotherm in dimensions of length cubed per mass.  distcoef is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, distcoef will have no effect on simulation results.": [
         "gwt-ist"
       ]
     }
@@ -4063,7 +4063,7 @@
       "keyword that activates the Newton-Raphson formulation for groundwater flow between connected, convertible groundwater cells. Cells will not dry when this option is used.": [
         "exg-gwfgwf"
       ],
-      "keyword that activates the Newton-Raphson formulation for surface water flow between connected reaches and stress packages that support calculation of Newton-Raphson terms. ": [
+      "keyword that activates the Newton-Raphson formulation for surface water flow between connected reaches and stress packages that support calculation of Newton-Raphson terms.": [
         "chf-nam",
         "olf-nam",
         "swf-nam"
@@ -4263,7 +4263,7 @@
   },
   "nrhospecies": {
     "dimensions": {
-      "number of species used in density equation of state.  This value must be one or greater if the BUY package is activated.  ": [
+      "number of species used in density equation of state.  This value must be one or greater if the BUY package is activated.": [
         "gwf-buy"
       ]
     }
@@ -4802,10 +4802,10 @@
       "is the aquifer porosity.": [
         "prt-mip"
       ],
-      "is the mobile domain porosity, defined as the mobile domain pore volume per mobile domain volume.  Additional information on porosity within the context of mobile and immobile domain transport simulations is included in the MODFLOW 6 Supplemental Technical Information document. ": [
+      "is the mobile domain porosity, defined as the mobile domain pore volume per mobile domain volume.  Additional information on porosity within the context of mobile and immobile domain transport simulations is included in the MODFLOW 6 Supplemental Technical Information document.": [
         "gwt-mst"
       ],
-      "is the mobile domain porosity, defined as the mobile domain pore volume per mobile domain volume.  The GWE model does not support the concept of an immobile domain in the context of heat transport. ": [
+      "is the mobile domain porosity, defined as the mobile domain pore volume per mobile domain volume.  The GWE model does not support the concept of an immobile domain in the context of heat transport.": [
         "gwe-est"
       ],
       "porosity of the immobile domain specified as the immobile domain pore volume per immobile domain volume.": [
@@ -5876,7 +5876,7 @@
   },
   "simulate_gwseep": {
     "options": {
-      "keyword specifying that groundwater discharge (GWSEEP) to land surface will be simulated. Groundwater discharge is nonzero when groundwater head is greater than land surface.  This option is no longer recommended; a better approach is to use the Drain Package with discharge scaling as a way to handle seepage to land surface.  The Drain Package with discharge scaling is described in Chapter 3 of the Supplemental Technical Information. ": [
+      "keyword specifying that groundwater discharge (GWSEEP) to land surface will be simulated. Groundwater discharge is nonzero when groundwater head is greater than land surface.  This option is no longer recommended; a better approach is to use the Drain Package with discharge scaling as a way to handle seepage to land surface.  The Drain Package with discharge scaling is described in Chapter 3 of the Supplemental Technical Information.": [
         "gwf-uzf"
       ]
     }
@@ -5958,10 +5958,10 @@
   },
   "sp2": {
     "griddata": {
-      "is the exponent for the Freundlich isotherm and the sorption capacity for the Langmuir isotherm.  sp2 is not required unless the SORPTION keyword is specified in the options block and sorption is specified as FREUNDLICH or LANGMUIR. If the SORPTION keyword is not specified in the options block, or if sorption is specified as LINEAR, sp2 will have no effect on simulation results. ": [
+      "is the exponent for the Freundlich isotherm and the sorption capacity for the Langmuir isotherm.  sp2 is not required unless the SORPTION keyword is specified in the options block and sorption is specified as FREUNDLICH or LANGMUIR. If the SORPTION keyword is not specified in the options block, or if sorption is specified as LINEAR, sp2 will have no effect on simulation results.": [
         "gwt-ist"
       ],
-      "is the exponent for the Freundlich isotherm and the sorption capacity for the Langmuir isotherm.  sp2 is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, sp2 will have no effect on simulation results. ": [
+      "is the exponent for the Freundlich isotherm and the sorption capacity for the Langmuir isotherm.  sp2 is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, sp2 will have no effect on simulation results.": [
         "gwt-mst"
       ]
     }
