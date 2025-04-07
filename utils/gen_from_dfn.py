@@ -172,18 +172,14 @@ class Dfn:
                     continue
                 if "REPLACE" in description:
                     keyword = Line.from_replace(description).key
-                    if r"{}" in description:
-                        # No placeholders to replace
-                        description = common[keyword]
-                    else:
-                        # Create replacement dictionary from the original description
-                        replacement = ast.literal_eval(
-                            section.description.strip(f"REPLACE {keyword} ")
-                        )
-                        # Take new description from common, then replace placeholders
-                        description = common[keyword]
-                        for key, value in replacement.items():
-                            description = description.replace(key, value)
+                    # Create replacement dictionary from the original description
+                    replacement = ast.literal_eval(
+                        section.description.strip(f"REPLACE {keyword} ")
+                    )
+                    # Take new description from common, then replace placeholders
+                    description = common[keyword]
+                    for key, value in replacement.items():
+                        description = description.replace(key, value)
                 description = (
                     description.replace("``", "`").replace("''", "`").replace("\\", "")
                 )
