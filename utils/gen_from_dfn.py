@@ -109,8 +109,9 @@ class Dfn:
             if not data.startswith("block"):
                 continue
             section = Section.from_file(data)
-            if "record" in section.data_type or "recarray" in section.data_type:
-                continue
+            if section.data_type:
+                if "record" in section.data_type or "recarray" in section.data_type:
+                    continue
             sections.append(section)
         return tuple(sections)
 
