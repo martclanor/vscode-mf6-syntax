@@ -58,7 +58,7 @@ class Section:
 
     keyword: str
     block: str
-    data_type: Optional[tuple[str, ...]] = None
+    type_rec: bool = False  # whether type is either record or recarray
     valid: Optional[tuple[str, ...]] = None
     tagged: bool = True
     description: Optional[str] = None
@@ -66,7 +66,7 @@ class Section:
     @classmethod
     def from_file(cls, data: str) -> "Section":
         # Set default values
-        data_type = None
+        type_rec = False
         valid = None
         tagged = True
         description = None
@@ -89,8 +89,9 @@ class Section:
                 case "name":
                     keyword = line.value
                 case "type":
-                    if (value := line.value) is not None:
-                        data_type = tuple(value.split())
+                    types = line.value.split()
+                    if "record" in types or "recarray" in types:
+                        type_rec = True
                 case "valid":
                     if (value := line.value) is not None:
                         valid = tuple(value.split())
@@ -103,7 +104,7 @@ class Section:
         return cls(
             block=block,
             keyword=keyword,
-            data_type=data_type,
+            type_rec=type_rec,
             valid=valid,
             tagged=tagged,
             description=description,
@@ -133,9 +134,8 @@ class Dfn:
             if not data.startswith("block"):
                 continue
             section = Section.from_file(data)
-            if section.data_type:
-                if "record" in section.data_type or "recarray" in section.data_type:
-                    continue
+            if section.type_rec:
+                continue
             sections.append(section)
         return tuple(sections)
 
