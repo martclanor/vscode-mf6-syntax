@@ -45,8 +45,6 @@ class Line:
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
-        if "tagged" in data:
-            return cls("tagged", "true" in data)
         return cls(*data.split(maxsplit=1))
 
     @classmethod
