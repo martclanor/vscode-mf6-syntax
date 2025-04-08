@@ -2,7 +2,7 @@
 # - ruff-lint-format
 # - prettier
 # - codespell
-# - gen_from_templates
+# - gen_from_dfn
 # - grammar-tests
 # - vscode-integration-tests
 
@@ -56,7 +56,7 @@ jobs:
       - name: Run codespell
         uses: codespell-project/actions-codespell@v2
 
-  gen_from_templates:
+  gen_from_dfn:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
