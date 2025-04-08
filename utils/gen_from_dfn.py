@@ -156,8 +156,13 @@ class Dfn:
         return keywords
 
     @property
-    def valids(self) -> set[tuple[str, ...]]:
-        return {p.valid for p in self.sections if p.valid is not None}
+    def valids(self) -> set[str]:
+        return {
+            valid
+            for section in self.sections
+            if section.valid
+            for valid in section.valid
+        }
 
     @property
     def extension(self) -> Optional[str]:
@@ -242,7 +247,7 @@ if __name__ == "__main__":
         extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
-        valids.update(*dfn.valids)
+        valids.update(dfn.valids)
 
     # Insert collected data into the corresponding Jinja2 templates
     render_template("package.json", extensions=extensions)
