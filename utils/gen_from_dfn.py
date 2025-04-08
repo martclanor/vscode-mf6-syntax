@@ -6,78 +6,115 @@
 # ///
 
 """
-This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
-and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
-file, and provides methods to parse and access this data in order to generate
-configuration files for the syntax highlighting feature. Moreover, it extracts hover
-data from the dfn files and exports it to a JSON file.
+This script processes MODFLOW 6 definition (dfn) files to generate configuration and
+data files for the extension.
 
 Classes:
-    Line: Represents a single line in a dfn file.
-    Section: Represents a section of lines in a dfn file.
-    Dfn: Represents an entire dfn file.
+    Line: Represents a single line in a dfn file, with a key-value structure.
+    Section: Represents a group of related lines (a section) in a dfn file, including
+        metadata such as block, keyword, description, etc
+    Dfn: Represents an entire dfn file, providing methods to parse, filter, and
+        extract data for further processing.
+
+Generated Files:
+    - package.json: Contains metadata about the extension, including supported file
+      extensions.
+    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
+    - src/providers/hover.json: Provides hover description data for MF6 keywords
 
 Usage:
-    The script can be run to parse dfn files in the 'data/dfn' (downloaded from mf6
-    github repo) directory and preprocess the data to generate 'package.json',
-    'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
+    - Download dfn files from the MODFLOW 6 repository using:
+        utils/download_dfn.sh
+    - Run this script to generate the output files:
+        uv run utils/gen_from_dfn.py
 """
 
 import ast
 import json
+import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import ClassVar, Generator, Optional
 
 from jinja2 import Environment, FileSystemLoader
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+log = logging.getLogger(__name__)
 
 
 @dataclass
 class Line:
-    """Abstraction of each line as read from the dfn file. Line objects form a Section
-    object."""
+    """Abstraction of each line from the dfn file."""
 
     key: str
     value: Optional[str | bool] = None
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
-        if "tagged" in data:
-            return cls("tagged", "true" in data)
         return cls(*data.split(maxsplit=1))
+
+    @classmethod
+    def from_replace(cls, data: str) -> "Line":
+        return cls(data.split()[1], value=None)
 
 
 @dataclass
 class Section:
-    """Abstraction of each group of lines (separated by \n\n) as read from the dfn file.
-    A Section object is made up of Line objects."""
+    """Abstraction of each group of lines (separated by \n\n) from the dfn file."""
 
     keyword: str
     block: str
-    data_type: Optional[str] = None
-    valid: Optional[tuple[str, ...]] = None
-    tagged: bool = True
-    description: Optional[str] = None
+    type_rec: bool  # whether type is either record or recarray
+    valid: tuple[str, ...]
+    tagged: bool
+    description: str
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
-        lines = (
-            Line.from_file(line)
-            for line in data.split("\n")
-            if any(
-                line.startswith(s)
-                for s in {"block", "name", "type", "valid", "tagged", "description"}
-            )
-        )
-        line_dict: dict[str, str] = {line.key: line.value for line in lines}
+        # Set default values
+        type_rec = False
+        valid = None
+        tagged = True
+        description = None
+
+        for _line in data.strip().split("\n"):
+            if _line.split(maxsplit=1)[0] not in {
+                "block",
+                "name",
+                "type",
+                "valid",
+                "tagged",
+                "description",
+            }:
+                continue
+
+            line = Line.from_file(_line)
+            match line.key:
+                case "block":
+                    block = line.value
+                case "name":
+                    keyword = line.value
+                case "type":
+                    types = line.value.split()
+                    if "record" in types or "recarray" in types:
+                        type_rec = True
+                case "valid":
+                    if (value := line.value) is not None:
+                        valid = tuple(value.split())
+                case "tagged":
+                    if line.value is not None and "false" in line.value:
+                        tagged = False
+                case "description":
+                    description = line.value
+
         return cls(
-            block=line_dict.get("block", ""),
-            keyword=line_dict.get("name", ""),
-            data_type=line_dict.get("type", None),
-            valid=None if (x := line_dict.get("valid")) is None else tuple(x.split()),
-            tagged=line_dict.get("tagged", True),
-            description=line_dict.get("description", None),
+            block=block,
+            keyword=keyword,
+            type_rec=type_rec,
+            valid=valid,
+            tagged=tagged,
+            description=description,
         )
 
 
@@ -87,6 +124,7 @@ class Dfn:
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
+    dfn_path: ClassVar[Path] = Path("data/dfn")
 
     def __post_init__(self):
         with self.path.open() as f:
@@ -96,14 +134,15 @@ class Dfn:
     def data(self) -> tuple[str, ...]:
         return self._data
 
+    def get_data(self, prefix: str) -> Generator[str, None, None]:
+        return (data for data in self.data if data.startswith(prefix))
+
     @property
     def sections(self) -> tuple[Section, ...]:
         sections = []
-        for data in self.data:
-            if not data.startswith("block"):
-                continue
+        for data in self.get_data(prefix="block"):
             section = Section.from_file(data)
-            if "record" in section.keyword or "recarray" in section.keyword:
+            if section.type_rec:
                 continue
             sections.append(section)
         return tuple(sections)
@@ -114,102 +153,110 @@ class Dfn:
 
     @property
     def keywords(self) -> set[str]:
-        keywords = set()
-        for section in self.sections:
-            if not section.tagged:
+        return {section.keyword for section in self.sections if section.tagged}
+
+    @property
+    def valids(self) -> set[str]:
+        return {
+            valid
+            for section in self.sections
+            if section.valid
+            for valid in section.valid
+        }
+
+    @property
+    def extension(self) -> str:
+        return f".{self.path.stem.partition('-')[-1]}"
+
+    @staticmethod
+    def get_dfns() -> Generator["Dfn", None, None]:
+        return (
+            Dfn(filename)
+            for filename in Dfn.dfn_path.glob("*.dfn")
+            if filename.name != "common.dfn"
+        )
+
+    @staticmethod
+    def _parse_common() -> dict[str, str]:
+        # common.dfn is a special file that contains common descriptions for keywords
+        # which are used to replace placeholders in other dfn files
+        common = {}
+        for section in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
+            name, description = [
+                Line.from_file(data) for data in section.strip().split("\n")
+            ]
+            if not (name.key == "name" and description.key == "description"):
                 continue
-            keywords.add(section.keyword)
-        return keywords
+            common[name.value] = description.value
+        return common
 
-    @property
-    def valids(self) -> set[tuple[str, ...]]:
-        return {p.valid for p in self.sections if p.valid is not None}
+    @staticmethod
+    def export_hover_keyword(output: str) -> dict[str, dict[str, dict[str, list[str]]]]:
+        hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        common = Dfn._parse_common()
 
-    @property
-    def extension(self) -> Optional[str]:
-        parts = self.path.stem.split("-")
-        return f".{parts[-1]}" if len(parts) > 1 else None
+        for dfn in Dfn.get_dfns():
+            for section in dfn.sections:
+                if (description := section.description) is None:
+                    continue
+                if "REPLACE" in description:
+                    keyword = Line.from_replace(description).key
+                    # Create replacement dictionary from the original description
+                    replacement = ast.literal_eval(
+                        section.description.strip(f"REPLACE {keyword} ")
+                    )
+                    # Take new description from common, then replace placeholders
+                    description = common[keyword]
+                    for key, value in replacement.items():
+                        description = description.replace(key, value)
+
+                description = (
+                    description.replace("``", "`").replace("''", "`").replace("\\", "")
+                )
+                hover[section.keyword][section.block][description].append(dfn.path.stem)
+
+        hover_sorted = {
+            keyword: {
+                block: {desc: sorted(dfn) for desc, dfn in sorted(subval.items())}
+                for block, subval in sorted(val.items())
+            }
+            for keyword, val in sorted(hover.items())
+        }
+
+        with open(output, "w") as f:
+            json.dump(hover_sorted, f, indent=2)
+            f.write("\n")
+        log.info(f"Generated from DFN: {output}")
 
 
-def render_template(template_name: str, output_path: str, **context):
+def render_template(output: str, **context):
     """Render a Jinja2 template and write the output to a file."""
+    output_path = Path(output)
     template = Environment(
         loader=FileSystemLoader("templates"), keep_trailing_newline=True
-    ).get_template(template_name)
-    sorted_context = {
-        k: sorted(v) if isinstance(v, set) else v for k, v in context.items()
-    }
-    output = template.render(**sorted_context)
-    Path(output_path).write_text(output)
-    print(f"{output_path} has been generated")
+    ).get_template(f"{output_path.name}.j2")
+    context_sorted = {k: sorted(v) for k, v in context.items()}
+    output_path.write_text(template.render(**context_sorted))
+    log.info(f"Generated from DFN: {output_path}")
 
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from dfn files
-    blocks = set()
-    keywords = set()
-    valids = set()
-    extensions = set()
-    for dfn_file in Path("data/dfn").glob("*.dfn"):
-        dfn = Dfn(dfn_file)
+    extensions, blocks, keywords, valids = set(), set(), set(), set()
+    for dfn in Dfn.get_dfns():
+        extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
-        valids.update(*dfn.valids)
-        if ext := dfn.extension:
-            extensions.add(ext)
+        valids.update(dfn.valids)
 
-    # Insert the collected data into the Jinja2 templates
-    render_template("package.json.j2", "package.json", extensions=extensions)
+    # Insert collected data into the corresponding Jinja2 templates
+    render_template("package.json", extensions=extensions)
     render_template(
-        "mf6.tmLanguage.json.j2",
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
         valids=valids,
     )
 
-    # Export hover data from dfn files
-    # common.dfn is a special file that contains common descriptions for keywords
-    # which are used to replace placeholders in other dfn files
-    common = {}
-    for section in Dfn(Path("data/dfn/common.dfn")).data:
-        if not section.startswith("name"):
-            continue
-        name, description = section.strip().split("\n")
-        if not (name.startswith("name") and description.startswith("description")):
-            continue
-        common[name.split(maxsplit=1)[-1]] = description.split(maxsplit=1)[-1]
-
-    hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    for dfn_file in Path("data/dfn").glob("*.dfn"):
-        dfn = Dfn(dfn_file)
-        for section in dfn.sections:
-            if description := section.description:
-                if "REPLACE" in description:  # Replace description from common
-                    keyword = description.split()[1]
-                    if r"{}" in description:
-                        # No placeholders to replace
-                        description = common[keyword]
-                    else:
-                        # Create replacement dictionary from the orig description
-                        replacement = ast.literal_eval(
-                            section.description.strip(f"REPLACE {keyword} ")
-                        )
-                        # Take new description from common, then replace placeholders
-                        description = common[keyword]
-                        for key, value in replacement.items():
-                            description = description.replace(key, value)
-                description = description.replace("``", "`").replace("''", "`")
-                hover[section.keyword][section.block][description].append(dfn.path.stem)
-
-    sorted_hover = {
-        key: {
-            subkey: {desc: sorted(paths) for desc, paths in sorted(subval.items())}
-            for subkey, subval in sorted(val.items())
-        }
-        for key, val in sorted(hover.items())
-    }
-    with open("src/providers/hover.json", "w") as f:
-        json.dump(sorted_hover, f, indent=2)
-        f.write("\n")
-    print("src/providers/hover.json has been generated")
+    # Export hover keyword data from dfn files
+    Dfn.export_hover_keyword("src/providers/hover.json")
