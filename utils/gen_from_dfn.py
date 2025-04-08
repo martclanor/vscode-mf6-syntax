@@ -148,12 +148,7 @@ class Dfn:
 
     @property
     def keywords(self) -> set[str]:
-        keywords = set()
-        for section in self.sections:
-            if not section.tagged:
-                continue
-            keywords.add(section.keyword)
-        return keywords
+        return {section.keyword for section in self.sections if section.tagged}
 
     @property
     def valids(self) -> set[str]:
