@@ -18,8 +18,10 @@ Classes:
 
 Usage:
     The script can be run to parse dfn files in 'data/dfn' (downloaded from mf6 repo via
-    'utils/download_dfn.sh') and preprocess the data to generate 'package.json',
-    'syntaxes/mf6.tmLanguage.json' and 'src/providers/hover.json' files.
+    'utils/download_dfn.sh') and preprocess the data to generate the following:
+        'package.json'
+        'syntaxes/mf6.tmLanguage.json'
+        'src/providers/hover.json'
 """
 
 import ast
