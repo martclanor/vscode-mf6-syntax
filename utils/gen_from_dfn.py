@@ -6,22 +6,27 @@
 # ///
 
 """
-This script parses MODFLOW 6 definition (dfn) files and extracts metadata for each block
-and keyword. It defines classes to represent lines, groups of lines, and the entire dfn
-file, and provides methods to parse and access this data in order to generate
-configuration files for the syntax highlighting and hover feature.
+This script processes MODFLOW 6 definition (dfn) files to generate configuration and
+data files for the extension.
 
 Classes:
-    Line: Represents a single line in a dfn file.
-    Section: Represents a section of lines in a dfn file.
-    Dfn: Represents an entire dfn file.
+    Line: Represents a single line in a dfn file, with a key-value structure.
+    Section: Represents a group of related lines (a section) in a dfn file, including
+        metadata such as block, keyword, description, etc
+    Dfn: Represents an entire dfn file, providing methods to parse, filter, and
+        extract data for further processing.
+
+Generated Files:
+    - package.json: Contains metadata about the extension, including supported file
+      extensions.
+    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
+    - src/providers/hover.json: Provides hover description data for MF6 keywords
 
 Usage:
-    The script can be run to parse dfn files in 'data/dfn' (downloaded from mf6 repo via
-    'utils/download_dfn.sh') and preprocess the data to generate the following:
-        'package.json'
-        'syntaxes/mf6.tmLanguage.json'
-        'src/providers/hover.json'
+    - Download dfn files from the MODFLOW 6 repository using:
+        utils/download_dfn.sh
+    - Run this script to generate the output files:
+        uv run utils/gen_from_dfn.py
 """
 
 import ast
