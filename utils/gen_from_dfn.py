@@ -127,12 +127,13 @@ class Dfn:
     def data(self) -> tuple[str, ...]:
         return self._data
 
+    def get_data(self, prefix: str) -> Generator[str, None, None]:
+        return (data for data in self.data if data.startswith(prefix))
+
     @property
     def sections(self) -> tuple[Section, ...]:
         sections = []
-        for data in self.data:
-            if not data.startswith("block"):
-                continue
+        for data in self.get_data(prefix="block"):
             section = Section.from_file(data)
             if section.type_rec:
                 continue
@@ -173,9 +174,7 @@ class Dfn:
         # common.dfn is a special file that contains common descriptions for keywords
         # which are used to replace placeholders in other dfn files
         common = {}
-        for section in Dfn(Dfn.dfn_path / "common.dfn").data:
-            if not section.startswith("name"):
-                continue
+        for section in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
             name, description = [
                 Line.from_file(data) for data in section.strip().split("\n")
             ]
