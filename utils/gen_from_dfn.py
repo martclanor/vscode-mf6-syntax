@@ -60,10 +60,10 @@ class Section:
 
     keyword: str
     block: str
-    type_rec: bool = False  # whether type is either record or recarray
-    valid: Optional[tuple[str, ...]] = None
-    tagged: bool = True
-    description: Optional[str] = None
+    type_rec: bool  # whether type is either record or recarray
+    valid: tuple[str, ...]
+    tagged: bool
+    description: str
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
@@ -160,7 +160,7 @@ class Dfn:
         }
 
     @property
-    def extension(self) -> Optional[str]:
+    def extension(self) -> str:
         return f".{self.path.stem.partition('-')[-1]}"
 
     @staticmethod
