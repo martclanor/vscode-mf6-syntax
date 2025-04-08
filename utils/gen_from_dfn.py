@@ -186,7 +186,7 @@ class Dfn:
         return common
 
     @staticmethod
-    def export_hover_keyword() -> dict[str, dict[str, dict[str, list[str]]]]:
+    def export_hover_keyword(output: str) -> dict[str, dict[str, dict[str, list[str]]]]:
         hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         common = Dfn._parse_common()
 
@@ -218,11 +218,10 @@ class Dfn:
             for keyword, val in sorted(hover.items())
         }
 
-        output_path = "src/providers/hover.json"
-        with open(output_path, "w") as f:
+        with open(output, "w") as f:
             json.dump(hover_sorted, f, indent=2)
             f.write("\n")
-        log.info(f"Generated from DFN: {output_path}")
+        log.info(f"Generated from DFN: {output}")
 
 
 def render_template(output: str, **context):
@@ -255,4 +254,4 @@ if __name__ == "__main__":
     )
 
     # Export hover keyword data from dfn files
-    Dfn.export_hover_keyword()
+    Dfn.export_hover_keyword("src/providers/hover.json")
