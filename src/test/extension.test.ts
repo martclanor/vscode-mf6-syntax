@@ -3,7 +3,7 @@ import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "../providers/go-to-definition";
-import { MF6HoverProvider } from "../providers/hover";
+import { MF6HoverKeywordProvider } from "../providers/hover";
 import { checkFileExists } from "../utils/file-utils";
 import { mf6ify } from "../commands/mf6-ify";
 
@@ -56,7 +56,7 @@ suite("Extension Test Suite", () => {
   });
 
   test("MF6HoverProvider should provide hover accordingly", async () => {
-    const provider = new MF6HoverProvider();
+    const provider = new MF6HoverKeywordProvider();
     const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
     await vscode.workspace.fs.createDirectory(tempDirUri);
 

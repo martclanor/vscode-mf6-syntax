@@ -20,7 +20,7 @@ Generated Files:
     - package.json: Contains metadata about the extension, including supported file
       extensions.
     - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
-    - src/providers/hover.json: Provides hover description data for MF6 keywords
+    - src/providers/hover-keyword.json: Provides hover description data for MF6 keywords
 
 Usage:
     - Download dfn files from the MODFLOW 6 repository using:
@@ -259,4 +259,4 @@ if __name__ == "__main__":
     )
 
     # Export hover keyword data from dfn files
-    Dfn.export_hover_keyword("src/providers/hover.json")
+    Dfn.export_hover_keyword("src/providers/hover-keyword.json")
