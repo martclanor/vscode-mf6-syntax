@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import * as path from "path";
-import * as hoverDataJson from "./hover.json";
+import * as hoverKeywordJson from "./hover-keyword.json";
 
-interface HoverDataStructure {
+interface HoverKeywordStructure {
   [keyword: string]: {
     [block: string]: {
       [description: string]: string[]; // dfn_name
@@ -10,8 +10,8 @@ interface HoverDataStructure {
   };
 }
 
-export class MF6HoverProvider implements vscode.HoverProvider {
-  hoverData: HoverDataStructure = hoverDataJson as HoverDataStructure;
+export class MF6HoverKeywordProvider implements vscode.HoverProvider {
+  hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
