@@ -1,6 +1,8 @@
 # This workflow creates a release when release tag is pushed to main
 
 name: Release
+permissions:
+  contents: write
 
 on:
   push:
