@@ -1,6 +1,8 @@
 # This workflow publishes the extension to the VS marketplace
 
 name: Publish
+permissions:
+  contents: read
 
 on:
   release:
