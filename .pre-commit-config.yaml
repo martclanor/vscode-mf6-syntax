@@ -26,15 +26,15 @@ repos:
     hooks:
       - id: run-prettier-check
         name: Run prettier check
-        entry: npm run check:prettier
+        entry: npm run prettier:check
         language: node
         pass_filenames: false
       - id: run-grammar-tests
         name: Run grammar tests
-        entry: npm run test:grammar
+        entry: npm run grammar:test
         language: node
         pass_filenames: false
       - id: run-eslint
         name: Run eslint
-        entry: npm run lint
+        entry: npm run eslint
         language: node
