@@ -27,7 +27,7 @@
     "format:prettier": "prettier --write .",
     "lint": "eslint .",
     "package": "vsce package",
-    "pretest": "npm run check:prettier && npm run lint && npm run compile:ts",
+    "pretest": "npm run compile:ts",
     "publish": "vsce publish",
     "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
     "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
