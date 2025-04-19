@@ -34,3 +34,7 @@ repos:
         entry: npm run test:grammar
         language: node
         pass_filenames: false
+      - id: run-eslint
+        name: Run eslint
+        entry: npm run lint
+        language: node

@@ -1,6 +1,7 @@
 # This workflow runs the following jobs:
 # - ruff-lint-format
 # - prettier
+# - eslint
 # - codespell
 # - gen_from_dfn
 # - grammar-tests
@@ -49,6 +50,20 @@ jobs:
         run: npm ci
       - name: Run prettier check
         run: npm run check:prettier
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install project dependencies
+        run: npm ci
+      - name: Run eslint
+        run: npm run lint
 
   codespell:
     runs-on: ubuntu-latest

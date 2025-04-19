@@ -25,8 +25,9 @@
     "check:prettier": "prettier --check .",
     "compile:ts": "tsc -p ./",
     "format:prettier": "prettier --write .",
+    "lint": "eslint .",
     "package": "vsce package",
-    "pretest": "npm run check:prettier && npm run compile:ts",
+    "pretest": "npm run compile:ts",
     "publish": "vsce publish",
     "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
     "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
@@ -168,13 +169,16 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.25.0",
     "@types/node": "^22.13.5",
     "@types/vscode": "^1.99.1",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.3.2",
+    "eslint": "^9.25.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
