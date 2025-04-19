@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Generate from templates",
+      "label": "Generate from DFN",
       "type": "shell",
       "command": "uv",
       "args": ["run", "${workspaceFolder}/utils/gen_from_dfn.py"],
@@ -24,7 +24,7 @@
     {
       "label": "PreLaunch Tasks",
       "dependsOrder": "sequence",
-      "dependsOn": ["Generate from templates", "Compile TypeScript"]
+      "dependsOn": ["Generate from DFN", "Compile TypeScript"]
     }
   ]
 }
