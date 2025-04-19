@@ -22,17 +22,17 @@
   "publisher": "mart-clanor",
   "main": "./out/extension.js",
   "scripts": {
-    "check:prettier": "prettier --check .",
+    "download:dfn": "utils/download_dfn.sh",
+    "grammar:test": "vscode-tmgrammar-snap syntaxes/samples/*",
+    "grammar:update": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
+    "prettier:check": "prettier --check .",
+    "prettier:format": "prettier --write .",
+    "eslint": "eslint .",
     "compile:ts": "tsc -p ./",
-    "format:prettier": "prettier --write .",
-    "lint": "eslint .",
-    "package": "vsce package",
     "pretest": "npm run compile:ts",
-    "publish": "vsce publish",
-    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
-    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
     "test": "vscode-test",
-    "download:dfn": "utils/download_dfn.sh"
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "contributes": {
     "commands": [

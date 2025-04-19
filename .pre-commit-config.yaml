@@ -13,28 +13,30 @@ repos:
         args: ["--branch", "main"]
       - id: trailing-whitespace
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.4
+    rev: v0.11.6
     hooks:
       - id: ruff
+        name: ruff check
         args: [--fix]
       - id: ruff-format
+        name: ruff format
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
       - id: codespell
   - repo: local
     hooks:
-      - id: run-prettier-check
-        name: Run prettier check
-        entry: npm run check:prettier
+      - id: prettier
+        name: prettier
+        entry: npm run prettier:check
         language: node
         pass_filenames: false
-      - id: run-grammar-tests
-        name: Run grammar tests
-        entry: npm run test:grammar
+      - id: grammar-tests
+        name: grammar tests
+        entry: npm run grammar:test
         language: node
         pass_filenames: false
-      - id: run-eslint
-        name: Run eslint
-        entry: npm run lint
+      - id: eslint
+        name: eslint
+        entry: npm run eslint
         language: node
