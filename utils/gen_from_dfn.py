@@ -150,7 +150,7 @@ class Dfn:
     @property
     def sections(self) -> tuple[Section, ...]:
         sections = []
-        for data in self.get_data(prefix="block"):
+        for data in self.get_data():
             section = Section.from_file(data)
             if section.type_rec:
                 continue
