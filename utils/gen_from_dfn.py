@@ -128,7 +128,15 @@ class Dfn:
 
     def __post_init__(self):
         with self.path.open() as f:
-            self._data = tuple(f.read().split("\n\n"))
+            self._data = tuple(
+                # Strip comment lines
+                "\n".join(
+                    line
+                    for line in section.splitlines()
+                    if not line.strip().startswith("#")
+                )
+                for section in f.read().split("\n\n")
+            )
 
     @property
     def data(self) -> tuple[str, ...]:
