@@ -1596,6 +1596,13 @@
       ]
     }
   },
+  "dev_cubic_scaling": {
+    "options": {
+      "cubic-scaling is used to scale the drain conductance": [
+        "gwf-drn"
+      ]
+    }
+  },
   "dev_efh_formulation": {
     "options": {
       "use the variable-density equivalent freshwater head formulation instead of the hydraulic head head formulation.  This dev option has only been implemented for confined aquifer conditions and should generally not be used.": [
@@ -1636,6 +1643,7 @@
   "dev_no_newton": {
     "options": {
       "turn off Newton for unconfined cells": [
+        "gwf-chd",
         "gwf-npf"
       ]
     }
@@ -1651,6 +1659,13 @@
     "options": {
       "set saturation omega value": [
         "gwf-npf"
+      ]
+    }
+  },
+  "dev_original_specific_storage": {
+    "options": {
+      "flag indicating the original storage specific storage formulation should be used": [
+        "gwf-sto"
       ]
     }
   },
@@ -2403,6 +2418,13 @@
     "period": {
       "length used to reduce the conductance of the flowing well.  When the head in the well drops below the well top plus the reduction length, then the conductance is reduced.  This reduction length can be used to improve the stability of simulations with flowing wells so that there is not an abrupt change in flowing well rates.": [
         "gwf-maw"
+      ]
+    }
+  },
+  "gammaw": {
+    "options": {
+      "unit weight of water. For freshwater, GAMMAW is 9806.65 Newtons/cubic meters or 62.48 lb/cubic foot in SI and English units, respectively. By default, GAMMAW is 9806.65 Newtons/cubic meters.": [
+        "gwf-csub"
       ]
     }
   },
