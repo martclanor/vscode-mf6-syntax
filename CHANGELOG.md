@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.1-beta
+
+- Refactor gen_from_dfn util script
+- Rename hover data json file and functions
+- Add CodeQL Analysis
+- Add dependabot configuration
+- Bump npm dependencies based on dependabot
+- Group dependabot PR's for npm and gh actions
+- Add ESLint for linting
+- Clean-up npm scripts, pre-commit, gh workflows
+- Downgrade @types/vscode to match engine.vscode
+- Include keywords with comment line header in dfn
+- Include keywords with blank line header in dfn
+- Update demo gif
+- Bump @types/node from 22.13.5 to 22.14.1 in the npm-all group
+- Add lockfile check util script
+- Rename bash/npm util scripts
+
 ## 0.2.0-beta
 
 - Remove explicit json-yml language detection
