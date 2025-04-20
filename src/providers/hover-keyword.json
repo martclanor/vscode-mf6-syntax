@@ -166,6 +166,7 @@
   "ats_percel": {
     "options": {
       "fractional cell distance submitted by the ADV Package to the adaptive time stepping (ATS) package.  If ATS_PERCEL is specified and the ATS Package is active, a time step calculation will be made for each cell based on flow through the cell and cell properties.  The largest time step will be calculated such that the advective fractional cell distance (ATS_PERCEL) is not exceeded for any active cell in the grid.  This time-step constraint will be submitted to the ATS Package, perhaps with constraints submitted by other packages, in the calculation of the time step.  ATS_PERCEL must be greater than zero.  If a value of zero is specified for ATS_PERCEL the program will automatically reset it to an internal no data value to indicate that time steps should not be subject to this constraint.": [
+        "gwe-adv",
         "gwt-adv"
       ]
     }
@@ -742,6 +743,9 @@
       ],
       "keyword to indicate that boundary names may be provided with the list of GWE Exchange cells.": [
         "exg-gwegwe"
+      ],
+      "keyword to indicate that boundary names may be provided with the list of GWF Exchange cells.": [
+        "exg-gwfgwf"
       ],
       "keyword to indicate that boundary names may be provided with the list of GWT Exchange cells.": [
         "exg-gwtgwt"
@@ -4679,7 +4683,8 @@
   "outer_maximum": {
     "nonlinear": {
       "integer value defining the maximum number of outer (nonlinear) iterations -- that is, calls to the solution routine. For a linear problem OUTER_MAXIMUM should be 1.": [
-        "sln-ims"
+        "sln-ims",
+        "sln-pts"
       ]
     }
   },
@@ -5570,6 +5575,9 @@
       "real or character value that defines the temperature of runoff $(e.g.,:^{circ}C:or:^{circ}F)$ for the reach.  Users are free to use whatever temperature scale they want, which might include negative temperatures.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwe-sfe"
       ],
+      "real or character value that defines the temperature of runoff for the lake. Users are free to use whatever temperature scale they want, which might include negative temperatures. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
+        "gwe-lke"
+      ],
       "real or character value that defines the volumetric rate of diffuse overland runoff that enters the streamflow routing reach. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value. If the volumetric runoff rate for a reach is negative and exceeds inflows to the reach (upstream and specified inflows, and rainfall but excluding groundwater leakage into the reach) the volumetric runoff rate is limited to inflows to the reach and the volumetric evaporation rate for the reach is set to zero. By default, runoff rates are zero for each reach.": [
         "gwf-sfr"
       ]
@@ -5985,6 +5993,14 @@
       ],
       "is the exponent for the Freundlich isotherm and the sorption capacity for the Langmuir isotherm.  sp2 is not required unless the SORPTION keyword is specified in the options block.  If the SORPTION keyword is not specified in the options block, sp2 will have no effect on simulation results.": [
         "gwt-mst"
+      ]
+    }
+  },
+  "spc6": {
+    "fileinput": {
+      "keyword to specify that record corresponds to a source sink mixing input file.": [
+        "gwe-ssm",
+        "gwt-ssm"
       ]
     }
   },

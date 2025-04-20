@@ -142,13 +142,15 @@ class Dfn:
     def data(self) -> tuple[str, ...]:
         return self._data
 
-    def get_data(self, prefix: str) -> Generator[str, None, None]:
+    def get_data(self, prefix: str = "") -> Generator[str, None, None]:
+        if prefix == "":
+            return (data for data in self.data if data != "")
         return (data for data in self.data if data.startswith(prefix))
 
     @property
     def sections(self) -> tuple[Section, ...]:
         sections = []
-        for data in self.get_data(prefix="block"):
+        for data in self.get_data():
             section = Section.from_file(data)
             if section.type_rec:
                 continue
