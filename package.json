@@ -22,8 +22,8 @@
   "publisher": "mart-clanor",
   "main": "./out/extension.js",
   "scripts": {
-    "check:lockfile": "utils/check_lockfile.sh",
-    "download:dfn": "utils/download_dfn.sh",
+    "dfn:download": "utils/download-dfn.sh",
+    "lockfile:check": "utils/check-lockfile.sh",
     "grammar:test": "vscode-tmgrammar-snap syntaxes/samples/*",
     "grammar:update": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
     "prettier:check": "prettier --check .",
