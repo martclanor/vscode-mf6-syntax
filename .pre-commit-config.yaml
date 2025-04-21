@@ -40,3 +40,9 @@ repos:
         name: eslint
         entry: npm run eslint
         language: node
+      - id: npm-lockfile-check
+        name: npm lockfile check
+        entry: npm run check:lockfile
+        language: node
+        files: package.json
+        pass_filenames: false
