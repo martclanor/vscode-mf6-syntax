@@ -44,5 +44,5 @@ repos:
         name: npm lockfile check
         entry: npm run check:lockfile
         language: node
-        files: package.json
+        files: ^package(-lock)?\.json$
         pass_filenames: false
