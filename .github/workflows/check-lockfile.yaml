@@ -1,0 +1,26 @@
+# This workflow checks package.json and package-lock.json consistency
+
+name: Check Lockfile
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+
+jobs:
+  check-lockfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Check lockfile
+        run: npm run check:lockfile
