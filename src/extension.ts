@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "./providers/go-to-definition";
-import { MF6HoverProvider } from "./providers/hover";
+import { MF6HoverKeywordProvider } from "./providers/hover";
 import { mf6ify } from "./commands/mf6-ify";
 
 const MF6 = { language: "mf6", scheme: "file" };
@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Show hover of MF6 keyword
   context.subscriptions.push(
-    vscode.languages.registerHoverProvider(MF6, new MF6HoverProvider()),
+    vscode.languages.registerHoverProvider(MF6, new MF6HoverKeywordProvider()),
   );
 }
 

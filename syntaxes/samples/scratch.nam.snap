@@ -41,8 +41,7 @@
 #  ^^^^^ source.mf6 keyword.control.mf6
 #       ^^^^^^^^^^^^^^^^ source.mf6
 >  BEGIN.     EXCHAngES
-#^^^^^^^^^^^^^ source.mf6
-#             ^^^^^^^^^ source.mf6 entity.name.function.mf6
+#^^^^^^^^^^^^^^^^^^^^^^^ source.mf6
 >  .BEGIN     EXCHAngES
 #^^^^^^^^^^^^^ source.mf6
 #             ^^^^^^^^^ source.mf6 entity.name.type.mf6

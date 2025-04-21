@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides syntax highlighting support and rich language features for MODFLOW 6",
   "categories": [
     "Other"
@@ -22,16 +22,18 @@
   "publisher": "mart-clanor",
   "main": "./out/extension.js",
   "scripts": {
-    "check:prettier": "prettier --check .",
+    "dfn:download": "utils/download-dfn.sh",
+    "lockfile:check": "utils/check-lockfile.sh",
+    "grammar:test": "vscode-tmgrammar-snap syntaxes/samples/*",
+    "grammar:update": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
+    "prettier:check": "prettier --check .",
+    "prettier:format": "prettier --write .",
+    "eslint": "eslint .",
     "compile:ts": "tsc -p ./",
-    "format:prettier": "prettier --write .",
-    "package": "vsce package",
-    "pretest": "npm run check:prettier && npm run compile:ts",
-    "publish": "vsce publish",
-    "test:grammar": "vscode-tmgrammar-snap syntaxes/samples/*",
-    "update:snapshot": "vscode-tmgrammar-snap --updateSnapshot syntaxes/samples/*",
+    "pretest": "npm run compile:ts",
     "test": "vscode-test",
-    "download:dfn": "utils/download_dfn.sh"
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "contributes": {
     "commands": [
@@ -84,13 +86,16 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^22.13.5",
+    "@eslint/js": "^9.25.0",
+    "@types/node": "^22.14.1",
     "@types/vscode": "^1.96.0",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "@vscode/vsce": "^3.2.2",
-    "prettier": "^3.5.0",
-    "typescript": "^5.7.3",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.3.2",
+    "eslint": "^9.25.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.30.1",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
