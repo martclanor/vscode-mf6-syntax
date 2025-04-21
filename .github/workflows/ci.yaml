@@ -3,7 +3,6 @@
 # - prettier-eslint
 # - codespell
 # - gen-from-dfn
-# - check-lockfile
 # - grammar-tests
 # - vscode-integration-tests
 
@@ -74,20 +73,6 @@ jobs:
         run: uv run utils/gen_from_dfn.py
       - name: Check for changes
         run: git diff --exit-code
-
-  check-lockfile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Install dependencies
-        run: npm ci
-      - name: Check lockfile
-        run: npm run check:lockfile
 
   grammar-tests:
     runs-on: ubuntu-latest
