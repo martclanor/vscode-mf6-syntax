@@ -65,7 +65,9 @@ class Section:
 
     keyword: str
     block: str
+    types: list[str]
     type_rec: bool  # whether type is either record or recarray
+    in_rec: bool  # whether in_record or not
     valid: tuple[str, ...]
     tagged: bool
     description: str
@@ -73,7 +75,9 @@ class Section:
     @classmethod
     def from_file(cls, data: str) -> "Section":
         # Set default values
+        types = []
         type_rec = False
+        in_rec = False
         valid = None
         tagged = True
         description = None
@@ -83,6 +87,7 @@ class Section:
                 "block",
                 "name",
                 "type",
+                "in_record",
                 "valid",
                 "tagged",
                 "description",
@@ -99,6 +104,9 @@ class Section:
                     types = line.value.split()
                     if "record" in types or "recarray" in types:
                         type_rec = True
+                case "in_record":
+                    if line.value == "true":
+                        in_rec = True
                 case "valid":
                     if (value := line.value) is not None:
                         valid = tuple(value.split())
@@ -111,7 +119,9 @@ class Section:
         return cls(
             block=block,
             keyword=keyword,
+            types=types,
             type_rec=type_rec,
+            in_rec=in_rec,
             valid=valid,
             tagged=tagged,
             description=description,
