@@ -12,9 +12,9 @@ if ! git diff --quiet package-lock.json; then
   echo "Error: package-lock.json is inconsistent with package.json." >&2
   # Restore the original package-lock.json to avoid leaving modifications
   git checkout -- package-lock.json > /dev/null 2>&1
-  exit 1 # Abort commit
+  exit 1
 fi
 
-# If we get here, the lock file was already consistent
+# If this is reached, lock file was already consistent
 echo "package-lock.json is consistent."
-exit 0 # Proceed with commit
+exit 0
