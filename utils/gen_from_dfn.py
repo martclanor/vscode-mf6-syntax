@@ -65,17 +65,37 @@ class Section:
 
     keyword: str
     block: str
-    type_rec: bool  # whether type is either record or recarray
+    types: list[str]
+    type_record: bool
+    type_recarray: bool
+    block_var: bool
+    shape: str
+    reader: str
+    in_rec: bool
     valid: tuple[str, ...]
+    layered: bool
+    netcdf: bool
     tagged: bool
+    just_data: bool
+    optional: bool
     description: str
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
         # Set default values
-        type_rec = False
+        types = []
+        type_record = False
+        type_recarray = False
+        block_var = False
+        shape = ""
+        reader = ""
+        in_rec = False
         valid = None
+        layered = False
+        netcdf = False
         tagged = True
+        just_data = False
+        optional = False
         description = None
 
         for _line in data.strip().split("\n"):
@@ -83,8 +103,16 @@ class Section:
                 "block",
                 "name",
                 "type",
+                "block_variable",
+                "shape",
+                "reader",
+                "in_record",
                 "valid",
+                "layered",
+                "netcdf",
                 "tagged",
+                "just_data",
+                "optional",
                 "description",
             }:
                 continue
@@ -97,23 +125,59 @@ class Section:
                     keyword = line.value
                 case "type":
                     types = line.value.split()
-                    if "record" in types or "recarray" in types:
-                        type_rec = True
+                    if "record" in types:
+                        type_record = True
+                    if "recarray" in types:
+                        type_recarray = True
+                case "block_variable":
+                    if line.value is not None and "true" in line.value.lower():
+                        block_var = True
+                case "shape":
+                    if (value := line.value) is not None:
+                        shape = value
+                case "reader":
+                    if (value := line.value) is not None:
+                        reader = value
+                case "in_record":
+                    if line.value == "true":
+                        in_rec = True
                 case "valid":
                     if (value := line.value) is not None:
                         valid = tuple(value.split())
+                case "layered":
+                    if line.value is not None and "true" in line.value.lower():
+                        layered = True
+                case "netcdf":
+                    if line.value is not None and "true" in line.value.lower():
+                        netcdf = True
                 case "tagged":
                     if line.value is not None and "false" in line.value:
                         tagged = False
+                case "just_data":
+                    if line.value is not None and "true" in line.value:
+                        just_data = True
+                case "optional":
+                    if line.value is not None and "true" in line.value:
+                        optional = True
                 case "description":
                     description = line.value
 
         return cls(
             block=block,
             keyword=keyword,
-            type_rec=type_rec,
+            types=types,
+            type_record=type_record,
+            type_recarray=type_recarray,
+            block_var=block_var,
+            shape=shape,
+            reader=reader,
+            in_rec=in_rec,
             valid=valid,
+            layered=layered,
+            netcdf=netcdf,
             tagged=tagged,
+            just_data=just_data,
+            optional=optional,
             description=description,
         )
 
@@ -152,8 +216,16 @@ class Dfn:
         sections = []
         for data in self.get_data():
             section = Section.from_file(data)
-            if section.type_rec:
+            if section.type_record or section.type_recarray:
                 continue
+            sections.append(section)
+        return tuple(sections)
+
+    @property
+    def sections_all(self) -> tuple[Section, ...]:
+        sections = []
+        for data in self.get_data():
+            section = Section.from_file(data)
             sections.append(section)
         return tuple(sections)
 
