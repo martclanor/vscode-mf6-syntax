@@ -24,7 +24,7 @@ Generated Files:
 
 Usage:
     - Download dfn files from the MODFLOW 6 repository using:
-        utils/download_dfn.sh
+        utils/download-dfn.sh
     - Run this script to generate the output files:
         uv run utils/gen_from_dfn.py
 """
