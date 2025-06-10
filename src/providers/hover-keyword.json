@@ -623,7 +623,7 @@
       ]
     },
     "packagedata": {
-      "bottom elevation of the multi-aquifer well. If CONDEQN is SPECIFIED, THIEM, SKIN, or COMPOSITE, BOTTOM is set to the cell bottom in the lowermost GWF cell connection in cases where the specified well bottom is above the bottom of this GWF cell. If CONDEQN is MEAN, BOTTOM is set to the lowermost GWF cell connection screen bottom in cases where the specified well bottom is above this value. The bottom elevation defines the lowest well head that will be simulated when the NEWTON UNDER_RELAXATION option is specified in the GWF model name file. The bottom elevation is also used to calculate volumetric storage in the well.": [
+      "bottom elevation of the multi-aquifer well. If CONDEQN is SPECIFIED, THIEM, SKIN, or CUMULATIVE, BOTTOM is set to the cell bottom in the lowermost GWF cell connection in cases where the specified well bottom is above the bottom of this GWF cell. If CONDEQN is MEAN, BOTTOM is set to the lowermost GWF cell connection screen bottom in cases where the specified well bottom is above this value. The bottom elevation defines the lowest well head that will be simulated when the NEWTON UNDER_RELAXATION option is specified in the GWF model name file. The bottom elevation is also used to calculate volumetric storage in the well.": [
         "gwf-maw"
       ]
     }
@@ -2150,7 +2150,11 @@
     },
     "options": {
       "keyword to specify that an output filename is expected next.": [
+        "chf-disv1d",
         "chf-oc",
+        "gwe-dis",
+        "gwe-disu",
+        "gwe-disv",
         "gwe-lke",
         "gwe-mve",
         "gwe-mwe",
@@ -2160,6 +2164,9 @@
         "gwe-uze",
         "gwf-buy",
         "gwf-csub",
+        "gwf-dis",
+        "gwf-disu",
+        "gwf-disv",
         "gwf-lak",
         "gwf-maw",
         "gwf-mvr",
@@ -2169,6 +2176,9 @@
         "gwf-uzf",
         "gwf-vsc",
         "gwf-wel",
+        "gwt-dis",
+        "gwt-disu",
+        "gwt-disv",
         "gwt-ist",
         "gwt-lkt",
         "gwt-mst",
@@ -2178,12 +2188,22 @@
         "gwt-oc",
         "gwt-sft",
         "gwt-uzt",
+        "olf-dis2d",
+        "olf-disv1d",
+        "olf-disv2d",
         "olf-oc",
+        "prt-dis",
         "prt-oc",
         "prt-prp",
         "sln-ims",
         "sln-pts",
+        "swf-dis2d",
+        "swf-disv1d",
+        "swf-disv2d",
         "swf-oc"
+      ],
+      "keyword to specify that an output filename is expected next. If this option is not provided, the output file will have the same name as the discretization input file, plus extension `.grb`.": [
+        "prt-disv"
       ]
     }
   },
@@ -2443,6 +2463,56 @@
     "options": {
       "is the file name for ghost node correction input file.  Information for the ghost nodes are provided in the file provided with these keywords.  The format for specifying the ghost nodes is the same as described for the GNC Package of the GWF Model.  This includes specifying OPTIONS, DIMENSIONS, and GNCDATA blocks.  The order of the ghost nodes must follow the same order as the order of the cells in the EXCHANGEDATA block.  For the GNCDATA, noden and all of the nodej values are assumed to be located in model 1, and nodem is assumed to be in model 2.": [
         "exg-gwfgwf"
+      ]
+    }
+  },
+  "grb6": {
+    "options": {
+      "keyword to specify that record corresponds to a binary grid file.": [
+        "chf-disv1d",
+        "gwe-dis",
+        "gwe-disu",
+        "gwe-disv",
+        "gwf-dis",
+        "gwf-disu",
+        "gwf-disv",
+        "gwt-dis",
+        "gwt-disu",
+        "gwt-disv",
+        "olf-dis2d",
+        "olf-disv1d",
+        "olf-disv2d",
+        "prt-dis",
+        "prt-disv",
+        "swf-dis2d",
+        "swf-disv1d",
+        "swf-disv2d"
+      ]
+    }
+  },
+  "grb6_filename": {
+    "options": {
+      "defines a binary grid output file.": [
+        "prt-disv"
+      ],
+      "defines a binary grid output file. If this option is not provided, the output file will have the same name as the discretization input file, plus extension `.grb`.": [
+        "chf-disv1d",
+        "gwe-dis",
+        "gwe-disu",
+        "gwe-disv",
+        "gwf-dis",
+        "gwf-disu",
+        "gwf-disv",
+        "gwt-dis",
+        "gwt-disu",
+        "gwt-disv",
+        "olf-dis2d",
+        "olf-disv1d",
+        "olf-disv2d",
+        "prt-dis",
+        "swf-dis2d",
+        "swf-disv1d",
+        "swf-disv2d"
       ]
     }
   },
@@ -3368,7 +3438,7 @@
   },
   "latitude": {
     "griddata": {
-      "cell center latitude.": [
+      "cell center latitude. Only supported for NETCDF_STRUCTURED export type.": [
         "utl-ncf"
       ]
     }
@@ -3465,7 +3535,7 @@
   },
   "longitude": {
     "griddata": {
-      "cell center longitude.": [
+      "cell center longitude. Only supported for NETCDF_STRUCTURED export type.": [
         "utl-ncf"
       ]
     }
@@ -3771,10 +3841,10 @@
   },
   "modelname": {
     "packagedata": {
-      "name of GWT model used to simulate a species that will be used in the density equation of state.  This name will have no effect if the simulation does not include a GWT model that corresponds to this GWF model.": [
+      "name of a GWT or GWE model used to simulate a species that will be used in the density equation of state.  This name will have no effect if the simulation does not include a GWT or GWE model that corresponds to this GWF model.": [
         "gwf-buy"
       ],
-      "name of a GWT model used to simulate a species that will be used in the viscosity equation of state.  This name will have no effect if the simulation does not include a GWT model that corresponds to this GWF model.": [
+      "name of a GWT or GWE model used to simulate a species that will be used in the viscosity equation of state.  This name will have no effect if the simulation does not include a GWT or GWE model that corresponds to this GWF model.": [
         "gwf-vsc"
       ]
     }
@@ -5434,6 +5504,20 @@
       ]
     }
   },
+  "release_times": {
+    "options": {
+      "keyword indicating release times will follow": [
+        "prt-prp"
+      ]
+    }
+  },
+  "release_timesfile": {
+    "options": {
+      "keyword indicating release times file name will follow": [
+        "prt-prp"
+      ]
+    }
+  },
   "releasesetting": {
     "period": {
       "specifies time steps at which to release a particle. A particle is released at the beginning of each specified time step. For fine control over release timing, specify times explicitly using the RELEASETIMES block. If the beginning of a specified time step coincides with a release time specified in the RELEASETIMES block or configured via RELEASE_TIME_FREQUENCY, only one particle is released at that time. Coincidence is evaluated up to the tolerance specified in RELEASE_TIME_TOLERANCE, or $epsilon times 10^{11}$ by default, where $epsilon$ is machine precision. If no release times are configured via this setting, the RELEASETIMES block, or the RELEASE_TIME_FREQUENCY option, a single release time is configured at the beginning of the first time step of the simulation's first stress period.": [
@@ -5799,14 +5883,14 @@
   },
   "scrn_bot": {
     "connectiondata": {
-      "value that defines the bottom elevation of the screen for the multi-aquifer well connection. If CONDEQN is SPECIFIED, THIEM, SKIN, or COMPOSITE, SCRN_BOT can be any value and is set to the bottom of the cell. If CONDEQN is MEAN, SCRN_BOT is set to the multi-aquifer well connection cell bottom if the specified value is less than the cell bottom. The program will terminate with an error if the screen bottom is greater than the screen top.": [
+      "value that defines the bottom elevation of the screen for the multi-aquifer well connection. If CONDEQN is SPECIFIED, THIEM, SKIN, or CUMULATIVE, SCRN_BOT can be any value and is set to the bottom of the cell. If CONDEQN is MEAN, SCRN_BOT is set to the multi-aquifer well connection cell bottom if the specified value is less than the cell bottom. The program will terminate with an error if the screen bottom is greater than the screen top.": [
         "gwf-maw"
       ]
     }
   },
   "scrn_top": {
     "connectiondata": {
-      "value that defines the top elevation of the screen for the multi-aquifer well connection. If CONDEQN is SPECIFIED, THIEM, SKIN, or COMPOSITE, SCRN_TOP can be any value and is set to the top of the cell. If CONDEQN is MEAN, SCRN_TOP is set to the multi-aquifer well connection cell top if the specified value is greater than the cell top. The program will terminate with an error if the screen top is less than the screen bottom.": [
+      "value that defines the top elevation of the screen for the multi-aquifer well connection. If CONDEQN is SPECIFIED, THIEM, SKIN, or CUMULATIVE, SCRN_TOP can be any value and is set to the top of the cell. If CONDEQN is MEAN, SCRN_TOP is set to the multi-aquifer well connection cell top if the specified value is greater than the cell top. The program will terminate with an error if the screen top is less than the screen bottom.": [
         "gwf-maw"
       ]
     }
@@ -6608,6 +6692,26 @@
       ]
     }
   },
+  "times": {
+    "options": {
+      "times to release, relative to the beginning of the simulation.  RELEASE_TIMES and RELEASE_TIMESFILE are mutually exclusive.": [
+        "prt-prp"
+      ],
+      "times to track, relative to the beginning of the simulation.": [
+        "prt-oc"
+      ]
+    }
+  },
+  "timesfile": {
+    "options": {
+      "name of the release times file.  RELEASE_TIMES and RELEASE_TIMESFILE are mutually exclusive.": [
+        "prt-prp"
+      ],
+      "name of the tracking times file": [
+        "prt-oc"
+      ]
+    }
+  },
   "top": {
     "griddata": {
       "is the top elevation for each cell in the model grid.": [
@@ -6654,6 +6758,20 @@
   "track_terminate": {
     "options": {
       "keyword to indicate that particle tracking output is to be written when a particle terminates for any reason": [
+        "prt-oc"
+      ]
+    }
+  },
+  "track_times": {
+    "options": {
+      "keyword indicating tracking times will follow": [
+        "prt-oc"
+      ]
+    }
+  },
+  "track_timesfile": {
+    "options": {
+      "keyword indicating tracking times file name will follow": [
         "prt-oc"
       ]
     }
@@ -7145,7 +7263,7 @@
   },
   "wkt": {
     "options": {
-      "is the coordinate reference system (CRS) well-known text (WKT) string.": [
+      "is the coordinate reference system (CRS) well-known text (WKT) string. Ignored if latitude and longitude griddata arrays have been provided for NETCDF_STRUCTURED export type.": [
         "utl-ncf"
       ]
     }
