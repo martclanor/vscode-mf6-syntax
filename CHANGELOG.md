@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.2-beta
+
+- Restrict quoted string match to file-like patterns
+- Update dfn files (MODFLOW 6.6.2)
+- Bump astral-sh/setup-uv from 5 to 6 in the gha-all group
+- Bump undici from 6.21.1 to 6.21.3 in the npm_and_yarn group
+- Bump the npm-all group across 1 directory with 7 updates
+- Bump tar-fs from 2.1.2 to 2.1.3 in the npm_and_yarn group
+- Address remaining security vulnerabilities
+
 ## 0.2.1-beta
 
 - Refactor gen_from_dfn util script
