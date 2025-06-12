@@ -68,7 +68,7 @@ jobs:
       - name: Download DFN files from MF6 repository
         run: utils/download-dfn.sh
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v6
       - name: Regenerate from templates
         run: uv run utils/gen_from_dfn.py
       - name: Check for changes
