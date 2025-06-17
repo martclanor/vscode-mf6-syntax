@@ -21,6 +21,7 @@ Generated Files:
       extensions.
     - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
     - src/providers/hover-keyword.json: Provides hover description data for MF6 keywords
+    - src/providers/hover-block.json: Provides hover description data for MF6 blocks
 
 Usage:
     - Download dfn files from the MODFLOW 6 repository using:
@@ -310,6 +311,125 @@ class Dfn:
             f.write("\n")
         log.info(f"Generated from DFN: {output}")
 
+    @staticmethod
+    def export_hover_block(output: str) -> dict[str, dict[str, str]]:
+        hover = defaultdict(lambda: defaultdict(list))
+        for dfn in Dfn.get_dfns():
+            # in_record sections that are not of type record, recarray or block_variable
+            # are excluded from the outer loop
+            # these will be handled in the inner loop instead
+            skip = [
+                (section.block, section.keyword)
+                for section in dfn.sections_all
+                if section.in_rec
+                and not (
+                    section.block_var or section.type_record or section.type_recarray
+                )
+            ]
+
+            for section in dfn.sections_all:
+                # Initialize the hover entry with BEGIN line
+                if not hover[section.block][dfn.path.stem]:
+                    hover[section.block][dfn.path.stem].append(
+                        f"BEGIN {section.block.upper()}"
+                    )
+
+                # Skip dev options
+                if section.keyword.startswith("dev_"):
+                    continue
+
+                # Skip as these will be handled in the inner loop
+                if (section.block, section.keyword) in skip:
+                    continue
+
+                # Sections that are of type record or recarray have child sections
+                if section.type_record or section.type_recarray:
+                    section_types = section.types[1:]
+                    entry_list = []
+
+                    # Skip keystrings
+                    if "keystring" in section.types:
+                        continue
+
+                    for t in section_types:
+                        for s in dfn.sections_all:
+                            if t == s.keyword and s.block == section.block:
+                                # Retrieve the child section of interest
+                                section_inner = s
+                                break
+                        if section_inner.in_rec:
+                            if "keyword" not in section_inner.types:
+                                # Some of the shapes are not enclosed in (), ignore these
+                                e = f"<{section_inner.keyword}{'' if '(' not in section_inner.shape else section_inner.shape}>"
+                            else:
+                                # Capitalize if it is a keyword
+                                e = section_inner.keyword.upper()
+                            if section_inner.optional:
+                                # Enclose in () if optional
+                                e = f"[{e}]"
+                            entry_list.append(e)
+                            entry = " ".join(entry_list)
+                            if section.optional:
+                                # Enclose the entire entry in () if optional
+                                entry = f"[{entry}]"
+                    hover[section.block][dfn.path.stem].append(entry)
+
+                    if section.type_recarray:
+                        # Add duplicate entry and ellipsis for recarray types
+                        hover[section.block][dfn.path.stem].append(entry)
+                        hover[section.block][dfn.path.stem].append("...")
+                    continue
+
+                if section.just_data:
+                    entry = ""
+                elif section.block_var:
+                    entry = f"<{section.keyword}>"
+                    hover[section.block][dfn.path.stem][0] += f" {entry}"
+                    continue
+                else:
+                    # Base case
+                    entry = section.keyword.upper()
+
+                # Special handling for readarray reader
+                if section.reader == "readarray":
+                    if section.layered:
+                        entry = f"{entry} [LAYERED]"
+                    if section.netcdf:
+                        entry = f"{entry} [NETCDF]"
+                    entry = f"{entry}\n      <{section.keyword}{section.shape}> -- READARRAY"
+                elif "keyword" not in section.types:
+                    # Some of the shapes are not enclosed in (), ignore these
+                    entry = f"{entry} <{section.keyword}{'' if '(' not in section.shape else section.shape}>"
+
+                if section.optional:
+                    entry = f"[{entry}]"
+
+                hover[section.block][dfn.path.stem].append(entry)
+
+        for block in hover:
+            for dfn in hover[block]:
+                for i, line in enumerate(hover[block][dfn]):
+                    if not line.startswith("BEGIN"):
+                        # Indent lines within the block
+                        hover[block][dfn][i] = "  " + line
+
+                # Add END line: take first two words from the first line
+                hover[block][dfn].append(
+                    " ".join(hover[block][dfn][0].split()[:2]).replace("BEGIN", "END")
+                )
+                # Join list into a single string
+                hover[block][dfn] = "\n".join(hover[block][dfn])
+
+        hover_sorted = {
+            block: {dfn: lines for dfn, lines in sorted(subval.items())}
+            for block, subval in sorted(hover.items())
+        }
+
+        with open(output, "w") as f:
+            json.dump(hover_sorted, f, indent=2)
+            f.write("\n")
+        log.info(f"Generated from DFN: {output}")
+
 
 def render_template(output: str, **context):
     """Render a Jinja2 template and write the output to a file."""
@@ -340,5 +460,6 @@ if __name__ == "__main__":
         valids=valids,
     )
 
-    # Export hover keyword data from dfn files
+    # Export hover keyword and hover block data from dfn files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
+    Dfn.export_hover_block("src/providers/hover-block.json")
