@@ -134,7 +134,13 @@ class Section:
                     if line.value is not None and "true" in line.value.lower():
                         block_var = True
                 case "shape":
-                    if (value := line.value) is not None:
+                    # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
+                    # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
+                    if (
+                        (value := line.value) is not None
+                        and "(" in value
+                        and "(:)" not in value
+                    ):
                         shape = value
                 case "reader":
                     if (value := line.value) is not None:
@@ -359,8 +365,7 @@ class Dfn:
                                 break
                         if section_inner.in_rec:
                             if "keyword" not in section_inner.types:
-                                # Some of the shapes are not enclosed in (), ignore these
-                                e = f"<{section_inner.keyword}{'' if '(' not in section_inner.shape else section_inner.shape}>"
+                                e = f"<{section_inner.keyword}{section_inner.shape}>"
                             else:
                                 # Capitalize if it is a keyword
                                 e = section_inner.keyword.upper()
@@ -398,8 +403,7 @@ class Dfn:
                         entry = f"{entry} [NETCDF]"
                     entry = f"{entry}\n      <{section.keyword}{section.shape}> -- READARRAY"
                 elif "keyword" not in section.types:
-                    # Some of the shapes are not enclosed in (), ignore these
-                    entry = f"{entry} <{section.keyword}{'' if '(' not in section.shape else section.shape}>"
+                    entry = f"{entry} <{section.keyword}{section.shape}>"
 
                 if section.optional:
                     entry = f"[{entry}]"

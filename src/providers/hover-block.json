@@ -433,7 +433,7 @@
     "prt-prp": "BEGIN RELEASETIMES\n  <time>\n  <time>\n  ...\nEND RELEASETIMES"
   },
   "solutiongroup": {
-    "sim-nam": "BEGIN SOLUTIONGROUP <group_num>\n  [MXITER <mxiter>]\n  <slntype> <slnfname> <slnmnames(:)>\n  <slntype> <slnfname> <slnmnames(:)>\n  ...\nEND SOLUTIONGROUP"
+    "sim-nam": "BEGIN SOLUTIONGROUP <group_num>\n  [MXITER <mxiter>]\n  <slntype> <slnfname> <slnmnames>\n  <slntype> <slnfname> <slnmnames>\n  ...\nEND SOLUTIONGROUP"
   },
   "sources": {
     "gwe-ssm": "BEGIN SOURCES\n  <pname> <srctype> <auxname>\n  <pname> <srctype> <auxname>\n  ...\nEND SOURCES",
