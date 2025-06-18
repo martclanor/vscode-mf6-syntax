@@ -142,10 +142,12 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
       // Add comment prefix then wrap in code block
       // to preserve indentation and to provide syntax highlighting
       hoverValue = matchingDfns
-        .map(
-          (dfn) =>
-            `\`\`\`\n# Structure of ${block.toUpperCase()} block in ${dfn.toUpperCase()}\n${blockData[dfn]}\n\n\n\`\`\``,
-        )
+        .map((dfn, idx) => {
+          // Remove extra trailing newline on the last block structure
+          const isLast = idx === matchingDfns.length - 1;
+          const endingNewlines = isLast ? "\n\n" : "\n\n\n";
+          return `\`\`\`\n# Structure of ${block.toUpperCase()} block in ${dfn.toUpperCase()}\n${blockData[dfn]}${endingNewlines}\`\`\``;
+        })
         .join("\n");
 
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
