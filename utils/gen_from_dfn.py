@@ -40,9 +40,6 @@ from typing import ClassVar, Generator
 
 from jinja2 import Environment, FileSystemLoader
 
-logging.basicConfig(level=logging.INFO, format="%(message)s")
-log = logging.getLogger(__name__)
-
 
 @dataclass
 class Line:
@@ -410,6 +407,9 @@ def render_template(output: str, **context):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(message)s")
+    log = logging.getLogger(__name__)
+
     # Collect blocks, keywords, valids, and extensions from dfn files
     extensions, blocks, keywords, valids = set(), set(), set(), set()
     for dfn in Dfn.get_dfns():
