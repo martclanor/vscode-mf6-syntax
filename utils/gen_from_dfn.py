@@ -242,7 +242,7 @@ class Dfn:
         return common
 
     @staticmethod
-    def export_hover_keyword(output: str) -> dict[str, dict[str, dict[str, list[str]]]]:
+    def export_hover_keyword(output: str) -> None:
         hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         common = Dfn._parse_common()
 
@@ -278,7 +278,7 @@ class Dfn:
         log.info(f"Generated from DFN: {output}")
 
     @staticmethod
-    def export_hover_block(output: str) -> dict[str, dict[str, str]]:
+    def export_hover_block(output: str) -> None:
         hover = defaultdict(lambda: defaultdict(list))
         for dfn in Dfn.get_dfns():
             # in_record sections that are not of type record, recarray or block_variable
@@ -391,7 +391,7 @@ class Dfn:
         log.info(f"Generated from DFN: {output}")
 
 
-def render_template(output: str, **context):
+def render_template(output: str, **context) -> None:
     """Render a Jinja2 template and write the output to a file."""
     output_path = Path(output)
     template = Environment(
