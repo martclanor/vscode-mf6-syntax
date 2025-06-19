@@ -36,7 +36,7 @@ import logging
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import ClassVar, Generator, Optional
+from typing import ClassVar, Generator
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -49,7 +49,7 @@ class Line:
     """Abstraction of each line from the dfn file."""
 
     key: str
-    value: Optional[str | bool] = None
+    value: str = ""
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
@@ -57,7 +57,7 @@ class Line:
 
     @classmethod
     def from_replace(cls, data: str) -> "Line":
-        return cls(data.split()[1], value=None)
+        return cls(data.split()[1])
 
 
 @dataclass
