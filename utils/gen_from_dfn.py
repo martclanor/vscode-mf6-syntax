@@ -274,9 +274,7 @@ class Dfn:
             for keyword, val in sorted(hover.items())
         }
 
-        with open(output, "w") as f:
-            json.dump(hover_sorted, f, indent=2)
-            f.write("\n")
+        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
     @staticmethod
@@ -389,9 +387,7 @@ class Dfn:
             for block, subval in sorted(hover.items())
         }
 
-        with open(output, "w") as f:
-            json.dump(hover_sorted, f, indent=2)
-            f.write("\n")
+        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
 
