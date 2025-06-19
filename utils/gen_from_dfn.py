@@ -91,50 +91,56 @@ class Section:
     def type_rec(self) -> bool:
         return self.type_record or self.type_recarray
 
+    @staticmethod
+    def _parse_bool(value: str) -> bool:
+        return value.lower() == "true"
+
+    @staticmethod
+    def _parse_tuple(value: str) -> tuple[str, ...]:
+        return tuple(value.split())
+
+    @staticmethod
+    def _parse_shape(value: str) -> str:
+        # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
+        # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
+        if value == "" or value[0] != "(" or value == "(:)":
+            return ""
+        return value
+
     @classmethod
     def from_file(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in [Line.from_file(_line) for _line in data.strip().split("\n")]:
-            value: str = line.value.lower()
+            value: str = line.value
             match line.key:
                 case "block":
                     kwargs["block"] = value
                 case "name":
                     kwargs["keyword"] = value
                 case "type":
-                    kwargs["types"] = tuple(value.split())
+                    kwargs["types"] = cls._parse_tuple(value)
                 case "block_variable":
-                    if value == "true":
-                        kwargs["block_variable"] = True
+                    kwargs["block_variable"] = cls._parse_bool(value)
                 case "shape":
-                    # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
-                    # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
-                    if value != "" and value[0] == "(" and value != "(:)":
-                        kwargs["shape"] = value
+                    kwargs["shape"] = cls._parse_shape(value)
                 case "reader":
                     kwargs["reader"] = value
                 case "in_record":
-                    if value == "true":
-                        kwargs["in_record"] = True
+                    kwargs["in_record"] = cls._parse_bool(value)
                 case "valid":
-                    kwargs["valid"] = tuple(value.split())
+                    kwargs["valid"] = cls._parse_tuple(value)
                 case "layered":
-                    if value == "true":
-                        kwargs["layered"] = True
+                    kwargs["layered"] = cls._parse_bool(value)
                 case "netcdf":
-                    if value == "true":
-                        kwargs["netcdf"] = True
+                    kwargs["netcdf"] = cls._parse_bool(value)
                 case "tagged":
-                    if value == "false":
-                        kwargs["tagged"] = False
+                    kwargs["tagged"] = cls._parse_bool(value)
                 case "just_data":
-                    if value == "true":
-                        kwargs["just_data"] = True
+                    kwargs["just_data"] = cls._parse_bool(value)
                 case "optional":
-                    if value == "true":
-                        kwargs["optional"] = True
+                    kwargs["optional"] = cls._parse_bool(value)
                 case "description":
-                    # For description, use line.value instead of value to keep the case
+                    # Use line.value instead of value to keep the case
                     kwargs["description"] = line.value
                 case (
                     "longname"
