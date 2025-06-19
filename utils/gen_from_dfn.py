@@ -243,7 +243,9 @@ class Dfn:
 
     @staticmethod
     def export_hover_keyword(output: str) -> None:
-        hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
+            defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        )
         common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
@@ -279,7 +281,9 @@ class Dfn:
 
     @staticmethod
     def export_hover_block(output: str) -> None:
-        hover = defaultdict(lambda: defaultdict(list))
+        hover: defaultdict[str, defaultdict[str, list[str]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
         for dfn in Dfn.get_dfns():
             # in_record sections that are not of type record, recarray or block_variable
             # are excluded from the outer loop
@@ -368,23 +372,28 @@ class Dfn:
 
                 hover[section.block][dfn.path.stem].append(entry)
 
+        # Complete hover text then convert to string
+        hover_str: defaultdict[str, defaultdict[str, str]] = defaultdict(
+            lambda: defaultdict(str)
+        )
         for block in hover:
-            for dfn in hover[block]:
-                for i, line in enumerate(hover[block][dfn]):
+            # Variable dfn is already used
+            for dfn_ in hover[block]:
+                for i, line in enumerate(hover[block][dfn_]):
                     if not line.startswith("BEGIN"):
                         # Indent lines within the block
-                        hover[block][dfn][i] = "  " + line
+                        hover[block][dfn_][i] = "  " + line
 
                 # Add END line: take first two words from the first line
-                hover[block][dfn].append(
-                    " ".join(hover[block][dfn][0].split()[:2]).replace("BEGIN", "END")
+                hover[block][dfn_].append(
+                    " ".join(hover[block][dfn_][0].split()[:2]).replace("BEGIN", "END")
                 )
                 # Join list into a single string
-                hover[block][dfn] = "\n".join(hover[block][dfn])
+                hover_str[block][dfn_] = "\n".join(hover[block][dfn_])
 
         hover_sorted = {
             block: {dfn: lines for dfn, lines in sorted(subval.items())}
-            for block, subval in sorted(hover.items())
+            for block, subval in sorted(hover_str.items())
         }
 
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
