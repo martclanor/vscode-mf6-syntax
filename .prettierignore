@@ -1,4 +1,5 @@
 .venv/**
+.mypy_cache/**
 .ruff_cache/**
 out/
 .vscode-test/
