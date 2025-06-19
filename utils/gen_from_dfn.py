@@ -136,6 +136,28 @@ class Section:
                 case "description":
                     # For description, use line.value instead of value to keep the case
                     kwargs["description"] = line.value
+                case (
+                    "longname"
+                    | "default_value"
+                    | "numeric_index"
+                    | "time_series"
+                    | "preserve_case"
+                    | "mf6internal"
+                    | "extended"
+                    | "removed"
+                    | "repeating"
+                    | "deprecated"
+                    | "other_names"
+                    | "jagged_array"
+                    | "support_negative_index"
+                ):
+                    # For completeness, these fields are in the dfn but are not used in the current implementation
+                    pass
+                case _:
+                    raise ValueError(
+                        f"Unknown key '{line.key}' in section:\n\n{data.strip()}"
+                    )
+
         return cls(**kwargs)
 
 
