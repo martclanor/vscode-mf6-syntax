@@ -66,127 +66,77 @@ class Section:
 
     keyword: str
     block: str
-    types: list[str]
-    type_record: bool
-    type_recarray: bool
-    block_var: bool
-    shape: str
-    reader: str
-    in_rec: bool
-    valid: tuple[str, ...]
-    layered: bool
-    netcdf: bool
-    tagged: bool
-    just_data: bool
-    optional: bool
-    description: str
+    types: tuple[str, ...] = ()
+    block_variable: bool = False
+    shape: str = ""
+    reader: str = ""
+    in_record: bool = False
+    valid: tuple[str, ...] = ()
+    layered: bool = False
+    netcdf: bool = False
+    tagged: bool = True
+    just_data: bool = False
+    optional: bool = False
+    description: str = ""
+
+    @property
+    def type_record(self) -> bool:
+        return "record" in self.types
+
+    @property
+    def type_recarray(self) -> bool:
+        return "recarray" in self.types
+
+    @property
+    def type_rec(self) -> bool:
+        return self.type_record or self.type_recarray
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
-        # Set default values
-        types = []
-        type_record = False
-        type_recarray = False
-        block_var = False
-        shape = ""
-        reader = ""
-        in_rec = False
-        valid = None
-        layered = False
-        netcdf = False
-        tagged = True
-        just_data = False
-        optional = False
-        description = None
-
-        for _line in data.strip().split("\n"):
-            if _line.split(maxsplit=1)[0] not in {
-                "block",
-                "name",
-                "type",
-                "block_variable",
-                "shape",
-                "reader",
-                "in_record",
-                "valid",
-                "layered",
-                "netcdf",
-                "tagged",
-                "just_data",
-                "optional",
-                "description",
-            }:
-                continue
-
-            line = Line.from_file(_line)
+        kwargs: dict[str, str | bool | tuple] = {}
+        for line in [Line.from_file(_line) for _line in data.strip().split("\n")]:
+            value: str = line.value.lower()
             match line.key:
                 case "block":
-                    block = line.value
+                    kwargs["block"] = value
                 case "name":
-                    keyword = line.value
+                    kwargs["keyword"] = value
                 case "type":
-                    types = line.value.split()
-                    if "record" in types:
-                        type_record = True
-                    if "recarray" in types:
-                        type_recarray = True
+                    kwargs["types"] = tuple(value.split())
                 case "block_variable":
-                    if line.value is not None and "true" in line.value.lower():
-                        block_var = True
+                    if value == "true":
+                        kwargs["block_variable"] = True
                 case "shape":
                     # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
                     # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
-                    if (
-                        (value := line.value) is not None
-                        and "(" in value
-                        and "(:)" not in value
-                    ):
-                        shape = value
+                    if value != "" and value[0] == "(" and value != "(:)":
+                        kwargs["shape"] = value
                 case "reader":
-                    if (value := line.value) is not None:
-                        reader = value
+                    kwargs["reader"] = value
                 case "in_record":
-                    if line.value == "true":
-                        in_rec = True
+                    if value == "true":
+                        kwargs["in_record"] = True
                 case "valid":
-                    if (value := line.value) is not None:
-                        valid = tuple(value.split())
+                    kwargs["valid"] = tuple(value.split())
                 case "layered":
-                    if line.value is not None and "true" in line.value.lower():
-                        layered = True
+                    if value == "true":
+                        kwargs["layered"] = True
                 case "netcdf":
-                    if line.value is not None and "true" in line.value.lower():
-                        netcdf = True
+                    if value == "true":
+                        kwargs["netcdf"] = True
                 case "tagged":
-                    if line.value is not None and "false" in line.value:
-                        tagged = False
+                    if value == "false":
+                        kwargs["tagged"] = False
                 case "just_data":
-                    if line.value is not None and "true" in line.value:
-                        just_data = True
+                    if value == "true":
+                        kwargs["just_data"] = True
                 case "optional":
-                    if line.value is not None and "true" in line.value:
-                        optional = True
+                    if value == "true":
+                        kwargs["optional"] = True
                 case "description":
-                    description = line.value
-
-        return cls(
-            block=block,
-            keyword=keyword,
-            types=types,
-            type_record=type_record,
-            type_recarray=type_recarray,
-            block_var=block_var,
-            shape=shape,
-            reader=reader,
-            in_rec=in_rec,
-            valid=valid,
-            layered=layered,
-            netcdf=netcdf,
-            tagged=tagged,
-            just_data=just_data,
-            optional=optional,
-            description=description,
-        )
+                    # For description, use line.value instead of value to keep the case
+                    kwargs["description"] = line.value
+        return cls(**kwargs)
 
 
 @dataclass
@@ -197,59 +147,46 @@ class Dfn:
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
 
-    def __post_init__(self):
+    @property
+    def data(self) -> tuple[str, ...]:
         with self.path.open() as f:
-            self._data = tuple(
-                # Strip comment lines
+            data = tuple(
                 "\n".join(
                     line
                     for line in section.splitlines()
-                    if not line.strip().startswith("#")
+                    if not line.lstrip().startswith("#")
                 )
                 for section in f.read().split("\n\n")
             )
-
-    @property
-    def data(self) -> tuple[str, ...]:
-        return self._data
+        return data
 
     def get_data(self, prefix: str = "") -> Generator[str, None, None]:
         if prefix == "":
             return (data for data in self.data if data != "")
         return (data for data in self.data if data.startswith(prefix))
 
-    @property
-    def sections(self) -> tuple[Section, ...]:
-        sections = []
-        for data in self.get_data():
-            section = Section.from_file(data)
-            if section.type_record or section.type_recarray:
-                continue
-            sections.append(section)
-        return tuple(sections)
-
-    @property
-    def sections_all(self) -> tuple[Section, ...]:
-        sections = []
-        for data in self.get_data():
-            section = Section.from_file(data)
-            sections.append(section)
-        return tuple(sections)
+    def get_sections(self, filter_fn=None) -> Generator[Section, None, None]:
+        sections = (Section.from_file(data) for data in self.get_data())
+        if filter_fn is None:
+            return sections
+        return (section for section in sections if filter_fn(section))
 
     @property
     def blocks(self) -> set[str]:
-        return {p.block for p in self.sections}
+        return {p.block for p in self.get_sections()}
 
     @property
     def keywords(self) -> set[str]:
-        return {section.keyword for section in self.sections if section.tagged}
+        return {
+            section.keyword
+            for section in self.get_sections(lambda s: s.tagged and not s.type_rec)
+        }
 
     @property
     def valids(self) -> set[str]:
         return {
             valid
-            for section in self.sections
-            if section.valid
+            for section in self.get_sections(lambda s: s.valid)
             for valid in section.valid
         }
 
@@ -285,7 +222,7 @@ class Dfn:
         common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
-            for section in dfn.sections:
+            for section in dfn.get_sections(lambda s: not s.type_rec):
                 if (description := section.description) is None:
                     continue
                 if "REPLACE" in description:
@@ -326,14 +263,12 @@ class Dfn:
             # these will be handled in the inner loop instead
             skip = [
                 (section.block, section.keyword)
-                for section in dfn.sections_all
-                if section.in_rec
-                and not (
-                    section.block_var or section.type_record or section.type_recarray
+                for section in dfn.get_sections(
+                    lambda s: s.in_record and not s.block_variable and not s.type_rec
                 )
             ]
 
-            for section in dfn.sections_all:
+            for section in dfn.get_sections():
                 # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
                     hover[section.block][dfn.path.stem].append(
@@ -349,7 +284,7 @@ class Dfn:
                     continue
 
                 # Sections that are of type record or recarray have child sections
-                if section.type_record or section.type_recarray:
+                if section.type_rec:
                     section_types = section.types[1:]
                     entry_list = []
 
@@ -358,12 +293,12 @@ class Dfn:
                         continue
 
                     for t in section_types:
-                        for s in dfn.sections_all:
+                        for s in dfn.get_sections():
                             if t == s.keyword and s.block == section.block:
                                 # Retrieve the child section of interest
                                 section_inner = s
                                 break
-                        if section_inner.in_rec:
+                        if section_inner.in_record:
                             if "keyword" not in section_inner.types:
                                 e = f"<{section_inner.keyword}{section_inner.shape}>"
                             else:
@@ -387,7 +322,7 @@ class Dfn:
 
                 if section.just_data:
                     entry = ""
-                elif section.block_var:
+                elif section.block_variable:
                     entry = f"<{section.keyword}>"
                     hover[section.block][dfn.path.stem][0] += f" {entry}"
                     continue
