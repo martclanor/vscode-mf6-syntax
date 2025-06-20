@@ -81,16 +81,8 @@ class Section:
     block_variable: bool = False
 
     @property
-    def type_record(self) -> bool:
-        return "record" in self.types
-
-    @property
-    def type_recarray(self) -> bool:
-        return "recarray" in self.types
-
-    @property
     def type_rec(self) -> bool:
-        return self.type_record or self.type_recarray
+        return "record" in self.types or "recarray" in self.types
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
@@ -341,7 +333,7 @@ class Dfn:
                                 entry = f"[{entry}]"
                     hover[section.block][dfn.path.stem].append(entry)
 
-                    if section.type_recarray:
+                    if "recarray" in section.types:
                         # Add duplicate entry and ellipsis for recarray types
                         hover[section.block][dfn.path.stem].append(entry)
                         hover[section.block][dfn.path.stem].append("...")
