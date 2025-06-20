@@ -232,6 +232,16 @@ class Dfn:
         return common
 
     @staticmethod
+    def _sort_hover_data(obj: list | str | dict) -> list | str | dict:
+        # Base case: lowest level of the data structure, list or string
+        if isinstance(obj, list):
+            return sorted(obj)
+        elif isinstance(obj, str):
+            return obj
+        # Recursive case: apply function to the dictionary values
+        return {key: Dfn._sort_hover_data(value) for key, value in sorted(obj.items())}
+
+    @staticmethod
     def export_hover_keyword(output: str) -> None:
         hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
@@ -258,14 +268,7 @@ class Dfn:
                 )
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
-        hover_sorted = {
-            keyword: {
-                block: {desc: sorted(dfn) for desc, dfn in sorted(subval.items())}
-                for block, subval in sorted(val.items())
-            }
-            for keyword, val in sorted(hover.items())
-        }
-
+        hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
@@ -381,11 +384,7 @@ class Dfn:
                 # Join list into a single string
                 hover_str[block][dfn_] = "\n".join(hover[block][dfn_])
 
-        hover_sorted = {
-            block: {dfn: lines for dfn, lines in sorted(subval.items())}
-            for block, subval in sorted(hover_str.items())
-        }
-
+        hover_sorted = Dfn._sort_hover_data(hover_str)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
