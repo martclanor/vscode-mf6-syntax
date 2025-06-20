@@ -121,8 +121,7 @@ class Section:
                 case "reader":
                     kwargs["reader"] = value
                 case "description":
-                    # Use line.value instead of value to keep the case
-                    kwargs["description"] = line.value
+                    kwargs["description"] = value
                 case "shape":
                     kwargs["shape"] = cls._parse_shape(value)
                 case "type":
