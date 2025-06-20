@@ -35,6 +35,7 @@ import json
 import logging
 from collections import defaultdict
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
 from typing import ClassVar, Generator
 
@@ -175,10 +176,10 @@ class Dfn:
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
 
-    @property
+    @cached_property
     def data(self) -> tuple[str, ...]:
         with self.path.open() as f:
-            data = tuple(
+            return tuple(
                 "\n".join(
                     line
                     for line in section.splitlines()
@@ -186,7 +187,6 @@ class Dfn:
                 )
                 for section in f.read().split("\n\n")
             )
-        return data
 
     def get_data(self, prefix: str = "") -> Generator[str, None, None]:
         if prefix == "":
