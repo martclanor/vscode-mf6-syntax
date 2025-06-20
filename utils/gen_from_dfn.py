@@ -223,11 +223,7 @@ class Dfn:
         # which are used to replace placeholders in other dfn files
         common = {}
         for section in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
-            name, description = [
-                Line.from_file(data) for data in section.strip().split("\n")
-            ]
-            if not (name.key == "name" and description.key == "description"):
-                continue
+            name, description = [Line.from_file(data) for data in section.split("\n")]
             common[name.value] = description.value
         return common
 
