@@ -152,9 +152,7 @@ class Section:
                     # For completeness, these fields are in the dfn but are not used in the current implementation
                     pass
                 case _:
-                    raise ValueError(
-                        f"Unknown key '{line.key}' in section:\n\n{data.strip()}"
-                    )
+                    raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
 
         return cls(**kwargs)
 
