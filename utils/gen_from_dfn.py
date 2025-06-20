@@ -37,7 +37,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
-from typing import ClassVar, Generator
+from typing import Callable, ClassVar, Generator
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -192,7 +192,9 @@ class Dfn:
             return (data for data in self.data if data != "")
         return (data for data in self.data if data.startswith(prefix))
 
-    def get_sections(self, filter_fn=None) -> Generator[Section, None, None]:
+    def get_sections(
+        self, filter_fn: Callable[[Section], bool] | None = None
+    ) -> Generator[Section, None, None]:
         sections = (Section.from_file(data) for data in self.get_data())
         if filter_fn is None:
             return sections
@@ -211,11 +213,7 @@ class Dfn:
 
     @property
     def valids(self) -> set[str]:
-        return {
-            valid
-            for section in self.get_sections(lambda s: s.valid)
-            for valid in section.valid
-        }
+        return {valid for section in self.get_sections() for valid in section.valid}
 
     @property
     def extension(self) -> str:
