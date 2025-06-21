@@ -35,8 +35,9 @@ import json
 import logging
 from collections import defaultdict
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
-from typing import ClassVar, Generator, Optional
+from typing import Callable, ClassVar, Generator
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -49,7 +50,7 @@ class Line:
     """Abstraction of each line from the dfn file."""
 
     key: str
-    value: Optional[str | bool] = None
+    value: str = ""
 
     @classmethod
     def from_file(cls, data: str) -> "Line":
@@ -57,7 +58,7 @@ class Line:
 
     @classmethod
     def from_replace(cls, data: str) -> "Line":
-        return cls(data.split()[1], value=None)
+        return cls(data.split()[1])
 
 
 @dataclass
@@ -66,127 +67,94 @@ class Section:
 
     keyword: str
     block: str
-    types: list[str]
-    type_record: bool
-    type_recarray: bool
-    block_var: bool
-    shape: str
-    reader: str
-    in_rec: bool
-    valid: tuple[str, ...]
-    layered: bool
-    netcdf: bool
-    tagged: bool
-    just_data: bool
-    optional: bool
-    description: str
+    reader: str = ""
+    description: str = ""
+    shape: str = ""
+    types: tuple[str, ...] = ()
+    valid: tuple[str, ...] = ()
+    optional: bool = False
+    tagged: bool = True
+    in_record: bool = False
+    layered: bool = False
+    netcdf: bool = False
+    just_data: bool = False
+    block_variable: bool = False
+
+    @property
+    def type_rec(self) -> bool:
+        return "record" in self.types or "recarray" in self.types
+
+    @staticmethod
+    def _parse_bool(value: str) -> bool:
+        return value.lower() == "true"
+
+    @staticmethod
+    def _parse_tuple(value: str) -> tuple[str, ...]:
+        return tuple(value.split())
+
+    @staticmethod
+    def _parse_shape(value: str) -> str:
+        # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
+        # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
+        if value == "" or value[0] != "(" or value == "(:)":
+            return ""
+        return value
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
-        # Set default values
-        types = []
-        type_record = False
-        type_recarray = False
-        block_var = False
-        shape = ""
-        reader = ""
-        in_rec = False
-        valid = None
-        layered = False
-        netcdf = False
-        tagged = True
-        just_data = False
-        optional = False
-        description = None
-
-        for _line in data.strip().split("\n"):
-            if _line.split(maxsplit=1)[0] not in {
-                "block",
-                "name",
-                "type",
-                "block_variable",
-                "shape",
-                "reader",
-                "in_record",
-                "valid",
-                "layered",
-                "netcdf",
-                "tagged",
-                "just_data",
-                "optional",
-                "description",
-            }:
-                continue
-
-            line = Line.from_file(_line)
+        kwargs: dict[str, str | bool | tuple] = {}
+        for line in [Line.from_file(_line) for _line in data.strip().split("\n")]:
+            value: str = line.value
             match line.key:
-                case "block":
-                    block = line.value
                 case "name":
-                    keyword = line.value
-                case "type":
-                    types = line.value.split()
-                    if "record" in types:
-                        type_record = True
-                    if "recarray" in types:
-                        type_recarray = True
-                case "block_variable":
-                    if line.value is not None and "true" in line.value.lower():
-                        block_var = True
-                case "shape":
-                    # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
-                    # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
-                    if (
-                        (value := line.value) is not None
-                        and "(" in value
-                        and "(:)" not in value
-                    ):
-                        shape = value
+                    kwargs["keyword"] = value
+                case "block":
+                    kwargs["block"] = value
                 case "reader":
-                    if (value := line.value) is not None:
-                        reader = value
-                case "in_record":
-                    if line.value == "true":
-                        in_rec = True
-                case "valid":
-                    if (value := line.value) is not None:
-                        valid = tuple(value.split())
-                case "layered":
-                    if line.value is not None and "true" in line.value.lower():
-                        layered = True
-                case "netcdf":
-                    if line.value is not None and "true" in line.value.lower():
-                        netcdf = True
-                case "tagged":
-                    if line.value is not None and "false" in line.value:
-                        tagged = False
-                case "just_data":
-                    if line.value is not None and "true" in line.value:
-                        just_data = True
-                case "optional":
-                    if line.value is not None and "true" in line.value:
-                        optional = True
+                    kwargs["reader"] = value
                 case "description":
-                    description = line.value
+                    kwargs["description"] = value
+                case "shape":
+                    kwargs["shape"] = cls._parse_shape(value)
+                case "type":
+                    kwargs["types"] = cls._parse_tuple(value)
+                case "valid":
+                    kwargs["valid"] = cls._parse_tuple(value)
+                case "optional":
+                    kwargs["optional"] = cls._parse_bool(value)
+                case "tagged":
+                    kwargs["tagged"] = cls._parse_bool(value)
+                case "in_record":
+                    kwargs["in_record"] = cls._parse_bool(value)
+                case "layered":
+                    kwargs["layered"] = cls._parse_bool(value)
+                case "netcdf":
+                    kwargs["netcdf"] = cls._parse_bool(value)
+                case "block_variable":
+                    kwargs["block_variable"] = cls._parse_bool(value)
+                case "just_data":
+                    kwargs["just_data"] = cls._parse_bool(value)
+                case (
+                    "longname"
+                    | "default_value"
+                    | "numeric_index"
+                    | "time_series"
+                    | "preserve_case"
+                    | "mf6internal"
+                    | "extended"
+                    | "removed"
+                    | "repeating"
+                    | "deprecated"
+                    | "other_names"
+                    | "jagged_array"
+                    | "support_negative_index"
+                ):
+                    # For completeness, these fields are in the dfn but are not used in the current implementation
+                    pass
+                case _:
+                    raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
 
-        return cls(
-            block=block,
-            keyword=keyword,
-            types=types,
-            type_record=type_record,
-            type_recarray=type_recarray,
-            block_var=block_var,
-            shape=shape,
-            reader=reader,
-            in_rec=in_rec,
-            valid=valid,
-            layered=layered,
-            netcdf=netcdf,
-            tagged=tagged,
-            just_data=just_data,
-            optional=optional,
-            description=description,
-        )
+        return cls(**kwargs)
 
 
 @dataclass
@@ -197,61 +165,45 @@ class Dfn:
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
 
-    def __post_init__(self):
+    @cached_property
+    def data(self) -> tuple[str, ...]:
         with self.path.open() as f:
-            self._data = tuple(
-                # Strip comment lines
+            return tuple(
                 "\n".join(
                     line
                     for line in section.splitlines()
-                    if not line.strip().startswith("#")
+                    if not line.lstrip().startswith("#")
                 )
                 for section in f.read().split("\n\n")
             )
-
-    @property
-    def data(self) -> tuple[str, ...]:
-        return self._data
 
     def get_data(self, prefix: str = "") -> Generator[str, None, None]:
         if prefix == "":
             return (data for data in self.data if data != "")
         return (data for data in self.data if data.startswith(prefix))
 
-    @property
-    def sections(self) -> tuple[Section, ...]:
-        sections = []
-        for data in self.get_data():
-            section = Section.from_file(data)
-            if section.type_record or section.type_recarray:
-                continue
-            sections.append(section)
-        return tuple(sections)
-
-    @property
-    def sections_all(self) -> tuple[Section, ...]:
-        sections = []
-        for data in self.get_data():
-            section = Section.from_file(data)
-            sections.append(section)
-        return tuple(sections)
+    def get_sections(
+        self, filter_fn: Callable[[Section], bool] | None = None
+    ) -> Generator[Section, None, None]:
+        sections = (Section.from_file(data) for data in self.get_data())
+        if filter_fn is None:
+            return sections
+        return (section for section in sections if filter_fn(section))
 
     @property
     def blocks(self) -> set[str]:
-        return {p.block for p in self.sections}
+        return {p.block for p in self.get_sections()}
 
     @property
     def keywords(self) -> set[str]:
-        return {section.keyword for section in self.sections if section.tagged}
+        return {
+            section.keyword
+            for section in self.get_sections(lambda s: s.tagged and not s.type_rec)
+        }
 
     @property
     def valids(self) -> set[str]:
-        return {
-            valid
-            for section in self.sections
-            if section.valid
-            for valid in section.valid
-        }
+        return {valid for section in self.get_sections() for valid in section.valid}
 
     @property
     def extension(self) -> str:
@@ -271,69 +223,71 @@ class Dfn:
         # which are used to replace placeholders in other dfn files
         common = {}
         for section in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
-            name, description = [
-                Line.from_file(data) for data in section.strip().split("\n")
-            ]
-            if not (name.key == "name" and description.key == "description"):
-                continue
+            name, description = [Line.from_file(data) for data in section.split("\n")]
             common[name.value] = description.value
         return common
 
     @staticmethod
-    def export_hover_keyword(output: str) -> dict[str, dict[str, dict[str, list[str]]]]:
-        hover = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+    def _replace_common(desc_orig: str, common: dict[str, str]) -> str:
+        if "REPLACE" not in desc_orig:
+            return desc_orig
+        keyword = Line.from_replace(desc_orig).key
+        # Create replacement dictionary from the original description
+        replacement = ast.literal_eval(desc_orig.lstrip(f"REPLACE {keyword} "))
+        # Take new description from common, then replace placeholders
+        desc_new = common[keyword]
+        for key, value in replacement.items():
+            desc_new = desc_new.replace(key, value)
+        return desc_new
+
+    @staticmethod
+    def _sort_hover_data(obj: list | str | dict) -> list | str | dict:
+        # Base case: lowest level of the data structure, list or string
+        if isinstance(obj, list):
+            return sorted(obj)
+        elif isinstance(obj, str):
+            return obj
+        # Recursive case: apply function to the dictionary values
+        return {key: Dfn._sort_hover_data(value) for key, value in sorted(obj.items())}
+
+    @staticmethod
+    def export_hover_keyword(output: str) -> None:
+        hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
+            defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        )
         common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
-            for section in dfn.sections:
-                if (description := section.description) is None:
-                    continue
-                if "REPLACE" in description:
-                    keyword = Line.from_replace(description).key
-                    # Create replacement dictionary from the original description
-                    replacement = ast.literal_eval(
-                        section.description.strip(f"REPLACE {keyword} ")
-                    )
-                    # Take new description from common, then replace placeholders
-                    description = common[keyword]
-                    for key, value in replacement.items():
-                        description = description.replace(key, value)
-
+            for section in dfn.get_sections(lambda s: not s.type_rec):
                 description = (
-                    description.replace("``", "`").replace("''", "`").replace("\\", "")
+                    Dfn._replace_common(section.description, common)
+                    .replace("``", "`")
+                    .replace("''", "`")
+                    .replace("\\", "")
                 )
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
-        hover_sorted = {
-            keyword: {
-                block: {desc: sorted(dfn) for desc, dfn in sorted(subval.items())}
-                for block, subval in sorted(val.items())
-            }
-            for keyword, val in sorted(hover.items())
-        }
-
-        with open(output, "w") as f:
-            json.dump(hover_sorted, f, indent=2)
-            f.write("\n")
+        hover_sorted = Dfn._sort_hover_data(hover)
+        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
     @staticmethod
-    def export_hover_block(output: str) -> dict[str, dict[str, str]]:
-        hover = defaultdict(lambda: defaultdict(list))
+    def export_hover_block(output: str) -> None:
+        hover: defaultdict[str, defaultdict[str, list[str]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
         for dfn in Dfn.get_dfns():
             # in_record sections that are not of type record, recarray or block_variable
             # are excluded from the outer loop
             # these will be handled in the inner loop instead
             skip = [
                 (section.block, section.keyword)
-                for section in dfn.sections_all
-                if section.in_rec
-                and not (
-                    section.block_var or section.type_record or section.type_recarray
+                for section in dfn.get_sections(
+                    lambda s: s.in_record and not s.block_variable and not s.type_rec
                 )
             ]
 
-            for section in dfn.sections_all:
+            for section in dfn.get_sections():
                 # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
                     hover[section.block][dfn.path.stem].append(
@@ -349,7 +303,7 @@ class Dfn:
                     continue
 
                 # Sections that are of type record or recarray have child sections
-                if section.type_record or section.type_recarray:
+                if section.type_rec:
                     section_types = section.types[1:]
                     entry_list = []
 
@@ -358,12 +312,12 @@ class Dfn:
                         continue
 
                     for t in section_types:
-                        for s in dfn.sections_all:
+                        for s in dfn.get_sections():
                             if t == s.keyword and s.block == section.block:
                                 # Retrieve the child section of interest
                                 section_inner = s
                                 break
-                        if section_inner.in_rec:
+                        if section_inner.in_record:
                             if "keyword" not in section_inner.types:
                                 e = f"<{section_inner.keyword}{section_inner.shape}>"
                             else:
@@ -379,7 +333,7 @@ class Dfn:
                                 entry = f"[{entry}]"
                     hover[section.block][dfn.path.stem].append(entry)
 
-                    if section.type_recarray:
+                    if "recarray" in section.types:
                         # Add duplicate entry and ellipsis for recarray types
                         hover[section.block][dfn.path.stem].append(entry)
                         hover[section.block][dfn.path.stem].append("...")
@@ -387,7 +341,7 @@ class Dfn:
 
                 if section.just_data:
                     entry = ""
-                elif section.block_var:
+                elif section.block_variable:
                     entry = f"<{section.keyword}>"
                     hover[section.block][dfn.path.stem][0] += f" {entry}"
                     continue
@@ -410,32 +364,31 @@ class Dfn:
 
                 hover[section.block][dfn.path.stem].append(entry)
 
+        # Complete hover text then convert to string
+        hover_str: defaultdict[str, defaultdict[str, str]] = defaultdict(
+            lambda: defaultdict(str)
+        )
         for block in hover:
-            for dfn in hover[block]:
-                for i, line in enumerate(hover[block][dfn]):
+            # Variable dfn is already used
+            for dfn_ in hover[block]:
+                for i, line in enumerate(hover[block][dfn_]):
                     if not line.startswith("BEGIN"):
                         # Indent lines within the block
-                        hover[block][dfn][i] = "  " + line
+                        hover[block][dfn_][i] = "  " + line
 
                 # Add END line: take first two words from the first line
-                hover[block][dfn].append(
-                    " ".join(hover[block][dfn][0].split()[:2]).replace("BEGIN", "END")
+                hover[block][dfn_].append(
+                    " ".join(hover[block][dfn_][0].split()[:2]).replace("BEGIN", "END")
                 )
                 # Join list into a single string
-                hover[block][dfn] = "\n".join(hover[block][dfn])
+                hover_str[block][dfn_] = "\n".join(hover[block][dfn_])
 
-        hover_sorted = {
-            block: {dfn: lines for dfn, lines in sorted(subval.items())}
-            for block, subval in sorted(hover.items())
-        }
-
-        with open(output, "w") as f:
-            json.dump(hover_sorted, f, indent=2)
-            f.write("\n")
+        hover_sorted = Dfn._sort_hover_data(hover_str)
+        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
 
-def render_template(output: str, **context):
+def render_template(output: str, **context) -> None:
     """Render a Jinja2 template and write the output to a file."""
     output_path = Path(output)
     template = Environment(
