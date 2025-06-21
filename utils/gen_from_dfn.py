@@ -228,6 +228,19 @@ class Dfn:
         return common
 
     @staticmethod
+    def _replace_common(desc_orig: str, common: dict[str, str]) -> str:
+        if "REPLACE" not in desc_orig:
+            return desc_orig
+        keyword = Line.from_replace(desc_orig).key
+        # Create replacement dictionary from the original description
+        replacement = ast.literal_eval(desc_orig.lstrip(f"REPLACE {keyword} "))
+        # Take new description from common, then replace placeholders
+        desc_new = common[keyword]
+        for key, value in replacement.items():
+            desc_new = desc_new.replace(key, value)
+        return desc_new
+
+    @staticmethod
     def _sort_hover_data(obj: list | str | dict) -> list | str | dict:
         # Base case: lowest level of the data structure, list or string
         if isinstance(obj, list):
@@ -246,21 +259,11 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
-                if (description := section.description) is None:
-                    continue
-                if "REPLACE" in description:
-                    keyword = Line.from_replace(description).key
-                    # Create replacement dictionary from the original description
-                    replacement = ast.literal_eval(
-                        section.description.strip(f"REPLACE {keyword} ")
-                    )
-                    # Take new description from common, then replace placeholders
-                    description = common[keyword]
-                    for key, value in replacement.items():
-                        description = description.replace(key, value)
-
                 description = (
-                    description.replace("``", "`").replace("''", "`").replace("\\", "")
+                    Dfn._replace_common(section.description, common)
+                    .replace("``", "`")
+                    .replace("''", "`")
+                    .replace("\\", "")
                 )
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
