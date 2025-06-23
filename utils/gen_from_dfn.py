@@ -83,7 +83,7 @@ class Section:
 
     @property
     def type_rec(self) -> bool:
-        return self.type_ in ("record", "recarray")
+        return self.type_ == "record" or self.type_ == "recarray"
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
@@ -326,7 +326,7 @@ class Dfn:
                     entry_list = []
 
                     # Skip keystrings
-                    if "keystring" in section.type_:
+                    if section.type_ == "keystring":
                         continue
 
                     for t in section.recs:
@@ -336,7 +336,7 @@ class Dfn:
                                 section_inner = s
                                 break
                         if section_inner.in_record:
-                            if "keyword" not in section_inner.type_:
+                            if section_inner.type_ != "keyword":
                                 e = f"<{section_inner.keyword}{section_inner.shape}>"
                             else:
                                 # Capitalize if it is a keyword
@@ -351,7 +351,7 @@ class Dfn:
                                 entry = f"[{entry}]"
                     hover[section.block][dfn.path.stem].append(entry)
 
-                    if "recarray" in section.type_:
+                    if section.type_ == "recarray":
                         # Add duplicate entry and ellipsis for recarray types
                         hover[section.block][dfn.path.stem].append(entry)
                         hover[section.block][dfn.path.stem].append("...")
@@ -374,7 +374,7 @@ class Dfn:
                     if section.netcdf:
                         entry = f"{entry} [NETCDF]"
                     entry = f"{entry}\n      <{section.keyword}{section.shape}> -- READARRAY"
-                elif "keyword" not in section.type_:
+                elif section.type_ != "keyword":
                     entry = f"{entry} <{section.keyword}{section.shape}>"
 
                 if section.optional:
