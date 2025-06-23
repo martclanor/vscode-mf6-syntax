@@ -37,7 +37,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
-from typing import Callable, ClassVar, Generator
+from typing import Callable, ClassVar, Generator, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -177,13 +177,13 @@ class Dfn:
                 for section in f.read().split("\n\n")
             )
 
-    def get_data(self, prefix: str = "") -> Generator[str, None, None]:
-        if prefix == "":
+    def get_data(self, prefix: Optional[str] = None) -> Generator[str, None, None]:
+        if prefix is None:
             return (data for data in self.data if data != "")
         return (data for data in self.data if data.startswith(prefix))
 
     def get_sections(
-        self, filter_fn: Callable[[Section], bool] | None = None
+        self, filter_fn: Optional[Callable[[Section], bool]] = None
     ) -> Generator[Section, None, None]:
         sections = (Section.from_file(data) for data in self.get_data())
         if filter_fn is None:
