@@ -70,7 +70,8 @@ class Section:
     reader: str = ""
     description: str = ""
     shape: str = ""
-    types: tuple[str, ...] = ()
+    type_: str = ""
+    recs: tuple[str, ...] = ()  # Not explicit in DFN, but part of type
     valid: tuple[str, ...] = ()
     optional: bool = False
     tagged: bool = True
@@ -82,7 +83,7 @@ class Section:
 
     @property
     def type_rec(self) -> bool:
-        return "record" in self.types or "recarray" in self.types
+        return self.type_ in ("record", "recarray")
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
@@ -99,6 +100,20 @@ class Section:
         if value == "" or value[0] != "(" or value == "(:)":
             return ""
         return value
+
+    @staticmethod
+    def _parse_type(value: str) -> str:
+        if "record" in value or "recarray" in value or "keystring" in value:
+            return value.split(maxsplit=1)[0]
+        if "double precision" in value:
+            return " ".join(value.split(maxsplit=2)[0:2])
+        return value
+
+    @staticmethod
+    def _parse_recs(value: str) -> tuple[str, ...]:
+        if "record" in value or "recarray" in value:
+            return tuple(value.split()[1:])
+        return ()
 
     @classmethod
     def from_file(cls, data: str) -> "Section":
@@ -117,7 +132,8 @@ class Section:
                 case "shape":
                     kwargs["shape"] = cls._parse_shape(value)
                 case "type":
-                    kwargs["types"] = cls._parse_tuple(value)
+                    kwargs["type_"] = cls._parse_type(value)
+                    kwargs["recs"] = cls._parse_recs(value)
                 case "valid":
                     kwargs["valid"] = cls._parse_tuple(value)
                 case "optional":
@@ -304,21 +320,20 @@ class Dfn:
 
                 # Sections that are of type record or recarray have child sections
                 if section.type_rec:
-                    section_types = section.types[1:]
                     entry_list = []
 
                     # Skip keystrings
-                    if "keystring" in section.types:
+                    if "keystring" in section.type_:
                         continue
 
-                    for t in section_types:
+                    for t in section.recs:
                         for s in dfn.get_sections():
                             if t == s.keyword and s.block == section.block:
                                 # Retrieve the child section of interest
                                 section_inner = s
                                 break
                         if section_inner.in_record:
-                            if "keyword" not in section_inner.types:
+                            if "keyword" not in section_inner.type_:
                                 e = f"<{section_inner.keyword}{section_inner.shape}>"
                             else:
                                 # Capitalize if it is a keyword
@@ -333,7 +348,7 @@ class Dfn:
                                 entry = f"[{entry}]"
                     hover[section.block][dfn.path.stem].append(entry)
 
-                    if "recarray" in section.types:
+                    if "recarray" in section.type_:
                         # Add duplicate entry and ellipsis for recarray types
                         hover[section.block][dfn.path.stem].append(entry)
                         hover[section.block][dfn.path.stem].append("...")
@@ -356,7 +371,7 @@ class Dfn:
                     if section.netcdf:
                         entry = f"{entry} [NETCDF]"
                     entry = f"{entry}\n      <{section.keyword}{section.shape}> -- READARRAY"
-                elif "keyword" not in section.types:
+                elif "keyword" not in section.type_:
                     entry = f"{entry} <{section.keyword}{section.shape}>"
 
                 if section.optional:
