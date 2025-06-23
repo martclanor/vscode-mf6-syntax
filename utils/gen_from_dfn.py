@@ -238,8 +238,8 @@ class Dfn:
         # common.dfn is a special file that contains common descriptions for keywords
         # which are used to replace placeholders in other dfn files
         common = {}
-        for section in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
-            name, description = [Line.from_file(data) for data in section.split("\n")]
+        for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
+            name, description = [Line.from_file(d) for d in data.split("\n")]
             common[name.value] = description.value
         return common
 
