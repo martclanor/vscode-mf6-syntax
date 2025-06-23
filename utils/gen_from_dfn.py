@@ -115,6 +115,14 @@ class Section:
             return tuple(value.split()[1:])
         return ()
 
+    def format_keyword_desc(self, replacements: dict) -> str:
+        return (
+            Dfn._replace_common(self.description, replacements)
+            .replace("``", "`")
+            .replace("''", "`")
+            .replace("\\", "")
+        )
+
     @classmethod
     def from_file(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
@@ -275,12 +283,7 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
-                description = (
-                    Dfn._replace_common(section.description, common)
-                    .replace("``", "`")
-                    .replace("''", "`")
-                    .replace("\\", "")
-                )
+                description = section.format_keyword_desc(replacements=common)
                 hover[section.keyword][section.block][description].append(dfn.path.stem)
 
         hover_sorted = Dfn._sort_hover_data(hover)
