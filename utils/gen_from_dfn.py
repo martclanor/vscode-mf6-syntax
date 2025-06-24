@@ -85,6 +85,10 @@ class Section:
     def type_rec(self) -> bool:
         return self.type_ == "record" or self.type_ == "recarray"
 
+    @property
+    def dev_option(self) -> bool:
+        return self.keyword.startswith("dev_")
+
     @staticmethod
     def _parse_bool(value: str) -> bool:
         return value.lower() == "true"
@@ -306,16 +310,12 @@ class Dfn:
                 )
             ]
 
-            for section in dfn.get_sections():
+            for section in dfn.get_sections(lambda s: not s.dev_option):
                 # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
                     hover[section.block][dfn.path.stem].append(
                         f"BEGIN {section.block.upper()}"
                     )
-
-                # Skip dev options
-                if section.keyword.startswith("dev_"):
-                    continue
 
                 # Skip as these will be handled in the inner loop
                 if (section.block, section.keyword) in skip:
