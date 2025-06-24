@@ -390,18 +390,20 @@ class Dfn:
             lambda: defaultdict(str)
         )
         for block in hover:
-            for dfn in hover[block]:
-                for i, line in enumerate(hover[block][dfn]):
+            for dfn_name in hover[block]:
+                for i, line in enumerate(hover[block][dfn_name]):
                     if not line.startswith("BEGIN"):
                         # Indent lines within the block
-                        hover[block][dfn][i] = "  " + line
+                        hover[block][dfn_name][i] = "  " + line
 
                 # Add END line: take first two words from the first line
-                hover[block][dfn].append(
-                    " ".join(hover[block][dfn][0].split()[:2]).replace("BEGIN", "END")
+                hover[block][dfn_name].append(
+                    " ".join(hover[block][dfn_name][0].split()[:2]).replace(
+                        "BEGIN", "END"
+                    )
                 )
                 # Join list into a single string
-                hover_str[block][dfn] = "\n".join(hover[block][dfn])
+                hover_str[block][dfn_name] = "\n".join(hover[block][dfn_name])
 
         hover_sorted = Dfn._sort_hover_data(hover_str)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
