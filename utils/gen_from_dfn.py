@@ -6,14 +6,14 @@
 # ///
 
 """
-This script processes MODFLOW 6 definition (dfn) files to generate configuration and
+This script processes MODFLOW 6 definition (DFN) files to generate configuration and
 data files for the extension.
 
 Classes:
-    Line: Represents a single line in a dfn file, with a key-value structure.
-    Section: Represents a group of related lines (a section) in a dfn file, including
+    Line: Represents a single line in a DFN file, with a key-value structure.
+    Section: Represents a group of related lines (a section) in a DFN file, including
         metadata such as block, keyword, description, etc
-    Dfn: Represents an entire dfn file, providing methods to parse, filter, and
+    Dfn: Represents an entire DFN file, providing methods to parse, filter, and
         extract data for further processing.
 
 Generated Files:
@@ -24,7 +24,7 @@ Generated Files:
     - src/providers/hover-block.json: Provides hover description data for MF6 blocks
 
 Usage:
-    - Download dfn files from the MODFLOW 6 repository using:
+    - Download DFN files from the MODFLOW 6 repository using:
         utils/download-dfn.sh
     - Run this script to generate the output files:
         uv run utils/gen_from_dfn.py
@@ -47,7 +47,7 @@ log = logging.getLogger(__name__)
 
 @dataclass
 class Line:
-    """Abstraction of each line from the dfn file."""
+    """Abstraction of each line from the DFN file."""
 
     key: str
     value: str = ""
@@ -63,7 +63,7 @@ class Line:
 
 @dataclass
 class Section:
-    """Abstraction of each group of lines (separated by \n\n) from the dfn file."""
+    """Abstraction of each group of lines (separated by \n\n) from the DFN file."""
 
     keyword: str
     block: str
@@ -173,7 +173,7 @@ class Section:
                     | "jagged_array"
                     | "support_negative_index"
                 ):
-                    # For completeness, these fields are in the dfn but are not used in the current implementation
+                    # For completeness, these fields are in the DFNs but are not used in the current implementation
                     pass
                 case _:
                     raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
@@ -183,7 +183,7 @@ class Section:
 
 @dataclass
 class Dfn:
-    """Abstraction of each dfn file. Dfn files are definition files from MODFLOW 6 which
+    """Abstraction of each DFN file. DFN files are definition files from MODFLOW 6 which
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
@@ -244,7 +244,7 @@ class Dfn:
     @staticmethod
     def _parse_common() -> dict[str, str]:
         # common.dfn is a special file that contains common descriptions for keywords
-        # which are used to replace placeholders in other dfn files
+        # which are used to replace placeholders in other DFN files
         common = {}
         for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
             name, description = [Line.from_file(d) for d in data.split("\n")]
@@ -435,6 +435,6 @@ if __name__ == "__main__":
         valids=valids,
     )
 
-    # Export hover keyword and hover block data from dfn files
+    # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
