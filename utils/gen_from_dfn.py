@@ -328,10 +328,6 @@ class Dfn:
                 if section.type_rec:
                     entry_list = []
 
-                    # Skip keystrings
-                    if section.type_ == "keystring":
-                        continue
-
                     for r in section.recs:
                         for s in dfn.get_sections():
                             if r == s.keyword and s.block == section.block:
