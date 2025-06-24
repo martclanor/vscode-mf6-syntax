@@ -329,19 +329,19 @@ class Dfn:
                     if section.type_ == "keystring":
                         continue
 
-                    for t in section.recs:
+                    for r in section.recs:
                         for s in dfn.get_sections():
-                            if t == s.keyword and s.block == section.block:
+                            if r == s.keyword and s.block == section.block:
                                 # Retrieve the child section of interest
-                                section_inner = s
+                                section_rec = s
                                 break
-                        if section_inner.in_record:
-                            if section_inner.type_ != "keyword":
-                                e = f"<{section_inner.keyword}{section_inner.shape}>"
+                        if section_rec.in_record:
+                            if section_rec.type_ != "keyword":
+                                e = f"<{section_rec.keyword}{section_rec.shape}>"
                             else:
                                 # Capitalize if it is a keyword
-                                e = section_inner.keyword.upper()
-                            if section_inner.optional:
+                                e = section_rec.keyword.upper()
+                            if section_rec.optional:
                                 # Enclose in () if optional
                                 e = f"[{e}]"
                             entry_list.append(e)
@@ -387,19 +387,18 @@ class Dfn:
             lambda: defaultdict(str)
         )
         for block in hover:
-            # Variable dfn is already used
-            for dfn_ in hover[block]:
-                for i, line in enumerate(hover[block][dfn_]):
+            for dfn in hover[block]:
+                for i, line in enumerate(hover[block][dfn]):
                     if not line.startswith("BEGIN"):
                         # Indent lines within the block
-                        hover[block][dfn_][i] = "  " + line
+                        hover[block][dfn][i] = "  " + line
 
                 # Add END line: take first two words from the first line
-                hover[block][dfn_].append(
-                    " ".join(hover[block][dfn_][0].split()[:2]).replace("BEGIN", "END")
+                hover[block][dfn].append(
+                    " ".join(hover[block][dfn][0].split()[:2]).replace("BEGIN", "END")
                 )
                 # Join list into a single string
-                hover_str[block][dfn_] = "\n".join(hover[block][dfn_])
+                hover_str[block][dfn] = "\n".join(hover[block][dfn])
 
         hover_sorted = Dfn._sort_hover_data(hover_str)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
