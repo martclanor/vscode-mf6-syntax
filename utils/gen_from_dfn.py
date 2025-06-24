@@ -300,7 +300,7 @@ class Dfn:
     @staticmethod
     def export_hover_block(output: str) -> None:
         hover: defaultdict[str, defaultdict[str, list[str]]] = defaultdict(
-            lambda: defaultdict(list)
+            lambda: defaultdict(str)
         )
         for dfn in Dfn.get_dfns():
             # in_record sections that are not of type record, recarray or block_variable
@@ -316,7 +316,7 @@ class Dfn:
             for section in dfn.get_sections(lambda s: not s.dev_option):
                 # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
-                    hover[section.block][dfn.path.stem].append(
+                    hover[section.block][dfn.path.stem] = (
                         f"BEGIN {section.block.upper()}"
                     )
 
@@ -348,19 +348,19 @@ class Dfn:
                             if section.optional:
                                 # Enclose the entire entry in () if optional
                                 entry = f"[{entry}]"
-                    hover[section.block][dfn.path.stem].append(entry)
+                    hover[section.block][dfn.path.stem] += f"\n  {entry}"
 
                     if section.type_ == "recarray":
                         # Add duplicate entry and ellipsis for recarray types
-                        hover[section.block][dfn.path.stem].append(entry)
-                        hover[section.block][dfn.path.stem].append("...")
+                        hover[section.block][dfn.path.stem] += f"\n  {entry}"
+                        hover[section.block][dfn.path.stem] += "\n  ..."
                     continue
 
                 if section.just_data:
                     entry = ""
                 elif section.block_variable:
                     entry = f"<{section.keyword}>"
-                    hover[section.block][dfn.path.stem][0] += f" {entry}"
+                    hover[section.block][dfn.path.stem] += f" {entry}"
                     continue
                 else:
                     # Base case
@@ -379,29 +379,17 @@ class Dfn:
                 if section.optional:
                     entry = f"[{entry}]"
 
-                hover[section.block][dfn.path.stem].append(entry)
+                hover[section.block][dfn.path.stem] += f"\n  {entry}"
 
-        # Complete hover text then convert to string
-        hover_str: defaultdict[str, defaultdict[str, str]] = defaultdict(
-            lambda: defaultdict(str)
-        )
+        # Add END line for each block
         for block in hover:
             for dfn_name in hover[block]:
-                for i, line in enumerate(hover[block][dfn_name]):
-                    if not line.startswith("BEGIN"):
-                        # Indent lines within the block
-                        hover[block][dfn_name][i] = "  " + line
-
                 # Add END line: take first two words from the first line
-                hover[block][dfn_name].append(
-                    " ".join(hover[block][dfn_name][0].split()[:2]).replace(
-                        "BEGIN", "END"
-                    )
+                hover[block][dfn_name] += (
+                    f"\n{' '.join(hover[block][dfn_name].split()[:2]).replace('BEGIN', 'END')}"
                 )
-                # Join list into a single string
-                hover_str[block][dfn_name] = "\n".join(hover[block][dfn_name])
 
-        hover_sorted = Dfn._sort_hover_data(hover_str)
+        hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
