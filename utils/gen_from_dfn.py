@@ -192,6 +192,7 @@ class Dfn:
 
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
+    _common: ClassVar[dict[str, str]] = {}
 
     @cached_property
     def data(self) -> tuple[str, ...]:
@@ -283,7 +284,8 @@ class Dfn:
         hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
-        common = Dfn._parse_common()
+        # Assign class variable that holds data for DFN text replacements
+        Dfn._common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
