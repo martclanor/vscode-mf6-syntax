@@ -89,6 +89,27 @@ class Section:
     def dev_option(self) -> bool:
         return self.keyword.startswith("dev_")
 
+    @property
+    def hover_keyword(self) -> str:
+        return (
+            self._get_replaced_desc()
+            .replace("``", "`")
+            .replace("''", "`")
+            .replace("\\", "")
+        )
+
+    def _get_replaced_desc(self) -> str:
+        if "REPLACE" not in self.description:
+            return self.description
+        keyword = Line.from_replace(self.description).key
+        # Create replacement dictionary from the original description
+        replacement = ast.literal_eval(self.description.lstrip(f"REPLACE {keyword} "))
+        # Take new description from common, then replace placeholders
+        desc = Dfn._common[keyword]
+        for key, value in replacement.items():
+            desc = desc.replace(key, value)
+        return desc
+
     @staticmethod
     def _parse_bool(value: str) -> bool:
         return value.lower() == "true"
@@ -118,14 +139,6 @@ class Section:
         if "record" in value or "recarray" in value:
             return tuple(value.split()[1:])
         return ()
-
-    def format_keyword_desc(self, replacements: dict) -> str:
-        return (
-            Dfn._replace_common(self.description, replacements)
-            .replace("``", "`")
-            .replace("''", "`")
-            .replace("\\", "")
-        )
 
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
@@ -257,19 +270,6 @@ class Dfn:
         return common
 
     @staticmethod
-    def _replace_common(desc_orig: str, common: dict[str, str]) -> str:
-        if "REPLACE" not in desc_orig:
-            return desc_orig
-        keyword = Line.from_replace(desc_orig).key
-        # Create replacement dictionary from the original description
-        replacement = ast.literal_eval(desc_orig.lstrip(f"REPLACE {keyword} "))
-        # Take new description from common, then replace placeholders
-        desc_new = common[keyword]
-        for key, value in replacement.items():
-            desc_new = desc_new.replace(key, value)
-        return desc_new
-
-    @staticmethod
     def _sort_hover_data(obj: list | str | dict) -> list | str | dict:
         # Base case: lowest level of the data structure, list or string
         if isinstance(obj, list):
@@ -289,8 +289,9 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
-                description = section.format_keyword_desc(replacements=common)
-                hover[section.keyword][section.block][description].append(dfn.path.stem)
+                hover[section.keyword][section.block][section.hover_keyword].append(
+                    dfn.path.stem
+                )
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
