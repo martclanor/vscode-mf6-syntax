@@ -91,24 +91,22 @@ class Section:
 
     @property
     def hover_keyword(self) -> str:
-        return (
-            self._get_replaced_desc()
-            .replace("``", "`")
-            .replace("''", "`")
-            .replace("\\", "")
-        )
+        return self._get_formatted_description()
 
-    def _get_replaced_desc(self) -> str:
+    def _get_formatted_description(self) -> None:
         if "REPLACE" not in self.description:
-            return self.description
-        keyword = Line.from_replace(self.description).key
-        # Create replacement dictionary from the original description
-        replacement = ast.literal_eval(self.description.lstrip(f"REPLACE {keyword} "))
-        # Take new description from common, then replace placeholders
-        desc = Dfn._common[keyword]
-        for key, value in replacement.items():
-            desc = desc.replace(key, value)
-        return desc
+            desc = self.description
+        else:
+            keyword = Line.from_replace(self.description).key
+            # Create replacement dictionary from the original description
+            replacement = ast.literal_eval(
+                self.description.lstrip(f"REPLACE {keyword} ")
+            )
+            # Take new description from common, then replace placeholders
+            desc = Dfn._common[keyword]
+            for key, value in replacement.items():
+                desc = desc.replace(key, value)
+        return desc.replace("``", "`").replace("''", "`").replace("\\", "")
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
