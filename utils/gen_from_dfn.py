@@ -353,15 +353,13 @@ class Dfn:
                         hover[section.block][dfn.path.stem] += f"\n  {entry}\n  ..."
                     continue
 
-                if section.just_data:
-                    entry = ""
-                elif section.block_variable:
+                if section.block_variable:
                     entry = f"<{section.keyword}>"
                     hover[section.block][dfn.path.stem] += f" {entry}"
                     continue
-                else:
-                    # Base case
-                    entry = section.keyword.upper()
+
+                # Base case
+                entry = section.keyword.upper()
 
                 # Special handling for readarray reader
                 if section.reader == "readarray":
@@ -369,7 +367,7 @@ class Dfn:
                         entry = f"{entry} [LAYERED]"
                     if section.netcdf:
                         entry = f"{entry} [NETCDF]"
-                    entry = f"{entry}\n      <{section.keyword}{section.shape}> -- READARRAY"
+                    entry = f"{entry if not section.just_data else ''}\n      <{section.keyword}{section.shape}> -- READARRAY"
                 elif section.type_ != "keyword":
                     entry = f"{entry} <{section.keyword}{section.shape}>"
 
