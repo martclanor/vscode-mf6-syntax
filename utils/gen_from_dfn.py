@@ -346,12 +346,11 @@ class Dfn:
                             if section.optional:
                                 # Enclose the entire entry in () if optional
                                 entry = f"[{entry}]"
-                    hover[section.block][dfn.path.stem] += f"\n  {entry}"
 
+                    hover[section.block][dfn.path.stem] += f"\n  {entry}"
                     if section.type_ == "recarray":
                         # Add duplicate entry and ellipsis for recarray types
-                        hover[section.block][dfn.path.stem] += f"\n  {entry}"
-                        hover[section.block][dfn.path.stem] += "\n  ..."
+                        hover[section.block][dfn.path.stem] += f"\n  {entry}\n  ..."
                     continue
 
                 if section.just_data:
