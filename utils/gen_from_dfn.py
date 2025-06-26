@@ -89,11 +89,7 @@ class Section:
     def dev_option(self) -> bool:
         return self.keyword.startswith("dev_")
 
-    @property
-    def hover_keyword(self) -> str:
-        return self._get_formatted_description()
-
-    def _get_formatted_description(self) -> None:
+    def get_hover_keyword(self) -> None:
         if "REPLACE" not in self.description:
             desc = self.description
         else:
@@ -287,9 +283,9 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
-                hover[section.keyword][section.block][section.hover_keyword].append(
-                    dfn.path.stem
-                )
+                hover[section.keyword][section.block][
+                    section.get_hover_keyword()
+                ].append(dfn.path.stem)
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
