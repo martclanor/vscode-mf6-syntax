@@ -297,26 +297,16 @@ class Dfn:
             lambda: defaultdict(str)
         )
         for dfn in Dfn.get_dfns():
-            # in_record sections that are not of type record, recarray or block_variable
-            # are excluded from the outer loop
-            # these will be handled in the inner loop instead
-            skip = [
-                (section.block, section.keyword)
-                for section in dfn.get_sections(
-                    lambda s: s.in_record and not s.block_variable and not s.type_rec
-                )
-            ]
-
-            for section in dfn.get_sections(lambda s: not s.dev_option):
+            # Exclude dev_options and some other sections that are handled in the inner loop
+            for section in dfn.get_sections(
+                lambda s: not s.dev_option
+                and (not s.in_record or s.block_variable or s.type_rec)
+            ):
                 # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
                     hover[section.block][dfn.path.stem] = (
                         f"BEGIN {section.block.upper()}"
                     )
-
-                # Skip as these will be handled in the inner loop
-                if (section.block, section.keyword) in skip:
-                    continue
 
                 # Sections that are of type record or recarray have child sections
                 if section.type_rec:
