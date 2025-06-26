@@ -344,7 +344,7 @@ class Dfn:
 
     @staticmethod
     def export_hover_block(output: str) -> None:
-        hover: defaultdict[str, defaultdict[str, list[str]]] = defaultdict(
+        hover: defaultdict[str, defaultdict[str, str]] = defaultdict(
             lambda: defaultdict(str)
         )
         for dfn in Dfn.get_dfns():
