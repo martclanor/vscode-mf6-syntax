@@ -104,6 +104,53 @@ class Section:
                 desc = desc.replace(key, value)
         return desc.replace("``", "`").replace("''", "`").replace("\\", "")
 
+    def get_block_begin(self) -> str:
+        return f"BEGIN {self.block.upper()}"
+
+    def get_block_end(self, block) -> str:
+        return f"\n{' '.join(block.split()[:2]).replace('BEGIN', 'END')}"
+
+    def get_block_variable(self) -> str:
+        return f" <{self.keyword}>"
+
+    def get_block_optional(self, text: str) -> str:
+        return f"[{text}]"
+
+    def get_block_in_record(self, prefix: str) -> str:
+        if self.type_ != "keyword":
+            text = f"<{self.keyword}{self.shape}>"
+        else:
+            text = self.keyword.upper()
+        if self.optional:
+            text = self.get_block_optional(text)
+        return f"{prefix} {text}".strip()
+
+    def get_block_type_rec(self, text: str):
+        if self.optional:
+            text = self.get_block_optional(text)
+        if self.type_ == "recarray":
+            return f"\n  {text}\n  {text}\n  ..."
+        return f"\n  {text}"
+
+    def get_block_body(self) -> str:
+        body = self.keyword.upper()
+        if self.reader == "readarray":
+            if self.layered:
+                body += " [LAYERED]"
+            if self.netcdf:
+                body += " [NETCDF]"
+            body = f"{body if not self.just_data else ''}\n      <{self.keyword}{self.shape}> -- READARRAY"
+        elif self.type_ != "keyword":
+            body = f"{body} <{self.keyword}{self.shape}>"
+
+        if self.optional:
+            body = self.get_block_optional(body)
+
+        if self.type_ == "recarray":
+            body += f"\n {body}\n  ..."
+
+        return f"\n  {body}"
+
     @staticmethod
     def _parse_bool(value: str) -> bool:
         return value.lower() == "true"
@@ -302,73 +349,37 @@ class Dfn:
                 lambda s: not s.dev_option
                 and (not s.in_record or s.block_variable or s.type_rec)
             ):
-                # Initialize the hover entry with BEGIN line
                 if not hover[section.block][dfn.path.stem]:
-                    hover[section.block][dfn.path.stem] = (
-                        f"BEGIN {section.block.upper()}"
-                    )
+                    hover[section.block][dfn.path.stem] = section.get_block_begin()
 
                 # Sections that are of type record or recarray have child sections
                 if section.type_rec:
-                    entry_list = []
-
+                    entry = ""
                     for r in section.recs:
                         for s in dfn.get_sections():
-                            if r == s.keyword and s.block == section.block:
+                            if r == s.keyword and section.block == s.block:
                                 # Retrieve the child section of interest
                                 section_rec = s
                                 break
                         if section_rec.in_record:
-                            if section_rec.type_ != "keyword":
-                                e = f"<{section_rec.keyword}{section_rec.shape}>"
-                            else:
-                                # Capitalize if it is a keyword
-                                e = section_rec.keyword.upper()
-                            if section_rec.optional:
-                                # Enclose in () if optional
-                                e = f"[{e}]"
-                            entry_list.append(e)
-                            entry = " ".join(entry_list)
-                            if section.optional:
-                                # Enclose the entire entry in () if optional
-                                entry = f"[{entry}]"
+                            entry = section_rec.get_block_in_record(entry)
+                    # None of the recs are "in_record", ignore
+                    if not entry:
+                        continue
+                    hover[section.block][dfn.path.stem] += section.get_block_type_rec(
+                        entry
+                    )
 
-                    hover[section.block][dfn.path.stem] += f"\n  {entry}"
-                    if section.type_ == "recarray":
-                        # Add duplicate entry and ellipsis for recarray types
-                        hover[section.block][dfn.path.stem] += f"\n  {entry}\n  ..."
-                    continue
+                elif section.block_variable:
+                    hover[section.block][dfn.path.stem] += section.get_block_variable()
 
-                if section.block_variable:
-                    entry = f"<{section.keyword}>"
-                    hover[section.block][dfn.path.stem] += f" {entry}"
-                    continue
+                else:
+                    hover[section.block][dfn.path.stem] += section.get_block_body()
 
-                # Base case
-                entry = section.keyword.upper()
-
-                # Special handling for readarray reader
-                if section.reader == "readarray":
-                    if section.layered:
-                        entry = f"{entry} [LAYERED]"
-                    if section.netcdf:
-                        entry = f"{entry} [NETCDF]"
-                    entry = f"{entry if not section.just_data else ''}\n      <{section.keyword}{section.shape}> -- READARRAY"
-                elif section.type_ != "keyword":
-                    entry = f"{entry} <{section.keyword}{section.shape}>"
-
-                if section.optional:
-                    entry = f"[{entry}]"
-
-                hover[section.block][dfn.path.stem] += f"\n  {entry}"
-
-        # Add END line for each block
+        # Do another pass to add the block end line
         for block in hover:
             for dfn_name in hover[block]:
-                # Add END line: take first two words from the first line
-                hover[block][dfn_name] += (
-                    f"\n{' '.join(hover[block][dfn_name].split()[:2]).replace('BEGIN', 'END')}"
-                )
+                hover[block][dfn_name] += section.get_block_end(hover[block][dfn_name])
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
