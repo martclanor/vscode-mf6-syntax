@@ -249,6 +249,10 @@ class Dfn:
     _common: ClassVar[dict[str, str]] = {}
 
     @cached_property
+    def name(self) -> str:
+        return self.path.stem
+
+    @cached_property
     def data(self) -> tuple[str, ...]:
         with self.path.open() as f:
             return tuple(
@@ -290,7 +294,7 @@ class Dfn:
 
     @property
     def extension(self) -> str:
-        return f".{self.path.stem.partition('-')[-1]}"
+        return f".{self.name.partition('-')[-1]}"
 
     @staticmethod
     def get_dfns() -> Generator["Dfn", None, None]:
@@ -332,7 +336,7 @@ class Dfn:
             for section in dfn.get_sections(lambda s: not s.type_rec):
                 hover[section.keyword][section.block][
                     section.get_hover_keyword()
-                ].append(dfn.path.stem)
+                ].append(dfn.name)
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
@@ -349,8 +353,8 @@ class Dfn:
                 lambda s: not s.dev_option
                 and (not s.in_record or s.block_variable or s.type_rec)
             ):
-                if not hover[section.block][dfn.path.stem]:
-                    hover[section.block][dfn.path.stem] = section.get_block_begin()
+                if not hover[section.block][dfn.name]:
+                    hover[section.block][dfn.name] = section.get_block_begin()
 
                 # Sections that are of type record or recarray have child sections
                 if section.type_rec:
@@ -366,15 +370,13 @@ class Dfn:
                     # None of the recs are "in_record", ignore
                     if not entry:
                         continue
-                    hover[section.block][dfn.path.stem] += section.get_block_type_rec(
-                        entry
-                    )
+                    hover[section.block][dfn.name] += section.get_block_type_rec(entry)
 
                 elif section.block_variable:
-                    hover[section.block][dfn.path.stem] += section.get_block_variable()
+                    hover[section.block][dfn.name] += section.get_block_variable()
 
                 else:
-                    hover[section.block][dfn.path.stem] += section.get_block_body()
+                    hover[section.block][dfn.name] += section.get_block_body()
 
         # Do another pass to add the block end line
         for block in hover:
