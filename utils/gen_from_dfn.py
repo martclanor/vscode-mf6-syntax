@@ -10,11 +10,11 @@ This script processes MODFLOW 6 definition (DFN) files to generate configuration
 data files for the extension.
 
 Classes:
-    Line: Represents a single line in a DFN file, with a key-value structure.
-    Section: Represents a group of related lines (a section) in a DFN file, including
-        metadata such as block, keyword, description, etc
-    Dfn: Represents an entire DFN file, providing methods to parse, filter, and
-        extract data for further processing.
+    Line: Represents a single line in a DFN file with a key-value structure.
+    Section: Represents a group of related lines  in a DFN file, including metadata such
+        as block, keyword, description, etc
+    Dfn: Represents an entire DFN file, providing methods to parse, filter, and extract
+        data.
 
 Generated Files:
     - package.json: Contains metadata about the extension, including supported file
@@ -98,7 +98,7 @@ class Section:
             replacement = ast.literal_eval(
                 self.description.lstrip(f"REPLACE {keyword} ")
             )
-            # Take new description from common, then replace placeholders
+            # Take new description from common.dfn, then replace placeholders
             desc = Dfn._common[keyword]
             for key, value in replacement.items():
                 desc = desc.replace(key, value)
@@ -162,7 +162,7 @@ class Section:
     @staticmethod
     def _parse_shape(value: str) -> str:
         # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
-        # Ignore if shape == "(:)" as in slnmnames in sim-nam.dfn
+        # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
         if value == "" or value[0] != "(" or value == "(:)":
             return ""
         return value
@@ -347,7 +347,7 @@ class Dfn:
             lambda: defaultdict(str)
         )
         for dfn in Dfn.get_dfns():
-            # Exclude dev_options and some other sections that are handled in the inner loop
+            # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
                 lambda s: not s.dev_option
                 and (not s.in_record or s.block_variable or s.type_rec)
@@ -361,12 +361,12 @@ class Dfn:
                     for rec in section.recs:
                         for sec in dfn.get_sections():
                             if rec == sec.keyword and section.block == sec.block:
-                                # Retrieve the child section of interest
+                                # Retrieve child section
                                 section_rec = sec
                                 break
                         if section_rec.in_record:
                             entry = section_rec.get_block_in_record(entry)
-                    # None of the recs are "in_record", ignore
+                    # Ignore if one of the recs are "in_record"
                     if not entry:
                         continue
                     hover[section.block][dfn.name] += section.get_block_type_rec(entry)
@@ -377,7 +377,7 @@ class Dfn:
                 else:
                     hover[section.block][dfn.name] += section.get_block_body()
 
-        # Do another pass to add the block end line
+        # Another pass to add the block end line
         for block in hover:
             for dfn_name in hover[block]:
                 hover[block][dfn_name] += section.get_block_end(hover[block][dfn_name])
@@ -399,7 +399,7 @@ def render_template(output: str, **context) -> None:
 
 
 if __name__ == "__main__":
-    # Collect blocks, keywords, valids, and extensions from dfn files
+    # Collect blocks, keywords, valids, and extensions from DFN files
     extensions, blocks, keywords, valids = set(), set(), set(), set()
     for dfn in Dfn.get_dfns():
         extensions.add(dfn.extension)
