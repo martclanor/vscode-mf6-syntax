@@ -116,6 +116,13 @@ class Section:
     def get_block_optional(self, text: str) -> str:
         return f"[{text}]"
 
+    def get_block_type_rec(self, text: str):
+        if self.optional:
+            text = self.get_block_optional(text)
+        if self.type_ == "recarray":
+            return f"\n  {text}\n  {text}\n  ..."
+        return f"\n  {text}"
+
     def get_block_in_record(self, prefix: str) -> str:
         if self.type_ != "keyword":
             text = f"<{self.keyword}{self.shape}>"
@@ -124,13 +131,6 @@ class Section:
         if self.optional:
             text = self.get_block_optional(text)
         return f"{prefix} {text}".strip()
-
-    def get_block_type_rec(self, text: str):
-        if self.optional:
-            text = self.get_block_optional(text)
-        if self.type_ == "recarray":
-            return f"\n  {text}\n  {text}\n  ..."
-        return f"\n  {text}"
 
     def get_block_body(self) -> str:
         body = self.keyword.upper()
@@ -248,10 +248,6 @@ class Dfn:
     _common: ClassVar[dict[str, str]] = {}
 
     @cached_property
-    def name(self) -> str:
-        return self.path.stem
-
-    @cached_property
     def data(self) -> tuple[str, ...]:
         with self.path.open() as f:
             return tuple(
@@ -275,6 +271,10 @@ class Dfn:
         if filter_fn is None:
             return sections
         return (section for section in sections if filter_fn(section))
+
+    @property
+    def name(self) -> str:
+        return self.path.stem
 
     @property
     def blocks(self) -> set[str]:
@@ -386,16 +386,16 @@ class Dfn:
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
-
-def render_template(output: str, **context) -> None:
-    """Render a Jinja2 template and write the output to a file."""
-    output_path = Path(output)
-    template = Environment(
-        loader=FileSystemLoader("templates"), keep_trailing_newline=True
-    ).get_template(f"{output_path.name}.j2")
-    context_sorted = {k: sorted(v) for k, v in context.items()}
-    output_path.write_text(template.render(**context_sorted))
-    log.info(f"Generated from DFN: {output_path}")
+    @staticmethod
+    def render_template(output: str, **context) -> None:
+        """Render a Jinja2 template and write the output to a file."""
+        output_path = Path(output)
+        template = Environment(
+            loader=FileSystemLoader("templates"), keep_trailing_newline=True
+        ).get_template(f"{output_path.name}.j2")
+        context_sorted = {k: sorted(v) for k, v in context.items()}
+        output_path.write_text(template.render(**context_sorted))
+        log.info(f"Generated from DFN: {output_path}")
 
 
 if __name__ == "__main__":
@@ -408,8 +408,8 @@ if __name__ == "__main__":
         valids.update(dfn.valids)
 
     # Insert collected data into the corresponding Jinja2 templates
-    render_template("package.json", extensions=extensions)
-    render_template(
+    Dfn.render_template("package.json", extensions=extensions)
+    Dfn.render_template(
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
