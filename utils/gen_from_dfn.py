@@ -358,11 +358,11 @@ class Dfn:
                 # Sections that are of type record or recarray have child sections
                 if section.type_rec:
                     entry = ""
-                    for r in section.recs:
-                        for s in dfn.get_sections():
-                            if r == s.keyword and section.block == s.block:
+                    for rec in section.recs:
+                        for sec in dfn.get_sections():
+                            if rec == sec.keyword and section.block == sec.block:
                                 # Retrieve the child section of interest
-                                section_rec = s
+                                section_rec = sec
                                 break
                         if section_rec.in_record:
                             entry = section_rec.get_block_in_record(entry)
