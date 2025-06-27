@@ -185,37 +185,36 @@ class Section:
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in [Line.from_dfn(_line) for _line in data.strip().split("\n")]:
-            value: str = line.value
             match line.key:
                 case "name":
-                    kwargs["keyword"] = value
+                    kwargs["keyword"] = line.value
                 case "block":
-                    kwargs["block"] = value
+                    kwargs["block"] = line.value
                 case "reader":
-                    kwargs["reader"] = value
+                    kwargs["reader"] = line.value
                 case "description":
-                    kwargs["description"] = value
+                    kwargs["description"] = line.value
                 case "shape":
-                    kwargs["shape"] = cls._parse_shape(value)
+                    kwargs["shape"] = cls._parse_shape(line.value)
                 case "type":
-                    kwargs["type_"] = cls._parse_type(value)
-                    kwargs["recs"] = cls._parse_recs(value)
+                    kwargs["type_"] = cls._parse_type(line.value)
+                    kwargs["recs"] = cls._parse_recs(line.value)
                 case "valid":
-                    kwargs["valid"] = cls._parse_tuple(value)
+                    kwargs["valid"] = cls._parse_tuple(line.value)
                 case "optional":
-                    kwargs["optional"] = cls._parse_bool(value)
+                    kwargs["optional"] = cls._parse_bool(line.value)
                 case "tagged":
-                    kwargs["tagged"] = cls._parse_bool(value)
+                    kwargs["tagged"] = cls._parse_bool(line.value)
                 case "in_record":
-                    kwargs["in_record"] = cls._parse_bool(value)
+                    kwargs["in_record"] = cls._parse_bool(line.value)
                 case "layered":
-                    kwargs["layered"] = cls._parse_bool(value)
+                    kwargs["layered"] = cls._parse_bool(line.value)
                 case "netcdf":
-                    kwargs["netcdf"] = cls._parse_bool(value)
+                    kwargs["netcdf"] = cls._parse_bool(line.value)
                 case "block_variable":
-                    kwargs["block_variable"] = cls._parse_bool(value)
+                    kwargs["block_variable"] = cls._parse_bool(line.value)
                 case "just_data":
-                    kwargs["just_data"] = cls._parse_bool(value)
+                    kwargs["just_data"] = cls._parse_bool(line.value)
                 case (
                     "longname"
                     | "default_value"
