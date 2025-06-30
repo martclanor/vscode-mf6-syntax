@@ -37,6 +37,33 @@ function getFileExtension(document: vscode.TextDocument): string {
   return path.extname(document.fileName).slice(1).toLowerCase();
 }
 
+function findMatchingDfns<T extends { [key: string]: string | string[] }>(
+  data: T,
+  fileExtension: string,
+  checkValues: boolean = false,
+): string[] {
+  const Dfns = Object.keys(data);
+
+  const matchingDfns = Dfns.filter((key) => {
+    // Check based on the value (for keywords)
+    if (checkValues) {
+      const value = data[key];
+      if (Array.isArray(value)) {
+        return value.some((item) => item.endsWith(`-${fileExtension}`));
+      }
+    }
+    // Check based on the key (for blocks or as a fallback for keywords)
+    return key.endsWith(`-${fileExtension}`);
+  });
+
+  if (matchingDfns.length > 0) {
+    return matchingDfns;
+  }
+
+  // Fallback: return all Dfns if no specific match is found
+  return Dfns;
+}
+
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
@@ -60,23 +87,13 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 
       const blockData = this.hoverData[keyword][block];
       const fileExtension = getFileExtension(document);
-      let matchingKeys = Object.keys(blockData).filter((key) => {
-        const value = blockData[key];
-        return value.some((item) => {
-          const parts = item.split("-");
-          return parts[parts.length - 1] === fileExtension;
-        });
-      });
+      const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
 
-      if (matchingKeys.length === 1) {
-        hoverValue = `- ${matchingKeys[0]}`;
+      if (matchingDfns.length === 1) {
+        hoverValue = `- ${matchingDfns[0]}`;
       } else {
-        if (matchingKeys.length === 0) {
-          // Fallback to all keys
-          matchingKeys = Object.keys(blockData);
-        }
-        const matchingValues = matchingKeys.map((key) => blockData[key]);
-        hoverValue = matchingKeys
+        const matchingValues = matchingDfns.map((key) => blockData[key]);
+        hoverValue = matchingDfns
           .map((key, index) => {
             const values = matchingValues[index];
             const formattedValues = values
@@ -130,16 +147,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
       let hoverValue: string | undefined = undefined;
       const blockData = this.hoverData[block];
       const fileExtension = getFileExtension(document);
-      // Find matching dfns based on file extension
-      let matchingDfns = Object.keys(blockData).filter((key) => {
-        const parts = key.split("-");
-        return parts[parts.length - 1] === fileExtension;
-      });
-
-      if (matchingDfns.length === 0) {
-        // Fallback to all dfn possible
-        matchingDfns = Object.keys(blockData);
-      }
+      const matchingDfns = findMatchingDfns(blockData, fileExtension);
 
       hoverValue = matchingDfns
         .map((dfn) => blockData[dfn])
