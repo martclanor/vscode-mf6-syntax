@@ -13,7 +13,7 @@ import { mf6ify } from "../commands/mf6-ify";
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
 
-  test("MF6DefinitionProvider should provide definition accordingly", async () => {
+  test("MF6DefinitionProvider should resolve paths", async () => {
     const provider = new MF6DefinitionProvider();
     const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
     await vscode.workspace.fs.createDirectory(tempDirUri);
@@ -58,7 +58,7 @@ suite("Extension Test Suite", () => {
     }
   });
 
-  test("MF6HoverProvider should provide hover accordingly", async () => {
+  test("MF6HoverKeywordProvider should provide hover on keyword", async () => {
     const provider = new MF6HoverKeywordProvider();
     const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
     await vscode.workspace.fs.createDirectory(tempDirUri);
@@ -93,7 +93,7 @@ suite("Extension Test Suite", () => {
     }
   });
 
-  test("MF6HoverBlockProvider should provide hover accordingly", async () => {
+  test("MF6HoverBlockProvider should provide hover on block", async () => {
     const provider = new MF6HoverBlockProvider();
     const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
     await vscode.workspace.fs.createDirectory(tempDirUri);
