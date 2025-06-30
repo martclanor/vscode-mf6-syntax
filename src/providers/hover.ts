@@ -17,6 +17,10 @@ interface HoverBlockStructure {
   };
 }
 
+function getFileExtension(document: vscode.TextDocument): string {
+  return path.extname(document.fileName).slice(1).toLowerCase();
+}
+
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
@@ -51,10 +55,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       let hoverValue: string | undefined = undefined;
 
       const blockData = this.hoverData[keyword][block];
-      const fileExtension = path
-        .extname(document.fileName)
-        .slice(1)
-        .toLowerCase();
+      const fileExtension = getFileExtension(document);
       let matchingKeys = Object.keys(blockData).filter((key) => {
         const value = blockData[key];
         return value.some((item) => {
@@ -124,10 +125,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
     if (block in this.hoverData) {
       let hoverValue: string | undefined = undefined;
       const blockData = this.hoverData[block];
-      const fileExtension = path
-        .extname(document.fileName)
-        .slice(1)
-        .toLowerCase();
+      const fileExtension = getFileExtension(document);
       // Find matching dfns based on file extension
       let matchingDfns = Object.keys(blockData).filter((key) => {
         const parts = key.split("-");
