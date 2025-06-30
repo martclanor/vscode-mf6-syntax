@@ -140,9 +140,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
       }
 
       hoverValue = matchingDfns
-        .map((dfn) => {
-          return `\`\`\`\n# Structure of ${block.toUpperCase()} block in ${dfn.toUpperCase()}\n${blockData[dfn]}\n\`\`\``;
-        })
+        .map((dfn) => blockData[dfn])
         .join("\n```\n\n\n```\n");
 
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));

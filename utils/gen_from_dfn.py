@@ -152,6 +152,10 @@ class Section:
         return f"\n  {body}"
 
     @staticmethod
+    def format_block_hover(text: str, block: str, dfn_name: str) -> str:
+        return f"```\n# Structure of {block.upper()} block in {dfn_name.upper()}\n{text}\n```"
+
+    @staticmethod
     def _parse_bool(value: str) -> bool:
         return value.lower() == "true"
 
@@ -377,10 +381,13 @@ class Dfn:
                 else:
                     hover[section.block][dfn.name] += section.get_block_body()
 
-        # Another pass to add the block end line
+        # Another pass to add the block end line and format
         for block in hover:
             for dfn_name in hover[block]:
                 hover[block][dfn_name] += section.get_block_end(hover[block][dfn_name])
+                hover[block][dfn_name] = Section.format_block_hover(
+                    hover[block][dfn_name], block, dfn_name
+                )
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
