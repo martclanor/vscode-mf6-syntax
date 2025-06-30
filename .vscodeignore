@@ -22,3 +22,4 @@ syntaxes/samples/**
 out/test/**
 tsconfig.json
 src/providers/hover-keyword.json
+src/providers/hover-block.json
