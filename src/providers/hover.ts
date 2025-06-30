@@ -17,6 +17,22 @@ interface HoverBlockStructure {
   };
 }
 
+function findEnclosingBlock(
+  document: vscode.TextDocument,
+  position: vscode.Position,
+): string | undefined {
+  for (let i = position.line - 1; i >= 0; i--) {
+    const line = document.lineAt(i).text.trim();
+    if (line.toLowerCase().startsWith("begin")) {
+      const parts = line.split(/\s+/);
+      if (parts.length > 1) {
+        return parts[1].toLowerCase();
+      }
+    }
+  }
+  return undefined;
+}
+
 function getFileExtension(document: vscode.TextDocument): string {
   return path.extname(document.fileName).slice(1).toLowerCase();
 }
@@ -33,19 +49,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       return null;
     }
     const keyword = document.getText(wordRange).toLowerCase();
-
-    // Traverse backward line-per-line to find the enclosing block
-    let block: string | null = null;
-    for (let line = position.line - 1; line >= 0; line--) {
-      const lineText = document.lineAt(line).text.trim();
-      if (lineText.toLowerCase().startsWith("begin")) {
-        const parts = lineText.split(/\s+/);
-        if (parts.length > 1) {
-          block = parts[1].toLowerCase();
-        }
-        break;
-      }
-    }
+    const block = findEnclosingBlock(document, position);
 
     if (
       keyword in this.hoverData &&
