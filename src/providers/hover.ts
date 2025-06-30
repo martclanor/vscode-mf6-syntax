@@ -52,8 +52,8 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
     const block = findEnclosingBlock(document, position);
 
     if (
-      keyword in this.hoverData &&
       block &&
+      keyword in this.hoverData &&
       this.hoverData[keyword]?.[block]
     ) {
       let hoverValue: string | undefined = undefined;
