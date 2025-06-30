@@ -131,15 +131,14 @@ suite("Extension Test Suite", () => {
     }
   });
 
-  test("checkFileExists should return false for non-existent file", async () => {
-    const uri = vscode.Uri.file("/non/existent/file");
-    const exists = await checkFileExists(uri);
-    assert.strictEqual(exists, false);
-  });
+  test("checkFileExists should check file existence", async () => {
+    const nonExistentUri = vscode.Uri.file("/non/existent/file");
+    const existentUri = vscode.Uri.file(__filename);
 
-  test("checkFileExists should return true for existing file", async () => {
-    const uri = vscode.Uri.file(__filename);
-    const exists = await checkFileExists(uri);
+    const notExists = await checkFileExists(nonExistentUri);
+    assert.strictEqual(notExists, false);
+
+    const exists = await checkFileExists(existentUri);
     assert.strictEqual(exists, true);
   });
 
