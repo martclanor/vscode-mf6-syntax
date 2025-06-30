@@ -89,7 +89,7 @@ class Section:
     def dev_option(self) -> bool:
         return self.keyword.startswith("dev_")
 
-    def get_hover_keyword(self) -> None:
+    def get_hover_keyword(self) -> str:
         if "REPLACE" not in self.description:
             desc = self.description
         else:
