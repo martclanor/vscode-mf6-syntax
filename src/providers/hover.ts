@@ -75,6 +75,31 @@ function isBlockDeclaration(
   return prevWord === "begin" || prevWord === "end";
 }
 
+function formatKeywordHover(
+  keyword: string,
+  block: string,
+  matchingDfns: string[],
+  blockData: { [key: string]: string[] },
+): string {
+  const description = matchingDfns
+    .map((key) => {
+      if (matchingDfns.length === 1) {
+        return `- ${key}`;
+      }
+      // If more than one possible Dfn source, list all
+      const formattedValues = blockData[key]
+        .map((value) => `*${value}*`)
+        .join(", ");
+      return `${formattedValues}\n- ${key}`;
+    })
+    .join("\n\n");
+
+  const header = `**${keyword.toUpperCase()}**&nbsp;&nbsp;(block: *${
+    block.toUpperCase() ?? "unknown"
+  }*)\n\n`;
+  return `${header}${description || "No description available"}`;
+}
+
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
@@ -94,35 +119,17 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       keyword in this.hoverData &&
       this.hoverData[keyword]?.[block]
     ) {
-      let hoverValue: string | undefined = undefined;
-
       const blockData = this.hoverData[keyword][block];
       const fileExtension = getFileExtension(document);
       const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
-
-      if (matchingDfns.length === 1) {
-        hoverValue = `- ${matchingDfns[0]}`;
-      } else {
-        const matchingValues = matchingDfns.map((key) => blockData[key]);
-        hoverValue = matchingDfns
-          .map((key, index) => {
-            const values = matchingValues[index];
-            const formattedValues = values
-              .map((value) => `*${value}*`)
-              .join(", ");
-            return `${formattedValues}\n- ${key}`;
-          })
-          .join("\n\n");
-      }
-
-      return new vscode.Hover(
-        new vscode.MarkdownString(
-          `**${keyword.toUpperCase()}**&nbsp;&nbsp;(block: *${
-            block?.toUpperCase() ?? "unknown"
-          }*)\n\n${hoverValue ?? "No description available"}`,
-          true,
-        ),
+      const hoverValue = formatKeywordHover(
+        keyword,
+        block,
+        matchingDfns,
+        blockData,
       );
+
+      return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else {
       return undefined;
     }
