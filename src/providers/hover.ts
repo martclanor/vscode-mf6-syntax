@@ -46,7 +46,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   ) {
     const wordRange = document.getWordRangeAtPosition(position, /\S+/);
     if (!wordRange) {
-      return null;
+      return undefined;
     }
     const keyword = document.getText(wordRange).toLowerCase();
     const block = findEnclosingBlock(document, position);
@@ -96,7 +96,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
         ),
       );
     } else {
-      return null;
+      return undefined;
     }
   }
 }
@@ -110,7 +110,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
   ) {
     const wordRange = document.getWordRangeAtPosition(position, /\S+/);
     if (!wordRange) {
-      return null;
+      return undefined;
     }
 
     // Only provide hover if the previous word is "begin" or "end"
@@ -122,7 +122,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
     const prevWord =
       tokens.length > 0 ? tokens[tokens.length - 1].toLowerCase() : "";
     if (prevWord !== "begin" && prevWord !== "end") {
-      return null;
+      return undefined;
     }
 
     const block = document.getText(wordRange).toLowerCase();
@@ -147,7 +147,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
 
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else {
-      return null;
+      return undefined;
     }
   }
 }

@@ -86,7 +86,7 @@ suite("Extension Test Suite", () => {
       // Position not pointing to keyword
       const position_null = new vscode.Position(0, 0);
       const hover_null = await provider.provideHover(document, position_null);
-      assert.strictEqual(hover_null, null);
+      assert.strictEqual(hover_null, undefined);
     } finally {
       // Clean up the temporary file and directory
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
@@ -124,7 +124,7 @@ suite("Extension Test Suite", () => {
       // Position not pointing to block
       const position_null = new vscode.Position(0, 0);
       const hover_null = await provider.provideHover(document, position_null);
-      assert.strictEqual(hover_null, null);
+      assert.strictEqual(hover_null, undefined);
     } finally {
       // Clean up the temporary file and directory
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
