@@ -70,12 +70,8 @@ function isBlockDeclaration(
   wordRange: vscode.Range,
 ): boolean {
   const lineText = document.lineAt(position.line).text;
-  const tokens = lineText
-    .slice(0, wordRange.start.character)
-    .trimEnd()
-    .split(/\s+/);
-  const prevWord =
-    tokens.length > 0 ? tokens[tokens.length - 1].toLowerCase() : "";
+  const textBefore = lineText.slice(0, wordRange.start.character);
+  const prevWord = textBefore.trim().split(/\s+/).pop()?.toLowerCase();
   return prevWord === "begin" || prevWord === "end";
 }
 
