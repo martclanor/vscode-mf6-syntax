@@ -11,6 +11,12 @@ interface HoverKeywordStructure {
   };
 }
 
+interface HoverBlockStructure {
+  [block: string]: {
+    [dfn: string]: string; // block structure definition
+  };
+}
+
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
@@ -88,12 +94,6 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       return null;
     }
   }
-}
-
-interface HoverBlockStructure {
-  [block: string]: {
-    [dfn: string]: string; // block structure definition
-  };
 }
 
 export class MF6HoverBlockProvider implements vscode.HoverProvider {
