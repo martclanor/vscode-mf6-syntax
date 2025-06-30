@@ -1,7 +1,7 @@
 {
   "attributes": {
     "utl-tas": "BEGIN ATTRIBUTES\n  NAME <time_series_name>\n  [METHOD <interpolation_method>]\n  [SFAC <sfacval>]\nEND ATTRIBUTES",
-    "utl-ts": "BEGIN ATTRIBUTES\n  NAMES <time_series_names>\n  [METHODS <interpolation_method>]\n  [METHODS <interpolation_method>]\n  METHOD\n  INTERPOLATION_METHOD_SINGLE <interpolation_method_single>\n  [SFACS <sfacval>]\n  [<sfacval>]\n  SFAC\nEND ATTRIBUTES"
+    "utl-ts": "BEGIN ATTRIBUTES\n  NAMES <time_series_names>\n  [METHODS <interpolation_method>]\n  METHOD\n  INTERPOLATION_METHOD_SINGLE <interpolation_method_single>\n  [SFACS <sfacval>]\n  [<sfacval>]\n  SFAC\nEND ATTRIBUTES"
   },
   "cell1d": {
     "chf-disv1d": "BEGIN CELL1D\n  <icell1d> <fdc> <ncvert> <icvert(ncvert)>\n  <icell1d> <fdc> <ncvert> <icvert(ncvert)>\n  ...\nEND CELL1D",
