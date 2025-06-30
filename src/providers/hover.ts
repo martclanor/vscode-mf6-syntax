@@ -64,6 +64,21 @@ function findMatchingDfns<T extends { [key: string]: string | string[] }>(
   return Dfns;
 }
 
+function isBlockDeclaration(
+  document: vscode.TextDocument,
+  position: vscode.Position,
+  wordRange: vscode.Range,
+): boolean {
+  const lineText = document.lineAt(position.line).text;
+  const tokens = lineText
+    .slice(0, wordRange.start.character)
+    .trimEnd()
+    .split(/\s+/);
+  const prevWord =
+    tokens.length > 0 ? tokens[tokens.length - 1].toLowerCase() : "";
+  return prevWord === "begin" || prevWord === "end";
+}
+
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
 
@@ -130,15 +145,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
       return undefined;
     }
 
-    // Only provide hover if the previous word is "begin" or "end"
-    const lineText = document.lineAt(position.line).text;
-    const tokens = lineText
-      .slice(0, wordRange.start.character)
-      .trimEnd()
-      .split(/\s+/);
-    const prevWord =
-      tokens.length > 0 ? tokens[tokens.length - 1].toLowerCase() : "";
-    if (prevWord !== "begin" && prevWord !== "end") {
+    if (!isBlockDeclaration(document, position, wordRange)) {
       return undefined;
     }
 
