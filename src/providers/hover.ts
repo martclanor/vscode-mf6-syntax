@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as hoverKeywordJson from "./hover-keyword.json";
+import * as hoverBlockJson from "./hover-block.json";
 
 interface HoverKeywordStructure {
   [keyword: string]: {
@@ -8,6 +9,95 @@ interface HoverKeywordStructure {
       [description: string]: string[]; // dfn_name
     };
   };
+}
+
+interface HoverBlockStructure {
+  [block: string]: {
+    [dfn: string]: string; // block structure definition
+  };
+}
+
+function findEnclosingBlock(
+  document: vscode.TextDocument,
+  position: vscode.Position,
+): string | undefined {
+  for (let i = position.line - 1; i >= 0; i--) {
+    const line = document.lineAt(i).text.trim();
+    if (line.toLowerCase().startsWith("begin")) {
+      const parts = line.split(/\s+/);
+      if (parts.length > 1) {
+        return parts[1].toLowerCase();
+      }
+    }
+  }
+  return undefined;
+}
+
+function getFileExtension(document: vscode.TextDocument): string {
+  return path.extname(document.fileName).slice(1).toLowerCase();
+}
+
+function findMatchingDfns<T extends { [key: string]: string | string[] }>(
+  data: T,
+  fileExtension: string,
+  checkValues: boolean = false,
+): string[] {
+  const Dfns = Object.keys(data);
+
+  const matchingDfns = Dfns.filter((key) => {
+    // Check based on the value (for keywords)
+    if (checkValues) {
+      const value = data[key];
+      if (Array.isArray(value)) {
+        return value.some((item) => item.endsWith(`-${fileExtension}`));
+      }
+    }
+    // Check based on the key (for blocks or as a fallback for keywords)
+    return key.endsWith(`-${fileExtension}`);
+  });
+
+  if (matchingDfns.length > 0) {
+    return matchingDfns;
+  }
+
+  // Fallback: return all Dfns if no specific match is found
+  return Dfns;
+}
+
+function isBlockDeclaration(
+  document: vscode.TextDocument,
+  position: vscode.Position,
+  wordRange: vscode.Range,
+): boolean {
+  const lineText = document.lineAt(position.line).text;
+  const textBefore = lineText.slice(0, wordRange.start.character);
+  const prevWord = textBefore.trim().split(/\s+/).pop()?.toLowerCase();
+  return prevWord === "begin" || prevWord === "end";
+}
+
+function formatKeywordHover(
+  keyword: string,
+  block: string,
+  matchingDfns: string[],
+  blockData: { [key: string]: string[] },
+): string {
+  const description = matchingDfns
+    .map((key) => {
+      if (matchingDfns.length === 1) {
+        return `- ${key}`;
+      }
+      // If more than one possible Dfn source, list all
+      const formattedValues = blockData[key]
+        .map((value) => `*${value}*`)
+        .join(", ");
+      return `${formattedValues}\n- ${key}`;
+    })
+    .join("\n\n");
+
+  const header = `**${keyword.toUpperCase()}**&nbsp;&nbsp;(block: *${
+    block.toUpperCase() ?? "unknown"
+  }*)\n\n`;
+  return `${header}${description || "No description available"}`;
 }
 
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
@@ -19,72 +109,63 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   ) {
     const wordRange = document.getWordRangeAtPosition(position, /\S+/);
     if (!wordRange) {
-      return null;
+      return undefined;
     }
     const keyword = document.getText(wordRange).toLowerCase();
-
-    // Traverse backward line-per-line to find the enclosing block
-    let block: string | null = null;
-    for (let line = position.line - 1; line >= 0; line--) {
-      const lineText = document.lineAt(line).text.trim();
-      if (lineText.toLowerCase().startsWith("begin")) {
-        const parts = lineText.split(/\s+/);
-        if (parts.length > 1) {
-          block = parts[1].toLowerCase();
-        }
-        break;
-      }
-    }
+    const block = findEnclosingBlock(document, position);
 
     if (
-      keyword in this.hoverData &&
       block &&
+      keyword in this.hoverData &&
       this.hoverData[keyword]?.[block]
     ) {
-      let hoverValue: string | undefined = undefined;
-
       const blockData = this.hoverData[keyword][block];
-      const fileExtension = path
-        .extname(document.fileName)
-        .slice(1)
-        .toLowerCase();
-      let matchingKeys = Object.keys(blockData).filter((key) => {
-        const value = blockData[key];
-        return value.some((item) => {
-          const parts = item.split("-");
-          return parts[parts.length - 1] === fileExtension;
-        });
-      });
-
-      if (matchingKeys.length === 1) {
-        hoverValue = `- ${matchingKeys[0]}`;
-      } else {
-        if (matchingKeys.length === 0) {
-          // Fallback to all keys
-          matchingKeys = Object.keys(blockData);
-        }
-        const matchingValues = matchingKeys.map((key) => blockData[key]);
-        hoverValue = matchingKeys
-          .map((key, index) => {
-            const values = matchingValues[index];
-            const formattedValues = values
-              .map((value) => `*${value}*`)
-              .join(", ");
-            return `${formattedValues}\n- ${key}`;
-          })
-          .join("\n\n");
-      }
-
-      return new vscode.Hover(
-        new vscode.MarkdownString(
-          `**${keyword.toUpperCase()}**&nbsp;&nbsp;(block: *${
-            block?.toUpperCase() ?? "unknown"
-          }*)\n\n${hoverValue ?? "No description available"}`,
-          true,
-        ),
+      const fileExtension = getFileExtension(document);
+      const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
+      const hoverValue = formatKeywordHover(
+        keyword,
+        block,
+        matchingDfns,
+        blockData,
       );
+
+      return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else {
-      return null;
+      return undefined;
+    }
+  }
+}
+
+export class MF6HoverBlockProvider implements vscode.HoverProvider {
+  hoverData: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
+
+  public async provideHover(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+  ) {
+    const wordRange = document.getWordRangeAtPosition(position, /\S+/);
+    if (!wordRange) {
+      return undefined;
+    }
+
+    if (!isBlockDeclaration(document, position, wordRange)) {
+      return undefined;
+    }
+
+    const block = document.getText(wordRange).toLowerCase();
+    if (block in this.hoverData) {
+      let hoverValue: string | undefined = undefined;
+      const blockData = this.hoverData[block];
+      const fileExtension = getFileExtension(document);
+      const matchingDfns = findMatchingDfns(blockData, fileExtension);
+
+      hoverValue = matchingDfns
+        .map((dfn) => blockData[dfn])
+        .join("\n```\n\n\n```\n");
+
+      return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
+    } else {
+      return undefined;
     }
   }
 }
