@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0-beta
+
+- Add hover feature to show MF6 block structure
+- Refactor gen_from_dfn utility script
+- Refactor hover feature
+- Update readme: block hover feature
+
 ## 0.2.2-beta
 
 - Restrict quoted string match to file-like patterns
