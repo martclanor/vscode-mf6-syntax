@@ -89,7 +89,7 @@ class Section:
     def dev_option(self) -> bool:
         return self.keyword.startswith("dev_")
 
-    def get_hover_keyword(self) -> None:
+    def get_hover_keyword(self) -> str:
         if "REPLACE" not in self.description:
             desc = self.description
         else:
@@ -150,6 +150,10 @@ class Section:
             body += f"\n {body}\n  ..."
 
         return f"\n  {body}"
+
+    @staticmethod
+    def format_block_hover(text: str, block: str, dfn_name: str) -> str:
+        return f"```\n# Structure of {block.upper()} block in {dfn_name.upper()}\n{text}\n```"
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
@@ -377,10 +381,13 @@ class Dfn:
                 else:
                     hover[section.block][dfn.name] += section.get_block_body()
 
-        # Another pass to add the block end line
+        # Another pass to add the block end line and format
         for block in hover:
             for dfn_name in hover[block]:
                 hover[block][dfn_name] += section.get_block_end(hover[block][dfn_name])
+                hover[block][dfn_name] = Section.format_block_hover(
+                    hover[block][dfn_name], block, dfn_name
+                )
 
         hover_sorted = Dfn._sort_hover_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
