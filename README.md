@@ -9,7 +9,7 @@
 > [!NOTE]
 > This project is currently in beta. Features and functionality may change, and there may be bugs. Feedback and contributions to help improve the project are welcome.
 
-This VS Code extension provides syntax highlighting support and rich language features for [MODFLOW 6](https://modflow6.readthedocs.io/en/stable/index.html). It enhances the readability and editing experience for MF6 files by leveraging specifications directly from MF6 [DFN](https://modflow6.readthedocs.io/en/stable/_dev/dfn.html) files.
+This VS Code extension provides rich language features for [MODFLOW 6](https://modflow6.readthedocs.io/en/stable/index.html). It enhances the readability and editing experience for MF6 files by leveraging specifications directly from MF6 [DFN](https://modflow6.readthedocs.io/en/stable/_dev/dfn.html) files.
 
 ## Features
 
@@ -22,6 +22,7 @@ This VS Code extension provides syntax highlighting support and rich language fe
   - `Go To Definition` keybinding (default: `F12`)
 
 - Hover for keyword description
+- Hover for block structure
 
 - Others:
   - Block folding
