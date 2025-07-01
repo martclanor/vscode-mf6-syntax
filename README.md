@@ -22,6 +22,7 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
   - `Go To Definition` keybinding (default: `F12`)
 
 - Hover for keyword description
+- Hover for block structure
 
 - Others:
   - Block folding
