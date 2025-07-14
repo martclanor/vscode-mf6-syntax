@@ -364,6 +364,9 @@ class Dfn:
             lambda: defaultdict(str)
         )
         for dfn in Dfn.get_dfns():
+            section_in_record = {
+                (s.keyword, s.block): s for s in dfn.get_sections(lambda s: s.in_record)
+            }
             # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
                 lambda s: not s.dev_option
@@ -372,20 +375,19 @@ class Dfn:
                 if not hover[section.block][dfn.name]:
                     hover[section.block][dfn.name] = section.get_block_begin()
 
-                # Sections that are of type record or recarray have child sections
+                # Sections of type record or recarray have child in_record sections
                 if section.type_rec:
-                    entry = ""
-                    for rec in section.recs:
-                        for sec in dfn.get_sections():
-                            if rec == sec.keyword and section.block == sec.block:
-                                # Retrieve child section
-                                section_rec = sec
-                                break
-                        if section_rec.in_record:
-                            entry = section_rec.get_block_in_record(entry)
-                    # Ignore if none of the recs are "in_record"
-                    if not entry:
+                    section_children = [
+                        section_in_record[rec, section.block]
+                        for rec in section.recs
+                        if (rec, section.block) in section_in_record
+                    ]
+                    if not section_children:
                         continue
+                    entry = ""
+                    for section_child in section_children:
+                        entry = section_child.get_block_in_record(entry)
+
                     hover[section.block][dfn.name] += section.get_block_type_rec(entry)
 
                 elif section.block_variable:
