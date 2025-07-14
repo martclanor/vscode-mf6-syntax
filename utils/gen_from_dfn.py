@@ -181,8 +181,6 @@ class Section:
     def _parse_type(value: str) -> str:
         if "record" in value or "recarray" in value or "keystring" in value:
             return value.split(maxsplit=1)[0]
-        if "double precision" in value:
-            return " ".join(value.split(maxsplit=2)[0:2])
         return value
 
     @staticmethod
