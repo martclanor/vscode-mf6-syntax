@@ -98,7 +98,7 @@ class Section:
                 self.description.lstrip(f"REPLACE {keyword} ")
             )
             # Take new description from common.dfn, then replace placeholders
-            desc = Dfn._common[keyword]
+            desc = Dfn.common[keyword]
             for key, value in replacement.items():
                 desc = desc.replace(key, value)
         return desc.replace("``", "`").replace("''", "`").replace("\\", "")
@@ -252,7 +252,7 @@ class Dfn:
 
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
-    _common: ClassVar[dict[str, str]] = {}
+    common: ClassVar[dict[str, str]] = {}
 
     @cached_property
     def data(self) -> tuple[str, ...]:
@@ -348,7 +348,7 @@ class Dfn:
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
         # Assign class variable that holds data for DFN text replacements
-        Dfn._common = Dfn._parse_common()
+        Dfn.common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
