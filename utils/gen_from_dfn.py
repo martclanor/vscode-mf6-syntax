@@ -171,7 +171,7 @@ class Section:
 
     @staticmethod
     def _parse_shape(value: str) -> str:
-        # Ignore if shape is not enclosed in parentheses, e.g. time_series_name in utl-tas.dfn
+        # Ignore if shape is not enclosed in (), e.g. time_series_name in utl-tas.dfn
         # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
         if value == "" or value[0] != "(" or value == "(:)":
             return ""
@@ -240,7 +240,7 @@ class Section:
                     | "jagged_array"
                     | "support_negative_index"
                 ):
-                    # For completeness, these fields are in the DFNs but are not used in the current implementation
+                    # For completeness, these fields are in the DFNs but are not used
                     pass
                 case _:
                     raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
@@ -376,7 +376,7 @@ class Dfn:
                                 break
                         if section_rec.in_record:
                             entry = section_rec.get_block_in_record(entry)
-                    # Ignore if one of the recs are "in_record"
+                    # Ignore if none of the recs are "in_record"
                     if not entry:
                         continue
                     hover[section.block][dfn.name] += section.get_block_type_rec(entry)
