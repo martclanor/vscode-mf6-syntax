@@ -10,18 +10,17 @@ This script processes MODFLOW 6 definition (DFN) files to generate configuration
 data files for the extension.
 
 Classes:
-    Line: Represents a single line in a DFN file with a key-value structure.
-    Section: Represents a group of related lines  in a DFN file, including metadata such
+    Line: Represents a single line in a DFN file with a key-value structure
+    Section: Represents a group of related lines in a DFN file, including metadata such
         as block, keyword, description, etc
-    Dfn: Represents an entire DFN file, providing methods to parse, filter, and extract
-        data.
+    Dfn: Represents an entire DFN file, providing methods to parse, filter, process and
+        extract data
 
 Generated Files:
-    - package.json: Contains metadata about the extension, including supported file
-      extensions.
+    - package.json: Contains extension metadata, including supported file extensions
     - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
-    - src/providers/hover-keyword.json: Provides hover description data for MF6 keywords
-    - src/providers/hover-block.json: Provides hover description data for MF6 blocks
+    - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
+    - src/providers/hover-block.json: Provides hover data for MF6 blocks
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
@@ -171,7 +170,7 @@ class Section:
 
     @staticmethod
     def _parse_shape(value: str) -> str:
-        # Ignore if shape is not enclosed in (), e.g. time_series_name in utl-tas.dfn
+        # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
         # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
         if value == "" or value[0] != "(" or value == "(:)":
             return ""
@@ -313,7 +312,7 @@ class Dfn:
 
     @staticmethod
     def _parse_common() -> dict[str, str]:
-        # common.dfn is a special file that contains common descriptions for keywords
+        # common.dfn is a special file that contains template descriptions for keywords
         # which are used to replace placeholders in other DFN files
         common = {}
         for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
@@ -323,7 +322,7 @@ class Dfn:
 
     @staticmethod
     def _sort_data(data: list | set | str | dict) -> list | set | str | dict:
-        # Base case: lowest level of the data structure, list or string
+        # Base case: lowest level of the data structure, list or set or string
         if isinstance(data, (list, set)):
             return sorted(data)
         elif isinstance(data, str):
