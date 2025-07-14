@@ -191,7 +191,7 @@ class Section:
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
-        for line in [Line.from_dfn(_line) for _line in data.strip().split("\n")]:
+        for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
             match line.key:
                 case "name":
                     kwargs["keyword"] = line.value
@@ -316,7 +316,7 @@ class Dfn:
         # which are used to replace placeholders in other DFN files
         common = {}
         for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
-            name, description = [Line.from_dfn(d) for d in data.split("\n")]
+            name, description = (Line.from_dfn(d) for d in data.split("\n"))
             common[name.value] = description.value
         return common
 
