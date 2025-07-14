@@ -187,59 +187,54 @@ class Section:
             return tuple(value.split()[1:])
         return ()
 
+    _field_mapping: ClassVar[
+        dict[str, tuple[str, Callable[[str], str | bool | tuple[str, ...]]]]
+    ] = {
+        "name": ("keyword", lambda v: v),
+        "block": ("block", lambda v: v),
+        "reader": ("reader", lambda v: v),
+        "description": ("description", lambda v: v),
+        "shape": ("shape", _parse_shape),
+        "valid": ("valid", _parse_valid),
+        "optional": ("optional", _parse_bool),
+        "tagged": ("tagged", _parse_bool),
+        "in_record": ("in_record", _parse_bool),
+        "layered": ("layered", _parse_bool),
+        "netcdf": ("netcdf", _parse_bool),
+        "block_variable": ("block_variable", _parse_bool),
+        "just_data": ("just_data", _parse_bool),
+    }
+
+    _field_ignored: ClassVar[set[str]] = {
+        "default_value",
+        "deprecated",
+        "extended",
+        "jagged_array",
+        "longname",
+        "mf6internal",
+        "numeric_index",
+        "other_names",
+        "preserve_case",
+        "removed",
+        "repeating",
+        "support_negative_index",
+        "time_series",
+    }
+
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            match line.key:
-                case "name":
-                    kwargs["keyword"] = line.value
-                case "block":
-                    kwargs["block"] = line.value
-                case "reader":
-                    kwargs["reader"] = line.value
-                case "description":
-                    kwargs["description"] = line.value
-                case "shape":
-                    kwargs["shape"] = cls._parse_shape(line.value)
-                case "type":
-                    kwargs["type_"] = cls._parse_type(line.value)
-                    kwargs["recs"] = cls._parse_recs(line.value)
-                case "valid":
-                    kwargs["valid"] = cls._parse_valid(line.value)
-                case "optional":
-                    kwargs["optional"] = cls._parse_bool(line.value)
-                case "tagged":
-                    kwargs["tagged"] = cls._parse_bool(line.value)
-                case "in_record":
-                    kwargs["in_record"] = cls._parse_bool(line.value)
-                case "layered":
-                    kwargs["layered"] = cls._parse_bool(line.value)
-                case "netcdf":
-                    kwargs["netcdf"] = cls._parse_bool(line.value)
-                case "block_variable":
-                    kwargs["block_variable"] = cls._parse_bool(line.value)
-                case "just_data":
-                    kwargs["just_data"] = cls._parse_bool(line.value)
-                case (
-                    "longname"
-                    | "default_value"
-                    | "numeric_index"
-                    | "time_series"
-                    | "preserve_case"
-                    | "mf6internal"
-                    | "extended"
-                    | "removed"
-                    | "repeating"
-                    | "deprecated"
-                    | "other_names"
-                    | "jagged_array"
-                    | "support_negative_index"
-                ):
-                    # For completeness, these fields are in the DFNs but are not used
-                    pass
-                case _:
-                    raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
+            if line.key in cls._field_mapping:
+                attr, parser = cls._field_mapping[line.key]
+                kwargs[attr] = parser(line.value)
+            elif line.key == "type":
+                kwargs["type_"] = cls._parse_type(line.value)
+                kwargs["recs"] = cls._parse_recs(line.value)
+            elif line.key in cls._field_ignored:
+                pass
+            else:
+                raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
 
         return cls(**kwargs)
 
