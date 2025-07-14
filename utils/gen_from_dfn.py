@@ -34,7 +34,6 @@ import json
 import logging
 from collections import defaultdict
 from dataclasses import dataclass
-from functools import cached_property
 from pathlib import Path
 from typing import Callable, ClassVar, Generator, Optional
 
@@ -252,10 +251,16 @@ class Dfn:
 
     path: Path
     dfn_path: ClassVar[Path] = Path("data/dfn")
+    cache: ClassVar[dict[Path, "Dfn"]] = {}
     common: ClassVar[dict[str, str]] = {}
 
-    @cached_property
-    def _data(self) -> tuple[str, ...]:
+    def __new__(cls, path: Path) -> "Dfn":
+        return cls.cache.setdefault(path, super().__new__(cls))
+
+    def __post_init__(self):
+        self._data = self._read_data()
+
+    def _read_data(self) -> tuple[str, ...]:
         with self.path.open() as f:
             return tuple(
                 "\n".join(
