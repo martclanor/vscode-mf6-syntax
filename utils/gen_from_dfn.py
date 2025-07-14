@@ -255,7 +255,7 @@ class Dfn:
     common: ClassVar[dict[str, str]] = {}
 
     @cached_property
-    def data(self) -> tuple[str, ...]:
+    def _data(self) -> tuple[str, ...]:
         with self.path.open() as f:
             return tuple(
                 "\n".join(
@@ -268,8 +268,8 @@ class Dfn:
 
     def get_data(self, prefix: Optional[str] = None) -> Generator[str, None, None]:
         if prefix is None:
-            return (data for data in self.data if data != "")
-        return (data for data in self.data if data.startswith(prefix))
+            return (data for data in self._data if data != "")
+        return (data for data in self._data if data.startswith(prefix))
 
     def get_sections(
         self, filter_fn: Optional[Callable[[Section], bool]] = None
