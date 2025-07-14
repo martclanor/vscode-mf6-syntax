@@ -322,14 +322,14 @@ class Dfn:
         return common
 
     @staticmethod
-    def _sort_hover_data(data: list | str | dict) -> list | str | dict:
+    def _sort_data(data: list | set | str | dict) -> list | set | str | dict:
         # Base case: lowest level of the data structure, list or string
-        if isinstance(data, list):
+        if isinstance(data, (list, set)):
             return sorted(data)
         elif isinstance(data, str):
             return data
         # Recursive case: apply function to the dictionary values
-        return {key: Dfn._sort_hover_data(value) for key, value in sorted(data.items())}
+        return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
 
     @staticmethod
     def export_hover_keyword(output: str) -> None:
@@ -345,7 +345,7 @@ class Dfn:
                     section.get_hover_keyword()
                 ].append(dfn.name)
 
-        hover_sorted = Dfn._sort_hover_data(hover)
+        hover_sorted = Dfn._sort_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
@@ -393,7 +393,7 @@ class Dfn:
                     hover[block][dfn_name], block, dfn_name
                 )
 
-        hover_sorted = Dfn._sort_hover_data(hover)
+        hover_sorted = Dfn._sort_data(hover)
         Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output}")
 
@@ -404,7 +404,7 @@ class Dfn:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
         ).get_template(f"{output_path.name}.j2")
-        context_sorted = {k: sorted(v) for k, v in context.items()}
+        context_sorted = Dfn._sort_data(context)
         output_path.write_text(template.render(**context_sorted))
         log.info(f"Generated from DFN: {output_path}")
 
