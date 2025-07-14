@@ -322,14 +322,14 @@ class Dfn:
         return common
 
     @staticmethod
-    def _sort_hover_data(obj: list | str | dict) -> list | str | dict:
+    def _sort_hover_data(data: list | str | dict) -> list | str | dict:
         # Base case: lowest level of the data structure, list or string
-        if isinstance(obj, list):
-            return sorted(obj)
-        elif isinstance(obj, str):
-            return obj
+        if isinstance(data, list):
+            return sorted(data)
+        elif isinstance(data, str):
+            return data
         # Recursive case: apply function to the dictionary values
-        return {key: Dfn._sort_hover_data(value) for key, value in sorted(obj.items())}
+        return {key: Dfn._sort_hover_data(value) for key, value in sorted(data.items())}
 
     @staticmethod
     def export_hover_keyword(output: str) -> None:
