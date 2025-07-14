@@ -332,6 +332,18 @@ class Dfn:
         return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
 
     @staticmethod
+    def sort_and_export(
+        data: dict, output: str, template: Optional[Environment] = None
+    ) -> None:
+        output_path = Path(output)
+        data_sorted = Dfn._sort_data(data)
+        if template is not None:
+            output_path.write_text(template.render(**data_sorted))
+        else:
+            output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
+        log.info(f"Generated from DFN: {output_path}")
+
+    @staticmethod
     def export_hover_keyword(output: str) -> None:
         hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
@@ -345,9 +357,7 @@ class Dfn:
                     section.get_hover_keyword()
                 ].append(dfn.name)
 
-        hover_sorted = Dfn._sort_data(hover)
-        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
-        log.info(f"Generated from DFN: {output}")
+        Dfn.sort_and_export(hover, output)
 
     @staticmethod
     def export_hover_block(output: str) -> None:
@@ -393,20 +403,15 @@ class Dfn:
                     hover[block][dfn_name], block, dfn_name
                 )
 
-        hover_sorted = Dfn._sort_data(hover)
-        Path(output).write_text(json.dumps(hover_sorted, indent=2) + "\n")
-        log.info(f"Generated from DFN: {output}")
+        Dfn.sort_and_export(hover, output)
 
     @staticmethod
     def render_template(output: str, **context) -> None:
         """Render a Jinja2 template and write the output to a file."""
-        output_path = Path(output)
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
-        ).get_template(f"{output_path.name}.j2")
-        context_sorted = Dfn._sort_data(context)
-        output_path.write_text(template.render(**context_sorted))
-        log.info(f"Generated from DFN: {output_path}")
+        ).get_template(f"{Path(output).name}.j2")
+        Dfn.sort_and_export(context, output, template)
 
 
 if __name__ == "__main__":
