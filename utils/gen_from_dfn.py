@@ -166,7 +166,7 @@ class Section:
         return value.lower() == "true"
 
     @staticmethod
-    def _parse_tuple(value: str) -> tuple[str, ...]:
+    def _parse_valid(value: str) -> tuple[str, ...]:
         return tuple(value.split())
 
     @staticmethod
@@ -208,7 +208,7 @@ class Section:
                     kwargs["type_"] = cls._parse_type(line.value)
                     kwargs["recs"] = cls._parse_recs(line.value)
                 case "valid":
-                    kwargs["valid"] = cls._parse_tuple(line.value)
+                    kwargs["valid"] = cls._parse_valid(line.value)
                 case "optional":
                     kwargs["optional"] = cls._parse_bool(line.value)
                 case "tagged":
