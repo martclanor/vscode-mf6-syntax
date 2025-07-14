@@ -336,10 +336,10 @@ class Dfn:
     ) -> None:
         output_path = Path(output)
         data_sorted = Dfn._sort_data(data)
-        if template is not None:
-            output_path.write_text(template.render(**data_sorted))
-        else:
+        if template is None:
             output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
+        else:
+            output_path.write_text(template.render(**data_sorted))
         log.info(f"Generated from DFN: {output_path}")
 
     @staticmethod
