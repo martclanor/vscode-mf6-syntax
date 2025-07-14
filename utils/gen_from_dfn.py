@@ -407,7 +407,6 @@ class Dfn:
 
     @staticmethod
     def render_template(output: str, **context) -> None:
-        """Render a Jinja2 template and write the output to a file."""
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
         ).get_template(f"{Path(output).name}.j2")
