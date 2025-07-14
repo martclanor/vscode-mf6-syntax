@@ -139,7 +139,10 @@ class Section:
                 body += " [LAYERED]"
             if self.netcdf:
                 body += " [NETCDF]"
-            body = f"{body if not self.just_data else ''}\n      <{self.keyword}{self.shape}> -- READARRAY"
+            body = (
+                f"{body if not self.just_data else ''}\n      "
+                f"<{self.keyword}{self.shape}> -- READARRAY"
+            )
         elif self.type_ != "keyword":
             body = f"{body} <{self.keyword}{self.shape}>"
 
@@ -153,7 +156,10 @@ class Section:
 
     @staticmethod
     def format_block_hover(text: str, block: str, dfn_name: str) -> str:
-        return f"```\n# Structure of {block.upper()} block in {dfn_name.upper()}\n{text}\n```"
+        return (
+            f"```\n# Structure of {block.upper()} block in "
+            f"{dfn_name.upper()}\n{text}\n```"
+        )
 
     @staticmethod
     def _parse_bool(value: str) -> bool:
