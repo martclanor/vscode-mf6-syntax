@@ -127,7 +127,7 @@ class Section:
             return self.section_type.split()[1:]
         return ()
 
-    def get_hover_keyword(self) -> str:
+    def get_hover_keyword(self, common: dict[str, str]) -> str:
         if not self.is_replaced:
             desc = self.description
         else:
@@ -137,7 +137,7 @@ class Section:
                 self.description.lstrip(f"REPLACE {keyword} ")
             )
             # Take new description from common.dfn, then replace placeholders
-            desc = Dfn.get_common()[keyword]
+            desc = common[keyword]
             for key, value in replacement.items():
                 desc = desc.replace(key, value)
         return desc.replace("``", "`").replace("''", "`").replace("\\", "")
@@ -202,14 +202,20 @@ class Section:
         )
 
     @classmethod
-    def from_dfn(cls, data: str) -> "Section":
+    def from_dfn(
+        cls,
+        data: str,
+        ignored_fields: set[str],
+        section_attributes: dict[str, str],
+        line_parsers: dict[str, Callable],
+    ) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in Dfn.ignored_fields:
+            if line.key in ignored_fields:
                 continue
-            if line.key in Dfn.section_attributes:
-                parser = Dfn.line_parsers[line.key]
-                kwargs[Dfn.section_attributes[line.key]] = parser(line)
+            if line.key in section_attributes:
+                parser = line_parsers[line.key]
+                kwargs[section_attributes[line.key]] = parser(line)
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
         return cls(**kwargs)
@@ -291,7 +297,12 @@ class Dfn:
                 )
                 if section != ""
             )
-            return tuple(Section.from_dfn(d) for d in data)
+            return tuple(
+                Section.from_dfn(
+                    d, Dfn.ignored_fields, Dfn.section_attributes, Dfn.line_parsers
+                )
+                for d in data
+            )
 
     def get_sections(
         self, filter_fn: Optional[Callable[[Section], bool]] = None
@@ -372,9 +383,9 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.is_rec):
-                hover[section.name][section.block][section.get_hover_keyword()].append(
-                    dfn.name
-                )
+                hover[section.name][section.block][
+                    section.get_hover_keyword(Dfn.get_common())
+                ].append(dfn.name)
 
         Dfn.sort_and_export(hover, output)
 
