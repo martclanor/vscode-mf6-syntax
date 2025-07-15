@@ -355,15 +355,14 @@ class Dfn:
         return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
 
     @staticmethod
-    def sort_and_export(
+    def _export_data(
         data: dict, output: str, template: Optional[Environment] = None
     ) -> None:
         output_path = Path(output)
-        data_sorted = Dfn._sort_data(data)
         if template is None:
-            output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
+            output_path.write_text(json.dumps(data, indent=2) + "\n")
         else:
-            output_path.write_text(template.render(**data_sorted))
+            output_path.write_text(template.render(**data))
         log.info(f"Generated from DFN: {output_path}")
 
     @staticmethod
@@ -378,7 +377,7 @@ class Dfn:
                     dfn.name
                 )
 
-        Dfn.sort_and_export(hover, output)
+        Dfn._export_data(Dfn._sort_data(hover), output)
 
     @staticmethod
     def export_hover_block(output: str) -> None:
@@ -426,14 +425,14 @@ class Dfn:
                     hover[block][dfn_name], block, dfn_name
                 )
 
-        Dfn.sort_and_export(hover, output)
+        Dfn._export_data(Dfn._sort_data(hover), output)
 
     @staticmethod
     def render_template(output: str, **context) -> None:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
         ).get_template(f"{Path(output).name}.j2")
-        Dfn.sort_and_export(context, output, template)
+        Dfn._export_data(Dfn._sort_data(context), output, template)
 
 
 if __name__ == "__main__":
