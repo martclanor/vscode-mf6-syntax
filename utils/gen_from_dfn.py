@@ -333,7 +333,7 @@ class Dfn:
         )
 
     @staticmethod
-    def _parse_common() -> dict[str, str]:
+    def parse_common() -> dict[str, str]:
         # common.dfn is a special file that contains template descriptions for keywords
         # which are used to replace placeholders in other DFN files
         common = {}
@@ -369,8 +369,6 @@ class Dfn:
         hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
-        # Assign class variable that holds data for DFN text replacements
-        Dfn.common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.is_rec):
@@ -454,6 +452,8 @@ if __name__ == "__main__":
         valids=valids,
     )
 
+    # Assign class variable that holds data for DFN keyword text replacements
+    Dfn.common = Dfn.parse_common()
     # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
