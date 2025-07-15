@@ -280,23 +280,22 @@ class Dfn:
     def _read_data(self) -> tuple[str, ...]:
         with self.path.open() as f:
             return tuple(
-                "\n".join(
-                    line
-                    for line in section.splitlines()
-                    if not line.lstrip().startswith("#")
+                section
+                for section in (
+                    "\n".join(
+                        line
+                        for line in section.splitlines()
+                        if not line.lstrip().startswith("#")
+                    )
+                    for section in f.read().split("\n\n")
                 )
-                for section in f.read().split("\n\n")
+                if section != ""
             )
-
-    def get_data(self, prefix: Optional[str] = None) -> Generator[str, None, None]:
-        if prefix is None:
-            return (data for data in self._data if data != "")
-        return (data for data in self._data if data.startswith(prefix))
 
     def get_sections(
         self, filter_fn: Optional[Callable[[Section], bool]] = None
     ) -> Generator[Section, None, None]:
-        sections = (Section.from_dfn(data) for data in self.get_data())
+        sections = (Section.from_dfn(data) for data in self._data)
         if filter_fn is None:
             return sections
         return (section for section in sections if filter_fn(section))
@@ -338,7 +337,7 @@ class Dfn:
     def get_common() -> dict[str, str]:
         if Dfn.common:
             return Dfn.common
-        for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
+        for data in Dfn(Dfn.dfn_path / "common.dfn")._data:
             name, description = (Line.from_dfn(d) for d in data.split("\n"))
             Dfn.common[name.value] = description.value
         return Dfn.common
