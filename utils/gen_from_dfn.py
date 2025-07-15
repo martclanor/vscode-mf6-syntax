@@ -66,9 +66,6 @@ class Line:
     def parse_bool(self) -> bool:
         return self.value.lower() == "true"
 
-    def parse_valid(self) -> tuple[str, ...]:
-        return tuple(self.value.split())
-
     def parse_shape(self) -> str:
         # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
         # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
@@ -86,8 +83,8 @@ class Section:
     reader: str = ""
     description: str = ""
     section_type: str = ""
+    valid: str = ""
     shape: str = ""
-    valid: tuple[str, ...] = ()
     optional: bool = False
     tagged: bool = True
     in_record: bool = False
@@ -227,8 +224,8 @@ class DfnField(Enum):
     READER = DfnFieldSpec("reader", Line.parse_as_is)
     DESCRIPTION = DfnFieldSpec("description", Line.parse_as_is)
     TYPE = DfnFieldSpec("section_type", Line.parse_as_is)
+    VALID = DfnFieldSpec("valid", Line.parse_as_is)
     SHAPE = DfnFieldSpec("shape", Line.parse_shape)
-    VALID = DfnFieldSpec("valid", Line.parse_valid)
     OPTIONAL = DfnFieldSpec("optional", Line.parse_bool)
     TAGGED = DfnFieldSpec("tagged", Line.parse_bool)
     IN_RECORD = DfnFieldSpec("in_record", Line.parse_bool)
@@ -319,7 +316,9 @@ class Dfn:
 
     @property
     def valids(self) -> set[str]:
-        return {valid for section in self.get_sections() for valid in section.valid}
+        return {
+            valid for section in self.get_sections() for valid in section.valid.split()
+        }
 
     @property
     def extension(self) -> str:
