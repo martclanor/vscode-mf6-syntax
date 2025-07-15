@@ -58,6 +58,9 @@ class Line:
     def from_replace(cls, data: str) -> "Line":
         return cls(data.split()[1])
 
+    def parse_as_is(self) -> str:
+        return self.value
+
     def parse_bool(self) -> bool:
         return self.value.lower() == "true"
 
@@ -189,10 +192,10 @@ class Section:
     _field_mapping: ClassVar[
         dict[str, tuple[str, Callable[[Line], str | bool | tuple[str, ...]]]]
     ] = {
-        "name": ("keyword", lambda line: line.value),
-        "block": ("block", lambda line: line.value),
-        "reader": ("reader", lambda line: line.value),
-        "description": ("description", lambda line: line.value),
+        "name": ("keyword", Line.parse_as_is),
+        "block": ("block", Line.parse_as_is),
+        "reader": ("reader", Line.parse_as_is),
+        "description": ("description", Line.parse_as_is),
         "shape": ("shape", Line.parse_shape),
         "valid": ("valid", Line.parse_valid),
         "optional": ("optional", Line.parse_bool),
