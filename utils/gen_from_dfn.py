@@ -33,7 +33,7 @@ Usage:
 import ast
 import json
 import logging
-from collections import defaultdict, namedtuple
+from collections import Counter, defaultdict, namedtuple
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
@@ -92,6 +92,7 @@ class Section:
     netcdf: bool = False
     just_data: bool = False
     block_variable: bool = False
+    counter: ClassVar[defaultdict[str, Counter]] = defaultdict(Counter)
 
     @property
     def is_keyword(self) -> bool:
@@ -195,6 +196,10 @@ class Section:
         return f"\nEND {block.upper()}"
 
     @staticmethod
+    def export_counter(output: str) -> None:
+        Dfn.sort_and_export(Section.counter, output)
+
+    @staticmethod
     def format_block_hover(text: str, block: str, dfn_name: str) -> str:
         return (
             f"```\n# Structure of {block.upper()} block in "
@@ -205,6 +210,7 @@ class Section:
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
+            Section.counter[line.key][line.value] += 1
             if line.key in DfnField.ignored_fields:
                 continue
             if line.key in DfnField.section_attribute:
@@ -350,7 +356,7 @@ class Dfn:
         # Base case: lowest level of the data structure, list or set or string
         if isinstance(data, (list, set)):
             return sorted(data)
-        elif isinstance(data, str):
+        elif isinstance(data, (str, int)):
             return data
         # Recursive case: apply function to the dictionary values
         return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
