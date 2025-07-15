@@ -243,6 +243,7 @@ class Dfn:
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
+    sections: tuple[Section, ...]
 
     dfn_path: ClassVar[Path] = Path("data/dfn")
     section_attributes: ClassVar[dict[str, str]] = {
@@ -271,14 +272,13 @@ class Dfn:
     cache: ClassVar[dict[Path, "Dfn"]] = {}
     common: ClassVar[dict[str, str]] = {}
 
-    def __new__(cls, path: Path) -> "Dfn":
-        return cls.cache.setdefault(path, super().__new__(cls))
+    @classmethod
+    def load(cls, path: Path) -> "Dfn":
+        return cls.cache.setdefault(path, cls(path, cls._read_sections(path)))
 
-    def __post_init__(self):
-        self._sections = self._read_sections()
-
-    def _read_sections(self) -> tuple[Section, ...]:
-        with self.path.open() as f:
+    @staticmethod
+    def _read_sections(path: Path) -> tuple[Section, ...]:
+        with path.open() as f:
             data = (
                 section
                 for section in (
@@ -297,9 +297,9 @@ class Dfn:
         self, filter_fn: Optional[Callable[[Section], bool]] = None
     ) -> Generator[Section, None, None]:
         if filter_fn is None:
-            yield from self._sections
+            yield from self.sections
         else:
-            yield from (section for section in self._sections if filter_fn(section))
+            yield from (section for section in self.sections if filter_fn(section))
 
     @property
     def name(self) -> str:
@@ -329,7 +329,7 @@ class Dfn:
     @staticmethod
     def get_dfns() -> Generator["Dfn", None, None]:
         return (
-            Dfn(filename)
+            Dfn.load(filename)
             for filename in Dfn.dfn_path.glob("*.dfn")
             if filename.name != "common.dfn"
         )
@@ -338,7 +338,7 @@ class Dfn:
     def get_common() -> dict[str, str]:
         if Dfn.common:
             return Dfn.common
-        for section in Dfn(Dfn.dfn_path / "common.dfn").get_sections():
+        for section in Dfn.load(Dfn.dfn_path / "common.dfn").get_sections():
             Dfn.common[section.name] = section.description
         return Dfn.common
 
