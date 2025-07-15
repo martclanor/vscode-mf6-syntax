@@ -82,7 +82,7 @@ class Line:
 class DfnField(Enum):
     """Mapping of DFN fields to Section attributes and Line parsers."""
 
-    NAME = ("keyword", Line.parse_as_is)
+    NAME = ("name", Line.parse_as_is)
     BLOCK = ("block", Line.parse_as_is)
     READER = ("reader", Line.parse_as_is)
     DESCRIPTION = ("description", Line.parse_as_is)
@@ -128,7 +128,7 @@ class IgnoredField(Enum):
 class Section:
     """Abstraction of each group of lines (separated by \n\n) from the DFN file."""
 
-    keyword: str
+    name: str
     block: str
     reader: str = ""
     description: str = ""
@@ -155,7 +155,7 @@ class Section:
 
     @property
     def dev_option(self) -> bool:
-        return self.keyword.startswith("dev_")
+        return self.name.startswith("dev_")
 
     def get_hover_keyword(self) -> str:
         if "REPLACE" not in self.description:
@@ -179,7 +179,7 @@ class Section:
         return f"\n{' '.join(block.split()[:2]).replace('BEGIN', 'END')}"
 
     def get_block_variable(self) -> str:
-        return f" <{self.keyword}>"
+        return f" <{self.name}>"
 
     def get_block_optional(self, text: str) -> str:
         return f"[{text}]"
@@ -193,15 +193,15 @@ class Section:
 
     def get_block_in_record(self, prefix: str) -> str:
         if self.type[0] != "keyword":
-            text = f"<{self.keyword}{self.shape}>"
+            text = f"<{self.name}{self.shape}>"
         else:
-            text = self.keyword.upper()
+            text = self.name.upper()
         if self.optional:
             text = self.get_block_optional(text)
         return f"{prefix} {text}".strip()
 
     def get_block_body(self) -> str:
-        body = self.keyword.upper()
+        body = self.name.upper()
         if self.reader == "readarray":
             if self.layered:
                 body += " [LAYERED]"
@@ -209,10 +209,10 @@ class Section:
                 body += " [NETCDF]"
             body = (
                 f"{body if not self.just_data else ''}\n      "
-                f"<{self.keyword}{self.shape}> -- READARRAY"
+                f"<{self.name}{self.shape}> -- READARRAY"
             )
         elif self.type[0] != "keyword":
-            body = f"{body} <{self.keyword}{self.shape}>"
+            body = f"{body} <{self.name}{self.shape}>"
 
         if self.optional:
             body = self.get_block_optional(body)
@@ -298,7 +298,7 @@ class Dfn:
     @property
     def keywords(self) -> set[str]:
         return {
-            section.keyword
+            section.name
             for section in self.get_sections(lambda s: s.tagged and not s.type_rec)
         }
 
@@ -360,9 +360,9 @@ class Dfn:
 
         for dfn in Dfn.get_dfns():
             for section in dfn.get_sections(lambda s: not s.type_rec):
-                hover[section.keyword][section.block][
-                    section.get_hover_keyword()
-                ].append(dfn.name)
+                hover[section.name][section.block][section.get_hover_keyword()].append(
+                    dfn.name
+                )
 
         Dfn.sort_and_export(hover, output)
 
@@ -373,7 +373,7 @@ class Dfn:
         )
         for dfn in Dfn.get_dfns():
             section_in_record = {
-                (s.keyword, s.block): s for s in dfn.get_sections(lambda s: s.in_record)
+                (s.name, s.block): s for s in dfn.get_sections(lambda s: s.in_record)
             }
             # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
