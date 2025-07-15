@@ -45,7 +45,7 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Line:
     """Abstraction of each line from the DFN file."""
 
@@ -74,7 +74,7 @@ class Line:
         return self.value
 
 
-@dataclass
+@dataclass(frozen=True, slots=True)
 class Section:
     """Abstraction of each group of lines (separated by \n\n) from the DFN file."""
 
