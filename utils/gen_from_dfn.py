@@ -32,7 +32,7 @@ Usage:
 import ast
 import json
 import logging
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, ClassVar, Generator, Optional, overload
@@ -126,11 +126,13 @@ class Section:
     netcdf: bool = False
     just_data: bool = False
     block_variable: bool = False
+    counter: ClassVar[defaultdict[str, Counter]] = defaultdict(Counter)
 
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
+            Section.counter[line.key][line.value] += 1
             if line.key in IGNORED_FIELDS:
                 continue
             if parser := FIELD_PARSERS.get(line.key):
@@ -239,6 +241,10 @@ class Section:
     @staticmethod
     def get_block_end(block) -> str:
         return f"\nEND {block.upper()}"
+
+    @staticmethod
+    def export_counter(output: str) -> None:
+        Dfn.sort_and_export(Section.counter, output)
 
     @staticmethod
     def format_block_hover(text: str, block: str, dfn_name: str) -> str:
@@ -353,7 +359,7 @@ class Dfn:
         # Base case: lowest level of the data structure, list or set or string
         if isinstance(data, (list, set)):
             return sorted(data)
-        elif isinstance(data, str):
+        elif isinstance(data, (str, int)):
             return data
         # Recursive case: apply function to the dictionary values
         return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
@@ -461,3 +467,6 @@ if __name__ == "__main__":
     # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
+
+    # Export counter for enumeration and stats
+    Section.export_counter("utils/section-counter.json")
