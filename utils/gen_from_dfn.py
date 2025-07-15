@@ -34,6 +34,7 @@ import json
 import logging
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
 from typing import Callable, ClassVar, Generator, Optional
 
@@ -87,6 +88,50 @@ class Line:
         if "record" in self.value or "recarray" in self.value:
             return tuple(self.value.split()[1:])
         return ()
+
+
+class DfnField(Enum):
+    """Mapping of DFN fields to Section attributes and Line parsers."""
+
+    NAME = ("keyword", Line.parse_as_is)
+    BLOCK = ("block", Line.parse_as_is)
+    READER = ("reader", Line.parse_as_is)
+    DESCRIPTION = ("description", Line.parse_as_is)
+    SHAPE = ("shape", Line.parse_shape)
+    VALID = ("valid", Line.parse_valid)
+    OPTIONAL = ("optional", Line.parse_bool)
+    TAGGED = ("tagged", Line.parse_bool)
+    IN_RECORD = ("in_record", Line.parse_bool)
+    LAYERED = ("layered", Line.parse_bool)
+    NETCDF = ("netcdf", Line.parse_bool)
+    BLOCK_VARIABLE = ("block_variable", Line.parse_bool)
+    JUST_DATA = ("just_data", Line.parse_bool)
+
+    @classmethod
+    def get_map(cls) -> dict[str, tuple[str, Callable[[Line], str | bool | tuple]]]:
+        return {member.name.lower(): member.value for member in cls}
+
+
+class IgnoredField(Enum):
+    """Set of DFN fields to be ignored during parsing."""
+
+    DEFAULT_VALUE = "default_value"
+    DEPRECATED = "deprecated"
+    EXTENDED = "extended"
+    JAGGED_ARRAY = "jagged_array"
+    LONGNAME = "longname"
+    MF6INTERNAL = "mf6internal"
+    NUMERIC_INDEX = "numeric_index"
+    OTHER_NAMES = "other_names"
+    PRESERVE_CASE = "preserve_case"
+    REMOVED = "removed"
+    REPEATING = "repeating"
+    SUPPORT_NEGATIVE_INDEX = "support_negative_index"
+    TIME_SERIES = "time_series"
+
+    @classmethod
+    def get_values(cls) -> set[str]:
+        return {item.value for item in cls}
 
 
 @dataclass
@@ -189,51 +234,20 @@ class Section:
             f"{dfn_name.upper()}\n{text}\n```"
         )
 
-    _field_mapping: ClassVar[
-        dict[str, tuple[str, Callable[[Line], str | bool | tuple[str, ...]]]]
-    ] = {
-        "name": ("keyword", Line.parse_as_is),
-        "block": ("block", Line.parse_as_is),
-        "reader": ("reader", Line.parse_as_is),
-        "description": ("description", Line.parse_as_is),
-        "shape": ("shape", Line.parse_shape),
-        "valid": ("valid", Line.parse_valid),
-        "optional": ("optional", Line.parse_bool),
-        "tagged": ("tagged", Line.parse_bool),
-        "in_record": ("in_record", Line.parse_bool),
-        "layered": ("layered", Line.parse_bool),
-        "netcdf": ("netcdf", Line.parse_bool),
-        "block_variable": ("block_variable", Line.parse_bool),
-        "just_data": ("just_data", Line.parse_bool),
-    }
-
-    _field_ignored: ClassVar[set[str]] = {
-        "default_value",
-        "deprecated",
-        "extended",
-        "jagged_array",
-        "longname",
-        "mf6internal",
-        "numeric_index",
-        "other_names",
-        "preserve_case",
-        "removed",
-        "repeating",
-        "support_negative_index",
-        "time_series",
-    }
-
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
+        field_map = DfnField.get_map()
+        ignored_fields = IgnoredField.get_values()
+
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in cls._field_mapping:
-                attr, parser = cls._field_mapping[line.key]
+            if line.key in field_map:
+                attr, parser = field_map[line.key]
                 kwargs[attr] = parser(line)
             elif line.key == "type":
                 kwargs["type_"] = line.parse_type()
                 kwargs["recs"] = line.parse_recs()
-            elif line.key in cls._field_ignored:
+            elif line.key in ignored_fields:
                 pass
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
