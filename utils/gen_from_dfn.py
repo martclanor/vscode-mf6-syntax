@@ -137,7 +137,7 @@ class Section:
                 self.description.lstrip(f"REPLACE {keyword} ")
             )
             # Take new description from common.dfn, then replace placeholders
-            desc = Dfn.common[keyword]
+            desc = Dfn.get_common()[keyword]
             for key, value in replacement.items():
                 desc = desc.replace(key, value)
         return desc.replace("``", "`").replace("''", "`").replace("\\", "")
@@ -335,14 +335,13 @@ class Dfn:
         )
 
     @staticmethod
-    def parse_common() -> dict[str, str]:
-        # common.dfn is a special file that contains template descriptions for keywords
-        # which are used to replace placeholders in other DFN files
-        common = {}
+    def get_common() -> dict[str, str]:
+        if Dfn.common:
+            return Dfn.common
         for data in Dfn(Dfn.dfn_path / "common.dfn").get_data(prefix="name"):
             name, description = (Line.from_dfn(d) for d in data.split("\n"))
-            common[name.value] = description.value
-        return common
+            Dfn.common[name.value] = description.value
+        return Dfn.common
 
     @staticmethod
     def _sort_data(data: list | set | str | dict) -> list | set | str | dict:
@@ -453,8 +452,6 @@ if __name__ == "__main__":
         valids=valids,
     )
 
-    # Assign class variable that holds data for DFN keyword text replacements
-    Dfn.common = Dfn.parse_common()
     # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
