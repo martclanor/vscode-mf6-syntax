@@ -75,19 +75,8 @@ class Line:
             return ""
         return self.value
 
-    def parse_type(self) -> str:
-        if (
-            "record" in self.value
-            or "recarray" in self.value
-            or "keystring" in self.value
-        ):
-            return self.value.split(maxsplit=1)[0]
-        return self.value
-
-    def parse_recs(self) -> tuple[str, ...]:
-        if "record" in self.value or "recarray" in self.value:
-            return tuple(self.value.split()[1:])
-        return ()
+    def parse_type(self) -> tuple[str, ...]:
+        return tuple(self.value.split())
 
 
 class DfnField(Enum):
@@ -98,6 +87,7 @@ class DfnField(Enum):
     READER = ("reader", Line.parse_as_is)
     DESCRIPTION = ("description", Line.parse_as_is)
     SHAPE = ("shape", Line.parse_shape)
+    TYPE = ("type", Line.parse_type)
     VALID = ("valid", Line.parse_valid)
     OPTIONAL = ("optional", Line.parse_bool)
     TAGGED = ("tagged", Line.parse_bool)
@@ -143,8 +133,7 @@ class Section:
     reader: str = ""
     description: str = ""
     shape: str = ""
-    type_: str = ""
-    recs: tuple[str, ...] = ()  # Not explicit in DFN, but part of type
+    type: tuple[str, ...] = ()
     valid: tuple[str, ...] = ()
     optional: bool = False
     tagged: bool = True
@@ -156,7 +145,13 @@ class Section:
 
     @property
     def type_rec(self) -> bool:
-        return self.type_ == "record" or self.type_ == "recarray"
+        return self.type[0] == "record" or self.type[0] == "recarray"
+
+    @property
+    def recs(self) -> tuple[str, ...]:
+        if self.type_rec:
+            return self.type[1:]
+        return ()
 
     @property
     def dev_option(self) -> bool:
@@ -192,12 +187,12 @@ class Section:
     def get_block_type_rec(self, text: str):
         if self.optional:
             text = self.get_block_optional(text)
-        if self.type_ == "recarray":
+        if self.type[0] == "recarray":
             return f"\n  {text}\n  {text}\n  ..."
         return f"\n  {text}"
 
     def get_block_in_record(self, prefix: str) -> str:
-        if self.type_ != "keyword":
+        if self.type[0] != "keyword":
             text = f"<{self.keyword}{self.shape}>"
         else:
             text = self.keyword.upper()
@@ -216,13 +211,13 @@ class Section:
                 f"{body if not self.just_data else ''}\n      "
                 f"<{self.keyword}{self.shape}> -- READARRAY"
             )
-        elif self.type_ != "keyword":
+        elif self.type[0] != "keyword":
             body = f"{body} <{self.keyword}{self.shape}>"
 
         if self.optional:
             body = self.get_block_optional(body)
 
-        if self.type_ == "recarray":
+        if self.type[0] == "recarray":
             body += f"\n {body}\n  ..."
 
         return f"\n  {body}"
@@ -244,9 +239,6 @@ class Section:
             if line.key in field_map:
                 attr, parser = field_map[line.key]
                 kwargs[attr] = parser(line)
-            elif line.key == "type":
-                kwargs["type_"] = line.parse_type()
-                kwargs["recs"] = line.parse_recs()
             elif line.key in ignored_fields:
                 pass
             else:
