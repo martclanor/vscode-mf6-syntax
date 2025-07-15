@@ -80,9 +80,6 @@ class Line:
             return ""
         return self.value
 
-    def parse_type(self) -> tuple[str, ...]:
-        return tuple(self.value.split())
-
 
 @dataclass
 class Section:
@@ -92,8 +89,8 @@ class Section:
     block: str
     reader: str = ""
     description: str = ""
+    section_type: str = ""
     shape: str = ""
-    section_type: tuple[str, ...] = ()
     valid: tuple[str, ...] = ()
     optional: bool = False
     tagged: bool = True
@@ -104,21 +101,41 @@ class Section:
     block_variable: bool = False
 
     @property
-    def type_rec(self) -> bool:
-        return self.section_type[0] == "record" or self.section_type[0] == "recarray"
+    def is_keyword(self) -> bool:
+        return self.section_type.startswith("keyword")
+
+    @property
+    def is_recarray(self) -> bool:
+        return self.section_type.startswith("recarray")
+
+    @property
+    def is_record(self) -> bool:
+        return self.section_type.startswith("record")
+
+    @property
+    def is_rec(self) -> bool:
+        return self.is_recarray or self.is_record
+
+    @property
+    def is_readarray(self) -> bool:
+        return self.reader == "readarray"
+
+    @property
+    def is_replaced(self) -> bool:
+        return "REPLACE" in self.description
+
+    @property
+    def is_dev_option(self) -> bool:
+        return self.name.startswith("dev_")
 
     @property
     def recs(self) -> tuple[str, ...]:
-        if self.type_rec:
-            return self.section_type[1:]
+        if self.is_rec:
+            return self.section_type.split()[1:]
         return ()
 
-    @property
-    def dev_option(self) -> bool:
-        return self.name.startswith("dev_")
-
     def get_hover_keyword(self) -> str:
-        if "REPLACE" not in self.description:
+        if not self.is_replaced:
             desc = self.description
         else:
             keyword = Line.from_replace(self.description).key
@@ -147,12 +164,12 @@ class Section:
     def get_block_type_rec(self, text: str):
         if self.optional:
             text = self.get_block_optional(text)
-        if self.section_type[0] == "recarray":
+        if self.is_recarray:
             return f"\n  {text}\n  {text}\n  ..."
         return f"\n  {text}"
 
     def get_block_in_record(self, prefix: str) -> str:
-        if self.section_type[0] != "keyword":
+        if not self.is_keyword:
             text = f"<{self.name}{self.shape}>"
         else:
             text = self.name.upper()
@@ -162,7 +179,7 @@ class Section:
 
     def get_block_body(self) -> str:
         body = self.name.upper()
-        if self.reader == "readarray":
+        if self.is_readarray:
             if self.layered:
                 body += " [LAYERED]"
             if self.netcdf:
@@ -171,13 +188,13 @@ class Section:
                 f"{body if not self.just_data else ''}\n      "
                 f"<{self.name}{self.shape}> -- READARRAY"
             )
-        elif self.section_type[0] != "keyword":
+        elif not self.is_keyword:
             body = f"{body} <{self.name}{self.shape}>"
 
         if self.optional:
             body = self.get_block_optional(body)
 
-        if self.section_type[0] == "recarray":
+        if self.is_recarray:
             body += f"\n {body}\n  ..."
 
         return f"\n  {body}"
@@ -213,8 +230,8 @@ class DfnField(Enum):
     BLOCK = DfnFieldSpec("block", Line.parse_as_is)
     READER = DfnFieldSpec("reader", Line.parse_as_is)
     DESCRIPTION = DfnFieldSpec("description", Line.parse_as_is)
+    TYPE = DfnFieldSpec("section_type", Line.parse_as_is)
     SHAPE = DfnFieldSpec("shape", Line.parse_shape)
-    TYPE = DfnFieldSpec("section_type", Line.parse_type)
     VALID = DfnFieldSpec("valid", Line.parse_valid)
     OPTIONAL = DfnFieldSpec("optional", Line.parse_bool)
     TAGGED = DfnFieldSpec("tagged", Line.parse_bool)
@@ -301,7 +318,7 @@ class Dfn:
     def keywords(self) -> set[str]:
         return {
             section.name
-            for section in self.get_sections(lambda s: s.tagged and not s.type_rec)
+            for section in self.get_sections(lambda s: s.tagged and not s.is_rec)
         }
 
     @property
@@ -361,7 +378,7 @@ class Dfn:
         Dfn.common = Dfn._parse_common()
 
         for dfn in Dfn.get_dfns():
-            for section in dfn.get_sections(lambda s: not s.type_rec):
+            for section in dfn.get_sections(lambda s: not s.is_rec):
                 hover[section.name][section.block][section.get_hover_keyword()].append(
                     dfn.name
                 )
@@ -379,14 +396,14 @@ class Dfn:
             }
             # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
-                lambda s: not s.dev_option
-                and (not s.in_record or s.block_variable or s.type_rec)
+                lambda s: not s.is_dev_option
+                and (not s.in_record or s.block_variable or s.is_rec)
             ):
                 if not hover[section.block][dfn.name]:
                     hover[section.block][dfn.name] = section.get_block_begin()
 
                 # Sections of type record or recarray have child in_record sections
-                if section.type_rec:
+                if section.is_rec:
                     section_children = [
                         section_in_record[rec, section.block]
                         for rec in section.recs
