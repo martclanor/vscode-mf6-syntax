@@ -145,14 +145,8 @@ class Section:
     def get_block_begin(self) -> str:
         return f"BEGIN {self.block.upper()}"
 
-    def get_block_end(self, block) -> str:
-        return f"\n{' '.join(block.split()[:2]).replace('BEGIN', 'END')}"
-
     def get_block_variable(self) -> str:
         return f" <{self.name}>"
-
-    def get_block_optional(self, text: str) -> str:
-        return f"[{text}]"
 
     def get_block_type_rec(self, text: str):
         if self.optional:
@@ -191,6 +185,14 @@ class Section:
             body += f"\n {body}\n  ..."
 
         return f"\n  {body}"
+
+    @staticmethod
+    def get_block_optional(text: str) -> str:
+        return f"[{text}]"
+
+    @staticmethod
+    def get_block_end(block) -> str:
+        return f"\n{' '.join(block.split()[:2]).replace('BEGIN', 'END')}"
 
     @staticmethod
     def format_block_hover(text: str, block: str, dfn_name: str) -> str:
@@ -419,7 +421,7 @@ class Dfn:
         # Another pass to add the block end line and format
         for block in hover:
             for dfn_name in hover[block]:
-                hover[block][dfn_name] += section.get_block_end(hover[block][dfn_name])
+                hover[block][dfn_name] += Section.get_block_end(hover[block][dfn_name])
                 hover[block][dfn_name] = Section.format_block_hover(
                     hover[block][dfn_name], block, dfn_name
                 )
