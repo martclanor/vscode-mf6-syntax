@@ -275,6 +275,8 @@ class Dfn:
 
     @classmethod
     def load(cls, path: Path) -> "Dfn":
+        if path in cls.cache:
+            return cls.cache[path]
         return cls.cache.setdefault(path, cls(path, cls._read_sections(path)))
 
     @staticmethod
