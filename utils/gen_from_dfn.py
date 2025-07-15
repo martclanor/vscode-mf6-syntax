@@ -52,10 +52,6 @@ class Line:
     key: str
     value: str = ""
 
-    @property
-    def modified_key(self) -> str:
-        return "section_type" if self.key == "type" else self.key
-
     @classmethod
     def from_dfn(cls, data: str) -> "Line":
         return cls(*data.split(maxsplit=1))
