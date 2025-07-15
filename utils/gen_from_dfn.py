@@ -79,7 +79,7 @@ class Section:
     """Abstraction of each group of lines (separated by \n\n) from the DFN file."""
 
     name: str
-    block: str
+    block: str = ""
     reader: str = ""
     description: str = ""
     section_type: str = ""
@@ -275,11 +275,11 @@ class Dfn:
         return cls.cache.setdefault(path, super().__new__(cls))
 
     def __post_init__(self):
-        self._data = self._read_data()
+        self._sections = self._read_sections()
 
-    def _read_data(self) -> tuple[str, ...]:
+    def _read_sections(self) -> tuple[Section, ...]:
         with self.path.open() as f:
-            return tuple(
+            data = (
                 section
                 for section in (
                     "\n".join(
@@ -291,14 +291,15 @@ class Dfn:
                 )
                 if section != ""
             )
+            return tuple(Section.from_dfn(d) for d in data)
 
     def get_sections(
         self, filter_fn: Optional[Callable[[Section], bool]] = None
     ) -> Generator[Section, None, None]:
-        sections = (Section.from_dfn(data) for data in self._data)
         if filter_fn is None:
-            return sections
-        return (section for section in sections if filter_fn(section))
+            yield from self._sections
+        else:
+            yield from (section for section in self._sections if filter_fn(section))
 
     @property
     def name(self) -> str:
@@ -337,9 +338,8 @@ class Dfn:
     def get_common() -> dict[str, str]:
         if Dfn.common:
             return Dfn.common
-        for data in Dfn(Dfn.dfn_path / "common.dfn")._data:
-            name, description = (Line.from_dfn(d) for d in data.split("\n"))
-            Dfn.common[name.value] = description.value
+        for section in Dfn(Dfn.dfn_path / "common.dfn").get_sections():
+            Dfn.common[section.name] = section.description
         return Dfn.common
 
     @staticmethod
