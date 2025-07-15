@@ -58,6 +58,33 @@ class Line:
     def from_replace(cls, data: str) -> "Line":
         return cls(data.split()[1])
 
+    def parse_bool(self) -> bool:
+        return self.value.lower() == "true"
+
+    def parse_valid(self) -> tuple[str, ...]:
+        return tuple(self.value.split())
+
+    def parse_shape(self) -> str:
+        # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
+        # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
+        if self.value == "" or self.value[0] != "(" or self.value == "(:)":
+            return ""
+        return self.value
+
+    def parse_type(self) -> str:
+        if (
+            "record" in self.value
+            or "recarray" in self.value
+            or "keystring" in self.value
+        ):
+            return self.value.split(maxsplit=1)[0]
+        return self.value
+
+    def parse_recs(self) -> tuple[str, ...]:
+        if "record" in self.value or "recarray" in self.value:
+            return tuple(self.value.split()[1:])
+        return ()
+
 
 @dataclass
 class Section:
@@ -159,50 +186,22 @@ class Section:
             f"{dfn_name.upper()}\n{text}\n```"
         )
 
-    @staticmethod
-    def _parse_bool(value: str) -> bool:
-        return value.lower() == "true"
-
-    @staticmethod
-    def _parse_valid(value: str) -> tuple[str, ...]:
-        return tuple(value.split())
-
-    @staticmethod
-    def _parse_shape(value: str) -> str:
-        # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
-        # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
-        if value == "" or value[0] != "(" or value == "(:)":
-            return ""
-        return value
-
-    @staticmethod
-    def _parse_type(value: str) -> str:
-        if "record" in value or "recarray" in value or "keystring" in value:
-            return value.split(maxsplit=1)[0]
-        return value
-
-    @staticmethod
-    def _parse_recs(value: str) -> tuple[str, ...]:
-        if "record" in value or "recarray" in value:
-            return tuple(value.split()[1:])
-        return ()
-
     _field_mapping: ClassVar[
-        dict[str, tuple[str, Callable[[str], str | bool | tuple[str, ...]]]]
+        dict[str, tuple[str, Callable[[Line], str | bool | tuple[str, ...]]]]
     ] = {
-        "name": ("keyword", lambda v: v),
-        "block": ("block", lambda v: v),
-        "reader": ("reader", lambda v: v),
-        "description": ("description", lambda v: v),
-        "shape": ("shape", _parse_shape),
-        "valid": ("valid", _parse_valid),
-        "optional": ("optional", _parse_bool),
-        "tagged": ("tagged", _parse_bool),
-        "in_record": ("in_record", _parse_bool),
-        "layered": ("layered", _parse_bool),
-        "netcdf": ("netcdf", _parse_bool),
-        "block_variable": ("block_variable", _parse_bool),
-        "just_data": ("just_data", _parse_bool),
+        "name": ("keyword", lambda line: line.value),
+        "block": ("block", lambda line: line.value),
+        "reader": ("reader", lambda line: line.value),
+        "description": ("description", lambda line: line.value),
+        "shape": ("shape", Line.parse_shape),
+        "valid": ("valid", Line.parse_valid),
+        "optional": ("optional", Line.parse_bool),
+        "tagged": ("tagged", Line.parse_bool),
+        "in_record": ("in_record", Line.parse_bool),
+        "layered": ("layered", Line.parse_bool),
+        "netcdf": ("netcdf", Line.parse_bool),
+        "block_variable": ("block_variable", Line.parse_bool),
+        "just_data": ("just_data", Line.parse_bool),
     }
 
     _field_ignored: ClassVar[set[str]] = {
@@ -227,10 +226,10 @@ class Section:
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
             if line.key in cls._field_mapping:
                 attr, parser = cls._field_mapping[line.key]
-                kwargs[attr] = parser(line.value)
+                kwargs[attr] = parser(line)
             elif line.key == "type":
-                kwargs["type_"] = cls._parse_type(line.value)
-                kwargs["recs"] = cls._parse_recs(line.value)
+                kwargs["type_"] = line.parse_type()
+                kwargs["recs"] = line.parse_recs()
             elif line.key in cls._field_ignored:
                 pass
             else:
