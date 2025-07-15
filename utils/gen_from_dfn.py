@@ -51,6 +51,10 @@ class Line:
     key: str
     value: str = ""
 
+    @property
+    def modified_key(self) -> str:
+        return "section_type" if self.key == "type" else self.key
+
     @classmethod
     def from_dfn(cls, data: str) -> "Line":
         return cls(*data.split(maxsplit=1))
@@ -87,7 +91,7 @@ class DfnField(Enum):
     READER = ("reader", Line.parse_as_is)
     DESCRIPTION = ("description", Line.parse_as_is)
     SHAPE = ("shape", Line.parse_shape)
-    TYPE = ("type", Line.parse_type)
+    SECTION_TYPE = ("type", Line.parse_type)
     VALID = ("valid", Line.parse_valid)
     OPTIONAL = ("optional", Line.parse_bool)
     TAGGED = ("tagged", Line.parse_bool)
@@ -99,7 +103,7 @@ class DfnField(Enum):
 
     @classmethod
     def get_map(cls) -> dict[str, tuple[str, Callable[[Line], str | bool | tuple]]]:
-        return {member.name.lower(): member.value for member in cls}
+        return {member.value[0]: member.value[1] for member in cls}
 
 
 class IgnoredField(Enum):
@@ -133,7 +137,7 @@ class Section:
     reader: str = ""
     description: str = ""
     shape: str = ""
-    type: tuple[str, ...] = ()
+    section_type: tuple[str, ...] = ()
     valid: tuple[str, ...] = ()
     optional: bool = False
     tagged: bool = True
@@ -145,12 +149,12 @@ class Section:
 
     @property
     def type_rec(self) -> bool:
-        return self.type[0] == "record" or self.type[0] == "recarray"
+        return self.section_type[0] == "record" or self.section_type[0] == "recarray"
 
     @property
     def recs(self) -> tuple[str, ...]:
         if self.type_rec:
-            return self.type[1:]
+            return self.section_type[1:]
         return ()
 
     @property
@@ -187,12 +191,12 @@ class Section:
     def get_block_type_rec(self, text: str):
         if self.optional:
             text = self.get_block_optional(text)
-        if self.type[0] == "recarray":
+        if self.section_type[0] == "recarray":
             return f"\n  {text}\n  {text}\n  ..."
         return f"\n  {text}"
 
     def get_block_in_record(self, prefix: str) -> str:
-        if self.type[0] != "keyword":
+        if self.section_type[0] != "keyword":
             text = f"<{self.name}{self.shape}>"
         else:
             text = self.name.upper()
@@ -211,13 +215,13 @@ class Section:
                 f"{body if not self.just_data else ''}\n      "
                 f"<{self.name}{self.shape}> -- READARRAY"
             )
-        elif self.type[0] != "keyword":
+        elif self.section_type[0] != "keyword":
             body = f"{body} <{self.name}{self.shape}>"
 
         if self.optional:
             body = self.get_block_optional(body)
 
-        if self.type[0] == "recarray":
+        if self.section_type[0] == "recarray":
             body += f"\n {body}\n  ..."
 
         return f"\n  {body}"
@@ -237,13 +241,13 @@ class Section:
 
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
             if line.key in field_map:
-                attr, parser = field_map[line.key]
-                kwargs[attr] = parser(line)
+                parser = field_map[line.key]
+                # Use modified key. DFN fields and Section attributes may differ
+                kwargs[line.modified_key] = parser(line)
             elif line.key in ignored_fields:
                 pass
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
-
         return cls(**kwargs)
 
 
