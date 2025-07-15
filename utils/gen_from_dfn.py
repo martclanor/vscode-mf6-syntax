@@ -202,20 +202,14 @@ class Section:
         )
 
     @classmethod
-    def from_dfn(
-        cls,
-        data: str,
-        ignored_fields: set[str],
-        section_attributes: dict[str, str],
-        line_parsers: dict[str, Callable],
-    ) -> "Section":
+    def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in ignored_fields:
+            if line.key in DfnField.ignored_fields:
                 continue
-            if line.key in section_attributes:
-                parser = line_parsers[line.key]
-                kwargs[section_attributes[line.key]] = parser(line)
+            if line.key in DfnField.section_attribute:
+                parser = DfnField.line_parser[line.key]
+                kwargs[DfnField.section_attribute[line.key]] = parser(line)
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
         return cls(**kwargs)
@@ -243,6 +237,30 @@ class DfnField(Enum):
     JUST_DATA = DfnFieldSpec("just_data", Line.parse_bool)
 
 
+DfnField.ignored_fields = {
+    "default_value",
+    "deprecated",
+    "extended",
+    "jagged_array",
+    "longname",
+    "mf6internal",
+    "numeric_index",
+    "other_names",
+    "preserve_case",
+    "removed",
+    "repeating",
+    "support_negative_index",
+    "time_series",
+}
+
+DfnField.section_attribute = {
+    member.name.lower(): member.value.section_attribute for member in DfnField
+}
+DfnField.line_parser = {
+    member.name.lower(): member.value.line_parser for member in DfnField
+}
+
+
 @dataclass
 class Dfn:
     """Abstraction of each DFN file. DFN files are definition files from MODFLOW 6 which
@@ -252,29 +270,6 @@ class Dfn:
     sections: tuple[Section, ...]
 
     dfn_path: ClassVar[Path] = Path("data/dfn")
-    section_attributes: ClassVar[dict[str, str]] = {
-        member.name.lower(): member.value.section_attribute for member in DfnField
-    }
-    line_parsers: ClassVar[dict[str, Callable[[Line], str | bool | tuple]]] = {
-        member.name.lower(): member.value.line_parser for member in DfnField
-    }
-    ignored_fields: ClassVar[frozenset[str]] = frozenset(
-        (
-            "default_value",
-            "deprecated",
-            "extended",
-            "jagged_array",
-            "longname",
-            "mf6internal",
-            "numeric_index",
-            "other_names",
-            "preserve_case",
-            "removed",
-            "repeating",
-            "support_negative_index",
-            "time_series",
-        )
-    )
     cache: ClassVar[dict[Path, "Dfn"]] = {}
     common: ClassVar[dict[str, str]] = {}
 
@@ -297,12 +292,7 @@ class Dfn:
                 )
                 if section != ""
             )
-            return tuple(
-                Section.from_dfn(
-                    d, Dfn.ignored_fields, Dfn.section_attributes, Dfn.line_parsers
-                )
-                for d in data
-            )
+            return tuple(Section.from_dfn(d) for d in data)
 
     def get_sections(
         self, filter_fn: Optional[Callable[[Section], bool]] = None
