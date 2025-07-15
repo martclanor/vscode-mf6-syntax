@@ -192,7 +192,7 @@ class Section:
 
     @staticmethod
     def get_block_end(block) -> str:
-        return f"\n{' '.join(block.split()[:2]).replace('BEGIN', 'END')}"
+        return f"\nEND {block.upper()}"
 
     @staticmethod
     def format_block_hover(text: str, block: str, dfn_name: str) -> str:
@@ -419,7 +419,7 @@ class Dfn:
         # Another pass to add the block end line and format
         for block in hover:
             for dfn_name in hover[block]:
-                hover[block][dfn_name] += Section.get_block_end(hover[block][dfn_name])
+                hover[block][dfn_name] += Section.get_block_end(block)
                 hover[block][dfn_name] = Section.format_block_hover(
                     hover[block][dfn_name], block, dfn_name
                 )
