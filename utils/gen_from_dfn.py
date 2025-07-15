@@ -13,6 +13,7 @@ Classes:
     Line: Represents a single line in a DFN file with a key-value structure
     Section: Represents a group of related lines in a DFN file, including metadata such
         as block, keyword, description, etc
+    DfnField: Enum that maps DFN fields to Section attributes and Line parsers
     Dfn: Represents an entire DFN file, providing methods to parse, filter, process and
         extract data
 
@@ -32,7 +33,7 @@ Usage:
 import ast
 import json
 import logging
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
@@ -81,51 +82,6 @@ class Line:
 
     def parse_type(self) -> tuple[str, ...]:
         return tuple(self.value.split())
-
-
-class DfnField(Enum):
-    """Mapping of DFN fields to Section attributes and Line parsers."""
-
-    NAME = ("name", Line.parse_as_is)
-    BLOCK = ("block", Line.parse_as_is)
-    READER = ("reader", Line.parse_as_is)
-    DESCRIPTION = ("description", Line.parse_as_is)
-    SHAPE = ("shape", Line.parse_shape)
-    SECTION_TYPE = ("type", Line.parse_type)
-    VALID = ("valid", Line.parse_valid)
-    OPTIONAL = ("optional", Line.parse_bool)
-    TAGGED = ("tagged", Line.parse_bool)
-    IN_RECORD = ("in_record", Line.parse_bool)
-    LAYERED = ("layered", Line.parse_bool)
-    NETCDF = ("netcdf", Line.parse_bool)
-    BLOCK_VARIABLE = ("block_variable", Line.parse_bool)
-    JUST_DATA = ("just_data", Line.parse_bool)
-
-    @classmethod
-    def get_map(cls) -> dict[str, tuple[str, Callable[[Line], str | bool | tuple]]]:
-        return {member.value[0]: member.value[1] for member in cls}
-
-
-class IgnoredField(Enum):
-    """Set of DFN fields to be ignored during parsing."""
-
-    DEFAULT_VALUE = "default_value"
-    DEPRECATED = "deprecated"
-    EXTENDED = "extended"
-    JAGGED_ARRAY = "jagged_array"
-    LONGNAME = "longname"
-    MF6INTERNAL = "mf6internal"
-    NUMERIC_INDEX = "numeric_index"
-    OTHER_NAMES = "other_names"
-    PRESERVE_CASE = "preserve_case"
-    REMOVED = "removed"
-    REPEATING = "repeating"
-    SUPPORT_NEGATIVE_INDEX = "support_negative_index"
-    TIME_SERIES = "time_series"
-
-    @classmethod
-    def get_values(cls) -> set[str]:
-        return {item.value for item in cls}
 
 
 @dataclass
@@ -236,19 +192,37 @@ class Section:
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
-        field_map = DfnField.get_map()
-        ignored_fields = IgnoredField.get_values()
-
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in field_map:
-                parser = field_map[line.key]
-                # Use modified key. DFN fields and Section attributes may differ
-                kwargs[line.modified_key] = parser(line)
-            elif line.key in ignored_fields:
-                pass
+            if line.key in Dfn.ignored_fields:
+                continue
+            if line.key in Dfn.section_attributes:
+                parser = Dfn.line_parsers[line.key]
+                kwargs[Dfn.section_attributes[line.key]] = parser(line)
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
         return cls(**kwargs)
+
+
+DfnFieldSpec = namedtuple("DfnFieldSpec", ["section_attribute", "line_parser"])
+
+
+class DfnField(Enum):
+    """Mapping of DFN fields to Section attributes and Line parsers."""
+
+    NAME = DfnFieldSpec("name", Line.parse_as_is)
+    BLOCK = DfnFieldSpec("block", Line.parse_as_is)
+    READER = DfnFieldSpec("reader", Line.parse_as_is)
+    DESCRIPTION = DfnFieldSpec("description", Line.parse_as_is)
+    SHAPE = DfnFieldSpec("shape", Line.parse_shape)
+    TYPE = DfnFieldSpec("section_type", Line.parse_type)
+    VALID = DfnFieldSpec("valid", Line.parse_valid)
+    OPTIONAL = DfnFieldSpec("optional", Line.parse_bool)
+    TAGGED = DfnFieldSpec("tagged", Line.parse_bool)
+    IN_RECORD = DfnFieldSpec("in_record", Line.parse_bool)
+    LAYERED = DfnFieldSpec("layered", Line.parse_bool)
+    NETCDF = DfnFieldSpec("netcdf", Line.parse_bool)
+    BLOCK_VARIABLE = DfnFieldSpec("block_variable", Line.parse_bool)
+    JUST_DATA = DfnFieldSpec("just_data", Line.parse_bool)
 
 
 @dataclass
@@ -257,7 +231,31 @@ class Dfn:
     contains metadata for each block and keyword in the MF6 input files."""
 
     path: Path
+
     dfn_path: ClassVar[Path] = Path("data/dfn")
+    section_attributes: ClassVar[dict[str, str]] = {
+        member.name.lower(): member.value.section_attribute for member in DfnField
+    }
+    line_parsers: ClassVar[dict[str, Callable[[Line], str | bool | tuple]]] = {
+        member.name.lower(): member.value.line_parser for member in DfnField
+    }
+    ignored_fields: ClassVar[frozenset[str]] = frozenset(
+        (
+            "default_value",
+            "deprecated",
+            "extended",
+            "jagged_array",
+            "longname",
+            "mf6internal",
+            "numeric_index",
+            "other_names",
+            "preserve_case",
+            "removed",
+            "repeating",
+            "support_negative_index",
+            "time_series",
+        )
+    )
     cache: ClassVar[dict[Path, "Dfn"]] = {}
     common: ClassVar[dict[str, str]] = {}
 
