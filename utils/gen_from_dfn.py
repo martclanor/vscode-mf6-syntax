@@ -32,7 +32,7 @@ Usage:
 import ast
 import json
 import logging
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, ClassVar, Generator, Optional, overload
@@ -72,6 +72,40 @@ class Line:
         return self.value
 
 
+FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
+    "name": Line.parse_as_is,
+    "block": Line.parse_as_is,
+    "reader": Line.parse_as_is,
+    "description": Line.parse_as_is,
+    "type": Line.parse_as_is,
+    "valid": Line.parse_as_is,
+    "shape": Line.parse_shape,
+    "optional": Line.parse_bool,
+    "tagged": Line.parse_bool,
+    "in_record": Line.parse_bool,
+    "layered": Line.parse_bool,
+    "netcdf": Line.parse_bool,
+    "block_variable": Line.parse_bool,
+    "just_data": Line.parse_bool,
+}
+
+IGNORED_FIELDS: set[str] = {
+    "default_value",
+    "deprecated",
+    "extended",
+    "jagged_array",
+    "longname",
+    "mf6internal",
+    "numeric_index",
+    "other_names",
+    "preserve_case",
+    "removed",
+    "repeating",
+    "support_negative_index",
+    "time_series",
+}
+
+
 @dataclass(frozen=True, slots=True)
 class Section:
     """Abstraction of each group of lines (separated by \n\n) from the DFN file."""
@@ -80,7 +114,7 @@ class Section:
     block: str = ""
     reader: str = ""
     description: str = ""
-    section_type: str = ""
+    type: str = ""
     valid: str = ""
     shape: str = ""
     optional: bool = False
@@ -97,23 +131,23 @@ class Section:
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
             if line.key in IGNORED_FIELDS:
                 continue
-            if spec := DFN_FIELD_SPECS.get(line.key):
-                kwargs[spec.section_attribute] = spec.line_parser(line)
+            if parser := FIELD_PARSERS.get(line.key):
+                kwargs[line.key] = parser(line)
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
         return cls(**kwargs)  # type: ignore[arg-type]
 
     @property
     def is_keyword(self) -> bool:
-        return self.section_type.startswith("keyword")
+        return self.type.startswith("keyword")
 
     @property
     def is_recarray(self) -> bool:
-        return self.section_type.startswith("recarray")
+        return self.type.startswith("recarray")
 
     @property
     def is_record(self) -> bool:
-        return self.section_type.startswith("record")
+        return self.type.startswith("record")
 
     @property
     def is_rec(self) -> bool:
@@ -134,7 +168,7 @@ class Section:
     @property
     def recs(self) -> tuple[str, ...]:
         if self.is_rec:
-            return tuple(self.section_type.split()[1:])
+            return tuple(self.type.split()[1:])
         return ()
 
     def get_hover_keyword(self, common: dict[str, str]) -> str:
@@ -210,43 +244,6 @@ class Section:
             f"```\n# Structure of {block.upper()} block in "
             f"{dfn_name.upper()}\n{text}\n```"
         )
-
-
-DfnFieldSpec = namedtuple("DfnFieldSpec", ["section_attribute", "line_parser"])
-
-# Mapping of DFN fields to Section attributes and Line parsers
-DFN_FIELD_SPECS: dict[str, DfnFieldSpec] = {
-    "name": DfnFieldSpec("name", Line.parse_as_is),
-    "block": DfnFieldSpec("block", Line.parse_as_is),
-    "reader": DfnFieldSpec("reader", Line.parse_as_is),
-    "description": DfnFieldSpec("description", Line.parse_as_is),
-    "type": DfnFieldSpec("section_type", Line.parse_as_is),
-    "valid": DfnFieldSpec("valid", Line.parse_as_is),
-    "shape": DfnFieldSpec("shape", Line.parse_shape),
-    "optional": DfnFieldSpec("optional", Line.parse_bool),
-    "tagged": DfnFieldSpec("tagged", Line.parse_bool),
-    "in_record": DfnFieldSpec("in_record", Line.parse_bool),
-    "layered": DfnFieldSpec("layered", Line.parse_bool),
-    "netcdf": DfnFieldSpec("netcdf", Line.parse_bool),
-    "block_variable": DfnFieldSpec("block_variable", Line.parse_bool),
-    "just_data": DfnFieldSpec("just_data", Line.parse_bool),
-}
-
-IGNORED_FIELDS: set[str] = {
-    "default_value",
-    "deprecated",
-    "extended",
-    "jagged_array",
-    "longname",
-    "mf6internal",
-    "numeric_index",
-    "other_names",
-    "preserve_case",
-    "removed",
-    "repeating",
-    "support_negative_index",
-    "time_series",
-}
 
 
 @dataclass
