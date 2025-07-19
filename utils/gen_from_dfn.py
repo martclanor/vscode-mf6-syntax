@@ -37,9 +37,9 @@ from collections import defaultdict, namedtuple
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Callable, ClassVar, Generator, Optional
+from typing import Callable, ClassVar, Generator, Optional, overload
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, Template
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
@@ -124,7 +124,7 @@ class Section:
     @property
     def recs(self) -> tuple[str, ...]:
         if self.is_rec:
-            return self.section_type.split()[1:]
+            return tuple(self.section_type.split()[1:])
         return ()
 
     def get_hover_keyword(self, common: dict[str, str]) -> str:
@@ -205,14 +205,14 @@ class Section:
     def from_dfn(cls, data: str) -> "Section":
         kwargs: dict[str, str | bool | tuple] = {}
         for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in DfnField.ignored_fields:
+            if line.key in IGNORED_FIELDS:
                 continue
-            if line.key in DfnField.section_attribute:
-                parser = DfnField.line_parser[line.key]
-                kwargs[DfnField.section_attribute[line.key]] = parser(line)
+            if line.key in SECTION_ATTRIBUTE_MAP:
+                parser = LINE_PARSER_MAP[line.key]
+                kwargs[SECTION_ATTRIBUTE_MAP[line.key]] = parser(line)
             else:
                 raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
-        return cls(**kwargs)
+        return cls(**kwargs)  # type: ignore[arg-type]
 
 
 DfnFieldSpec = namedtuple("DfnFieldSpec", ["section_attribute", "line_parser"])
@@ -237,7 +237,7 @@ class DfnField(Enum):
     JUST_DATA = DfnFieldSpec("just_data", Line.parse_bool)
 
 
-DfnField.ignored_fields = {
+IGNORED_FIELDS: set[str] = {
     "default_value",
     "deprecated",
     "extended",
@@ -253,10 +253,11 @@ DfnField.ignored_fields = {
     "time_series",
 }
 
-DfnField.section_attribute = {
+SECTION_ATTRIBUTE_MAP: dict[str, str] = {
     member.name.lower(): member.value.section_attribute for member in DfnField
 }
-DfnField.line_parser = {
+
+LINE_PARSER_MAP: dict[str, Callable[[Line], str | bool | tuple[str, ...]]] = {
     member.name.lower(): member.value.line_parser for member in DfnField
 }
 
@@ -346,7 +347,23 @@ class Dfn:
         return Dfn.common
 
     @staticmethod
-    def _sort_data(data: list | set | str | dict) -> list | set | str | dict:
+    @overload
+    def _sort_data(data: dict) -> dict: ...
+
+    @staticmethod
+    @overload
+    def _sort_data(data: list) -> list: ...
+
+    @staticmethod
+    @overload
+    def _sort_data(data: set) -> list: ...
+
+    @staticmethod
+    @overload
+    def _sort_data(data: str) -> str: ...
+
+    @staticmethod
+    def _sort_data(data: list | set | str | dict) -> list | str | dict:
         # Base case: lowest level of the data structure, list or set or string
         if isinstance(data, (list, set)):
             return sorted(data)
@@ -357,7 +374,7 @@ class Dfn:
 
     @staticmethod
     def sort_and_export(
-        data: dict, output: str, template: Optional[Environment] = None
+        data: dict, output: str, template: Optional[Template] = None
     ) -> None:
         output_path = Path(output)
         data_sorted = Dfn._sort_data(data)
