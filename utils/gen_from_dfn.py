@@ -93,6 +93,19 @@ class Section:
     just_data: bool = False
     block_variable: bool = False
 
+    @classmethod
+    def from_dfn(cls, data: str) -> "Section":
+        kwargs: dict[str, str | bool | tuple] = {}
+        for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
+            if line.key in IGNORED_FIELDS:
+                continue
+            if line.key in SECTION_ATTRIBUTE_MAP:
+                parser = LINE_PARSER_MAP[line.key]
+                kwargs[SECTION_ATTRIBUTE_MAP[line.key]] = parser(line)
+            else:
+                raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
+        return cls(**kwargs)  # type: ignore[arg-type]
+
     @property
     def is_keyword(self) -> bool:
         return self.section_type.startswith("keyword")
@@ -200,19 +213,6 @@ class Section:
             f"```\n# Structure of {block.upper()} block in "
             f"{dfn_name.upper()}\n{text}\n```"
         )
-
-    @classmethod
-    def from_dfn(cls, data: str) -> "Section":
-        kwargs: dict[str, str | bool | tuple] = {}
-        for line in (Line.from_dfn(_line) for _line in data.strip().split("\n")):
-            if line.key in IGNORED_FIELDS:
-                continue
-            if line.key in SECTION_ATTRIBUTE_MAP:
-                parser = LINE_PARSER_MAP[line.key]
-                kwargs[SECTION_ATTRIBUTE_MAP[line.key]] = parser(line)
-            else:
-                raise ValueError(f"Unknown key '{line.key}' in section:\n\n{data}")
-        return cls(**kwargs)  # type: ignore[arg-type]
 
 
 DfnFieldSpec = namedtuple("DfnFieldSpec", ["section_attribute", "line_parser"])
