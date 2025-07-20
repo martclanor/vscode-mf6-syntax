@@ -1571,7 +1571,7 @@
   },
   "density_solid": {
     "griddata": {
-      "is a user-specified value of the density of aquifer material not considering the voids. Value will remain fixed for the entire simulation.  For example, if working in SI units, values may be entered as kilograms per cubic meter. ": [
+      "is a user-specified value of the density of aquifer material not considering the voids. Value will remain fixed for the entire simulation.  For example, if working in SI units, values may be entered as kilograms per cubic meter.": [
         "gwe-est"
       ]
     }
@@ -2837,7 +2837,7 @@
       ]
     },
     "period": {
-      "is the identifier for the cross section specified in the CXS Package.  A value of zero indicates the zero-depth-gradient calculation will use parameters for a hydraulically wide channel. ": [
+      "is the identifier for the cross section specified in the CXS Package.  A value of zero indicates the zero-depth-gradient calculation will use parameters for a hydraulically wide channel.": [
         "chf-cdb",
         "chf-zdg",
         "olf-cdb",
@@ -2919,7 +2919,7 @@
       ]
     },
     "initialstages": {
-      "integer value that defines the feature (reach) number associated with the specified initial stage. Initial stage data must be specified for every reach or the program will terminate with an error. The program will also terminate with a error if IFNO is less than one or greater than NREACHES. ": [
+      "integer value that defines the feature (reach) number associated with the specified initial stage. Initial stage data must be specified for every reach or the program will terminate with an error. The program will also terminate with a error if IFNO is less than one or greater than NREACHES.": [
         "gwf-sfr"
       ]
     },
@@ -4135,10 +4135,8 @@
     "options": {
       "keyword to specify that record corresponds to a layered mesh netcdf file.": [
         "gwe-nam",
+        "gwf-nam",
         "gwt-nam"
-      ],
-      "keyword to specify that record corresponds to a layered mesh netcdf file. ": [
-        "gwf-nam"
       ]
     }
   },
@@ -5465,7 +5463,7 @@
       "indicates that array-based input will be used for the Evapotranspiration Package.  This keyword must be specified to use array-based input.  When READASARRAYS is specified, values must be provided for every cell within a model layer, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results.": [
         "gwf-evta"
       ],
-      "indicates that array-based input will be used for the Recharge Package.  This keyword must be specified to use array-based input.  When READASARRAYS is specified, values must be provided for every cell within a model layer, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. ": [
+      "indicates that array-based input will be used for the Recharge Package.  This keyword must be specified to use array-based input.  When READASARRAYS is specified, values must be provided for every cell within a model layer, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results.": [
         "gwf-rcha"
       ],
       "indicates that array-based input will be used for the SPC Package.  This keyword must be specified to use array-based input.  When READASARRAYS is specified, values must be provided for every cell within a model layer, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results.": [
@@ -6571,21 +6569,21 @@
   },
   "thermal_a2": {
     "options": {
-      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A2 is not specified, a default value of 10.0 is assigned (Voss, 1984). ": [
+      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A2 is not specified, a default value of 10.0 is assigned (Voss, 1984).": [
         "gwf-vsc"
       ]
     }
   },
   "thermal_a3": {
     "options": {
-      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A3 is not specified, a default value of 248.37 is assigned (Voss, 1984). ": [
+      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A3 is not specified, a default value of 248.37 is assigned (Voss, 1984).": [
         "gwf-vsc"
       ]
     }
   },
   "thermal_a4": {
     "options": {
-      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A4 is not specified, a default value of 133.15 is assigned (Voss, 1984). ": [
+      "is an empirical parameter specified by the user for calculating viscosity using a nonlinear formulation.  If A4 is not specified, a default value of 133.15 is assigned (Voss, 1984).": [
         "gwf-vsc"
       ]
     }
