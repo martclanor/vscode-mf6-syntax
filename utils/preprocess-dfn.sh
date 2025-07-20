@@ -17,3 +17,7 @@ echo "  - removing trailing whitespaces."
 replace 's/^[[:space:]]*//;s/[[:space:]]*$//'
 echo "  - 'description  xxx' to 'description xxx'"
 replace 's/^description  xxx$/description xxx/'
+
+echo "--- Updating 'block_variable' ---"
+echo "  - 'block_variable True' to 'block_variable true' complete."
+replace 's/^block_variable True$/block_variable true/'

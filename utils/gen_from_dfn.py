@@ -62,7 +62,7 @@ class Line:
         return self.value
 
     def parse_bool(self) -> bool:
-        return self.value.lower() == "true"
+        return self.value == "true"
 
     def parse_shape(self) -> str:
         # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
