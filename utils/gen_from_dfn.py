@@ -89,21 +89,23 @@ FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
     "just_data": Line.parse_bool,
 }
 
-IGNORED_FIELDS: set[str] = {
-    "default_value",
-    "deprecated",
-    "extended",
-    "jagged_array",
-    "longname",
-    "mf6internal",
-    "numeric_index",
-    "other_names",
-    "preserve_case",
-    "removed",
-    "repeating",
-    "support_negative_index",
-    "time_series",
-}
+IGNORED_FIELDS: frozenset[str] = frozenset(
+    {
+        "default_value",
+        "deprecated",
+        "extended",
+        "jagged_array",
+        "longname",
+        "mf6internal",
+        "numeric_index",
+        "other_names",
+        "preserve_case",
+        "removed",
+        "repeating",
+        "support_negative_index",
+        "time_series",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
