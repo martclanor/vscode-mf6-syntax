@@ -21,3 +21,17 @@ replace 's/^description  xxx$/description xxx/'
 echo "--- Updating 'block_variable' ---"
 echo "  - 'block_variable True' to 'block_variable true' complete."
 replace 's/^block_variable True$/block_variable true/'
+
+echo "--- Updating 'default_value' ---"
+echo "  - 'default_value 0.' to 'default_value 0.0'"
+replace 's/^default_value 0\.$/default_value 0.0/'
+echo "  - 'default_value 10.' to 'default_value 10.0'"
+replace 's/^default_value 10\.$/default_value 10.0/'
+echo "  - 'default_value 1000.' to 'default_value 1000.0'"
+replace 's/^default_value 1000\.$/default_value 1000.0/'
+echo "  - 'default_value 1.e-3' to 'default_value 1e-3'"
+replace 's/^default_value 1\.e-3$/default_value 1e-3/'
+echo "  - 'default_value 1.e-5' to 'default_value 1e-5'"
+replace 's/^default_value 1\.e-5$/default_value 1e-5/'
+echo "  - 'default_value True' to 'default_value true'"
+replace 's/^default_value True$/default_value true/'
