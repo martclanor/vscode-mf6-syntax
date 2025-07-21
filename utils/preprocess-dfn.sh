@@ -35,3 +35,19 @@ echo "  - 'default_value 1.e-5' to 'default_value 1e-5'"
 replace 's/^default_value 1\.e-5$/default_value 1e-5/'
 echo "  - 'default_value True' to 'default_value true'"
 replace 's/^default_value True$/default_value true/'
+
+echo "--- Updating 'shape' ---"
+echo "  - 'shape <time_series_name' to 'shape (<time_series_name)'"
+replace 's/^shape <time_series_name$/shape (<time_series_name)/'
+echo "  - 'shape any1d' to 'shape (any1d)'"
+replace 's/^shape any1d$/shape (any1d)/'
+echo "  - 'shape lenbigline' to 'shape (lenbigline)'"
+replace 's/^shape lenbigline$/shape (lenbigline)/'
+echo "  - 'shape time_series_name' to 'shape (time_series_name)'"
+replace 's/^shape time_series_name$/shape (time_series_name)/'
+echo "  - 'shape time_series_names' to 'shape (time_series_names)'"
+replace 's/^shape time_series_names$/shape (time_series_names)/'
+echo "  - 'shape (unknown)' to 'shape'"
+replace 's/^shape (unknown)$/shape/'
+echo "  - 'shape (:)' to 'shape'"
+replace 's/^shape (:)$/shape/'

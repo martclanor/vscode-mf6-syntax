@@ -64,13 +64,6 @@ class Line:
     def parse_bool(self) -> bool:
         return self.value == "true"
 
-    def parse_shape(self) -> str:
-        # Ignore if shape not enclosed in (), e.g. time_series_name in utl-tas.dfn
-        # Ignore if shape == "(:)", e.g. slnmnames in sim-nam.dfn
-        if self.value == "" or self.value[0] != "(" or self.value == "(:)":
-            return ""
-        return self.value
-
 
 FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
     "name": Line.parse_as_is,
@@ -79,7 +72,7 @@ FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
     "description": Line.parse_as_is,
     "type": Line.parse_as_is,
     "valid": Line.parse_as_is,
-    "shape": Line.parse_shape,
+    "shape": Line.parse_as_is,
     "optional": Line.parse_bool,
     "tagged": Line.parse_bool,
     "in_record": Line.parse_bool,
