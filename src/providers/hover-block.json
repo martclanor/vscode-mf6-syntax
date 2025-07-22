@@ -1,7 +1,7 @@
 {
   "attributes": {
-    "utl-tas": "```\n# Structure of ATTRIBUTES block in UTL-TAS\nBEGIN ATTRIBUTES\n  NAME <time_series_name>\n  [METHOD <interpolation_method>]\n  [SFAC <sfacval>]\nEND ATTRIBUTES\n```",
-    "utl-ts": "```\n# Structure of ATTRIBUTES block in UTL-TS\nBEGIN ATTRIBUTES\n  NAMES <time_series_names>\n  [METHODS <interpolation_method>]\n  METHOD\n  INTERPOLATION_METHOD_SINGLE <interpolation_method_single>\n  [SFACS <sfacval>]\n  [<sfacval>]\n  SFAC\nEND ATTRIBUTES\n```"
+    "utl-tas": "```\n# Structure of ATTRIBUTES block in UTL-TAS\nBEGIN ATTRIBUTES\n  NAME <time_series_name(any1d)>\n  [METHOD <interpolation_method>]\n  [SFAC <sfacval(time_series_name)>]\nEND ATTRIBUTES\n```",
+    "utl-ts": "```\n# Structure of ATTRIBUTES block in UTL-TS\nBEGIN ATTRIBUTES\n  NAMES <time_series_names(any1d)>\n  [METHODS <interpolation_method(time_series_names)>]\n  METHOD\n  INTERPOLATION_METHOD_SINGLE <interpolation_method_single>\n  [SFACS <sfacval(<time_series_name)>]\n  [<sfacval(<time_series_name)>]\n  SFAC\nEND ATTRIBUTES\n```"
   },
   "cell1d": {
     "chf-disv1d": "```\n# Structure of CELL1D block in CHF-DISV1D\nBEGIN CELL1D\n  <icell1d> <fdc> <ncvert> <icvert(ncvert)>\n  <icell1d> <fdc> <ncvert> <icvert(ncvert)>\n  ...\nEND CELL1D\n```",
@@ -292,8 +292,8 @@
     "prt-fmi": "```\n# Structure of OPTIONS block in PRT-FMI\nBEGIN OPTIONS\n  [SAVE_FLOWS]\nEND OPTIONS\n```",
     "prt-mip": "```\n# Structure of OPTIONS block in PRT-MIP\nBEGIN OPTIONS\n  [EXPORT_ARRAY_ASCII]\nEND OPTIONS\n```",
     "prt-nam": "```\n# Structure of OPTIONS block in PRT-NAM\nBEGIN OPTIONS\n  [LIST <list>]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\nEND OPTIONS\n```",
-    "prt-oc": "```\n# Structure of OPTIONS block in PRT-OC\nBEGIN OPTIONS\n  [BUDGET FILEOUT <budgetfile>]\n  [BUDGETCSV FILEOUT <budgetcsvfile>]\n  [TRACK FILEOUT <trackfile>]\n  [TRACKCSV FILEOUT <trackcsvfile>]\n  [TRACK_RELEASE]\n  [TRACK_EXIT]\n  [TRACK_TIMESTEP]\n  [TRACK_TERMINATE]\n  [TRACK_WEAKSINK]\n  [TRACK_USERTIME]\n  [TRACK_TIMES <times(unknown)>]\n  [TRACK_TIMESFILE <timesfile>]\nEND OPTIONS\n```",
-    "prt-prp": "```\n# Structure of OPTIONS block in PRT-PRP\nBEGIN OPTIONS\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [EXIT_SOLVE_TOLERANCE <exit_solve_tolerance>]\n  [LOCAL_Z]\n  [EXTEND_TRACKING]\n  [TRACK FILEOUT <trackfile>]\n  [TRACKCSV FILEOUT <trackcsvfile>]\n  [STOPTIME <stoptime>]\n  [STOPTRAVELTIME <stoptraveltime>]\n  [STOP_AT_WEAK_SINK]\n  [ISTOPZONE <istopzone>]\n  [DRAPE]\n  [RELEASE_TIMES <times(unknown)>]\n  [RELEASE_TIMESFILE <timesfile>]\n  [DRY_TRACKING_METHOD <dry_tracking_method>]\n  [RELEASE_TIME_TOLERANCE <release_time_tolerance>]\n  [RELEASE_TIME_FREQUENCY <release_time_frequency>]\nEND OPTIONS\n```",
+    "prt-oc": "```\n# Structure of OPTIONS block in PRT-OC\nBEGIN OPTIONS\n  [BUDGET FILEOUT <budgetfile>]\n  [BUDGETCSV FILEOUT <budgetcsvfile>]\n  [TRACK FILEOUT <trackfile>]\n  [TRACKCSV FILEOUT <trackcsvfile>]\n  [TRACK_RELEASE]\n  [TRACK_EXIT]\n  [TRACK_TIMESTEP]\n  [TRACK_TERMINATE]\n  [TRACK_WEAKSINK]\n  [TRACK_USERTIME]\n  [TRACK_TIMES <times>]\n  [TRACK_TIMESFILE <timesfile>]\nEND OPTIONS\n```",
+    "prt-prp": "```\n# Structure of OPTIONS block in PRT-PRP\nBEGIN OPTIONS\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [EXIT_SOLVE_TOLERANCE <exit_solve_tolerance>]\n  [LOCAL_Z]\n  [EXTEND_TRACKING]\n  [TRACK FILEOUT <trackfile>]\n  [TRACKCSV FILEOUT <trackcsvfile>]\n  [STOPTIME <stoptime>]\n  [STOPTRAVELTIME <stoptraveltime>]\n  [STOP_AT_WEAK_SINK]\n  [ISTOPZONE <istopzone>]\n  [DRAPE]\n  [RELEASE_TIMES <times>]\n  [RELEASE_TIMESFILE <timesfile>]\n  [DRY_TRACKING_METHOD <dry_tracking_method>]\n  [RELEASE_TIME_TOLERANCE <release_time_tolerance>]\n  [RELEASE_TIME_FREQUENCY <release_time_frequency>]\nEND OPTIONS\n```",
     "sim-nam": "```\n# Structure of OPTIONS block in SIM-NAM\nBEGIN OPTIONS\n  [CONTINUE]\n  [NOCHECK]\n  [MEMORY_PRINT_OPTION <memory_print_option>]\n  [PROFILE_OPTION <profile_option>]\n  [MAXERRORS <maxerrors>]\n  [PRINT_INPUT]\n  [HPC6 FILEIN <hpc6_filename>]\nEND OPTIONS\n```",
     "sim-tdis": "```\n# Structure of OPTIONS block in SIM-TDIS\nBEGIN OPTIONS\n  [TIME_UNITS <time_units>]\n  [START_DATE_TIME <start_date_time>]\n  [ATS6 FILEIN <ats6_filename>]\nEND OPTIONS\n```",
     "sln-ims": "```\n# Structure of OPTIONS block in SLN-IMS\nBEGIN OPTIONS\n  [PRINT_OPTION <print_option>]\n  [COMPLEXITY <complexity>]\n  [CSV_OUTPUT FILEOUT <csvfile>]\n  [CSV_OUTER_OUTPUT FILEOUT <outer_csvfile>]\n  [CSV_INNER_OUTPUT FILEOUT <inner_csvfile>]\n  [NO_PTC [<no_ptc_option>]]\n  [ATS_OUTER_MAXIMUM_FRACTION <ats_outer_maximum_fraction>]\nEND OPTIONS\n```",
@@ -314,7 +314,7 @@
     "swf-sto": "```\n# Structure of OPTIONS block in SWF-STO\nBEGIN OPTIONS\n  [SAVE_FLOWS]\n  [EXPORT_ARRAY_ASCII]\nEND OPTIONS\n```",
     "swf-zdg": "```\n# Structure of OPTIONS block in SWF-ZDG\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
     "utl-hpc": "```\n# Structure of OPTIONS block in UTL-HPC\nBEGIN OPTIONS\n  [PRINT_TABLE]\nEND OPTIONS\n```",
-    "utl-ncf": "```\n# Structure of OPTIONS block in UTL-NCF\nBEGIN OPTIONS\n  [WKT <wkt>]\n  [DEFLATE <deflate>]\n  [SHUFFLE]\n  [CHUNK_TIME <chunk_time>]\n  [CHUNK_FACE <chunk_face>]\n  [CHUNK_Z <chunk_z>]\n  [CHUNK_Y <chunk_y>]\n  [CHUNK_X <chunk_x>]\n  [MODFLOW6_ATTR_OFF]\nEND OPTIONS\n```",
+    "utl-ncf": "```\n# Structure of OPTIONS block in UTL-NCF\nBEGIN OPTIONS\n  [WKT <wkt(lenbigline)>]\n  [DEFLATE <deflate>]\n  [SHUFFLE]\n  [CHUNK_TIME <chunk_time>]\n  [CHUNK_FACE <chunk_face>]\n  [CHUNK_Z <chunk_z>]\n  [CHUNK_Y <chunk_y>]\n  [CHUNK_X <chunk_x>]\n  [MODFLOW6_ATTR_OFF]\nEND OPTIONS\n```",
     "utl-obs": "```\n# Structure of OPTIONS block in UTL-OBS\nBEGIN OPTIONS\n  [DIGITS <digits>]\n  [PRINT_INPUT]\nEND OPTIONS\n```",
     "utl-spc": "```\n# Structure of OPTIONS block in UTL-SPC\nBEGIN OPTIONS\n  [PRINT_INPUT]\n  [TS6 FILEIN <ts6_filename>]\nEND OPTIONS\n```",
     "utl-spca": "```\n# Structure of OPTIONS block in UTL-SPCA\nBEGIN OPTIONS\n  READASARRAYS\n  [PRINT_INPUT]\n  [TAS6 FILEIN <tas6_filename>]\nEND OPTIONS\n```",
@@ -447,10 +447,10 @@
     "gwf-lak": "```\n# Structure of TABLES block in GWF-LAK\nBEGIN TABLES\n  <ifno> TAB6 FILEIN <tab6_filename>\n  <ifno> TAB6 FILEIN <tab6_filename>\n  ...\nEND TABLES\n```"
   },
   "time": {
-    "utl-tas": "```\n# Structure of TIME block in UTL-TAS\nBEGIN TIME <time_from_model_start>\n  \n      <tas_array(unknown)> -- READARRAY\nEND TIME\n```"
+    "utl-tas": "```\n# Structure of TIME block in UTL-TAS\nBEGIN TIME <time_from_model_start>\n  \n      <tas_array> -- READARRAY\nEND TIME\n```"
   },
   "timeseries": {
-    "utl-ts": "```\n# Structure of TIMESERIES block in UTL-TS\nBEGIN TIMESERIES\n  <ts_time> <ts_array>\n  <ts_time> <ts_array>\n  ...\nEND TIMESERIES\n```"
+    "utl-ts": "```\n# Structure of TIMESERIES block in UTL-TS\nBEGIN TIMESERIES\n  <ts_time> <ts_array(time_series_names)>\n  <ts_time> <ts_array(time_series_names)>\n  ...\nEND TIMESERIES\n```"
   },
   "timing": {
     "sim-nam": "```\n# Structure of TIMING block in SIM-NAM\nBEGIN TIMING\n  TDIS6 <tdis6>\nEND TIMING\n```"
