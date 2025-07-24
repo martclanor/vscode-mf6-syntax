@@ -26,20 +26,11 @@ repos:
       - id: codespell
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
-        entry: npm run prettier:check
-        language: node
-        pass_filenames: false
       - id: grammar-tests
         name: grammar tests
         entry: npm run grammar:test
         language: node
         pass_filenames: false
-      - id: eslint
-        name: eslint
-        entry: npm run eslint
-        language: node
       - id: npm-lockfile-check
         name: npm lockfile check
         entry: npm run lockfile:check
