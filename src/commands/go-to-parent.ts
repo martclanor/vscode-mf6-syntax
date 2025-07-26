@@ -36,7 +36,8 @@ export async function goToParent() {
     }
 
     vscode.window.showInformationMessage(
-      `No parent file found for ${fileName}`,
+      `No parent file found within the directory. Parent file may exist but above the ${maxFileSizeMB}MB size limit. See setting 'mf6Syntax.maxFileSizeMB'.`,
     );
+    return null;
   }
 }
