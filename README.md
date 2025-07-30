@@ -17,7 +17,6 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
 
 - Syntax highlighting
 - Go-to-definition for linked files:
-
   - `Ctrl + click`
   - `Go To Definition` keybinding (default: `F12`)
 
