@@ -1,0 +1,19 @@
+{
+  "folding": {
+    "markers": {
+      "start": "^(?i:BEGIN)",
+      "end": "^(?i:END)"
+    }
+  },
+  "comments": {
+    "lineComment": "#"
+  },
+  "autoClosingPairs": [
+    {
+      "open": "'",
+      "close": "'"
+    }
+  ],
+  "surroundingPairs": [["'", "'"]],
+  "wordPattern": "(?<=').*?\\.[a-zA-Z0-9_-]+(?=')|(?:\\b(?!\\d+\\b)|(?:\\.\\./)+)[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+(?:\\.[a-zA-Z0-9_-]+)*\\b"
+}

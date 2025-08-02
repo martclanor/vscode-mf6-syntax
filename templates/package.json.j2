@@ -64,6 +64,11 @@
         "language": "mf6",
         "scopeName": "source.mf6",
         "path": "./syntaxes/mf6.tmLanguage.json"
+      },
+      {
+        "language": "mf6-lst",
+        "scopeName": "source.mf6-lst",
+        "path": "./syntaxes/mf6-lst.tmLanguage.json"
       }
     ],
     "languages": [
@@ -77,6 +82,20 @@
           {% endif %}{% endfor %}
         ],
         "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "images/icon.svg",
+          "light": "images/icon.svg"
+        }
+      },
+      {
+        "id": "mf6-lst",
+        "aliases": [
+          "MODFLOW 6 Output List File"
+        ],
+        "extensions": [
+          ".lst"
+        ],
+        "configuration": "./language-configuration-lst.json",
         "icon": {
           "dark": "images/icon.svg",
           "light": "images/icon.svg"
