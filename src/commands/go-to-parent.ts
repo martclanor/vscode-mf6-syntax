@@ -4,12 +4,6 @@ import * as path from "path";
 export async function goToParent() {
   if (vscode.window.activeTextEditor) {
     const document = vscode.window.activeTextEditor.document;
-    if (document.languageId !== "mf6") {
-      vscode.window.showInformationMessage(
-        "Go-to-Parent-File command is only for MF6 files. Use command Set-language-to-MF6, if applicable.",
-      );
-      return null;
-    }
     const fileUri = document.uri;
     const fileName = path.basename(fileUri.fsPath);
     if (fileName === "mfsim.nam") {
