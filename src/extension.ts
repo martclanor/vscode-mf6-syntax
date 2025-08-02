@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "./providers/go-to-definition";
+import { MF6SymbolProvider } from "./providers/symbol";
 import { MF6HoverKeywordProvider } from "./providers/hover";
 import { MF6HoverBlockProvider } from "./providers/hover";
 import { goToParent } from "./commands/go-to-parent";
@@ -22,7 +23,12 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   );
 
-  // Show definitions of a symbol
+  // Definition of symbols
+  context.subscriptions.push(
+    vscode.languages.registerDefinitionProvider(MF6, new MF6SymbolProvider()),
+  );
+
+  // Definition provider for MF6
   context.subscriptions.push(
     vscode.languages.registerDefinitionProvider(
       MF6,
