@@ -27,7 +27,11 @@ export async function goToParent() {
       if (
         type !== vscode.FileType.File ||
         name === fileName ||
-        name.endsWith(".lst")
+        name.endsWith(".grb") ||
+        name.endsWith(".lst") ||
+        name.endsWith(".hds") ||
+        name.endsWith(".bud") ||
+        name.endsWith(".csv")
       ) {
         continue;
       }
