@@ -24,7 +24,11 @@ export async function goToParent() {
     const maxFileSizeMB = config.get<number>("maxFileSizeMB", 50); // Default to 50MB
 
     for (const [name, type] of filesInDir) {
-      if (type === vscode.FileType.File && name !== fileName) {
+      if (
+        type === vscode.FileType.File &&
+        name !== fileName &&
+        !name.endsWith(".lst")
+      ) {
         const otherFileUri = vscode.Uri.joinPath(dirUri, name);
         const stat = await vscode.workspace.fs.stat(otherFileUri);
         if (stat.size > maxFileSizeMB * 1024 * 1024) {
