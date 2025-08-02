@@ -17,7 +17,6 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
 
 - Syntax highlighting
 - Go-to-definition for linked files:
-
   - `Ctrl + click`
   - `Go To Definition` keybinding (default: `F12`)
 
@@ -31,8 +30,17 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
   - Auto-closing quotes
   - Surrounding quotes
 
-## Usage
+## Commands
 
-- The extension activates based on the file's extension. If not detected, use `MF6 Syntax: Set language to MF6`. Alternatively, use the `Change Language Mode` command to set the language manually.
-- To avoid performance issues when opening huge files, a maximum file size that can be opened through the go-to-definition feature is set with the setting: `mf6Syntax.maxFileSizeMB` (default 50MB).
-- VS Code's minimap can display enlarged section headers (MF6 block names), which may appear cluttered. To simplify the view, disable this feature by setting `editor.minimap.showRegionSectionHeaders` to `false`.
+- `MF6 Syntax: Set language to MF6`
+  - useful if extension is not activated automatically (based on file extension)
+- `MF6 Syntax: Go to parent file`
+  - opens the parent file of the current MF6 file, if it exists
+  - for example:
+    - if `freyberg.dis` file is active, it opens `freyberg.nam`
+    - if `freyberg.nam` file is active, it opens `mfsim.nam`
+    - if `mfsim.nam` file is active, no-op since it is the top-level file
+
+## Settings
+
+- `mf6Syntax.maxFileSizeMB`: Maximum file size (in MB) that can be opened through the go-to-definition feature or go-to-parent command (default: `50MB`).

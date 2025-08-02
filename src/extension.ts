@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "./providers/go-to-definition";
 import { MF6HoverKeywordProvider } from "./providers/hover";
 import { MF6HoverBlockProvider } from "./providers/hover";
+import { goToParent } from "./commands/go-to-parent";
 import { mf6ify } from "./commands/mf6-ify";
 
 const MF6 = { language: "mf6", scheme: "file" };
@@ -11,6 +12,13 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand("mf6-syntax.mf6-ify", async () => {
       await mf6ify();
+    }),
+  );
+
+  // go-to-parent command
+  context.subscriptions.push(
+    vscode.commands.registerCommand("mf6-syntax.goToParent", async () => {
+      await goToParent();
     }),
   );
 

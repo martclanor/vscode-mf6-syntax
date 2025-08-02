@@ -9,6 +9,7 @@ import {
 } from "../providers/hover";
 import { checkFileExists } from "../utils/file-utils";
 import { mf6ify } from "../commands/mf6-ify";
+import { goToParent } from "../commands/go-to-parent";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -150,5 +151,49 @@ suite("Extension Test Suite", () => {
     await vscode.window.showTextDocument(document);
     await mf6ify();
     assert.strictEqual(document.languageId, "mf6");
+  });
+
+  test("goToParent should navigate to parent file", async () => {
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    // Create test files: gwf-dis, gwf-nam, sim-nam
+    const gwfDisTempFileUri = vscode.Uri.joinPath(tempDirUri, "test_model.dis");
+    const gwfDisFileContent = Buffer.from("BEGIN\nLENGTH_UNITS\nEND");
+    await vscode.workspace.fs.writeFile(gwfDisTempFileUri, gwfDisFileContent);
+    const gwfNamTempFileUri = vscode.Uri.joinPath(tempDirUri, "test_model.nam");
+    const gwfNamFileContent = Buffer.from(
+      "BEGIN packages\nDIS6 test_model.dis dis\nEND",
+    );
+    await vscode.workspace.fs.writeFile(gwfNamTempFileUri, gwfNamFileContent);
+    const simNamTempFileUri = vscode.Uri.joinPath(tempDirUri, "mfsim.nam");
+    const simNamFileContent = Buffer.from(
+      "BEGIN models\nGWF6 test_model.nam test_model\nEND",
+    );
+    await vscode.workspace.fs.writeFile(simNamTempFileUri, simNamFileContent);
+
+    try {
+      const gwfDisDocument =
+        await vscode.workspace.openTextDocument(gwfDisTempFileUri);
+      await vscode.window.showTextDocument(gwfDisDocument);
+      await goToParent(); // gwf-dis to gwf-nam
+      assert.strictEqual(
+        vscode.window.activeTextEditor?.document.fileName,
+        gwfNamTempFileUri.fsPath,
+      );
+      await goToParent(); // gwf-nam to sim-nam
+      assert.strictEqual(
+        vscode.window.activeTextEditor?.document.fileName,
+        simNamTempFileUri.fsPath,
+      );
+      await goToParent(); // from sim-nam, no-op
+      assert.strictEqual(
+        vscode.window.activeTextEditor?.document.fileName,
+        simNamTempFileUri.fsPath,
+      );
+    } finally {
+      // Clean up the temporary files and directory
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
   });
 });

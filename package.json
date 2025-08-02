@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Provides rich language features for MODFLOW 6",
   "categories": [
     "Other"
@@ -40,6 +40,11 @@
       {
         "command": "mf6-syntax.mf6-ify",
         "title": "Set language to MF6",
+        "category": "MF6 Syntax"
+      },
+      {
+        "command": "mf6-syntax.goToParent",
+        "title": "Go to Parent File",
         "category": "MF6 Syntax"
       }
     ],
@@ -170,16 +175,16 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
-    "@types/node": "^24.0.0",
+    "@eslint/js": "^9.32.0",
+    "@types/node": "^24.1.0",
     "@types/vscode": "^1.100.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
-    "@vscode/vsce": "^3.5.0",
-    "eslint": "^9.28.0",
-    "prettier": "^3.5.3",
+    "@vscode/vsce": "^3.6.0",
+    "eslint": "^9.32.0",
+    "prettier": "^3.6.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.34.0",
+    "typescript-eslint": "^8.38.0",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
