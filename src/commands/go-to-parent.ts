@@ -25,24 +25,28 @@ export async function goToParent() {
 
     for (const [name, type] of filesInDir) {
       if (
-        type === vscode.FileType.File &&
-        name !== fileName &&
-        !name.endsWith(".lst")
+        type !== vscode.FileType.File ||
+        name === fileName ||
+        name.endsWith(".lst")
       ) {
-        const otherFileUri = vscode.Uri.joinPath(dirUri, name);
-        const stat = await vscode.workspace.fs.stat(otherFileUri);
-        if (stat.size > maxFileSizeMB * 1024 * 1024) {
-          continue;
-        }
-        const contentBytes = await vscode.workspace.fs.readFile(otherFileUri);
-        const content = Buffer.from(contentBytes).toString("utf-8");
+        continue;
+      }
 
-        if (content.includes(fileName)) {
-          const parentDocument =
-            await vscode.workspace.openTextDocument(otherFileUri);
-          await vscode.window.showTextDocument(parentDocument);
-          return null;
-        }
+      const otherFileUri = vscode.Uri.joinPath(dirUri, name);
+      const stat = await vscode.workspace.fs.stat(otherFileUri);
+
+      if (stat.size > maxFileSizeMB * 1024 * 1024) {
+        continue;
+      }
+
+      const contentBytes = await vscode.workspace.fs.readFile(otherFileUri);
+      const content = Buffer.from(contentBytes).toString("utf-8");
+
+      if (content.includes(fileName)) {
+        const parentDocument =
+          await vscode.workspace.openTextDocument(otherFileUri);
+        await vscode.window.showTextDocument(parentDocument);
+        return null;
       }
     }
 
