@@ -22,16 +22,13 @@ export async function goToParent() {
     const filesInDir = await vscode.workspace.fs.readDirectory(dirUri);
     const config = vscode.workspace.getConfiguration("mf6Syntax");
     const maxFileSizeMB = config.get<number>("maxFileSizeMB", 50); // Default to 50MB
+    const excludedExtensions = [".grb", ".lst", ".hds", ".bud", ".csv"];
 
     for (const [name, type] of filesInDir) {
       if (
         type !== vscode.FileType.File ||
         name === fileName ||
-        name.endsWith(".grb") ||
-        name.endsWith(".lst") ||
-        name.endsWith(".hds") ||
-        name.endsWith(".bud") ||
-        name.endsWith(".csv")
+        excludedExtensions.some((ext) => name.endsWith(ext))
       ) {
         continue;
       }
