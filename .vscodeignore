@@ -22,3 +22,5 @@ syntaxes/samples/**
 out/test/**
 tsconfig.json
 src/providers/*.json
+mypy.ini
+eslint.config.mjs
