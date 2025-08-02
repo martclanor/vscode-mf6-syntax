@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.1-beta
+
+- Refactor gen_from_dfn utility script
+- Remove eslint and prettier in pre-commit
+- Add go-to-parent command
+- Bump form-data from 4.0.1 to 4.0.4 in the npm_and_yarn group
+- Bump the npm-all group across 1 directory with 7 updates
+- Sync vscode devDependency to engines.vscode
+- Exclude other dev-time files in packaging
+- Exclude some files in goToParent command
+- Update readme to add Commands and Settings section
+- Remove goToParent input restriction
+
 ## 0.3.0-beta
 
 - Add hover feature to show MF6 block structure
