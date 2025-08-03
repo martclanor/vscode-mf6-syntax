@@ -23,7 +23,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       }
 
       // Check if block name is valid
-      const blockName = beginMatch[1].trim();
+      const blockName = beginMatch[1].trim().split(/\s+/)[0];
       if (!blockNames.includes(blockName.toLowerCase())) {
         i++;
         continue;
@@ -34,7 +34,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       for (let j = i + 1; j < document.lineCount; j++) {
         const innerLine = document.lineAt(j);
         const endMatch = endRegex.exec(innerLine.text);
-        if (endMatch && blockName === endMatch[1].trim()) {
+        if (endMatch && blockName === endMatch[1].trim().split(/\s+/)[0]) {
           endRange = j;
           break;
         }
