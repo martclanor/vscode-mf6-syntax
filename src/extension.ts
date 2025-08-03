@@ -25,7 +25,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Definition of symbols
   context.subscriptions.push(
-    vscode.languages.registerDefinitionProvider(MF6, new MF6SymbolProvider()),
+    vscode.languages.registerDocumentSymbolProvider(
+      MF6,
+      new MF6SymbolProvider(),
+    ),
   );
 
   // Definition provider for MF6
