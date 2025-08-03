@@ -16,14 +16,14 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   );
 
-  // go-to-parent command
+  // goToParent command
   context.subscriptions.push(
     vscode.commands.registerCommand("mf6-syntax.goToParent", async () => {
       await goToParent();
     }),
   );
 
-  // Definition of symbols
+  // Document symbols
   context.subscriptions.push(
     vscode.languages.registerDocumentSymbolProvider(
       MF6,
@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
     ),
   );
 
-  // Definition provider for MF6
+  // Go-to linked file
   context.subscriptions.push(
     vscode.languages.registerDefinitionProvider(
       MF6,
