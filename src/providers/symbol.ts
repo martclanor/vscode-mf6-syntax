@@ -1,10 +1,14 @@
 import * as vscode from "vscode";
+import * as hoverBlockJson from "./hover-block.json";
 
 export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
   ): Promise<vscode.DocumentSymbol[]> {
     const result: vscode.DocumentSymbol[] = [];
+    const blockNames = Object.keys(hoverBlockJson).map((key) =>
+      key.toLowerCase(),
+    );
     const beginRegex = /^begin\s+(.+)/i;
     const endRegex = /^end\s+(.+)/i;
 
@@ -18,9 +22,15 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         continue;
       }
 
+      // Check if block name is valid
+      const blockName = beginMatch[1].trim();
+      if (!blockNames.includes(blockName.toLowerCase())) {
+        i++;
+        continue;
+      }
+
       const beginRange = i;
       let endRange = i;
-      const blockName = beginMatch[1].trim();
       for (let j = i + 1; j < document.lineCount; j++) {
         const innerLine = document.lineAt(j);
         const endMatch = endRegex.exec(innerLine.text);
