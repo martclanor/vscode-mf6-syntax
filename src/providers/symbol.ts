@@ -2,20 +2,21 @@ import * as vscode from "vscode";
 import * as hoverBlockJson from "./hover-block.json";
 
 export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
+  private static readonly blockNames = Object.keys(hoverBlockJson).map((key) =>
+    key.toLowerCase(),
+  );
+  private static readonly beginRegex = /^begin\s+(.+)/i;
+  private static readonly endRegex = /^end\s+(.+)/i;
+
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
   ): Promise<vscode.DocumentSymbol[]> {
     const result: vscode.DocumentSymbol[] = [];
-    const blockNames = Object.keys(hoverBlockJson).map((key) =>
-      key.toLowerCase(),
-    );
-    const beginRegex = /^begin\s+(.+)/i;
-    const endRegex = /^end\s+(.+)/i;
 
     let i = 0;
     while (i < document.lineCount) {
       const outerLine = document.lineAt(i);
-      const beginMatch = beginRegex.exec(outerLine.text);
+      const beginMatch = MF6SymbolProvider.beginRegex.exec(outerLine.text);
 
       if (!beginMatch) {
         i++;
@@ -24,7 +25,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
       // Check if block name is valid
       const blockName = beginMatch[1].trim().split(/\s+/)[0];
-      if (!blockNames.includes(blockName.toLowerCase())) {
+      if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
         i++;
         continue;
       }
@@ -33,7 +34,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       let endRange = i;
       for (let j = i + 1; j < document.lineCount; j++) {
         const innerLine = document.lineAt(j);
-        const endMatch = endRegex.exec(innerLine.text);
+        const endMatch = MF6SymbolProvider.endRegex.exec(innerLine.text);
         if (endMatch && blockName === endMatch[1].trim().split(/\s+/)[0]) {
           endRange = j;
           break;
