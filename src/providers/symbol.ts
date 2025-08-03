@@ -12,6 +12,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     document: vscode.TextDocument,
   ): Promise<vscode.DocumentSymbol[]> {
     const result: vscode.DocumentSymbol[] = [];
+    let detail = "block";
 
     let i = 0;
     while (i < document.lineCount) {
@@ -46,10 +47,13 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         endRange,
         document.lineAt(endRange).text.length,
       );
+      if (blockName.toLowerCase() === "period") {
+        detail = `block; iper ${beginMatch[1].trim().split(/\s+/)[1]}`;
+      }
       result.push(
         new vscode.DocumentSymbol(
           blockName,
-          "block",
+          detail,
           vscode.SymbolKind.Field,
           range,
           range,
