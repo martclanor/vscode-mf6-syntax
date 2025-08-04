@@ -12,7 +12,6 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     document: vscode.TextDocument,
   ): Promise<vscode.DocumentSymbol[]> {
     const blocks: vscode.DocumentSymbol[] = [];
-    const periods: vscode.DocumentSymbol[] = [];
 
     let i = 0;
     while (i < document.lineCount) {
@@ -30,6 +29,11 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         i++;
         continue;
       }
+
+      const detail =
+        blockName.toLowerCase() === "period"
+          ? beginMatch[1].trim().split(/\s+/)[1]
+          : "block";
 
       // Find symbol range
       const beginRange = i;
@@ -49,50 +53,17 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         document.lineAt(endRange).text.length,
       );
 
-      if (blockName.toLowerCase() !== "period") {
-        blocks.push(
-          new vscode.DocumentSymbol(
-            blockName,
-            "block",
-            vscode.SymbolKind.Field,
-            range,
-            range,
-          ),
-        );
-      } else {
-        const iper = beginMatch[1].trim().split(/\s+/)[1];
-        periods.push(
-          new vscode.DocumentSymbol(
-            iper,
-            "",
-            vscode.SymbolKind.Number,
-            range,
-            range,
-          ),
-        );
-      }
+      blocks.push(
+        new vscode.DocumentSymbol(
+          blockName,
+          detail,
+          vscode.SymbolKind.Field,
+          range,
+          range,
+        ),
+      );
       i = endRange + 1;
     }
-
-    // If there is a period block, create symbols for period as children
-    if (periods.length > 0) {
-      const periodRange = new vscode.Range(
-        periods[0].range.start.line,
-        0,
-        periods[periods.length - 1].range.end.line,
-        periods[periods.length - 1].range.end.character,
-      );
-      const periodSymbol = new vscode.DocumentSymbol(
-        "period",
-        "block",
-        vscode.SymbolKind.Field,
-        periodRange,
-        periodRange,
-      );
-      periodSymbol.children = periods;
-      blocks.push(periodSymbol);
-    }
-
     return blocks;
   }
 }
