@@ -15,8 +15,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
     let i = 0;
     while (i < document.lineCount) {
-      const outerLine = document.lineAt(i);
-      const beginMatch = MF6SymbolProvider.beginRegex.exec(outerLine.text);
+      const beginMatch = MF6SymbolProvider.beginRegex.exec(
+        document.lineAt(i).text,
+      );
 
       if (!beginMatch) {
         i++;
@@ -39,8 +40,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       const beginRange = i;
       let endRange = i;
       for (let j = i + 1; j < document.lineCount; j++) {
-        const innerLine = document.lineAt(j);
-        const endMatch = MF6SymbolProvider.endRegex.exec(innerLine.text);
+        const endMatch = MF6SymbolProvider.endRegex.exec(
+          document.lineAt(j).text,
+        );
         if (endMatch && blockName === endMatch[1].trim().split(/\s+/)[0]) {
           endRange = j;
           break;
