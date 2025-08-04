@@ -11,7 +11,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
   ): Promise<vscode.DocumentSymbol[]> {
-    const result: vscode.DocumentSymbol[] = [];
+    const blocks: vscode.DocumentSymbol[] = [];
     const periods: vscode.DocumentSymbol[] = [];
 
     let i = 0;
@@ -50,7 +50,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       );
 
       if (blockName.toLowerCase() !== "period") {
-        result.push(
+        blocks.push(
           new vscode.DocumentSymbol(
             blockName,
             "block",
@@ -90,9 +90,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         periodRange,
       );
       periodSymbol.children = periods;
-      result.push(periodSymbol);
+      blocks.push(periodSymbol);
     }
 
-    return result;
+    return blocks;
   }
 }
