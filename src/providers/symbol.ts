@@ -2,8 +2,8 @@ import * as vscode from "vscode";
 import * as hoverBlockJson from "./hover-block.json";
 
 export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
-  private static readonly blockNames = Object.keys(hoverBlockJson).map((key) =>
-    key.toLowerCase(),
+  private static readonly blockNames = new Set(
+    Object.keys(hoverBlockJson).map((key) => key.toLowerCase()),
   );
   private static readonly beginRegex =
     /^begin\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
@@ -71,7 +71,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
   }
 
   private static isValidBlockName(blockName: string): boolean {
-    return MF6SymbolProvider.blockNames.includes(blockName.toLowerCase());
+    return MF6SymbolProvider.blockNames.has(blockName.toLowerCase());
   }
 
   private static findBlockEnd(
