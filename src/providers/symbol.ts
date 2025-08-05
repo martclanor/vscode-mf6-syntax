@@ -17,56 +17,66 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
     let i = 0;
     while (i < document.lineCount) {
-      const beginMatch = MF6SymbolProvider.beginRegex.exec(
-        document.lineAt(i).text,
-      );
-
-      if (!beginMatch || !beginMatch.groups) {
+      const block = MF6SymbolProvider.parseBlock(document, i);
+      if (block) {
+        blocks.push(block.symbol);
+        i = block.endLine;
+      } else {
         i++;
-        continue;
       }
-
-      // Check if block name is valid
-      let blockName = beginMatch.groups.blockName;
-      if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
-        i++;
-        continue;
-      }
-
-      // Find symbol range
-      const beginRange = i;
-      let endRange = i;
-      for (let j = i + 1; j < document.lineCount; j++) {
-        const endMatch = MF6SymbolProvider.endRegex.exec(
-          document.lineAt(j).text,
-        );
-        if (endMatch && blockName === endMatch.groups?.blockName) {
-          endRange = j;
-          break;
-        }
-      }
-      if (blockName.toLowerCase() === "period") {
-        blockName += ` ${beginMatch.groups.suffix}`;
-      }
-
-      const range = new vscode.Range(
-        beginRange,
-        0,
-        endRange,
-        document.lineAt(endRange).text.length,
-      );
-
-      blocks.push(
-        new vscode.DocumentSymbol(
-          blockName,
-          "block",
-          vscode.SymbolKind.Field,
-          range,
-          range,
-        ),
-      );
-      i = endRange + 1;
     }
     return blocks;
+  }
+
+  private static parseBlock(
+    document: vscode.TextDocument,
+    lineIndex: number,
+  ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
+    const beginMatch = MF6SymbolProvider.beginRegex.exec(
+      document.lineAt(lineIndex).text,
+    );
+
+    if (!beginMatch || !beginMatch.groups) {
+      return null;
+    }
+
+    // Check if block name is valid
+    let blockName = beginMatch.groups.blockName;
+    if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
+      return null;
+    }
+
+    // Find end of block
+    const beginRange = lineIndex;
+    let endRange = lineIndex;
+    for (let j = lineIndex + 1; j < document.lineCount; j++) {
+      const endMatch = MF6SymbolProvider.endRegex.exec(document.lineAt(j).text);
+      if (endMatch && blockName === endMatch.groups?.blockName) {
+        endRange = j;
+        break;
+      }
+    }
+
+    if (blockName.toLowerCase() === "period") {
+      blockName += ` ${beginMatch.groups.suffix}`;
+    }
+
+    const range = new vscode.Range(
+      beginRange,
+      0,
+      endRange,
+      document.lineAt(endRange).text.length,
+    );
+
+    return {
+      symbol: new vscode.DocumentSymbol(
+        blockName,
+        "block",
+        vscode.SymbolKind.Field,
+        range,
+        range,
+      ),
+      endLine: endRange + 1,
+    };
   }
 }
