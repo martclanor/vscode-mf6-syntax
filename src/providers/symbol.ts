@@ -17,7 +17,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
     let i = 0;
     while (i < document.lineCount) {
-      const block = MF6SymbolProvider.parseBlock(document, i);
+      const block = this.parseBlock(document, i);
       if (block) {
         blocks.push(block.symbol);
         i = block.endLine;
@@ -28,7 +28,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     return blocks;
   }
 
-  private static parseBlock(
+  private parseBlock(
     document: vscode.TextDocument,
     lineIndex: number,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
