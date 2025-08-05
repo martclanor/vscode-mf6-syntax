@@ -40,7 +40,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       return null;
     }
 
-    let blockName = beginMatch.groups.blockName;
+    const blockName = beginMatch.groups.blockName;
     if (!MF6SymbolProvider.isValidBlockName(blockName)) {
       return null;
     }
@@ -48,14 +48,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     const beginRange = lineIndex;
     const endRange = MF6SymbolProvider.findBlockEnd(
       document,
-      lineIndex + 1,
+      beginRange + 1,
       blockName,
     );
-
-    if (blockName.toLowerCase() === "period") {
-      blockName += ` ${beginMatch.groups.suffix}`;
-    }
-
     const range = new vscode.Range(
       beginRange,
       0,
@@ -65,7 +60,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
     return {
       symbol: new vscode.DocumentSymbol(
-        blockName,
+        MF6SymbolProvider.getSymbolName(beginMatch.groups),
         "block",
         vscode.SymbolKind.Field,
         range,
@@ -93,5 +88,15 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       }
     }
     return startLine - 1;
+  }
+
+  private static getSymbolName(beginMatchGroups: {
+    [key: string]: string;
+  }): string {
+    const blockName = beginMatchGroups.blockName;
+    if (blockName && blockName.toLowerCase() === "period") {
+      return blockName + ` ${beginMatchGroups.suffix}`;
+    }
+    return blockName;
   }
 }
