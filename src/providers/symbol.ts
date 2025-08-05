@@ -40,9 +40,8 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       return null;
     }
 
-    // Check if block name is valid
     let blockName = beginMatch.groups.blockName;
-    if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
+    if (!MF6SymbolProvider.isValidBlockName(blockName)) {
       return null;
     }
 
@@ -78,5 +77,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       ),
       endLine: endRange + 1,
     };
+  }
+
+  private static isValidBlockName(blockName: string): boolean {
+    return MF6SymbolProvider.blockNames.includes(blockName.toLowerCase());
   }
 }
