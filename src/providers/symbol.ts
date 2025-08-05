@@ -5,8 +5,10 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
   private static readonly blockNames = Object.keys(hoverBlockJson).map((key) =>
     key.toLowerCase(),
   );
-  private static readonly beginRegex = /^begin\s+(.+)/i;
-  private static readonly endRegex = /^end\s+(.+)/i;
+  private static readonly beginRegex =
+    /^begin\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
+  private static readonly endRegex =
+    /^end\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
 
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
@@ -19,13 +21,13 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         document.lineAt(i).text,
       );
 
-      if (!beginMatch) {
+      if (!beginMatch || !beginMatch.groups) {
         i++;
         continue;
       }
 
       // Check if block name is valid
-      let blockName = beginMatch[1].trim().split(/\s+/)[0];
+      let blockName = beginMatch.groups.blockName;
       if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
         i++;
         continue;
@@ -38,13 +40,13 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
         const endMatch = MF6SymbolProvider.endRegex.exec(
           document.lineAt(j).text,
         );
-        if (endMatch && blockName === endMatch[1].trim().split(/\s+/)[0]) {
+        if (endMatch && blockName === endMatch.groups?.blockName) {
           endRange = j;
           break;
         }
       }
       if (blockName.toLowerCase() === "period") {
-        blockName += ` ${beginMatch[1].trim().split(/\s+/)[1]}`;
+        blockName += ` ${beginMatch.groups.suffix}`;
       }
 
       const range = new vscode.Range(
