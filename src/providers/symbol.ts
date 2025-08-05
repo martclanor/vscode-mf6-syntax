@@ -45,16 +45,12 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       return null;
     }
 
-    // Find end of block
     const beginRange = lineIndex;
-    let endRange = lineIndex;
-    for (let j = lineIndex + 1; j < document.lineCount; j++) {
-      const endMatch = MF6SymbolProvider.endRegex.exec(document.lineAt(j).text);
-      if (endMatch && blockName === endMatch.groups?.blockName) {
-        endRange = j;
-        break;
-      }
-    }
+    const endRange = MF6SymbolProvider.findBlockEnd(
+      document,
+      lineIndex + 1,
+      blockName,
+    );
 
     if (blockName.toLowerCase() === "period") {
       blockName += ` ${beginMatch.groups.suffix}`;
@@ -81,5 +77,21 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
   private static isValidBlockName(blockName: string): boolean {
     return MF6SymbolProvider.blockNames.includes(blockName.toLowerCase());
+  }
+
+  private static findBlockEnd(
+    document: vscode.TextDocument,
+    startLine: number,
+    blockName: string,
+  ): number {
+    for (let i = startLine; i < document.lineCount; i++) {
+      const endMatch = MF6SymbolProvider.endRegex.exec(document.lineAt(i).text);
+      if (
+        endMatch?.groups?.blockName.toLowerCase() === blockName.toLowerCase()
+      ) {
+        return i;
+      }
+    }
+    return startLine - 1;
   }
 }
