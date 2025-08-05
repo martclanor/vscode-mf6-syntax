@@ -25,16 +25,11 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       }
 
       // Check if block name is valid
-      const blockName = beginMatch[1].trim().split(/\s+/)[0];
+      let blockName = beginMatch[1].trim().split(/\s+/)[0];
       if (!MF6SymbolProvider.blockNames.includes(blockName.toLowerCase())) {
         i++;
         continue;
       }
-
-      const detail =
-        blockName.toLowerCase() === "period"
-          ? beginMatch[1].trim().split(/\s+/)[1]
-          : "block";
 
       // Find symbol range
       const beginRange = i;
@@ -48,6 +43,10 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
           break;
         }
       }
+      if (blockName.toLowerCase() === "period") {
+        blockName += ` ${beginMatch[1].trim().split(/\s+/)[1]}`;
+      }
+
       const range = new vscode.Range(
         beginRange,
         0,
@@ -58,7 +57,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       blocks.push(
         new vscode.DocumentSymbol(
           blockName,
-          detail,
+          "block",
           vscode.SymbolKind.Field,
           range,
           range,
