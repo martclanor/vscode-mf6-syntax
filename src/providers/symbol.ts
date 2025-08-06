@@ -27,8 +27,10 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     let i = 0;
     while (i < document.lineCount) {
       const block = this.parseBlock(document, i);
+
       if (block) {
         const readarrays: vscode.DocumentSymbol[] = [];
+        // Inner loop to collect readarrays of the current block
         let j = i + 1;
         while (j < block.endLine) {
           const readarray = this.parseReadarray(block.symbol, document, j);
@@ -39,6 +41,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
             j++;
           }
         }
+
         block.symbol.children = readarrays;
         blocks.push(block.symbol);
         i = block.endLine;
@@ -57,6 +60,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       document.lineAt(beginRange).text,
     );
 
+    // No regex match
     if (!beginMatch || !beginMatch.groups) {
       return null;
     }
@@ -184,6 +188,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       blockName.toLowerCase() === MF6SymbolProvider.PERIOD_BLOCK_NAME &&
       beginMatchGroups.suffix
     ) {
+      // Append period number if available
       return blockName + ` ${beginMatchGroups.suffix}`;
     }
     return blockName;
