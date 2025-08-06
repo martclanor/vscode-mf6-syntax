@@ -71,12 +71,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       beginRange + 1,
       blockName,
     );
-    const range = new vscode.Range(
-      beginRange,
-      0,
-      endRange,
-      document.lineAt(endRange).text.length,
-    );
+    const range = this.createRange(document, beginRange, endRange);
 
     return {
       symbol: new vscode.DocumentSymbol(
@@ -116,12 +111,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       beginRange,
       block.range.end.line,
     );
-    const range = new vscode.Range(
-      beginRange,
-      0,
-      endRange,
-      document.lineAt(endRange).text.length,
-    );
+    const range = this.createRange(document, beginRange, endRange);
 
     return {
       symbol: new vscode.DocumentSymbol(
@@ -133,6 +123,19 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       ),
       endLine: endRange + 1,
     };
+  }
+
+  private createRange(
+    document: vscode.TextDocument,
+    startLine: number,
+    endLine: number,
+  ): vscode.Range {
+    return new vscode.Range(
+      startLine,
+      0,
+      endLine,
+      document.lineAt(endLine).text.length,
+    );
   }
 
   private static findReadarrayEnd(
