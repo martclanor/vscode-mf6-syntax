@@ -1,9 +1,15 @@
 import * as vscode from "vscode";
-import * as hoverBlockJson from "./hover-block.json";
+import * as symbolDefnJson from "./symbol-defn.json";
+
+interface SymbolDefnStructure {
+  [block: string]: string[]; // block name to readarray names
+}
 
 export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
-  private static readonly blockNames = new Set(
-    Object.keys(hoverBlockJson).map((key) => key.toLowerCase()),
+  private static readonly symbolDefns: SymbolDefnStructure =
+    symbolDefnJson as SymbolDefnStructure;
+  private static readonly blockNames: Set<string> = new Set(
+    Object.keys(MF6SymbolProvider.symbolDefns),
   );
   private static readonly beginRegex =
     /^begin\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
