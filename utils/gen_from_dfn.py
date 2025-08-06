@@ -21,6 +21,7 @@ Generated Files:
     - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
     - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
     - src/providers/hover-block.json: Provides hover data for MF6 blocks
+    - src/providers/symbol-defn.json: Defines symbols for MF6 input files
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
@@ -433,6 +434,16 @@ class Dfn:
         Dfn.sort_and_export(hover, output)
 
     @staticmethod
+    def export_symbol_defn(output: str) -> None:
+        symbol_defn: defaultdict[str, set[str]] = defaultdict(set)
+        for dfn in Dfn.get_dfns():
+            for section in dfn.get_sections():
+                _ = symbol_defn[section.block]
+                if section.is_readarray:
+                    symbol_defn[section.block].add(section.name)
+        Dfn.sort_and_export(symbol_defn, output)
+
+    @staticmethod
     def render_template(output: str, **context) -> None:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
@@ -461,3 +472,6 @@ if __name__ == "__main__":
     # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
+
+    # Export symbol definition data from DFN files
+    Dfn.export_symbol_defn("src/providers/symbol-defn.json")
