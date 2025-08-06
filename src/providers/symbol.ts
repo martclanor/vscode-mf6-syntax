@@ -94,7 +94,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     [key: string]: string;
   }): string {
     const blockName = beginMatchGroups.blockName;
-    if (blockName && blockName.toLowerCase() === "period") {
+    if (blockName.toLowerCase() === "period" && beginMatchGroups.suffix) {
       return blockName + ` ${beginMatchGroups.suffix}`;
     }
     return blockName;
