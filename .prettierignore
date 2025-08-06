@@ -3,4 +3,4 @@
 .ruff_cache/**
 out/
 .vscode-test/
-src/providers/hover-keyword.json
+src/providers/*.json
