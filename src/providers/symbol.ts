@@ -15,6 +15,9 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     /^begin\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
   private static readonly endRegex =
     /^end\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
+  private static readonly PERIOD_BLOCK_NAME = "period";
+  private static readonly BLOCK_DETAIL = "block";
+  private static readonly ARRAY_DETAIL = "array";
 
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
@@ -78,7 +81,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     return {
       symbol: new vscode.DocumentSymbol(
         MF6SymbolProvider.getSymbolName(beginMatch.groups),
-        "block",
+        MF6SymbolProvider.BLOCK_DETAIL,
         vscode.SymbolKind.Field,
         range,
         range,
@@ -123,7 +126,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     return {
       symbol: new vscode.DocumentSymbol(
         readarrayName,
-        "array",
+        MF6SymbolProvider.ARRAY_DETAIL,
         vscode.SymbolKind.Array,
         range,
         range,
@@ -174,7 +177,10 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     [key: string]: string;
   }): string {
     const blockName = beginMatchGroups.blockName;
-    if (blockName.toLowerCase() === "period" && beginMatchGroups.suffix) {
+    if (
+      blockName.toLowerCase() === MF6SymbolProvider.PERIOD_BLOCK_NAME &&
+      beginMatchGroups.suffix
+    ) {
       return blockName + ` ${beginMatchGroups.suffix}`;
     }
     return blockName;
