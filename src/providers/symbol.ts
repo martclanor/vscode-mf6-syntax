@@ -48,10 +48,10 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
 
   private parseBlock(
     document: vscode.TextDocument,
-    lineIndex: number,
+    beginRange: number,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
     const beginMatch = MF6SymbolProvider.beginRegex.exec(
-      document.lineAt(lineIndex).text,
+      document.lineAt(beginRange).text,
     );
 
     if (!beginMatch || !beginMatch.groups) {
@@ -63,7 +63,6 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       return null;
     }
 
-    const beginRange = lineIndex;
     const endRange = MF6SymbolProvider.findBlockEnd(
       document,
       beginRange + 1,
@@ -91,7 +90,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
   private parseReadarray(
     block: vscode.DocumentSymbol,
     document: vscode.TextDocument,
-    lineIndex: number,
+    beginRange: number,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
     // No readarray in block at all
     if (!MF6SymbolProvider.symbolDefns[block.name]) {
@@ -99,7 +98,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     }
 
     const readarrayName = document
-      .lineAt(lineIndex)
+      .lineAt(beginRange)
       .text.trim()
       .split(/\s+/)[0]
       .toLowerCase();
@@ -109,7 +108,6 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       return null;
     }
 
-    const beginRange = lineIndex;
     const endRange = MF6SymbolProvider.findReadarrayEnd(
       document,
       beginRange,
