@@ -25,6 +25,18 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     while (i < document.lineCount) {
       const block = this.parseBlock(document, i);
       if (block) {
+        const readarrays: vscode.DocumentSymbol[] = [];
+        let j = i + 1;
+        while (j < block.endLine) {
+          const readarray = this.parseReadarray(block.symbol, document, j);
+          if (readarray) {
+            readarrays.push(readarray.symbol);
+            j = readarray.endLine;
+          } else {
+            j++;
+          }
+        }
+        block.symbol.children = readarrays;
         blocks.push(block.symbol);
         i = block.endLine;
       } else {
@@ -74,6 +86,70 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       ),
       endLine: endRange + 1,
     };
+  }
+
+  private parseReadarray(
+    block: vscode.DocumentSymbol,
+    document: vscode.TextDocument,
+    lineIndex: number,
+  ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
+    // No readarray in block at all
+    if (!MF6SymbolProvider.symbolDefns[block.name]) {
+      return null;
+    }
+
+    const readarrayName = document
+      .lineAt(lineIndex)
+      .text.trim()
+      .split(/\s+/)[0]
+      .toLowerCase();
+
+    // readarray not in block
+    if (!MF6SymbolProvider.symbolDefns[block.name].includes(readarrayName)) {
+      return null;
+    }
+
+    const beginRange = lineIndex;
+    const endRange = MF6SymbolProvider.findReadarrayEnd(
+      document,
+      beginRange,
+      block.range.end.line,
+    );
+    const range = new vscode.Range(
+      beginRange,
+      0,
+      endRange,
+      document.lineAt(endRange).text.length,
+    );
+
+    return {
+      symbol: new vscode.DocumentSymbol(
+        readarrayName,
+        "array",
+        vscode.SymbolKind.Array,
+        range,
+        range,
+      ),
+      endLine: endRange + 1,
+    };
+  }
+
+  private static findReadarrayEnd(
+    document: vscode.TextDocument,
+    startLine: number,
+    blockEnd: number,
+  ): number {
+    // Since readarray sections are most-likely written programmatically,
+    // assume consistent structured indentation and use this to find end
+    const startIndent =
+      document.lineAt(startLine).text.match(/^\s*/)?.[0].length ?? 0;
+    for (let i = startLine + 1; i <= blockEnd; i++) {
+      const nextIndent = document.lineAt(i).text.match(/^\s*/)?.[0].length ?? 0;
+      if (nextIndent <= startIndent) {
+        return i - 1;
+      }
+    }
+    return startLine;
   }
 
   private static isValidBlockName(blockName: string): boolean {
