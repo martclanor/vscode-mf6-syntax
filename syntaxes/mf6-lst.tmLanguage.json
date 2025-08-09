@@ -1,3 +1,83 @@
 {
-  "scopeName": "source.mf6-lst"
+  "scopeName": "source.mf6-lst",
+  "patterns": [
+    {
+      "include": "#body"
+    }
+  ],
+  "repository": {
+    "body": {
+      "patterns": [
+        {
+          "name": "comment.mf6-lst",
+          "begin": "^[ \\t]+MODFLOW 6$",
+          "patterns": [
+            {
+              "include": "#open"
+            },
+            {
+              "include": "#read-process-end"
+            },
+            {
+              "include": "#spd-ts"
+            }
+          ]
+        }
+      ]
+    },
+    "open": {
+      "patterns": [
+        {
+          "begin": "^[ ]?OPENED\\s+",
+          "end": ".*$",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "string.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "read-process-end": {
+      "patterns": [
+        {
+          "begin": "^\\s*(READING|PROCESSING|END OF)\\s+",
+          "end": ".*$",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "entity.name.type.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "spd-ts": {
+      "patterns": [
+        {
+          "begin": "(Stress period:|Time step:)",
+          "end": "\\d+",
+          "beginCaptures": {
+            "0": {
+              "name": "entity.name.function.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "entity.other.attribute-name.mf6-lst"
+            }
+          }
+        }
+      ]
+    }
+  }
 }
