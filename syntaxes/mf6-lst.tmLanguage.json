@@ -16,7 +16,7 @@
               "include": "#open"
             },
             {
-              "include": "#read-process-set-end"
+              "include": "#read-process-end"
             },
             {
               "include": "#spd-ts-sim"
@@ -46,10 +46,10 @@
         }
       ]
     },
-    "read-process-set-end": {
+    "read-process-end": {
       "patterns": [
         {
-          "begin": "(?i)^\\s*(reading|processing|begin reading|setting|end of|end reading|end processing|end setting)\\s+",
+          "begin": "^\\s*(READING|PROCESSING|BEGIN READING|END OF|END READING|END PROCESSING)\\s+",
           "end": ".*$",
           "beginCaptures": {
             "0": {
