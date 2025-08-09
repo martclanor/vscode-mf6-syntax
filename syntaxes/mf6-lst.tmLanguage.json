@@ -35,7 +35,7 @@
           "end": ".*$",
           "beginCaptures": {
             "0": {
-              "name": "keyword.control.mf6-lst"
+              "name": "entity.name.function.mf6-lst"
             }
           },
           "endCaptures": {
