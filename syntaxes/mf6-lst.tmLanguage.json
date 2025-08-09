@@ -16,10 +16,13 @@
               "include": "#open"
             },
             {
-              "include": "#read-process-end"
+              "include": "#read-process-set-end"
             },
             {
-              "include": "#spd-ts"
+              "include": "#spd-ts-sim"
+            },
+            {
+              "include": "#spd-ts-gwf"
             }
           ]
         }
@@ -43,10 +46,10 @@
         }
       ]
     },
-    "read-process-end": {
+    "read-process-set-end": {
       "patterns": [
         {
-          "begin": "^\\s*(READING|PROCESSING|END OF)\\s+",
+          "begin": "(?i)^\\s*(reading|processing|begin reading|setting|end of|end reading|end processing|end setting)\\s+",
           "end": ".*$",
           "beginCaptures": {
             "0": {
@@ -61,7 +64,7 @@
         }
       ]
     },
-    "spd-ts": {
+    "spd-ts-sim": {
       "patterns": [
         {
           "begin": "(Stress period:|Time step:)",
@@ -73,6 +76,24 @@
           },
           "endCaptures": {
             "0": {
+              "name": "entity.other.attribute-name.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "spd-ts-gwf": {
+      "patterns": [
+        {
+          "match": "^start timestep\\s+kper=\"(\\d+)\"\\s+kstp=\"(\\d+)\".*$",
+          "captures": {
+            "0": {
+              "name": "entity.name.function.mf6-lst"
+            },
+            "1": {
+              "name": "entity.other.attribute-name.mf6-lst"
+            },
+            "2": {
               "name": "entity.other.attribute-name.mf6-lst"
             }
           }
