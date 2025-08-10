@@ -1,0 +1,115 @@
+{
+  "scopeName": "source.mf6-lst",
+  "patterns": [
+    {
+      "include": "#body"
+    }
+  ],
+  "repository": {
+    "body": {
+      "patterns": [
+        {
+          "name": "comment.mf6-lst",
+          "begin": "^[ \\t]+MODFLOW 6$",
+          "patterns": [
+            {
+              "include": "#open"
+            },
+            {
+              "include": "#read-process-end"
+            },
+            {
+              "include": "#spd-ts-sim"
+            },
+            {
+              "include": "#spd-ts-gwf"
+            },
+            {
+              "include": "#packages"
+            }
+          ]
+        }
+      ]
+    },
+    "open": {
+      "patterns": [
+        {
+          "begin": "^[ ]?OPENED\\s+",
+          "end": ".*$",
+          "beginCaptures": {
+            "0": {
+              "name": "entity.name.function.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "string.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "read-process-end": {
+      "patterns": [
+        {
+          "begin": "^\\s*(READING|PROCESSING|BEGIN READING|END OF|END READING|END PROCESSING)\\s+",
+          "end": ".*$",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "entity.name.type.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "spd-ts-sim": {
+      "patterns": [
+        {
+          "begin": "(Solving:  Stress period:|Time step:)",
+          "end": "\\d+",
+          "beginCaptures": {
+            "0": {
+              "name": "markup.heading.1.mf6-lst"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "entity.name.type.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "spd-ts-gwf": {
+      "patterns": [
+        {
+          "match": "^start timestep\\s+kper=\"(\\d+)\"\\s+kstp=\"(\\d+)\".*$",
+          "captures": {
+            "0": {
+              "name": "markup.heading.1.mf6-lst"
+            },
+            "1": {
+              "name": "entity.name.type.mf6-lst"
+            },
+            "2": {
+              "name": "entity.name.type.mf6-lst"
+            }
+          }
+        }
+      ]
+    },
+    "packages": {
+      "patterns": [
+        {
+          "name": "markup.heading.1.mf6-lst",
+          "match": "^ ({{ extensions | map('upper') | map('replace', '.', '') | join('|') }})\\s*-- .*$"
+        }
+      ]
+    }
+  }
+}
