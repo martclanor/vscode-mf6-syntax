@@ -23,6 +23,9 @@
             },
             {
               "include": "#spd-ts-gwf"
+            },
+            {
+              "include": "#packages"
             }
           ]
         }
@@ -97,6 +100,14 @@
               "name": "entity.name.type.mf6-lst"
             }
           }
+        }
+      ]
+    },
+    "packages": {
+      "patterns": [
+        {
+          "name": "markup.heading.1.mf6-lst",
+          "match": "^ (TDIS|IMS) -- .*$"
         }
       ]
     }
