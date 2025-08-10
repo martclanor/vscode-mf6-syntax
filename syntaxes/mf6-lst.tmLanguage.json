@@ -67,16 +67,16 @@
     "spd-ts-sim": {
       "patterns": [
         {
-          "begin": "(Stress period:|Time step:)",
+          "begin": "(Solving:  Stress period:|Time step:)",
           "end": "\\d+",
           "beginCaptures": {
             "0": {
-              "name": "entity.name.function.mf6-lst"
+              "name": "markup.heading.1.mf6-lst"
             }
           },
           "endCaptures": {
             "0": {
-              "name": "entity.other.attribute-name.mf6-lst"
+              "name": "entity.name.type.mf6-lst"
             }
           }
         }
@@ -88,13 +88,13 @@
           "match": "^start timestep\\s+kper=\"(\\d+)\"\\s+kstp=\"(\\d+)\".*$",
           "captures": {
             "0": {
-              "name": "entity.name.function.mf6-lst"
+              "name": "markup.heading.1.mf6-lst"
             },
             "1": {
-              "name": "entity.other.attribute-name.mf6-lst"
+              "name": "entity.name.type.mf6-lst"
             },
             "2": {
-              "name": "entity.other.attribute-name.mf6-lst"
+              "name": "entity.name.type.mf6-lst"
             }
           }
         }
