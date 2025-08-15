@@ -1,12 +1,14 @@
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "./providers/go-to-definition";
 import { MF6SymbolProvider } from "./providers/symbol";
+import { MF6LstSymbolProvider } from "./providers/symbol-lst";
 import { MF6HoverKeywordProvider } from "./providers/hover";
 import { MF6HoverBlockProvider } from "./providers/hover";
 import { goToParent } from "./commands/go-to-parent";
 import { mf6ify } from "./commands/mf6-ify";
 
 const MF6 = { language: "mf6", scheme: "file" };
+const MF6Lst = { language: "mf6-lst", scheme: "file" };
 
 export function activate(context: vscode.ExtensionContext) {
   // MF6-ify command
@@ -28,6 +30,12 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.languages.registerDocumentSymbolProvider(
       MF6,
       new MF6SymbolProvider(),
+    ),
+  );
+  context.subscriptions.push(
+    vscode.languages.registerDocumentSymbolProvider(
+      MF6Lst,
+      new MF6LstSymbolProvider(),
     ),
   );
 
