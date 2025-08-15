@@ -445,7 +445,7 @@ class Dfn:
 
     @staticmethod
     def export_symbol_defn_lst(output: str, data: set) -> None:
-        Dfn.sort_and_export(data, output)
+        Dfn.sort_and_export({item.upper() for item in data}, output)
 
     @staticmethod
     def render_template(output: str, **context) -> None:
