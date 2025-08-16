@@ -211,6 +211,6 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
         return i - 1;
       }
     }
-    return startLine;
+    return document.lineCount - 1;
   }
 }
