@@ -22,12 +22,12 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     i = header.endLine;
     while (i < document.lineCount) {
       const pkg = this.parsePackage(document, i);
-      if (pkg) {
-        symbols.push(pkg.symbol);
-        i = pkg.endLine;
-      } else {
+      if (!pkg) {
         i++;
+        continue;
       }
+      symbols.push(pkg.symbol);
+      i = pkg.endLine;
     }
 
     // Capture stress period and timestep symbols
@@ -48,14 +48,14 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
           j++;
           continue;
         }
-        const tsEnd = MF6LstSymbolProvider.findSpdTsEnd(document, j + 1);
+        const tsEnd = MF6LstSymbolProvider.findTsEnd(document, j + 1);
         const tsRange = this.createRange(document, j, tsEnd);
         if (tsMatch.spd === spdMatch.spd) {
           timesteps.push(
             new vscode.DocumentSymbol(
               `ts ${tsMatch.ts}`,
               "",
-              vscode.SymbolKind.Variable,
+              vscode.SymbolKind.Method,
               tsRange,
               tsRange,
             ),
@@ -74,7 +74,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
       const spd = new vscode.DocumentSymbol(
         `spd ${spdMatch.spd}`,
         "",
-        vscode.SymbolKind.Class,
+        vscode.SymbolKind.Field,
         spdRange,
         spdRange,
       );
@@ -201,7 +201,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     return null;
   }
 
-  private static findSpdTsEnd(
+  private static findTsEnd(
     document: vscode.TextDocument,
     startLine: number,
   ): number {
