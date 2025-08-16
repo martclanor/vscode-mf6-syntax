@@ -361,14 +361,14 @@ class Dfn:
 
     @staticmethod
     def sort_and_export(
-        data: dict, output: str, template: Optional[Template] = None
+        data: dict | set, output: str, template: Optional[Template] = None
     ) -> None:
         output_path = Path(output)
         data_sorted = Dfn._sort_data(data)
-        if template is None:
-            output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
-        else:
+        if template is not None and isinstance(data_sorted, dict):
             output_path.write_text(template.render(**data_sorted))
+        else:
+            output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
         log.info(f"Generated from DFN: {output_path}")
 
     @staticmethod
@@ -444,6 +444,10 @@ class Dfn:
         Dfn.sort_and_export(symbol_defn, output)
 
     @staticmethod
+    def export_symbol_defn_lst(output: str, data: set) -> None:
+        Dfn.sort_and_export({item.upper().strip(".") for item in data}, output)
+
+    @staticmethod
     def render_template(output: str, **context) -> None:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
@@ -476,3 +480,4 @@ if __name__ == "__main__":
 
     # Export symbol definition data from DFN files
     Dfn.export_symbol_defn("src/providers/symbol-defn.json")
+    Dfn.export_symbol_defn_lst("src/providers/symbol-defn-lst.json", data=extensions)

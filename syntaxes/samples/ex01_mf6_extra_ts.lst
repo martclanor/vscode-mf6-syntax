@@ -246,3 +246,58 @@ start timestep kper="1" kstp="1" mode="normal"
 
 end timestep
 
+
+start timestep kper="1" kstp="2" mode="normal"
+
+
+ BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+      ALL TIME STEPS WILL BE SAVED
+      ALL TIME STEPS WILL BE SAVED
+
+ END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              WEL IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE WEL_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              RIV IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RIV_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING             RCHA IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RCHA_0           ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+
+ HEAD WILL BE SAVED ON UNIT 1016 AT END OF TIME STEP    1, STRESS PERIOD    1
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 WEL =           0.0000                   WEL =           0.0000     WEL_0
+                 RIV =           0.0000                   RIV =           0.0000     RIV_0
+                RCHA =      525000.0000                  RCHA =      525000.0000     RCHA_0
+
+            TOTAL IN =      525000.0000              TOTAL IN =      525000.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 WEL =      150000.0000                   WEL =      150000.0000     WEL_0
+                 RIV =      374999.9985                   RIV =      374999.9985     RIV_0
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0
+
+           TOTAL OUT =      524999.9985             TOTAL OUT =      524999.9985
+
+            IN - OUT =       1.5102E-03              IN - OUT =       1.5102E-03
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  86400.      1440.0      24.000      1.0000     2.73785E-03
+ STRESS PERIOD TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+         TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+
+
+end timestep
