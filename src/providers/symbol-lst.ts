@@ -3,8 +3,10 @@ import symbolDefnLstJson from "./symbol-defn-lst.json";
 
 export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
   private static readonly symbolDefnLsts: string[] = symbolDefnLstJson;
-  private static readonly spdTsRegex =
-    /Solving:\s{2}Stress period|start timestep/i;
+  private static readonly spdTsSimRegex =
+    /Solving:\s+Stress period:?\s+(?<spd>\d+)(?:\s+Time step:\s+(?<ts>\d+))?/i;
+  private static readonly spdTsGwfRegex =
+    /start timestep kper="(?<spd>\d+)" kstp="(?<ts>\d+)"/i;
 
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
@@ -26,6 +28,59 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
       } else {
         i++;
       }
+    }
+
+    // Capture stress period and timestep symbols
+    i = header.endLine;
+    while (i < document.lineCount) {
+      const spdMatch = MF6LstSymbolProvider.matchSpdTs(document, i);
+      if (!spdMatch) {
+        i++;
+        continue;
+      }
+
+      // Inner loop to collect ts of current spd
+      const timesteps: vscode.DocumentSymbol[] = [];
+      let j = i;
+      while (j < document.lineCount) {
+        const tsMatch = MF6LstSymbolProvider.matchSpdTs(document, j);
+        if (!tsMatch) {
+          j++;
+          continue;
+        }
+        const tsEnd = MF6LstSymbolProvider.findSpdTsEnd(document, j + 1);
+        const tsRange = this.createRange(document, j, tsEnd);
+        if (tsMatch.spd === spdMatch.spd) {
+          timesteps.push(
+            new vscode.DocumentSymbol(
+              `ts ${tsMatch.ts}`,
+              "",
+              vscode.SymbolKind.Variable,
+              tsRange,
+              tsRange,
+            ),
+          );
+          j = tsRange.end.line;
+        } else {
+          break;
+        }
+      }
+
+      const spdRange = this.createRange(
+        document,
+        i,
+        timesteps[timesteps.length - 1].range.end.line,
+      );
+      const spd = new vscode.DocumentSymbol(
+        `spd ${spdMatch.spd}`,
+        "",
+        vscode.SymbolKind.Class,
+        spdRange,
+        spdRange,
+      );
+      spd.children = timesteps;
+      symbols.push(spd);
+      i = j;
     }
     return symbols;
   }
@@ -125,12 +180,37 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
   private static matchSpdTs(
     document: vscode.TextDocument,
     line: number,
-  ): RegExpExecArray | null {
+  ): { spd: string; ts: string } | null {
     const lineText = document.lineAt(line).text;
-    const match = MF6LstSymbolProvider.spdTsRegex.exec(lineText);
-    if (!match) {
-      return null;
+    const simMatch = MF6LstSymbolProvider.spdTsSimRegex.exec(lineText);
+    if (simMatch && simMatch.groups) {
+      return {
+        spd: simMatch.groups.spd,
+        ts: simMatch.groups.ts,
+      };
     }
-    return match;
+
+    const gwfMatch = MF6LstSymbolProvider.spdTsGwfRegex.exec(lineText);
+    if (gwfMatch && gwfMatch.groups) {
+      return {
+        spd: gwfMatch.groups.spd,
+        ts: gwfMatch.groups.ts,
+      };
+    }
+
+    return null;
+  }
+
+  private static findSpdTsEnd(
+    document: vscode.TextDocument,
+    startLine: number,
+  ): number {
+    for (let i = startLine; i < document.lineCount; i++) {
+      const match = MF6LstSymbolProvider.matchSpdTs(document, i);
+      if (match) {
+        return i - 1;
+      }
+    }
+    return startLine;
   }
 }
