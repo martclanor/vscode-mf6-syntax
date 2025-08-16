@@ -1,0 +1,18 @@
+changelog:
+  categories:
+    - title: "New Features"
+      commits:
+        - type: "feat"
+
+    - title: "Bug Fixes & Performance"
+      commits:
+        - type: "fix"
+        - type: "perf"
+
+    - title: "Maintenance & Other Internal Changes"
+      commits:
+        - type: "chore"
+        - type: "docs"
+        - type: "style"
+        - type: "refactor"
+        - type: "test"
