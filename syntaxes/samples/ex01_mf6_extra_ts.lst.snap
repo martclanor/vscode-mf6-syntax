@@ -15,43 +15,43 @@
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >This software has been approved for release by the U.S. Geological
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >Survey (USGS). Although the software has been subjected to rigorous
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >review, the USGS reserves the right to update the software as needed
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >pursuant to further analysis and review. No warranty, expressed or
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >implied, is made by the USGS or the U.S. Government as to the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->functionality of the software and related material nor shall the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->fact of release constitute any such warranty. Furthermore, the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->software is released on condition that neither the USGS nor the U.S.
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->Government shall be held liable for any damages resulting from its
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->authorized or unauthorized use. Also refer to the USGS Water
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>functionality of the software and related material nor shall the
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>fact of release constitute any such warranty. Furthermore, the
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>software is released on condition that neither the USGS nor the U.S.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>Government shall be held liable for any damages resulting from its
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>authorized or unauthorized use. Also refer to the USGS Water
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >Resources Software User Rights Notice for complete use, copyright,
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >and distribution information.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >
 >As a work of the United States Government, this USGS product is
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >in the public domain within the United States. You can copy,
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->modify, distribute, and perform the work, even for commercial
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->purposes, all without asking permission. Additionally, USGS
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>modify, distribute, and perform the work, even for commercial
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>purposes, all without asking permission. Additionally, USGS
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >waives copyright and related rights in the work worldwide
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >through CC0 1.0 Universal Public Domain Dedication
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >(https://creativecommons.org/publicdomain/zero/1.0/).
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -63,7 +63,7 @@
 >    SPARSKIT version 2.0
 #^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >      ilut, luson, and qsplit
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >      (https://www-users.cse.umn.edu/~saad/software/SPARSKIT/)
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -155,15 +155,15 @@
 #^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > DIS -- STRUCTURED GRID DISCRETIZATION PACKAGE, VERSION 2 : 3/27/2014 - INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/DIS
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 >
 > NPF -- NODE PROPERTY FLOW PACKAGE, VERSION 1, 3/30/2015 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/NPF
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 >
 > IC -- Initial Conditions Package, Version 8, 3/28/2015 input read from mempath: __INPUT__/EX01_MF6/IC
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 >
 > Setting Discretization Options
@@ -217,7 +217,7 @@
 >
 >
 > WEL   -- WEL PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/WEL_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 > PROCESSING WEL BASE OPTIONS
 #^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
@@ -243,7 +243,7 @@
 #        ^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
 >
 > RIV   -- RIV PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/RIV_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 > PROCESSING RIV BASE OPTIONS
 #^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
@@ -269,7 +269,7 @@
 #        ^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
 >
 > RCH   -- RCH PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/RCHA_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 >
 > PROCESSING RCH BASE OPTIONS
 #^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
@@ -299,11 +299,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:DATA(BINARY)   UNIT 1014   STATUS:REPLACE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:UNFORMATTED            ACCESS:STREAM
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READWRITE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >      THE LAST TIME STEP WILL BE PRINTED
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -327,11 +327,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:DATA(BINARY)   UNIT 1015   STATUS:REPLACE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:UNFORMATTED            ACCESS:STREAM
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READWRITE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >    HEAD INFORMATION WILL BE WRITTEN TO:
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -344,11 +344,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:DATA(BINARY)   UNIT 1016   STATUS:REPLACE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:UNFORMATTED            ACCESS:STREAM
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READWRITE
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > END OF OC OPTIONS
 #^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
@@ -392,7 +392,7 @@
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >     ------------------                 ------------------------                     ----------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -401,11 +401,11 @@
 >           ---                                      ---
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                 WEL =           0.0000                   WEL =           0.0000     WEL_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                 RIV =           0.0000                   RIV =           0.0000     RIV_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                RCHA =      525000.0000                  RCHA =      525000.0000     RCHA_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >            TOTAL IN =      525000.0000              TOTAL IN =      525000.0000
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -415,11 +415,11 @@
 >          ----                                     ----
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                 WEL =      150000.0000                   WEL =      150000.0000     WEL_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                 RIV =      374999.9985                   RIV =      374999.9985     RIV_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >           TOTAL OUT =      524999.9985             TOTAL OUT =      524999.9985
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -450,4 +450,100 @@
 >end timestep
 #^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
+>
+>start timestep kper="1" kstp="2" mode="normal"
+#^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#                     ^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst entity.name.type.mf6-lst
+#                      ^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+#                              ^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst entity.name.type.mf6-lst
+#                               ^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
+>
+>
+> BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+#^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
+>      ALL TIME STEPS WILL BE SAVED
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>      ALL TIME STEPS WILL BE SAVED
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+> END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
+#             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
+> UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+> UBDSV06 SAVING              WEL IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE WEL_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+> UBDSV06 SAVING              RIV IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RIV_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+> UBDSV06 SAVING             RCHA IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RCHA_0           ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+> HEAD WILL BE SAVED ON UNIT 1016 AT END OF TIME STEP    1, STRESS PERIOD    1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>
+>  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>  ---------------------------------------------------------------------------------------------------
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>     ------------------                 ------------------------                     ----------------
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>           IN:                                      IN:
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>           ---                                      ---
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                 WEL =           0.0000                   WEL =           0.0000     WEL_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                 RIV =           0.0000                   RIV =           0.0000     RIV_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                RCHA =      525000.0000                  RCHA =      525000.0000     RCHA_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>            TOTAL IN =      525000.0000              TOTAL IN =      525000.0000
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>          OUT:                                     OUT:
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>          ----                                     ----
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                 WEL =      150000.0000                   WEL =      150000.0000     WEL_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                 RIV =      374999.9985                   RIV =      374999.9985     RIV_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>           TOTAL OUT =      524999.9985             TOTAL OUT =      524999.9985
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>            IN - OUT =       1.5102E-03              IN - OUT =       1.5102E-03
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+> PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>
+>
+>
+>         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>                    -----------------------------------------------------------
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>   TIME STEP LENGTH  86400.      1440.0      24.000      1.0000     2.73785E-03
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+> STRESS PERIOD TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>         TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>
+>end timestep
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >

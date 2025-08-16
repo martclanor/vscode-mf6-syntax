@@ -13,43 +13,43 @@
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >This software has been approved for release by the U.S. Geological
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >Survey (USGS). Although the software has been subjected to rigorous
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >review, the USGS reserves the right to update the software as needed
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >pursuant to further analysis and review. No warranty, expressed or
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >implied, is made by the USGS or the U.S. Government as to the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->functionality of the software and related material nor shall the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->fact of release constitute any such warranty. Furthermore, the
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->software is released on condition that neither the USGS nor the U.S.
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->Government shall be held liable for any damages resulting from its
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->authorized or unauthorized use. Also refer to the USGS Water
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>functionality of the software and related material nor shall the
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>fact of release constitute any such warranty. Furthermore, the
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>software is released on condition that neither the USGS nor the U.S.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>Government shall be held liable for any damages resulting from its
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>authorized or unauthorized use. Also refer to the USGS Water
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >Resources Software User Rights Notice for complete use, copyright,
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >and distribution information.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >
 >As a work of the United States Government, this USGS product is
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >in the public domain within the United States. You can copy,
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->modify, distribute, and perform the work, even for commercial
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
->purposes, all without asking permission. Additionally, USGS
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>modify, distribute, and perform the work, even for commercial
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>purposes, all without asking permission. Additionally, USGS
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >waives copyright and related rights in the work worldwide
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >through CC0 1.0 Universal Public Domain Dedication
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >(https://creativecommons.org/publicdomain/zero/1.0/).
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -61,7 +61,7 @@
 >    SPARSKIT version 2.0
 #^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >      ilut, luson, and qsplit
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >      (https://www-users.cse.umn.edu/~saad/software/SPARSKIT/)
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -150,11 +150,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:NAM6               UNIT 1001   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -163,11 +163,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:TDIS6              UNIT 1002   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -176,11 +176,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:GWF6               UNIT 1003   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -189,11 +189,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:DIS6               UNIT 1004   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -202,11 +202,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:NPF6               UNIT 1005   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -215,11 +215,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:IC6                UNIT 1006   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -228,22 +228,22 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:OC6       UNIT 1007   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >
 > OPENED ex01_mf6.wel
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:WEL6               UNIT 1008   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -252,11 +252,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:RIV6               UNIT 1009   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -265,11 +265,11 @@
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:RCH6               UNIT 1011   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
@@ -290,7 +290,7 @@
 > TDIS -- TEMPORAL DISCRETIZATION PACKAGE,
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst markup.heading.1.mf6-lst
 > VERSION 1 : 11/13/2014 - INPUT READ FROM MEMPATH: __INPUT__/SIM/TDIS
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > PROCESSING TDIS OPTIONS
 #^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
 #            ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
@@ -346,17 +346,17 @@
 #         ^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.type.mf6-lst
 >
 > Creating solution: SLN_1
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > OPENED ex01_mf6.ims
 #^^^^^^^^ source.mf6-lst comment.mf6-lst entity.name.function.mf6-lst
 #        ^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst string.mf6-lst
 > FILE TYPE:IMS   UNIT 1013   STATUS:OLD
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > FORMAT:FORMATTED              ACCESS:SEQUENTIAL
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ACTION:READ
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > END OF SOLUTIONGROUP
 #^^^^^^^^ source.mf6-lst comment.mf6-lst keyword.control.mf6-lst
@@ -428,13 +428,13 @@
 > MAXIMUM OF 100 INTERNAL ITERATIONS PER CALL TO SOLUTION ROUTINE
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > LINEAR ACCELERATION METHOD            = CG
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > MATRIX PRECONDITIONING TYPE           = INCOMPLETE LU
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > MATRIX SCALING APPROACH               = NO SCALING
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > MATRIX REORDERING APPROACH            = ORIGINAL ORDERING
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > NUMBER OF ORTHOGONALIZATIONS          = 0
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > HEAD CHANGE CRITERION FOR CLOSURE     =    0.10000E-05
@@ -444,7 +444,7 @@
 > RESIDUAL CONVERGENCE OPTION           = 0
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > RESIDUAL CONVERGENCE NORM             = INFINITY NORM
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > RELAXATION FACTOR                     =    0.00000E+00
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
@@ -464,7 +464,7 @@
 >1
 #^^ source.mf6-lst comment.mf6-lst
 > STRESS PERIOD NO. 1, LENGTH =   1.000000
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > ------------------------------------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > NUMBER OF TIME STEPS = 1
@@ -472,32 +472,32 @@
 > MULTIPLIER FOR DELT =     1.000
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > INITIAL TIME STEP SIZE =   1.000000
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 > MEMORY MANAGER TOTAL STORAGE BY DATA TYPE, IN KILOBYTES
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > -------------------------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >                    ALLOCATED
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > DATA TYPE           MEMORY
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > -------------------------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Character        9.3770000
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Logical          4.80000000E-02
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Integer          265.31200
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Real             599.90400
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > -------------------------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Total            874.64100
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > Virtual          0.0000000
-#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 > -------------------------------
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
