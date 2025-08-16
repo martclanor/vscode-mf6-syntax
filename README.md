@@ -15,25 +15,32 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
 
 ### Syntax highlighting
 
-- MF6 input files ![demo-syntax-highlighting](images/demo_syntax_highlighting.png)
+- MF6 input files
 
-- MF6 output list files ![demo-syntax-highlighting-lst](images/demo_syntax_highlighting_lst.png)
+![demo-syntax-highlighting](images/demo_syntax_highlighting.png)
+
+- MF6 output list files
+
+![demo-syntax-highlighting-lst](images/demo_syntax_highlighting_lst.png)
 
 ### Document symbols
 
 - for integration with VS Code features such as [outline view](https://code.visualstudio.com/docs/getstarted/userinterface#_outline-view), [go-to-symbol](https://code.visualstudio.com/docs/editing/editingevolved#_go-to-symbol), [breadcrumbs](https://code.visualstudio.com/docs/getstarted/userinterface#_breadcrumbs), [sticky scroll](https://code.visualstudio.com/docs/getstarted/userinterface#_sticky-scroll), [minimap](https://code.visualstudio.com/docs/getstarted/userinterface#_minimap), etc.
-  ![symbol-defn](images/demo_symbol_defn.gif)
+
+![symbol-defn](images/demo_symbol_defn.gif)
 
 ### Go-to-definition
 
 - `Ctrl + click`
 - `Go To Definition` keybinding (default: `F12`)
-  ![go-to-defn](images/demo_go_to_defn.gif)
+
+![go-to-defn](images/demo_go_to_defn.gif)
 
 ### Hover
 
 - for keyword description and block structure
-  ![hover](images/demo_hover.gif)
+
+![hover](images/demo_hover.gif)
 
 ### Others:
 
