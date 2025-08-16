@@ -4,6 +4,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "../providers/go-to-definition";
 import { MF6SymbolProvider } from "../providers/symbol";
+import { MF6LstSymbolProvider } from "../providers/symbol-lst";
 import {
   MF6HoverBlockProvider,
   MF6HoverKeywordProvider,
@@ -259,5 +260,35 @@ END non-existing-block`,
       // Clean up the temporary file and directory
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
+  });
+
+  test("MF6LstSymbolProvider should provide document symbols", async () => {
+    const provider = new MF6LstSymbolProvider();
+
+    const sampleFilePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "syntaxes",
+      "samples",
+      "ex01_mf6_extra_ts.lst",
+    );
+    const fileUri = vscode.Uri.file(sampleFilePath);
+    const document = await vscode.workspace.openTextDocument(fileUri);
+    await vscode.window.showTextDocument(document);
+    const symbols = await provider.provideDocumentSymbols(document);
+
+    assert.strictEqual(symbols.length, 8);
+    assert.strictEqual(symbols[7].children.length, 2);
+    assertSymbol(symbols[0], "MF6-LST", [0, 0, 87, 0]);
+    assertSymbol(symbols[1], "DIS", [88, 0, 90, 0]);
+    assertSymbol(symbols[2], "NPF", [91, 0, 93, 0]);
+    assertSymbol(symbols[3], "IC", [94, 0, 124, 0]);
+    assertSymbol(symbols[4], "WEL", [125, 0, 136, 0]);
+    assertSymbol(symbols[5], "RIV", [137, 0, 148, 0]);
+    assertSymbol(symbols[6], "RCH", [149, 0, 192, 0]);
+    assertSymbol(symbols[7], "spd 1", [193, 0, 303, 0]);
+    assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
+    assertSymbol(symbols[7].children[1], "ts 2", [249, 0, 303, 0]);
   });
 });
