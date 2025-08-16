@@ -31,7 +31,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     }
 
     // Capture stress period and timestep symbols
-    i = header.endLine;
+    i = symbols[symbols.length - 1].range.end.line + 1;
     while (i < document.lineCount) {
       const spdMatch = MF6LstSymbolProvider.matchSpdTs(document, i);
       if (!spdMatch) {
