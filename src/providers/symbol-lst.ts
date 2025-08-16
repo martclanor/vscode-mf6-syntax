@@ -33,54 +33,13 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     // Capture stress period and timestep symbols
     i = symbols[symbols.length - 1].range.end.line + 1;
     while (i < document.lineCount) {
-      const spdMatch = MF6LstSymbolProvider.matchSpdTs(document, i);
-      if (!spdMatch) {
+      const spd = this.parseSpd(document, i);
+      if (!spd) {
         i++;
         continue;
       }
-
-      // Inner loop to collect ts of current spd
-      const timesteps: vscode.DocumentSymbol[] = [];
-      let j = i;
-      while (j < document.lineCount) {
-        const tsMatch = MF6LstSymbolProvider.matchSpdTs(document, j);
-        if (!tsMatch) {
-          j++;
-          continue;
-        }
-        const tsEnd = MF6LstSymbolProvider.findTsEnd(document, j + 1);
-        const tsRange = this.createRange(document, j, tsEnd);
-        if (tsMatch.spd === spdMatch.spd) {
-          timesteps.push(
-            new vscode.DocumentSymbol(
-              `ts ${tsMatch.ts}`,
-              "",
-              vscode.SymbolKind.Method,
-              tsRange,
-              tsRange,
-            ),
-          );
-          j = tsRange.end.line;
-        } else {
-          break;
-        }
-      }
-
-      const spdRange = this.createRange(
-        document,
-        i,
-        timesteps[timesteps.length - 1].range.end.line,
-      );
-      const spd = new vscode.DocumentSymbol(
-        `spd ${spdMatch.spd}`,
-        "",
-        vscode.SymbolKind.Field,
-        spdRange,
-        spdRange,
-      );
-      spd.children = timesteps;
-      symbols.push(spd);
-      i = j;
+      symbols.push(spd.symbol);
+      i = spd.endLine + 1;
     }
     return symbols;
   }
@@ -162,6 +121,58 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
         range,
       ),
       endLine: endRange + 1,
+    };
+  }
+
+  private parseSpd(
+    document: vscode.TextDocument,
+    beginRange: number,
+  ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
+    const spdMatch = MF6LstSymbolProvider.matchSpdTs(document, beginRange);
+    if (!spdMatch) {
+      return null;
+    }
+
+    // Inner loop to collect ts of current spd
+    const timesteps: vscode.DocumentSymbol[] = [];
+    let i = beginRange;
+    while (i < document.lineCount) {
+      const tsMatch = MF6LstSymbolProvider.matchSpdTs(document, i);
+      if (!tsMatch) {
+        i++;
+        continue;
+      }
+      const tsEnd = MF6LstSymbolProvider.findTsEnd(document, i + 1);
+      const tsRange = this.createRange(document, i, tsEnd);
+      if (tsMatch.spd === spdMatch.spd) {
+        timesteps.push(
+          new vscode.DocumentSymbol(
+            `ts ${tsMatch.ts}`,
+            "",
+            vscode.SymbolKind.Method,
+            tsRange,
+            tsRange,
+          ),
+        );
+        i = tsEnd;
+      } else {
+        break;
+      }
+    }
+
+    const endLine = timesteps[timesteps.length - 1].range.end.line;
+    const spdRange = this.createRange(document, beginRange, endLine);
+    const symbol = new vscode.DocumentSymbol(
+      `spd ${spdMatch.spd}`,
+      "",
+      vscode.SymbolKind.Field,
+      spdRange,
+      spdRange,
+    );
+    symbol.children = timesteps;
+    return {
+      symbol: symbol,
+      endLine: endLine,
     };
   }
 
