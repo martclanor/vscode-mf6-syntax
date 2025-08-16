@@ -13,22 +13,35 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
 
 ## Features
 
-![Demo](images/demo.gif)
+### Syntax highlighting
 
-- Syntax highlighting
-- Go-to-definition for linked files:
-  - `Ctrl + click`
-  - `Go To Definition` keybinding (default: `F12`)
+- MF6 input files ![demo-syntax-highlighting](images/demo_syntax_highlighting.png)
 
-- Hover for keyword description
-- Hover for block structure
+- MF6 output list files ![demo-syntax-highlighting-lst](images/demo_syntax_highlighting_lst.png)
 
-- Others:
-  - Block folding
-  - Snippet (MF6 block)
-  - Comment-toggling
-  - Auto-closing quotes
-  - Surrounding quotes
+### Document symbols
+
+- for integration with VS Code features such as [outline view](https://code.visualstudio.com/docs/getstarted/userinterface#_outline-view), [go-to-symbol](https://code.visualstudio.com/docs/editing/editingevolved#_go-to-symbol), [breadcrumbs](https://code.visualstudio.com/docs/getstarted/userinterface#_breadcrumbs), [sticky scroll](https://code.visualstudio.com/docs/getstarted/userinterface#_sticky-scroll), [minimap](https://code.visualstudio.com/docs/getstarted/userinterface#_minimap), etc.
+  ![symbol-defn](images/demo_symbol_defn.gif)
+
+### Go-to-definition
+
+- `Ctrl + click`
+- `Go To Definition` keybinding (default: `F12`)
+  ![go-to-defn](images/demo_go_to_defn.gif)
+
+### Hover
+
+- for keyword description and block structure
+  ![hover](images/demo_hover.gif)
+
+### Others:
+
+- Block folding
+- Snippet (MF6 block)
+- Comment-toggling
+- Auto-closing quotes
+- Surrounding quotes
 
 ## Commands
 
