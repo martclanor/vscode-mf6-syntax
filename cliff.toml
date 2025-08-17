@@ -83,17 +83,15 @@ commit_preprocessors = [
 # Assigns commits to groups.
 # Optionally sets the commit's scope and can decide to exclude commits from further processing.
 commit_parsers = [
-  { message = "^[a|A]dd", group = "Added" },
-  { message = "^[s|S]upport", group = "Added" },
-  { message = "^[r|R]emove", group = "Removed" },
-  { message = "^.*: add", group = "Added" },
-  { message = "^.*: support", group = "Added" },
-  { message = "^.*: remove", group = "Removed" },
-  { message = "^.*: delete", group = "Removed" },
-  { message = "^test", group = "Fixed" },
-  { message = "^fix", group = "Fixed" },
-  { message = "^.*: fix", group = "Fixed" },
-  { message = "^.*", group = "Changed" },
+  { message = "^feat", group = "Features" },
+  { message = "^fix", group = "Bug Fixes" },
+  { message = "^perf", group = "Performance" },
+  { message = "^refactor", group = "Internal Changes & Maintenance" },
+  { message = "^style", group = "Internal Changes & Maintenance" },
+  { message = "^docs", group = "Internal Changes & Maintenance" },
+  { message = "^test", group = "Internal Changes & Maintenance" },
+  { message = "^chore", group = "Internal Changes & Maintenance" },
+  { message = "^.*", group = "Miscellaneous" },
 ]
 # Exclude commits that are not matched by any commit parser.
 filter_commits = false
