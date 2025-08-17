@@ -34,13 +34,11 @@ body = """
     {%- if contributor.pr_number %} in \
       [#{{ contributor.pr_number }}]({{ self::remote_url() }}/pull/{{ contributor.pr_number }}) \
     {%- endif %}
-{%- endfor %}\n
+{%- endfor %}
+{% raw %}\n{% endraw %}
 """
 
 footer = """
-{% raw %}
-\n
-{% endraw %}
 {%- macro remote_url() -%}
   https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
 {%- endmacro -%}
