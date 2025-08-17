@@ -4,3 +4,4 @@
 out/
 .vscode-test/
 src/providers/*.json
+CHANGELOG.md
