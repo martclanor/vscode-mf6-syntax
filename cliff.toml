@@ -95,3 +95,7 @@ topo_order = false
 # Order of commits in each group/release within the changelog.
 # Allowed values: newest, oldest
 sort_commits = "newest"
+
+[remote]
+# Configuration for remote GitHub repository
+github = { owner = "martclanor", repo = "vscode-mf6-syntax" }
