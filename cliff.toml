@@ -70,12 +70,6 @@ trim = true
 conventional_commits = true
 # Exclude commits that do not match the conventional commits specification.
 filter_unconventional = false
-# An array of regex based parsers to modify commit messages prior to further processing.
-commit_preprocessors = [
-  # Remove issue numbers.
-  { pattern = '\((\w+\s)?#([0-9]+)\)', replace = "" },
-]
-# An array of regex based parsers for extracting data from the commit message.
 # Assigns commits to groups.
 # Optionally sets the commit's scope and can decide to exclude commits from further processing.
 commit_parsers = [
