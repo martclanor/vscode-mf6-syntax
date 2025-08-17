@@ -73,6 +73,11 @@ conventional_commits = true
 filter_unconventional = false
 # Remove leading and trailing whitespaces from the changelog's body.
 trim = true
+# An array of regex based parsers to modify commit messages prior to further processing.
+commit_preprocessors = [
+  # Remove issue numbers.
+  { pattern = '\((\w+\s)?#([0-9]+)\)', replace = "" },
+]
 # Assigns commits to groups.
 # Optionally sets the commit's scope and can decide to exclude commits from further processing.
 commit_parsers = [
