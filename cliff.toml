@@ -87,7 +87,9 @@ commit_parsers = [
   { message = "^docs", group = "Internal Changes & Maintenance" },
   { message = "^test", group = "Internal Changes & Maintenance" },
   { message = "^chore", group = "Internal Changes & Maintenance" },
-  { message = "^.*", group = "Miscellaneous" },
+  { message = "^Bump", skip = true },
+  { message = "^Release", skip = true },
+  { message = "^.*", group = "Others" }
 ]
 # Exclude commits that are not matched by any commit parser.
 filter_commits = false
