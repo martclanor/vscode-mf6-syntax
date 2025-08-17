@@ -88,7 +88,7 @@ commit_parsers = [
   { message = "^docs", group = "Internal Changes & Maintenance" },
   { message = "^test", group = "Internal Changes & Maintenance" },
   { message = "^chore", group = "Internal Changes & Maintenance" },
-  { message = "^Bump", skip = true },
+  { message = "Bump version", skip = true },
   { message = "^Release", skip = true },
   { message = "^.*", group = "Commits" }
 ]
