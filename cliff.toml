@@ -50,7 +50,6 @@ conventional_commits = true
 filter_unconventional = false
 trim = true
 commit_preprocessors = [
-  # Remove issue numbers.
   { pattern = '\((\w+\s)?#([0-9]+)\)', replace = "" },
 ]
 commit_parsers = [
@@ -68,6 +67,7 @@ commit_parsers = [
 ]
 topo_order = false
 sort_commits = "newest"
+tag_pattern = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
 
 [remote]
 github = { owner = "martclanor", repo = "vscode-mf6-syntax" }
