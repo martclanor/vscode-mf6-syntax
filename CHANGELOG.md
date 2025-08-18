@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.4.0-beta
+
+- feat: MF6 input file symbol definition
+- feat: MF6 output list file syntax highlighting
+- feat: MF6 output list file symbol definition
+- chore(deps): bump tmp from 0.2.3 to 0.2.4 in the npm_and_yarn group
+- chore(deps-dev): bump the npm-all group across 1 directory with 6 updates
+- chore: add template for auto-generated release notes
+- chore(deps): sync vscode devDependency to engines.vscode
+- docs(readme): separate demo images/gif for different features
+- chore(deps): remove template for auto-generated release notes
+
 ## 0.3.1-beta
 
 - Refactor gen_from_dfn utility script
