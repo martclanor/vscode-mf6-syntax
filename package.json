@@ -22,6 +22,7 @@
   "publisher": "mart-clanor",
   "main": "./out/extension.js",
   "scripts": {
+    "changelog": "git-cliff -o CHANGELOG.md",
     "dfn:download": "utils/download-dfn.sh",
     "lockfile:check": "utils/check-lockfile.sh",
     "grammar:test": "vscode-tmgrammar-snap syntaxes/samples/*",
@@ -206,6 +207,7 @@
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.2",
     "eslint": "^9.37.0",
+    "git-cliff": "^2.10.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0",
