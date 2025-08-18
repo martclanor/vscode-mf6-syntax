@@ -1,0 +1,303 @@
+                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                          GROUNDWATER FLOW MODEL (GWF)
+                            VERSION 6.6.0 12/20/2024
+
+   MODFLOW 6 compiled Dec 23 2024 16:32:19 with Intel(R) Fortran Intel(R) 64
+   Compiler Classic for applications running on Intel(R) 64, Version 2021.7.0
+                             Build 20220726_000000
+
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the
+fact of release constitute any such warranty. Furthermore, the
+software is released on condition that neither the USGS nor the U.S.
+Government shall be held liable for any damages resulting from its
+authorized or unauthorized use. Also refer to the USGS Water
+Resources Software User Rights Notice for complete use, copyright,
+and distribution information.
+
+
+As a work of the United States Government, this USGS product is
+in the public domain within the United States. You can copy,
+modify, distribute, and perform the work, even for commercial
+purposes, all without asking permission. Additionally, USGS
+waives copyright and related rights in the work worldwide
+through CC0 1.0 Universal Public Domain Dedication
+(https://creativecommons.org/publicdomain/zero/1.0/).
+
+The following GNU Lesser General Public License (LGPL) libraries
+are used in this USGS product:
+
+    SPARSKIT version 2.0
+      ilut, luson, and qsplit
+      (https://www-users.cse.umn.edu/~saad/software/SPARSKIT/)
+
+    RCM - Reverse Cuthill McKee Ordering
+      (https://people.math.sc.edu/Burkardt/f_src/rcm/rcm.html)
+
+    BLAS - Basic Linear Algebra Subprograms Level 1
+      (https://people.math.sc.edu/Burkardt/f_src/blas1_d/blas1_d.html)
+
+    SPARSEKIT - Sparse Matrix Utility Package
+      amux, dperm, dvperm, rperm, and cperm
+      (https://people.sc.fsu.edu/~jburkardt/f77_src/sparsekit/sparsekit.html)
+
+The following BSD-3 License libraries are used in this USGS product:
+
+    Modern Fortran DAG Library
+      Copyright (c) 2018, Jacob Williams
+      All rights reserved.
+      (https://github.com/jacobwilliams/daglib)
+
+MODFLOW 6 compiler options: /O2 /heap-arrays:0 /fpe:0 /traceback /nologo /fpp
+/c /module:win64\mod_mf6\ /object:win64\obj_mf6\
+
+System command used to initiate simulation:
+C:\Users\CLAM6\modflow\mf6.exe
+
+MODFLOW was compiled using uniform precision.
+
+Real Variables
+  KIND: 8
+  TINY (smallest non-zero value):    2.225074-308
+  HUGE (largest value):    1.797693+308
+  PRECISION: 15
+  SIZE IN BITS: 64
+
+Integer Variables
+  KIND: 4
+  HUGE (largest value): 2147483647
+  SIZE IN BITS: 32
+
+Long Integer Variables
+  KIND: 8
+  HUGE (largest value): 9223372036854775807
+  SIZE IN BITS: 64
+
+Logical Variables
+  KIND: 4
+  SIZE IN BITS: 32
+
+ NAMEFILE OPTIONS:
+    FLOWS WILL BE SAVED TO BUDGET FILE SPECIFIED IN OUTPUT CONTROL
+ END NAMEFILE OPTIONS:
+
+ DIS -- STRUCTURED GRID DISCRETIZATION PACKAGE, VERSION 2 : 3/27/2014 - INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/DIS
+
+
+ NPF -- NODE PROPERTY FLOW PACKAGE, VERSION 1, 3/30/2015 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/NPF
+
+
+ IC -- Initial Conditions Package, Version 8, 3/28/2015 input read from mempath: __INPUT__/EX01_MF6/IC
+
+
+ Setting Discretization Options
+    Model length unit [0=UND, 1=FEET, 2=METERS, 3=CENTIMETERS] set as 1
+ End Setting Discretization Options
+
+ Setting Discretization Dimensions
+    NLAY = 3
+    NROW = 21
+    NCOL = 20
+ End Setting Discretization Dimensions
+
+ Setting Discretization Griddata
+    DELR set from input file
+    DELC set from input file
+    TOP set from input file
+    BOTM set from input file
+ End Setting Discretization Griddata
+
+ Setting NPF Options
+ End Setting NPF Options
+
+ Setting NPF Griddata
+    ICELLTYPE set from input file
+    K set from input file
+    K33 set from input file
+    K22 not provided.  Setting K22 = K.
+ End Setting NPF Griddata
+
+
+ WEL   -- WEL PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/WEL_0
+
+ PROCESSING WEL BASE OPTIONS
+ END OF WEL BASE OPTIONS
+
+ PROCESSING WEL OPTIONS
+ END OF WEL OPTIONS
+
+ PROCESSING WEL BASE DIMENSIONS
+    MAXBOUND =       1
+ END OF WEL BASE DIMENSIONS
+
+ RIV   -- RIV PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/RIV_0
+
+ PROCESSING RIV BASE OPTIONS
+ END OF RIV BASE OPTIONS
+
+ PROCESSING RIV OPTIONS
+ END OF RIV OPTIONS
+
+ PROCESSING RIV BASE DIMENSIONS
+    MAXBOUND =      21
+ END OF RIV BASE DIMENSIONS
+
+ RCH   -- RCH PACKAGE, VERSION 8, 2/22/2014 INPUT READ FROM MEMPATH: __INPUT__/EX01_MF6/RCHA_0
+
+ PROCESSING RCH BASE OPTIONS
+ END OF RCH BASE OPTIONS
+
+ PROCESSING RCHA OPTIONS
+    RECHARGE INPUT WILL BE READ AS ARRAY(S).
+ END OF RCHA OPTIONS
+    STRT set from input file
+    BINARY GRID INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1014
+      FILE NAME: ex01_mf6.dis.grb
+
+ OPENED ex01_mf6.dis.grb
+ FILE TYPE:DATA(BINARY)   UNIT 1014   STATUS:REPLACE
+ FORMAT:UNFORMATTED            ACCESS:STREAM
+ ACTION:READWRITE
+
+      THE LAST TIME STEP WILL BE PRINTED
+      THE LAST TIME STEP WILL BE PRINTED
+ # File generated by Flopy version 3.10.0.dev1 on 12/27/2024 at 13:24:41.
+
+ PROCESSING OC OPTIONS
+
+    BUDGET INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1015
+      FILE NAME: ex01_mf6.cbb
+
+ OPENED ex01_mf6.cbb
+ FILE TYPE:DATA(BINARY)   UNIT 1015   STATUS:REPLACE
+ FORMAT:UNFORMATTED            ACCESS:STREAM
+ ACTION:READWRITE
+
+    HEAD INFORMATION WILL BE WRITTEN TO:
+      UNIT NUMBER: 1016
+      FILE NAME: ex01_mf6.hds
+
+ OPENED ex01_mf6.hds
+ FILE TYPE:DATA(BINARY)   UNIT 1016   STATUS:REPLACE
+ FORMAT:UNFORMATTED            ACCESS:STREAM
+ ACTION:READWRITE
+
+ END OF OC OPTIONS
+
+start timestep kper="1" kstp="1" mode="normal"
+
+
+ BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+      ALL TIME STEPS WILL BE SAVED
+      ALL TIME STEPS WILL BE SAVED
+
+ END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              WEL IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE WEL_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              RIV IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RIV_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING             RCHA IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RCHA_0           ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+
+ HEAD WILL BE SAVED ON UNIT 1016 AT END OF TIME STEP    1, STRESS PERIOD    1
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 WEL =           0.0000                   WEL =           0.0000     WEL_0
+                 RIV =           0.0000                   RIV =           0.0000     RIV_0
+                RCHA =      525000.0000                  RCHA =      525000.0000     RCHA_0
+
+            TOTAL IN =      525000.0000              TOTAL IN =      525000.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 WEL =      150000.0000                   WEL =      150000.0000     WEL_0
+                 RIV =      374999.9985                   RIV =      374999.9985     RIV_0
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0
+
+           TOTAL OUT =      524999.9985             TOTAL OUT =      524999.9985
+
+            IN - OUT =       1.5102E-03              IN - OUT =       1.5102E-03
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  86400.      1440.0      24.000      1.0000     2.73785E-03
+ STRESS PERIOD TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+         TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+
+
+end timestep
+
+
+start timestep kper="1" kstp="2" mode="normal"
+
+
+ BEGIN READING OUTPUT CONTROL FOR STRESS PERIOD 1
+      ALL TIME STEPS WILL BE SAVED
+      ALL TIME STEPS WILL BE SAVED
+
+ END READING OUTPUT CONTROL FOR STRESS PERIOD 1
+ UBDSV1 SAVING     FLOW-JA-FACE ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              WEL IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE WEL_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING              RIV IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RIV_0            ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+ UBDSV06 SAVING             RCHA IN MODEL EX01_MF6         PACKAGE EX01_MF6        CONNECTED TO MODEL EX01_MF6         PACKAGE RCHA_0           ON UNIT   1015 AT TIME STEP      1, STRESS PERIOD      1
+
+ HEAD WILL BE SAVED ON UNIT 1016 AT END OF TIME STEP    1, STRESS PERIOD    1
+
+
+  VOLUME BUDGET FOR ENTIRE MODEL AT END OF TIME STEP    1, STRESS PERIOD   1
+  ---------------------------------------------------------------------------------------------------
+
+     CUMULATIVE VOLUME      L**3       RATES FOR THIS TIME STEP      L**3/T          PACKAGE NAME
+     ------------------                 ------------------------                     ----------------
+
+           IN:                                      IN:
+           ---                                      ---
+                 WEL =           0.0000                   WEL =           0.0000     WEL_0
+                 RIV =           0.0000                   RIV =           0.0000     RIV_0
+                RCHA =      525000.0000                  RCHA =      525000.0000     RCHA_0
+
+            TOTAL IN =      525000.0000              TOTAL IN =      525000.0000
+
+          OUT:                                     OUT:
+          ----                                     ----
+                 WEL =      150000.0000                   WEL =      150000.0000     WEL_0
+                 RIV =      374999.9985                   RIV =      374999.9985     RIV_0
+                RCHA =           0.0000                  RCHA =           0.0000     RCHA_0
+
+           TOTAL OUT =      524999.9985             TOTAL OUT =      524999.9985
+
+            IN - OUT =       1.5102E-03              IN - OUT =       1.5102E-03
+
+ PERCENT DISCREPANCY =           0.00     PERCENT DISCREPANCY =           0.00
+
+
+
+
+         TIME SUMMARY AT END OF TIME STEP    1 IN STRESS PERIOD    1
+                    SECONDS     MINUTES      HOURS       DAYS        YEARS
+                    -----------------------------------------------------------
+   TIME STEP LENGTH  86400.      1440.0      24.000      1.0000     2.73785E-03
+ STRESS PERIOD TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+         TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
+
+
+end timestep

@@ -3,6 +3,8 @@ import * as os from "os";
 import * as path from "path";
 import * as vscode from "vscode";
 import { MF6DefinitionProvider } from "../providers/go-to-definition";
+import { MF6SymbolProvider } from "../providers/symbol";
+import { MF6LstSymbolProvider } from "../providers/symbol-lst";
 import {
   MF6HoverBlockProvider,
   MF6HoverKeywordProvider,
@@ -195,5 +197,98 @@ suite("Extension Test Suite", () => {
       // Clean up the temporary files and directory
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
+  });
+
+  function assertSymbol(
+    symbol: vscode.DocumentSymbol,
+    expectedName: string,
+    expectedRange: [number, number, number, number],
+  ) {
+    assert.strictEqual(symbol.name, expectedName);
+    assert.strictEqual(symbol.range.start.line, expectedRange[0]);
+    assert.strictEqual(symbol.range.start.character, expectedRange[1]);
+    assert.strictEqual(symbol.range.end.line, expectedRange[2]);
+    assert.strictEqual(symbol.range.end.character, expectedRange[3]);
+  }
+
+  test("MF6SymbolProvider should provide document symbols", async () => {
+    const provider = new MF6SymbolProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    const tempFileUri = vscode.Uri.joinPath(tempDirUri, "base.disv");
+    const fileContent = Buffer.from(
+      `BEGIN griddata
+  top
+    OPEN/CLOSE  'base_unsteady.disv_top.txt'  FACTOR  1.0
+  botm  LAYERED
+    OPEN/CLOSE  'base_unsteady.disv_botm_layer1.txt'  FACTOR  1.0
+  idomain  LAYERED
+    OPEN/CLOSE  'base_unsteady.disv_idomain_layer1.txt'  FACTOR  1
+END griddata
+
+BEGIN period  2
+  3 205409 4.25000000E+01 1.00000000E+04 "KE023 - North Abutment"
+  3 205420 4.25000000E+01 1.00000000E+04 "KE023 - North Abutment"
+END period  2
+
+BEGIN non-existing-block
+END non-existing-block
+
+BEGIN period  12
+END period  12
+
+BEGIN non-existing-block
+END non-existing-block`,
+    );
+    await vscode.workspace.fs.writeFile(tempFileUri, fileContent);
+
+    try {
+      const document = await vscode.workspace.openTextDocument(tempFileUri);
+      await vscode.window.showTextDocument(document);
+      const symbols = await provider.provideDocumentSymbols(document);
+
+      assert.strictEqual(symbols.length, 3);
+      assert.strictEqual(symbols[0].children.length, 3);
+      assertSymbol(symbols[0], "griddata", [0, 0, 7, 12]);
+      assertSymbol(symbols[0].children[0], "top", [1, 0, 2, 57]);
+      assertSymbol(symbols[0].children[1], "botm", [3, 0, 4, 65]);
+      assertSymbol(symbols[0].children[2], "idomain", [5, 0, 6, 66]);
+      assertSymbol(symbols[1], "period 2", [9, 0, 12, 13]);
+      assertSymbol(symbols[2], "period 12", [17, 0, 18, 14]);
+    } finally {
+      // Clean up the temporary file and directory
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
+  });
+
+  test("MF6LstSymbolProvider should provide document symbols", async () => {
+    const provider = new MF6LstSymbolProvider();
+
+    const sampleFilePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "syntaxes",
+      "samples",
+      "ex01_mf6_extra_ts.lst",
+    );
+    const fileUri = vscode.Uri.file(sampleFilePath);
+    const document = await vscode.workspace.openTextDocument(fileUri);
+    await vscode.window.showTextDocument(document);
+    const symbols = await provider.provideDocumentSymbols(document);
+
+    assert.strictEqual(symbols.length, 8);
+    assert.strictEqual(symbols[7].children.length, 2);
+    assertSymbol(symbols[0], "MF6-LST", [0, 0, 87, 0]);
+    assertSymbol(symbols[1], "DIS", [88, 0, 90, 0]);
+    assertSymbol(symbols[2], "NPF", [91, 0, 93, 0]);
+    assertSymbol(symbols[3], "IC", [94, 0, 124, 0]);
+    assertSymbol(symbols[4], "WEL", [125, 0, 136, 0]);
+    assertSymbol(symbols[5], "RIV", [137, 0, 148, 0]);
+    assertSymbol(symbols[6], "RCH", [149, 0, 192, 0]);
+    assertSymbol(symbols[7], "spd 1", [193, 0, 303, 0]);
+    assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
+    assertSymbol(symbols[7].children[1], "ts 2", [249, 0, 303, 0]);
   });
 });

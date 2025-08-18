@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Provides rich language features for MODFLOW 6",
   "categories": [
     "Other"
@@ -64,6 +64,11 @@
         "language": "mf6",
         "scopeName": "source.mf6",
         "path": "./syntaxes/mf6.tmLanguage.json"
+      },
+      {
+        "language": "mf6-lst",
+        "scopeName": "source.mf6-lst",
+        "path": "./syntaxes/mf6-lst.tmLanguage.json"
       }
     ],
     "languages": [
@@ -165,6 +170,20 @@
           "dark": "images/icon.svg",
           "light": "images/icon.svg"
         }
+      },
+      {
+        "id": "mf6-lst",
+        "aliases": [
+          "MODFLOW 6 Output List File"
+        ],
+        "extensions": [
+          ".lst"
+        ],
+        "configuration": "./language-configuration-lst.json",
+        "icon": {
+          "dark": "images/icon.svg",
+          "light": "images/icon.svg"
+        }
       }
     ],
     "snippets": [
@@ -175,16 +194,16 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.32.0",
-    "@types/node": "^24.1.0",
+    "@eslint/js": "^9.33.0",
+    "@types/node": "^24.3.0",
     "@types/vscode": "^1.100.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.0",
-    "eslint": "^9.32.0",
+    "eslint": "^9.33.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.38.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.1",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
