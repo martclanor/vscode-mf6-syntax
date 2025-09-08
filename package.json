@@ -194,16 +194,16 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/node": "^24.3.0",
+    "@eslint/js": "^9.35.0",
+    "@types/node": "^24.3.1",
     "@types/vscode": "^1.100.0",
     "@vscode/test-cli": "^0.0.11",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.0",
-    "eslint": "^9.33.0",
+    "eslint": "^9.35.0",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.1",
+    "typescript-eslint": "^8.42.0",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
