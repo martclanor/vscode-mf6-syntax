@@ -287,8 +287,8 @@ END non-existing-block`,
     assertSymbol(symbols[4], "WEL", [125, 0, 136, 0]);
     assertSymbol(symbols[5], "RIV", [137, 0, 148, 0]);
     assertSymbol(symbols[6], "RCH", [149, 0, 192, 0]);
-    assertSymbol(symbols[7], "spd 1", [193, 0, 303, 0]);
+    assertSymbol(symbols[7], "spd 1", [193, 0, 306, 0]);
     assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
-    assertSymbol(symbols[7].children[1], "ts 2", [249, 0, 303, 0]);
+    assertSymbol(symbols[7].children[1], "ts 2 ❌", [249, 0, 306, 0]);
   });
 });

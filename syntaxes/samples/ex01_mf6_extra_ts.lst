@@ -300,4 +300,7 @@ start timestep kper="1" kstp="2" mode="normal"
          TOTAL TIME  86400.      1440.0      24.000      1.0000     2.73785E-03
 
 
+         ****FAILED TO MEET SOLVER CONVERGENCE CRITERIA IN TIME STEP 1 OF STRESS PERIOD 12****
+
+
 end timestep

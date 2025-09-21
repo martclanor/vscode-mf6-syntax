@@ -544,6 +544,10 @@
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
 >
+>         ****FAILED TO MEET SOLVER CONVERGENCE CRITERIA IN TIME STEP 1 OF STRESS PERIOD 12****
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
+>
+>
 >end timestep
 #^^^^^^^^^^^^^ source.mf6-lst comment.mf6-lst
 >
