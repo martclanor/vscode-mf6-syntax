@@ -7,6 +7,8 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     /Solving:\s+Stress period:?\s+(?<spd>\d+)(?:\s+Time step:\s+(?<ts>\d+))?/i;
   private static readonly spdTsGwfRegex =
     /start timestep kper="(?<spd>\d+)" kstp="(?<ts>\d+)"/i;
+  private static readonly noConvRegex =
+    /FAILED TO MEET SOLVER CONVERGENCE|did not converge/;
 
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
@@ -142,19 +144,22 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
         i++;
         continue;
       }
-      const tsEnd = MF6LstSymbolProvider.findTsEnd(document, i + 1);
-      const tsRange = this.createRange(document, i, tsEnd);
+      const tsStat = MF6LstSymbolProvider.checkTs(document, i + 1);
+      const tsRange = this.createRange(document, i, tsStat.tsEnd);
       if (tsMatch.spd === spdMatch.spd) {
+        const tsDisplayName = tsStat.noConv
+          ? `ts ${tsMatch.ts} ❌`
+          : `ts ${tsMatch.ts}`;
         timesteps.push(
           new vscode.DocumentSymbol(
-            `ts ${tsMatch.ts}`,
+            tsDisplayName,
             "",
             vscode.SymbolKind.Method,
             tsRange,
             tsRange,
           ),
         );
-        i = tsEnd;
+        i = tsStat.tsEnd;
       } else {
         break;
       }
@@ -212,16 +217,21 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     return null;
   }
 
-  private static findTsEnd(
+  private static checkTs(
     document: vscode.TextDocument,
     startLine: number,
-  ): number {
+  ): { tsEnd: number; noConv: boolean } {
+    let noConv: boolean = false;
     for (let i = startLine; i < document.lineCount; i++) {
+      const lineText = document.lineAt(i).text;
+      if (!noConv && lineText.search(this.noConvRegex) !== -1) {
+        noConv = true;
+      }
       const match = MF6LstSymbolProvider.matchSpdTs(document, i);
       if (match) {
-        return i - 1;
+        return { tsEnd: i - 1, noConv: noConv };
       }
     }
-    return document.lineCount - 1;
+    return { tsEnd: document.lineCount - 1, noConv: noConv };
   }
 }
