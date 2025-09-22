@@ -297,12 +297,12 @@ class Dfn:
         return self.path.stem
 
     @property
-    def has_mtype(self) -> bool:
-        return self.name.partition("-")[0] in ("gwe", "gwf", "gwt")
+    def has_ftype(self) -> bool:
+        return self.name.partition("-")[0] in ("gwe", "gwf", "gwt", "prt")
 
     @property
-    def mtype(self) -> str:
-        if self.has_mtype:
+    def ftype(self) -> str:
+        if self.has_ftype:
             return f"{self.name.partition('-')[-1]}6"
         return ""
 
@@ -467,14 +467,14 @@ class Dfn:
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from DFN files
-    extensions, blocks, keywords, valids, mtypes = set(), set(), set(), set(), set()
+    extensions, blocks, keywords, valids, ftypes = set(), set(), set(), set(), set()
     for dfn in Dfn.get_dfns():
         extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
         valids.update(dfn.valids)
-        if dfn.has_mtype:
-            mtypes.add(dfn.mtype)
+        if dfn.has_ftype:
+            ftypes.add(dfn.ftype)
 
     # Insert collected data into the corresponding Jinja2 templates
     Dfn.render_template("package.json", extensions=extensions)
@@ -483,7 +483,7 @@ if __name__ == "__main__":
         blocks=blocks,
         keywords=keywords,
         valids=valids,
-        mtypes=mtypes,
+        ftypes=ftypes,
     )
     Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
 

@@ -20,7 +20,7 @@
       "include": "#model"
     },
     {
-      "include": "#package"
+      "include": "#ftype"
     },
     {
       "include": "#block"
@@ -84,11 +84,11 @@
         }
       ]
     },
-    "package": {
+    "ftype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)(adv6|api6|buy6|chd6|cnc6|cnd6|csub6|ctp6|dis6|disu6|disv6|drn6|dsp6|esl6|est6|evt6|evta6|fmi6|ghb6|gnc6|hfb6|ic6|ist6|lak6|lke6|lkt6|maw6|mst6|mve6|mvr6|mvt6|mwe6|mwt6|nam6|npf6|oc6|rch6|rcha6|riv6|sfe6|sfr6|sft6|src6|ssm6|sto6|uze6|uzf6|uzt6|vsc6|wel6)(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)(adv6|api6|buy6|chd6|cnc6|cnd6|csub6|ctp6|dis6|disu6|disv6|drn6|dsp6|esl6|est6|evt6|evta6|fmi6|ghb6|gnc6|hfb6|ic6|ist6|lak6|lke6|lkt6|maw6|mip6|mst6|mve6|mvr6|mvt6|mwe6|mwt6|nam6|npf6|oc6|prp6|rch6|rcha6|riv6|sfe6|sfr6|sft6|src6|ssm6|sto6|uze6|uzf6|uzt6|vsc6|wel6)(?=\\s|$)"
         }
       ]
     },

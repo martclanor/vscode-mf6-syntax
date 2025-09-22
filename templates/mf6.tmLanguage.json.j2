@@ -20,7 +20,7 @@
       "include": "#model"
     },
     {
-      "include": "#package"
+      "include": "#ftype"
     },
     {
       "include": "#block"
@@ -84,11 +84,11 @@
         }
       ]
     },
-    "package": {
+    "ftype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)({% for mtype in mtypes%}{{ mtype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)({% for ftype in ftypes%}{{ ftype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
     },
