@@ -108,7 +108,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
     }
 )
 
-MTYPES: tuple[str, ...] = ("gwe", "gwf", "gwt", "prt")
+MTYPES: frozenset[str] = frozenset(("gwe", "gwf", "gwt", "prt"))
 
 
 @dataclass(frozen=True, slots=True)
@@ -484,7 +484,7 @@ if __name__ == "__main__":
         keywords=keywords,
         valids=valids,
         ftypes=ftypes,
-        mtypes=MTYPES,
+        mtypes=sorted(MTYPES),
     )
     Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
 
