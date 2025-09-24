@@ -307,6 +307,16 @@ class Dfn:
         return f"{self.name.partition('-')[-1]}6"
 
     @property
+    def is_exgtype(self) -> bool:
+        return self.name.startswith("exg-")
+
+    @property
+    def exgtype(self) -> str:
+        name_part = self.name.partition("-")[-1]
+        models = [name_part[i : i + 3] for i in range(0, len(name_part), 3)]
+        return "-".join(f"{chunk}6" for chunk in models)
+
+    @property
     def blocks(self) -> set[str]:
         return {p.block for p in self.get_sections()}
 
@@ -467,7 +477,7 @@ class Dfn:
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from DFN files
-    extensions, blocks, keywords, valids, ftypes = set(), set(), set(), set(), set()
+    extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
     for dfn in Dfn.get_dfns():
         extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
@@ -475,6 +485,8 @@ if __name__ == "__main__":
         valids.update(dfn.valids)
         if dfn.is_mtype:
             ftypes.add(dfn.ftype)
+        if dfn.is_exgtype:
+            exgtypes.add(dfn.exgtype)
 
     # Insert collected data into the corresponding Jinja2 templates
     Dfn.render_template("package.json", extensions=extensions)
@@ -485,6 +497,7 @@ if __name__ == "__main__":
         valids=valids,
         ftypes=ftypes,
         mtypes=sorted(MTYPES),
+        exgtypes=exgtypes,
     )
     Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
 
