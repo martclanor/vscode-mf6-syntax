@@ -20,6 +20,9 @@
       "include": "#model"
     },
     {
+      "include": "#mtype"
+    },
+    {
       "include": "#ftype"
     },
     {
@@ -81,6 +84,14 @@
         {
           "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)(gwf6-gwf6|gwf6-gwt6|gwf6|gwt6)(?=\\s|$)"
+        }
+      ]
+    },
+    "mtype": {
+      "patterns": [
+        {
+          "name": "entity.name.function.mf6",
+          "match": "(?i)(?<=^|\\s)(gwe6|gwf6|gwt6|prt6)(?=\\s|$)"
         }
       ]
     },
