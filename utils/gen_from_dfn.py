@@ -108,6 +108,8 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
     }
 )
 
+MTYPES: tuple[str, ...] = ("gwe", "gwf", "gwt", "prt")
+
 
 @dataclass(frozen=True, slots=True)
 class Section:
@@ -297,14 +299,12 @@ class Dfn:
         return self.path.stem
 
     @property
-    def has_ftype(self) -> bool:
-        return self.name.partition("-")[0] in ("gwe", "gwf", "gwt", "prt")
+    def is_mtype(self) -> bool:
+        return self.name.partition("-")[0] in MTYPES
 
     @property
     def ftype(self) -> str:
-        if self.has_ftype:
-            return f"{self.name.partition('-')[-1]}6"
-        return ""
+        return f"{self.name.partition('-')[-1]}6"
 
     @property
     def blocks(self) -> set[str]:
@@ -473,7 +473,7 @@ if __name__ == "__main__":
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
         valids.update(dfn.valids)
-        if dfn.has_ftype:
+        if dfn.is_mtype:
             ftypes.add(dfn.ftype)
 
     # Insert collected data into the corresponding Jinja2 templates
@@ -484,6 +484,7 @@ if __name__ == "__main__":
         keywords=keywords,
         valids=valids,
         ftypes=ftypes,
+        mtypes=MTYPES,
     )
     Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
 
