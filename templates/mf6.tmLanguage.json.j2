@@ -17,10 +17,13 @@
       "include": "#filehandler"
     },
     {
-      "include": "#model"
+      "include": "#exgtype"
     },
     {
-      "include": "#package"
+      "include": "#mtype"
+    },
+    {
+      "include": "#ftype"
     },
     {
       "include": "#block"
@@ -76,19 +79,27 @@
         }
       ]
     },
-    "model": {
+    "exgtype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)(gwf6-gwf6|gwf6-gwt6|gwf6|gwt6)(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)({% for exgtype in exgtypes%}{{ exgtype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
     },
-    "package": {
+    "mtype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)({% for mtype in mtypes%}{{ mtype }}6{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
+        }
+      ]
+    },
+    "ftype": {
+      "patterns": [
+        {
+          "name": "entity.name.function.mf6",
+          "match": "(?i)(?<=^|\\s)({% for ftype in ftypes%}{{ ftype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
     },

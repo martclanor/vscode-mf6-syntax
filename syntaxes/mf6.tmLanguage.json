@@ -17,10 +17,13 @@
       "include": "#filehandler"
     },
     {
-      "include": "#model"
+      "include": "#exgtype"
     },
     {
-      "include": "#package"
+      "include": "#mtype"
+    },
+    {
+      "include": "#ftype"
     },
     {
       "include": "#block"
@@ -76,19 +79,27 @@
         }
       ]
     },
-    "model": {
+    "exgtype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)(gwf6-gwf6|gwf6-gwt6|gwf6|gwt6)(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)(chf6-gwf6|gwe6-gwe6|gwf6-gwe6|gwf6-gwf6|gwf6-gwt6|gwf6-prt6|gwt6-gwt6|olf6-gwf6)(?=\\s|$)"
         }
       ]
     },
-    "package": {
+    "mtype": {
       "patterns": [
         {
           "name": "entity.name.function.mf6",
-          "match": "(?i)(?<=^|\\s)(disv6|uzt6|uzf6|mst6|csub6|disu6|lkt6|sft6|oc6|sto6|gnc6|obs6|ssm6|mvt6|wel6|npf6|src6|sfr6|drn6|dis6|mvr6|mwt6|chd6|buy6|adv6|riv6|maw6|evt6|cnc6|ghb6|hfb6|fmi6|lak6|ic6|dsp6|rch6|ist6)(?=\\s|$)"
+          "match": "(?i)(?<=^|\\s)(gwe6|gwf6|gwt6|prt6)(?=\\s|$)"
+        }
+      ]
+    },
+    "ftype": {
+      "patterns": [
+        {
+          "name": "entity.name.function.mf6",
+          "match": "(?i)(?<=^|\\s)(adv6|api6|buy6|chd6|cnc6|cnd6|csub6|ctp6|dis6|disu6|disv6|drn6|dsp6|esl6|est6|evt6|evta6|fmi6|ghb6|gnc6|hfb6|ic6|ist6|lak6|lke6|lkt6|maw6|mip6|mst6|mve6|mvr6|mvt6|mwe6|mwt6|nam6|npf6|oc6|prp6|rch6|rcha6|riv6|sfe6|sfr6|sft6|src6|ssm6|sto6|uze6|uzf6|uzt6|vsc6|wel6)(?=\\s|$)"
         }
       ]
     },

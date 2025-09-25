@@ -18,10 +18,12 @@ Classes:
 
 Generated Files:
     - package.json: Contains extension metadata, including supported file extensions
-    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
+    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting config for input files
+    - syntaxes/mf6-lst.tmLanguage.json: Defines syntax highlighting config for lst files
     - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
     - src/providers/hover-block.json: Provides hover data for MF6 blocks
     - src/providers/symbol-defn.json: Defines symbols for MF6 input files
+    - src/providers/symbol-defn-lst.json: Defines symbols for MF6 lst files
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
@@ -107,6 +109,8 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "time_series",
     }
 )
+
+MTYPES: frozenset[str] = frozenset(("gwe", "gwf", "gwt", "prt"))
 
 
 @dataclass(frozen=True, slots=True)
@@ -297,6 +301,24 @@ class Dfn:
         return self.path.stem
 
     @property
+    def is_mtype(self) -> bool:
+        return self.name.partition("-")[0] in MTYPES
+
+    @property
+    def ftype(self) -> str:
+        return f"{self.name.partition('-')[-1]}6"
+
+    @property
+    def is_exgtype(self) -> bool:
+        return self.name.startswith("exg-")
+
+    @property
+    def exgtype(self) -> str:
+        name_part = self.name.partition("-")[-1]
+        models = [name_part[i : i + 3] for i in range(0, len(name_part), 3)]
+        return "-".join(f"{chunk}6" for chunk in models)
+
+    @property
     def blocks(self) -> set[str]:
         return {p.block for p in self.get_sections()}
 
@@ -457,12 +479,16 @@ class Dfn:
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from DFN files
-    extensions, blocks, keywords, valids = set(), set(), set(), set()
+    extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
     for dfn in Dfn.get_dfns():
         extensions.add(dfn.extension)
         blocks.update(dfn.blocks)
         keywords.update(dfn.keywords)
         valids.update(dfn.valids)
+        if dfn.is_mtype:
+            ftypes.add(dfn.ftype)
+        if dfn.is_exgtype:
+            exgtypes.add(dfn.exgtype)
 
     # Insert collected data into the corresponding Jinja2 templates
     Dfn.render_template("package.json", extensions=extensions)
@@ -471,6 +497,9 @@ if __name__ == "__main__":
         blocks=blocks,
         keywords=keywords,
         valids=valids,
+        ftypes=ftypes,
+        mtypes=sorted(MTYPES),
+        exgtypes=exgtypes,
     )
     Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
 
