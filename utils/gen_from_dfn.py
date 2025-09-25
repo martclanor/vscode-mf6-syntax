@@ -18,10 +18,12 @@ Classes:
 
 Generated Files:
     - package.json: Contains extension metadata, including supported file extensions
-    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting configuration
+    - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting config for input files
+    - syntaxes/mf6-lst.tmLanguage.json: Defines syntax highlighting config for lst files
     - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
     - src/providers/hover-block.json: Provides hover data for MF6 blocks
     - src/providers/symbol-defn.json: Defines symbols for MF6 input files
+    - src/providers/symbol-defn-lst.json: Defines symbols for MF6 lst files
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
