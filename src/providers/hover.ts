@@ -101,7 +101,8 @@ function formatKeywordHover(
 }
 
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
-  hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
+  hoverKeyword: HoverKeywordStructure =
+    hoverKeywordJson as HoverKeywordStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
@@ -116,10 +117,10 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 
     if (
       block &&
-      keyword in this.hoverData &&
-      this.hoverData[keyword]?.[block]
+      keyword in this.hoverKeyword &&
+      this.hoverKeyword[keyword]?.[block]
     ) {
-      const blockData = this.hoverData[keyword][block];
+      const blockData = this.hoverKeyword[keyword][block];
       const fileExtension = getFileExtension(document);
       const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
       const hoverValue = formatKeywordHover(
@@ -137,7 +138,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 }
 
 export class MF6HoverBlockProvider implements vscode.HoverProvider {
-  hoverData: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
+  hoverBlock: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
@@ -153,9 +154,9 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
     }
 
     const block = document.getText(wordRange).toLowerCase();
-    if (block in this.hoverData) {
+    if (block in this.hoverBlock) {
       let hoverValue: string | undefined = undefined;
-      const blockData = this.hoverData[block];
+      const blockData = this.hoverBlock[block];
       const fileExtension = getFileExtension(document);
       const matchingDfns = findMatchingDfns(blockData, fileExtension);
 
