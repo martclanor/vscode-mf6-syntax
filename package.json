@@ -213,7 +213,7 @@
     }
   },
   "engines": {
-    "vscode": "^1.100.0"
+    "vscode": "^1.104.0"
   },
   "icon": "images/icon.png"
 }
