@@ -178,14 +178,22 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       let wordIndex = 0;
       let inSingleQuotes = false;
       let inDoubleQuotes = false;
+      let inWhiteSpaces = false;
       for (let i = 0; i < wordRange.start.character; i++) {
         const char = lineText[i];
         if (char === "'" && !inDoubleQuotes) {
           inSingleQuotes = !inSingleQuotes;
+          inWhiteSpaces = false;
         } else if (char === '"' && !inSingleQuotes) {
           inDoubleQuotes = !inDoubleQuotes;
+          inWhiteSpaces = false;
         } else if (/\s/.test(char) && !inSingleQuotes && !inDoubleQuotes) {
-          wordIndex++;
+          if (!inWhiteSpaces) {
+            wordIndex++;
+            inWhiteSpaces = true;
+          }
+        } else {
+          inWhiteSpaces = false;
         }
       }
 
