@@ -173,11 +173,22 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       if (lineText.startsWith("#")) {
         return undefined;
       }
-      const lineWords: string[] =
-        lineText.match(/(?<=['"]).*?(?=['"])|[^\s'"]+/g) || [];
-      // todo: issue if items are the same, wordIndex is wrong
-      // maybe slice lineText using wordRange.start
-      const wordIndex = lineWords.indexOf(keyword);
+
+      // Get wordIndex based on number of spaces before word excluding spaces in quotes
+      let wordIndex = 0;
+      let inSingleQuotes = false;
+      let inDoubleQuotes = false;
+      for (let i = 0; i < wordRange.start.character; i++) {
+        const char = lineText[i];
+        if (char === "'" && !inDoubleQuotes) {
+          inSingleQuotes = !inSingleQuotes;
+        } else if (char === '"' && !inSingleQuotes) {
+          inDoubleQuotes = !inDoubleQuotes;
+        } else if (/\s/.test(char) && !inSingleQuotes && !inDoubleQuotes) {
+          wordIndex++;
+        }
+      }
+
       const repeatCount = getRepeatCount(document);
 
       // Create mapping for each key in hoverRecarray[block]
