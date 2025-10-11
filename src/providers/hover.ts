@@ -191,8 +191,8 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 
       const repeatCount = getRepeatCount(document);
 
-      // Create mapping for each key in hoverRecarray[block]
-      const keywordRecarrays: { [key: string]: string } = {};
+      // Find keywordRecarray
+      let keywordRecarray: string | undefined;
       for (const [rec, dfns] of Object.entries(this.hoverRecarray[block])) {
         // Exit early if no matching dfn
         const filteredDfns = dfns.filter((dfn) => {
@@ -223,22 +223,16 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
           const recKeyword = recItems[wordIndex];
           if (recKeyword) {
             if (filteredDfns.length > 0) {
-              keywordRecarrays[filteredDfns.join(",")] = recKeyword;
+              keywordRecarray = recKeyword;
+              break;
             }
           }
         }
       }
 
-      if (Object.keys(keywordRecarrays).length === 0) {
-        return undefined;
-      }
-
-      // todo: for now, just use the first match, but later use all
-      const dfnKeys = Object.keys(keywordRecarrays);
-      const keywordRecarray = keywordRecarrays[dfnKeys[0]];
-
       // Check if this keyword exists in hoverKeyword
       if (
+        !keywordRecarray ||
         !(keywordRecarray in this.hoverKeyword) ||
         !(block in this.hoverKeyword[keywordRecarray])
       ) {
