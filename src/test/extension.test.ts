@@ -96,6 +96,37 @@ suite("Extension Test Suite", () => {
     }
   });
 
+  test("MF6HoverKeywordProvider should provide hover on keyword-recarray", async () => {
+    const provider = new MF6HoverKeywordProvider();
+    const sampleFilePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "syntaxes",
+      "samples",
+      "freyberg.chd",
+    );
+    const fileUri = vscode.Uri.file(sampleFilePath);
+    const document = await vscode.workspace.openTextDocument(fileUri);
+    await vscode.window.showTextDocument(document);
+
+    const positionCellid = new vscode.Position(18, 10);
+    const hoverCellid = await provider.provideHover(document, positionCellid);
+    assert.strictEqual(
+      (hoverCellid?.contents[0] as vscode.MarkdownString).value,
+      "**CELLID**&nbsp;&nbsp;(block: *PERIOD*)\n\n- is the cell identifier, and depends on the type of grid that is used for the simulation.  For a structured grid that uses the DIS input file, CELLID is the layer, row, and column.   For a grid that uses the DISV input file, CELLID is the layer and CELL2D number.  If the model uses the unstructured discretization (DISU) input file, CELLID is the node number for the cell.",
+      "Hover content should match the expected description",
+    );
+
+    const positionHead = new vscode.Position(20, 23);
+    const hoverHead = await provider.provideHover(document, positionHead);
+    assert.strictEqual(
+      (hoverHead?.contents[0] as vscode.MarkdownString).value,
+      "**HEAD**&nbsp;&nbsp;(block: *PERIOD*)\n\n- is the head at the boundary. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.",
+      "Hover content should match the expected description",
+    );
+  });
+
   test("MF6HoverBlockProvider should provide hover on block", async () => {
     const provider = new MF6HoverBlockProvider();
     const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
