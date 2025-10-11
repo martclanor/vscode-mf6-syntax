@@ -127,7 +127,6 @@ function formatKeywordHover(
   return `${header}${description || "No description available"}`;
 }
 
-// todo: disable recarray hover if a comment
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
   hoverKeyword: HoverKeywordStructure =
     hoverKeywordJson as HoverKeywordStructure;
@@ -171,6 +170,9 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else if (block in this.hoverRecarray) {
       const lineText = document.lineAt(position.line).text.trim();
+      if (lineText.startsWith("#")) {
+        return undefined;
+      }
       const lineWords: string[] =
         lineText.match(/(?<=['"]).*?(?=['"])|[^\s'"]+/g) || [];
       // todo: issue if items are the same, wordIndex is wrong
