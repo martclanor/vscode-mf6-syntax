@@ -45,7 +45,7 @@ function getFileExtension(document: vscode.TextDocument): string {
   return path.extname(document.fileName).slice(1).toLowerCase();
 }
 
-function getRepeatCount(document: vscode.TextDocument): number | undefined {
+function getRepeatCellid(document: vscode.TextDocument): number | undefined {
   const dirPath = path.dirname(document.fileName);
   const files = fs.readdirSync(dirPath);
   for (const file of files) {
@@ -58,6 +58,77 @@ function getRepeatCount(document: vscode.TextDocument): number | undefined {
       } else if (ext === ".disv") {
         // layer, cellid (need 1 extra count)
         return 1;
+      }
+    }
+  }
+  return undefined;
+}
+
+function getWordIndex(lineText: string, wordRange: vscode.Range): number {
+  // Get wordIndex based on number of spaces before word excluding spaces in quotes
+  let wordIndex = 0;
+  let inSingleQuotes = false;
+  let inDoubleQuotes = false;
+  let inWhiteSpaces = false;
+  for (let i = 0; i < wordRange.start.character; i++) {
+    const char = lineText[i];
+    if (char === "'" && !inDoubleQuotes) {
+      inSingleQuotes = !inSingleQuotes;
+      inWhiteSpaces = false;
+    } else if (char === '"' && !inSingleQuotes) {
+      inDoubleQuotes = !inDoubleQuotes;
+      inWhiteSpaces = false;
+    } else if (/\s/.test(char) && !inSingleQuotes && !inDoubleQuotes) {
+      if (!inWhiteSpaces) {
+        wordIndex++;
+        inWhiteSpaces = true;
+      }
+    } else {
+      inWhiteSpaces = false;
+    }
+  }
+  return wordIndex;
+}
+
+function getKeywordRecarray(
+  hoverRecarray: HoverRecarrayStructure,
+  block: string,
+  fileExtension: string,
+  wordIndex: number,
+  repeatCellid: number,
+): string | undefined {
+  for (const [rec, dfns] of Object.entries(hoverRecarray[block])) {
+    // Exit early if no matching dfn
+    const filteredDfns = dfns.filter((dfn) => {
+      const parts = dfn.split("-");
+      return parts.length > 1 && parts[1] === fileExtension;
+    });
+    if (filteredDfns.length == 0) {
+      continue;
+    }
+
+    const recItems = rec.split(",");
+
+    // Repeat cellid items for dis (twice) and disv (once)
+    if (repeatCellid) {
+      const expandedRecItems: string[] = [];
+      recItems.forEach((item) => {
+        expandedRecItems.push(item);
+        if (item.includes("cellid")) {
+          for (let i = 0; i < repeatCellid; i++) {
+            expandedRecItems.push(item);
+          }
+        }
+      });
+      recItems.splice(0, recItems.length, ...expandedRecItems);
+    }
+
+    if (wordIndex < recItems.length) {
+      const recKeyword = recItems[wordIndex];
+      if (recKeyword) {
+        if (filteredDfns.length > 0) {
+          return recKeyword;
+        }
       }
     }
   }
@@ -148,11 +219,10 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
     const keyword = document.getText(wordRange);
     const keywordLower = keyword.toLowerCase();
     const block = findEnclosingBlock(document, position);
-    const fileExtension = getFileExtension(document);
-
     if (!block) {
       return undefined;
     }
+    const fileExtension = getFileExtension(document);
 
     if (
       keywordLower in this.hoverKeyword &&
@@ -166,79 +236,28 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
         matchingDfns,
         blockData,
       );
-
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else if (block in this.hoverRecarray) {
       const lineText = document.lineAt(position.line).text.trim();
       if (lineText.startsWith("#")) {
         return undefined;
       }
-
-      // Get wordIndex based on number of spaces before word excluding spaces in quotes
-      let wordIndex = 0;
-      let inSingleQuotes = false;
-      let inDoubleQuotes = false;
-      let inWhiteSpaces = false;
-      for (let i = 0; i < wordRange.start.character; i++) {
-        const char = lineText[i];
-        if (char === "'" && !inDoubleQuotes) {
-          inSingleQuotes = !inSingleQuotes;
-          inWhiteSpaces = false;
-        } else if (char === '"' && !inSingleQuotes) {
-          inDoubleQuotes = !inDoubleQuotes;
-          inWhiteSpaces = false;
-        } else if (/\s/.test(char) && !inSingleQuotes && !inDoubleQuotes) {
-          if (!inWhiteSpaces) {
-            wordIndex++;
-            inWhiteSpaces = true;
-          }
-        } else {
-          inWhiteSpaces = false;
-        }
+      const wordIndex = getWordIndex(lineText, wordRange);
+      if (!wordIndex) {
+        return undefined;
+      }
+      const repeatCellid = getRepeatCellid(document);
+      if (!repeatCellid) {
+        return undefined;
       }
 
-      const repeatCount = getRepeatCount(document);
-
-      // Find keywordRecarray
-      let keywordRecarray: string | undefined;
-      for (const [rec, dfns] of Object.entries(this.hoverRecarray[block])) {
-        // Exit early if no matching dfn
-        const filteredDfns = dfns.filter((dfn) => {
-          const parts = dfn.split("-");
-          return parts.length > 1 && parts[1] === fileExtension;
-        });
-        if (filteredDfns.length == 0) {
-          continue;
-        }
-
-        const recItems = rec.split(",");
-
-        // Repeat cellid items for dis (twice) and disv (once)
-        if (repeatCount) {
-          const expandedRecItems: string[] = [];
-          recItems.forEach((item) => {
-            expandedRecItems.push(item);
-            if (item.includes("cellid")) {
-              for (let i = 0; i < repeatCount; i++) {
-                expandedRecItems.push(item);
-              }
-            }
-          });
-          recItems.splice(0, recItems.length, ...expandedRecItems);
-        }
-
-        if (wordIndex < recItems.length) {
-          const recKeyword = recItems[wordIndex];
-          if (recKeyword) {
-            if (filteredDfns.length > 0) {
-              keywordRecarray = recKeyword;
-              break;
-            }
-          }
-        }
-      }
-
-      // Check if this keyword exists in hoverKeyword
+      const keywordRecarray = getKeywordRecarray(
+        this.hoverRecarray,
+        block,
+        fileExtension,
+        wordIndex,
+        repeatCellid,
+      );
       if (
         !keywordRecarray ||
         !(keywordRecarray in this.hoverKeyword) ||
