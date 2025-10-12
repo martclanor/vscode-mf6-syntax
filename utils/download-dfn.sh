@@ -3,7 +3,7 @@
 # --- Configuration ---
 REPO_URL="https://github.com/MODFLOW-ORG/modflow6"
 REPO_DIR_PATH="doc/mf6io/mf6ivar/dfn"
-GIT_REF="6.6.2"
+GIT_REF="6.6.3"
 TARGET_LOCAL_DIR="$PWD/data/dfn"
 
 # --- Check for git ---
