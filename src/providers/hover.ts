@@ -64,6 +64,33 @@ function getRepeatCellid(document: vscode.TextDocument): number | undefined {
   return undefined;
 }
 
+function getExcludeRecItems(
+  block: string,
+  document: vscode.TextDocument,
+  position: vscode.Position,
+): string[] {
+  let excludeRecItems: string[] = ["boundname", "aux"];
+  if (block === "period") {
+    let i = 0;
+    while (i < position.line) {
+      const line = document.lineAt(i).text.trim();
+      if (/^end\s+options/i.test(line)) {
+        break;
+      }
+      if (/^boundnames$/i.test(line)) {
+        excludeRecItems = excludeRecItems.filter(
+          (item) => item !== "boundname",
+        );
+      }
+      if (/^auxiliary/i.test(line)) {
+        excludeRecItems = excludeRecItems.filter((item) => item !== "aux");
+      }
+      i++;
+    }
+  }
+  return excludeRecItems;
+}
+
 function getWordIndex(lineText: string, wordRange: vscode.Range): number {
   // Get wordIndex based on number of spaces before word excluding spaces in quotes
   let wordIndex = 0;
@@ -257,25 +284,11 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
         return undefined;
       }
 
-      let excludeRecItems: string[] = ["boundname", "aux"];
-      if (block === "period") {
-        let i = 0;
-        while (i < position.line) {
-          const line = document.lineAt(i).text.trim();
-          if (/^end\s+options/i.test(line)) {
-            break;
-          }
-          if (/^boundnames$/i.test(line)) {
-            excludeRecItems = excludeRecItems.filter(
-              (item) => item !== "boundname",
-            );
-          }
-          if (/^auxiliary/i.test(line)) {
-            excludeRecItems = excludeRecItems.filter((item) => item !== "aux");
-          }
-          i++;
-        }
-      }
+      const excludeRecItems: string[] = getExcludeRecItems(
+        block,
+        document,
+        position,
+      );
 
       const keywordRecarray = getKeywordRecarray(
         this.hoverRecarray,
