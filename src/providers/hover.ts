@@ -243,9 +243,6 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
         return undefined;
       }
       const wordIndex = getWordIndex(lineText, wordRange);
-      if (!wordIndex) {
-        return undefined;
-      }
       const repeatCellid = getRepeatCellid(document);
       if (!repeatCellid) {
         return undefined;
