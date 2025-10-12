@@ -100,6 +100,7 @@ function getKeywordRecarray(
   fileExtension: string,
   wordIndex: number,
   repeatCellid: number,
+  excludeRecItems: string[],
 ): string | undefined {
   for (const [rec, dfns] of Object.entries(hoverRecarray[block])) {
     // Exit early if no matching dfn
@@ -127,8 +128,12 @@ function getKeywordRecarray(
       recItems.splice(0, recItems.length, ...expandedRecItems);
     }
 
-    if (wordIndex < recItems.length) {
-      const recKeyword = recItems[wordIndex];
+    const filteredRecItems = recItems.filter(
+      (item) => !excludeRecItems.includes(item),
+    );
+
+    if (wordIndex < filteredRecItems.length) {
+      const recKeyword = filteredRecItems[wordIndex];
       if (recKeyword) {
         if (filteredDfns.length > 0) {
           return recKeyword;
@@ -252,12 +257,33 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
         return undefined;
       }
 
+      let excludeRecItems: string[] = ["boundname", "aux"];
+      if (block === "period") {
+        let i = 0;
+        while (i < position.line) {
+          const line = document.lineAt(i).text.trim();
+          if (/^end\s+options/i.test(line)) {
+            break;
+          }
+          if (/^boundnames$/i.test(line)) {
+            excludeRecItems = excludeRecItems.filter(
+              (item) => item !== "boundname",
+            );
+          }
+          if (/^auxiliary/i.test(line)) {
+            excludeRecItems = excludeRecItems.filter((item) => item !== "aux");
+          }
+          i++;
+        }
+      }
+
       const keywordRecarray = getKeywordRecarray(
         this.hoverRecarray,
         block,
         fileExtension,
         wordIndex,
         repeatCellid,
+        excludeRecItems,
       );
       if (
         !keywordRecarray ||
