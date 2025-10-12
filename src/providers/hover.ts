@@ -70,7 +70,11 @@ function getWordIndex(lineText: string, wordRange: vscode.Range): number {
   let inSingleQuotes = false;
   let inDoubleQuotes = false;
   let inWhiteSpaces = false;
-  for (let i = 0; i < wordRange.start.character; i++) {
+  const firstNonSpace = lineText.search(/\S/);
+  if (firstNonSpace === -1) {
+    return 0;
+  }
+  for (let i = firstNonSpace; i < wordRange.start.character; i++) {
     const char = lineText[i];
     if (char === "'" && !inDoubleQuotes) {
       inSingleQuotes = !inSingleQuotes;
@@ -238,7 +242,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
       );
       return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
     } else if (block in this.hoverRecarray) {
-      const lineText = document.lineAt(position.line).text.trim();
+      const lineText = document.lineAt(position.line).text;
       if (lineText.startsWith("#")) {
         return undefined;
       }
