@@ -125,6 +125,14 @@ suite("Extension Test Suite", () => {
       "**HEAD**&nbsp;&nbsp;(block: *PERIOD*)\n\n- is the head at the boundary. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.",
       "Hover content should match the expected description",
     );
+
+    const positionBn = new vscode.Position(21, 30);
+    const hoverBn = await provider.provideHover(document, positionBn);
+    assert.strictEqual(
+      (hoverBn?.contents[0] as vscode.MarkdownString).value,
+      "**BOUNDNAME**&nbsp;&nbsp;(block: *PERIOD*)\n\n- name of the constant head boundary cell.  BOUNDNAME is an ASCII character variable that can contain as many as 40 characters.  If BOUNDNAME contains spaces in it, then the entire name must be enclosed within single quotes.",
+      "Hover content should match the expected description",
+    );
   });
 
   test("MF6HoverBlockProvider should provide hover on block", async () => {
