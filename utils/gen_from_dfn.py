@@ -22,6 +22,7 @@ Generated Files:
     - syntaxes/mf6-lst.tmLanguage.json: Defines syntax highlighting config for lst files
     - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
     - src/providers/hover-block.json: Provides hover data for MF6 blocks
+    - src/providers/hover-recarray.json: Provides hover data for MF6 recarrays
     - src/providers/symbol-defn.json: Defines symbols for MF6 input files
     - src/providers/symbol-defn-lst.json: Defines symbols for MF6 lst files
 
@@ -456,6 +457,17 @@ class Dfn:
         Dfn.sort_and_export(hover, output)
 
     @staticmethod
+    def export_hover_recarray(output: str) -> None:
+        hover: defaultdict[str, dict[str, list[str]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
+        for dfn in Dfn.get_dfns():
+            for section in dfn.get_sections(lambda s: s.is_recarray):
+                hover[section.block][",".join(section.recs)].append(dfn.name)
+
+        Dfn.sort_and_export(hover, output)
+
+    @staticmethod
     def export_symbol_defn(output: str) -> None:
         symbol_defn: defaultdict[str, set[str]] = defaultdict(set)
         for dfn in Dfn.get_dfns():
@@ -506,6 +518,7 @@ if __name__ == "__main__":
     # Export hover keyword and hover block data from DFN files
     Dfn.export_hover_keyword("src/providers/hover-keyword.json")
     Dfn.export_hover_block("src/providers/hover-block.json")
+    Dfn.export_hover_recarray("src/providers/hover-recarray.json")
 
     # Export symbol definition data from DFN files
     Dfn.export_symbol_defn("src/providers/symbol-defn.json")
