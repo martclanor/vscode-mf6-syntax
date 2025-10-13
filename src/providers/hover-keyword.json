@@ -10,7 +10,8 @@
   "afrcsvfile": {
     "options": {
       "name of the comma-separated value (CSV) output file to write information about well extraction rates that have been reduced by the program.  Entries are only written if the extraction rates are reduced.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ]
     }
   },
@@ -182,14 +183,16 @@
   "auto_flow_reduce": {
     "options": {
       "keyword and real value that defines the fraction of the cell thickness used as an interval for smoothly adjusting negative pumping rates to 0 in cells with head values less than or equal to the bottom of the cell. Negative pumping rates are adjusted to 0 or a smaller negative value when the head in the cell is equal to or less than the calculated interval above the cell bottom. AUTO_FLOW_REDUCE is set to 0.1 if the specified value is less than or equal to zero. By default, negative pumping rates are not reduced during a simulation.  This AUTO_FLOW_REDUCE option only applies to wells in model cells that are marked as `convertible` (ICELLTYPE /= 0) in the Node Property Flow (NPF) input file. Reduction in flow will not occur for wells in cells marked as confined (ICELLTYPE = 0).": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ]
     }
   },
   "auto_flow_reduce_csv": {
     "options": {
       "keyword to specify that record corresponds to the AUTO_FLOW_REDUCE output option in which a new record is written for each well and for each time step in which the user-requested extraction rate is reduced by the program.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ]
     }
   },
@@ -236,6 +239,17 @@
       ],
       "is an array of values for auxiliary variable aux(iaux), where iaux is a value from 1 to naux, and aux(iaux) must be listed as part of the auxiliary variables.  A separate array can be specified for each auxiliary variable.  If an array is not specified for an auxiliary variable, then a value of zero is assigned.  If the value specified here for the auxiliary variable is the same as auxmultname, then the recharge array will be multiplied by this array.": [
         "gwf-rcha"
+      ],
+      "is an array of values for auxiliary variable aux(iaux), where iaux is a value from 1 to naux, and aux(iaux) must be listed as part of the auxiliary variables.  A separate array can be specified for each auxiliary variable. If the value specified here for the auxiliary variable is the same as auxmultname, then the conductance array will be multiplied by this array.": [
+        "gwf-drng",
+        "gwf-ghbg",
+        "gwf-rivg"
+      ],
+      "is an array of values for auxiliary variable aux(iaux), where iaux is a value from 1 to naux, and aux(iaux) must be listed as part of the auxiliary variables.  A separate array can be specified for each auxiliary variable. If the value specified here for the auxiliary variable is the same as auxmultname, then the head array will be multiplied by this array.": [
+        "gwf-chdg"
+      ],
+      "is an array of values for auxiliary variable aux(iaux), where iaux is a value from 1 to naux, and aux(iaux) must be listed as part of the auxiliary variables.  A separate array can be specified for each auxiliary variable. If the value specified here for the auxiliary variable is the same as auxmultname, then the well rate array will be multiplied by this array.": [
+        "gwf-welg"
       ],
       "represents the values of the auxiliary variables for each UZF. The values of auxiliary variables must be present for each UZF. The values must be specified in the order of the auxiliary variables specified in the OPTIONS block.  If the package supports time series and the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-uzf"
@@ -304,7 +318,8 @@
   "auxdepthname": {
     "options": {
       "name of a variable listed in AUXILIARY that defines the depth at which drainage discharge will be scaled. If a positive value is specified for the AUXDEPTHNAME AUXILIARY variable, then ELEV is the elevation at which the drain starts to discharge and ELEV + DDRN (assuming DDRN is the AUXDEPTHNAME variable) is the elevation when the drain conductance (COND) scaling factor is 1. If a negative drainage depth value is specified for DDRN, then ELEV + DDRN is the elevation at which the drain starts to discharge and ELEV is the elevation when the conductance (COND) scaling factor is 1. A linear- or cubic-scaling is used to scale the drain conductance (COND) when the Standard or Newton-Raphson Formulation is used, respectively.  This discharge scaling option is described in more detail in Chapter 3 of the Supplemental Technical Information.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ]
     }
   },
@@ -333,18 +348,23 @@
         "gwe-sfe",
         "gwe-uze",
         "gwf-chd",
+        "gwf-chdg",
         "gwf-drn",
+        "gwf-drng",
         "gwf-evt",
         "gwf-evta",
         "gwf-ghb",
+        "gwf-ghbg",
         "gwf-lak",
         "gwf-maw",
         "gwf-rch",
         "gwf-rcha",
         "gwf-riv",
+        "gwf-rivg",
         "gwf-sfr",
         "gwf-uzf",
         "gwf-wel",
+        "gwf-welg",
         "gwt-cnc",
         "gwt-lkt",
         "gwt-mwt",
@@ -386,6 +406,7 @@
       "name of auxiliary variable to be used as multiplier of CHD head value.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -396,7 +417,8 @@
         "gwt-cnc"
       ],
       "name of auxiliary variable to be used as multiplier of drain conductance.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "name of auxiliary variable to be used as multiplier of energy loading rate.": [
         "gwe-esl"
@@ -416,7 +438,8 @@
         "swf-flw"
       ],
       "name of auxiliary variable to be used as multiplier of general-head boundary conductance.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "name of auxiliary variable to be used as multiplier of mass loading rate.": [
         "gwt-src"
@@ -431,13 +454,15 @@
         "gwf-rcha"
       ],
       "name of auxiliary variable to be used as multiplier of riverbed conductance.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "name of auxiliary variable to be used as multiplier of temperature value.": [
         "gwe-ctp"
       ],
       "name of auxiliary variable to be used as multiplier of well flow rate.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ]
     }
   },
@@ -566,6 +591,9 @@
   },
   "bhead": {
     "period": {
+      "is the boundary head.": [
+        "gwf-ghbg"
+      ],
       "is the boundary head. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-ghb"
       ]
@@ -1384,11 +1412,20 @@
   },
   "cond": {
     "period": {
+      "is the hydraulic conductance of the interface between the aquifer and the drain.": [
+        "gwf-drng"
+      ],
       "is the hydraulic conductance of the interface between the aquifer and the drain. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-drn"
       ],
+      "is the hydraulic conductance of the interface between the aquifer cell and the boundary.": [
+        "gwf-ghbg"
+      ],
       "is the hydraulic conductance of the interface between the aquifer cell and the boundary. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-ghb"
+      ],
+      "is the riverbed hydraulic conductance.": [
+        "gwf-rivg"
       ],
       "is the riverbed hydraulic conductance. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-riv"
@@ -1423,6 +1460,13 @@
       ]
     }
   },
+  "coordinate_check_method": {
+    "options": {
+      "approach for verifying that release point coordinates are in the cell with the specified ID. By default, release point coordinates are checked at release time.": [
+        "prt-prp"
+      ]
+    }
+  },
   "couttype": {
     "outlets": {
       "character string that defines the outlet type for the outlet OUTLETNO. Possible COUTTYPE strings include: SPECIFIED--character keyword to indicate the outlet is defined as a specified flow.  MANNING--character keyword to indicate the outlet is defined using Manning's equation. WEIR--character keyword to indicate the outlet is defined using a sharp weir equation.": [
@@ -1448,6 +1492,30 @@
     "period": {
       "keyword to specify that record corresponds to a reach cross-section.": [
         "gwf-sfr"
+      ]
+    }
+  },
+  "crs": {
+    "options": {
+      "is a real-world coordinate reference system (CRS) for the model, for example, an EPSG integer code (e.g. 26915), authority string (i.e. epsg:26915), or Open Geospatial Consortium Well-Known Text (WKT) specification. Limited to 5000 characters. The entry for CRS does not affect the model simulation, but it is written to the binary grid file so that postprocessors can locate the grid in space.": [
+        "chf-disv1d",
+        "gwe-dis",
+        "gwe-disu",
+        "gwe-disv",
+        "gwf-dis",
+        "gwf-disu",
+        "gwf-disv",
+        "gwt-dis",
+        "gwt-disu",
+        "gwt-disv",
+        "olf-dis2d",
+        "olf-disv1d",
+        "olf-disv2d",
+        "prt-dis",
+        "prt-disv",
+        "swf-dis2d",
+        "swf-disv1d",
+        "swf-disv2d"
       ]
     }
   },
@@ -1526,7 +1594,7 @@
   },
   "deflate": {
     "options": {
-      "is the variable deflate level (0=min, 9=max) in the netcdf file. Defining this parameter activates per-variable compression at the level specified.": [
+      "is the variable deflate level (0=min, 9=max) in the NetCDF file. Defining this parameter activates per-variable compression at the level specified.": [
         "utl-ncf"
       ]
     }
@@ -1590,6 +1658,14 @@
       ]
     }
   },
+  "dependent_variable_scaling": {
+    "options": {
+      "flag to scale X and RHS to avoid very large positive or negative dependent variable values": [
+        "gwe-nam",
+        "gwt-nam"
+      ]
+    }
+  },
   "depth": {
     "period": {
       "is the ET extinction depth ($L$).": [
@@ -1603,7 +1679,22 @@
   "dev_cubic_scaling": {
     "options": {
       "cubic-scaling is used to scale the drain conductance": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
+      ]
+    }
+  },
+  "dev_cycle_detection_window": {
+    "options": {
+      "integer value defining the size of the window (number of consecutive exit events) used for cycle detection. Defaults to 0, disabling cycle detection. With detection enabled, particle pathlines with duplicate cell exit events (i.e., exiting the same cell through the same face twice) will cause the program to terminate with an error. A larger window size provides more robust cycle detection at the cost of more runtime operations per cell exit.": [
+        "prt-prp"
+      ]
+    }
+  },
+  "dev_dump_event_trace": {
+    "options": {
+      "print a verbose particle tracking event trace to standard output": [
+        "prt-oc"
       ]
     }
   },
@@ -1648,6 +1739,7 @@
     "options": {
       "turn off Newton for unconfined cells": [
         "gwf-chd",
+        "gwf-chdg",
         "gwf-npf"
       ]
     }
@@ -1844,6 +1936,9 @@
   },
   "elev": {
     "period": {
+      "is the elevation of the drain.": [
+        "gwf-drng"
+      ],
       "is the elevation of the drain. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-drn"
       ]
@@ -1952,6 +2047,8 @@
         "gwt-disv",
         "gwt-dsp",
         "gwt-ic",
+        "gwt-ist",
+        "gwt-mst",
         "olf-dfw",
         "olf-dis2d",
         "olf-disv1d",
@@ -1970,22 +2067,29 @@
   },
   "export_array_netcdf": {
     "options": {
-      "keyword that specifies input griddata arrays should be written to the model output netcdf file.": [
+      "keyword that specifies input griddata arrays should be written to the model output NetCDF file.": [
         "gwe-cnd",
         "gwe-dis",
         "gwe-disv",
         "gwe-ic",
+        "gwf-chdg",
         "gwf-dis",
         "gwf-disv",
+        "gwf-drng",
         "gwf-evta",
+        "gwf-ghbg",
         "gwf-ic",
         "gwf-npf",
         "gwf-rcha",
+        "gwf-rivg",
         "gwf-sto",
+        "gwf-welg",
         "gwt-dis",
         "gwt-disv",
         "gwt-dsp",
         "gwt-ic",
+        "gwt-ist",
+        "gwt-mst",
         "prt-dis",
         "prt-disv"
       ]
@@ -2072,13 +2176,16 @@
         "gwe-uze",
         "gwf-api",
         "gwf-chd",
+        "gwf-chdg",
         "gwf-csub",
         "gwf-dis",
         "gwf-disv",
         "gwf-drn",
+        "gwf-drng",
         "gwf-evt",
         "gwf-evta",
         "gwf-ghb",
+        "gwf-ghbg",
         "gwf-lak",
         "gwf-maw",
         "gwf-nam",
@@ -2086,10 +2193,12 @@
         "gwf-rch",
         "gwf-rcha",
         "gwf-riv",
+        "gwf-rivg",
         "gwf-sfr",
         "gwf-sto",
         "gwf-uzf",
         "gwf-wel",
+        "gwf-welg",
         "gwt-api",
         "gwt-cnc",
         "gwt-dis",
@@ -2176,6 +2285,7 @@
         "gwf-uzf",
         "gwf-vsc",
         "gwf-wel",
+        "gwf-welg",
         "gwt-dis",
         "gwt-disu",
         "gwt-disv",
@@ -2565,6 +2675,9 @@
       ]
     },
     "period": {
+      "is the head at the boundary.": [
+        "gwf-chdg"
+      ],
       "is the head at the boundary. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "chf-chd",
         "gwf-chd",
@@ -2629,6 +2742,13 @@
     "options": {
       "use the variable-density hydraulic head formulation and add off-diagonal terms to the right-hand.  This option will prevent the BUY Package from adding asymmetric terms to the flow matrix.": [
         "gwf-buy"
+      ]
+    }
+  },
+  "highest_saturated": {
+    "options": {
+      "Apply mass source loading rate to specified CELLID or highest underlying cell with a cell saturation greater than zero. The highest_saturated option has an additional complication for certain types of grids specified using the DISU Package. When the DISU Package is used, a cell may have more than one cell underlying it. If the overlying cell were to become inactive, there is no straightforward method for determining how to apportion the mass source loading rate to the underlying cells. In this case, the approach described by cite{modflowusg} is used. The mass source loading rate is assigned to the first active cell encountered (determined by searching through the underlying cell numbers from the lowest number to the highest number). In this manner, the total mass source loading rate is conserved; however, the spatial distribution of the applied mass source loading rate may not be maintained as layers become dry or wet during a simulation.": [
+        "gwt-src"
       ]
     }
   },
@@ -3138,11 +3258,14 @@
         "gwe-sfe",
         "gwe-uze",
         "gwf-chd",
+        "gwf-chdg",
         "gwf-csub",
         "gwf-drn",
+        "gwf-drng",
         "gwf-evt",
         "gwf-evta",
         "gwf-ghb",
+        "gwf-ghbg",
         "gwf-hfb",
         "gwf-lak",
         "gwf-maw",
@@ -3151,10 +3274,12 @@
         "gwf-rch",
         "gwf-rcha",
         "gwf-riv",
+        "gwf-rivg",
         "gwf-sfr",
         "gwf-sto",
         "gwf-uzf",
         "gwf-wel",
+        "gwf-welg",
         "gwt-cnc",
         "gwt-lkt",
         "gwt-mwt",
@@ -3625,6 +3750,7 @@
       "integer value specifying the maximum number of constant-head cells that will be specified for use during any stress period.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -3634,7 +3760,8 @@
         "swf-cdb"
       ],
       "integer value specifying the maximum number of drains cells that will be specified for use during any stress period.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "integer value specifying the maximum number of evaporation cells cells that will be specified for use during any stress period.": [
         "chf-evp",
@@ -3645,7 +3772,8 @@
         "gwf-evt"
       ],
       "integer value specifying the maximum number of general-head boundary cells that will be specified for use during any stress period.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "integer value specifying the maximum number of inflow cells that will be specified for use during any stress period.": [
         "chf-flw",
@@ -3661,7 +3789,8 @@
         "gwf-rch"
       ],
       "integer value specifying the maximum number of rivers cells that will be specified for use during any stress period.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "integer value specifying the maximum number of source cells that will be specified for use during any stress period.": [
         "gwe-esl"
@@ -3673,7 +3802,8 @@
         "utl-spc"
       ],
       "integer value specifying the maximum number of wells cells that will be specified for use during any stress period.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ],
       "integer value specifying the maximum number of zero-depth-gradient boundary cells that will be specified for use during any stress period.": [
         "chf-zdg",
@@ -3858,7 +3988,7 @@
   },
   "modflow6_attr_off": {
     "options": {
-      "is the keyword used to turn off internal input tagging in the model netcdf file. Tagging adds internal modflow 6 attribute(s) to variables which facilitate identification. Currently this applies to gridded arrays.": [
+      "is the keyword used to turn off internal input tagging in the model NetCDF file. Tagging adds internal modflow 6 attribute(s) to variables which facilitate identification. Currently this applies to gridded arrays.": [
         "utl-ncf"
       ]
     }
@@ -3866,10 +3996,12 @@
   "mover": {
     "options": {
       "keyword to indicate that this instance of the Drain Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "keyword to indicate that this instance of the General-Head Boundary Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "keyword to indicate that this instance of the LAK Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
         "gwf-lak"
@@ -3878,7 +4010,8 @@
         "gwf-maw"
       ],
       "keyword to indicate that this instance of the River Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "keyword to indicate that this instance of the SFR Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
         "gwf-sfr"
@@ -3887,7 +4020,8 @@
         "gwf-uzf"
       ],
       "keyword to indicate that this instance of the Well Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ],
       "keyword to indicate that this instance of the api boundary Package can be used with the Water Mover (MVR) Package.  When the MOVER option is specified, additional memory is allocated within the package to store the available, provided, and received water.": [
         "gwf-api",
@@ -3995,7 +4129,7 @@
   },
   "ncf6": {
     "options": {
-      "keyword to specify that record corresponds to a netcdf configuration (NCF) file.": [
+      "keyword to specify that record corresponds to a NetCDF configuration (NCF) file.": [
         "gwe-dis",
         "gwe-disv",
         "gwf-dis",
@@ -4009,7 +4143,7 @@
   },
   "ncf6_filename": {
     "options": {
-      "defines a netcdf configuration (NCF) input file.": [
+      "defines a NetCDF configuration (NCF) input file.": [
         "gwe-dis",
         "gwe-disv",
         "gwf-dis",
@@ -4023,7 +4157,7 @@
   },
   "ncmesh2dfile": {
     "options": {
-      "name of the netcdf ugrid layered mesh output file.": [
+      "name of the NetCDF ugrid layered mesh output file.": [
         "gwe-nam",
         "gwf-nam",
         "gwt-nam"
@@ -4070,7 +4204,7 @@
   },
   "ncstructfile": {
     "options": {
-      "name of the netcdf structured output file.": [
+      "name of the NetCDF structured output file.": [
         "gwe-nam",
         "gwf-nam",
         "gwt-nam"
@@ -4115,7 +4249,7 @@
   },
   "netcdf": {
     "options": {
-      "keyword to specify that record corresponds to a netcdf input file.": [
+      "keyword to specify that record corresponds to a NetCDF input file.": [
         "gwe-nam",
         "gwf-nam",
         "gwt-nam"
@@ -4124,7 +4258,7 @@
   },
   "netcdf_filename": {
     "options": {
-      "defines a netcdf input file.": [
+      "defines a NetCDF input file.": [
         "gwe-nam",
         "gwf-nam",
         "gwt-nam"
@@ -4133,18 +4267,18 @@
   },
   "netcdf_mesh2d": {
     "options": {
-      "keyword to specify that record corresponds to a layered mesh netcdf file.": [
+      "keyword to specify that record corresponds to a layered mesh NetCDF file.": [
         "gwe-nam",
         "gwt-nam"
       ],
-      "keyword to specify that record corresponds to a layered mesh netcdf file. ": [
+      "keyword to specify that record corresponds to a layered mesh NetCDF file. ": [
         "gwf-nam"
       ]
     }
   },
   "netcdf_structured": {
     "options": {
-      "keyword to specify that record corresponds to a structured netcdf file.": [
+      "keyword to specify that record corresponds to a structured NetCDF file.": [
         "gwe-nam",
         "gwf-nam",
         "gwt-nam"
@@ -4485,7 +4619,7 @@
   },
   "nviscspecies": {
     "dimensions": {
-      "number of species used in the viscosity equation of state.  If either concentrations or temperature (or both) are used to update viscosity then then nrhospecies needs to be at least one.": [
+      "number of species used in the viscosity equation of state.  If either concentrations or temperature (or both) are used to update viscosity then nviscspecies needs to be at least one.": [
         "gwf-vsc"
       ]
     }
@@ -4531,19 +4665,24 @@
         "gwe-uze",
         "gwf-api",
         "gwf-chd",
+        "gwf-chdg",
         "gwf-csub",
         "gwf-drn",
+        "gwf-drng",
         "gwf-evt",
         "gwf-evta",
         "gwf-ghb",
+        "gwf-ghbg",
         "gwf-lak",
         "gwf-maw",
         "gwf-rch",
         "gwf-rcha",
         "gwf-riv",
+        "gwf-rivg",
         "gwf-sfr",
         "gwf-uzf",
         "gwf-wel",
+        "gwf-welg",
         "gwt-api",
         "gwt-cnc",
         "gwt-lkt",
@@ -4598,7 +4737,8 @@
         "swf-dfw"
       ],
       "name of input file to define observations for the Drain package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the Drain package.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "name of input file to define observations for the Energy Source Loading package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the Energy Source Loading package.": [
         "gwe-esl"
@@ -4613,7 +4753,8 @@
         "gwf-evta"
       ],
       "name of input file to define observations for the General-Head Boundary package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the General-Head Boundary package.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "name of input file to define observations for the LAK package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the LAK package.": [
         "gwf-lak"
@@ -4646,7 +4787,8 @@
         "gwf-rcha"
       ],
       "name of input file to define observations for the River package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the River package.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "name of input file to define observations for the SFE package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the SFE package.": [
         "gwe-sfe"
@@ -4667,7 +4809,8 @@
         "gwt-uzt"
       ],
       "name of input file to define observations for the Well package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the Well package.": [
-        "gwf-wel"
+        "gwf-wel",
+        "gwf-welg"
       ],
       "name of input file to define observations for the Zero-Depth-Gradient Boundary package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the Zero-Depth-Gradient Boundary package.": [
         "chf-cdb",
@@ -4684,6 +4827,7 @@
       "name of input file to define observations for the constant-head package. See the `Observation utility` section for instructions for preparing observation input files. Tables ref{table:gwf-obstypetable} and ref{table:gwt-obstypetable} lists observation type(s) supported by the constant-head package.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -5007,6 +5151,7 @@
       "keyword to indicate that the list of constant-head flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -5016,7 +5161,8 @@
         "swf-cdb"
       ],
       "keyword to indicate that the list of drain flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "keyword to indicate that the list of energy source loading flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-esl"
@@ -5038,7 +5184,8 @@
         "exg-olfgwf"
       ],
       "keyword to indicate that the list of general-head boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "keyword to indicate that the list of inflow flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "chf-flw",
@@ -5072,7 +5219,8 @@
         "gwf-rcha"
       ],
       "keyword to indicate that the list of river flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "keyword to indicate that the list of stream reach flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwf-sfr"
@@ -5084,6 +5232,7 @@
       "keyword to indicate that the list of well flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
         "gwe-mwe",
         "gwf-wel",
+        "gwf-welg",
         "gwt-mwt"
       ],
       "keyword to indicate that the list of zero-depth-gradient boundary flow rates will be printed to the listing file for every stress period time step in which `BUDGET PRINT` is specified in Output Control.  If there is no Output Control option and `PRINT_FLOWS` is specified, then flow rates are printed for the last time step of each stress period.": [
@@ -5159,6 +5308,7 @@
       "keyword to indicate that the list of constant-head information will be written to the listing file immediately after it is read.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -5168,7 +5318,8 @@
         "swf-cdb"
       ],
       "keyword to indicate that the list of drain information will be written to the listing file immediately after it is read.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "keyword to indicate that the list of energy source loading information will be written to the listing file immediately after it is read.": [
         "gwe-esl"
@@ -5190,7 +5341,8 @@
         "exg-olfgwf"
       ],
       "keyword to indicate that the list of general-head boundary information will be written to the listing file immediately after it is read.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "keyword to indicate that the list of horizontal flow barriers will be written to the listing file immediately after it is read.": [
         "gwf-hfb"
@@ -5232,7 +5384,8 @@
         "gwf-rcha"
       ],
       "keyword to indicate that the list of river information will be written to the listing file immediately after it is read.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "keyword to indicate that the list of spc information will be written to the listing file immediately after it is read.": [
         "utl-spc",
@@ -5251,6 +5404,7 @@
       "keyword to indicate that the list of well information will be written to the listing file immediately after it is read.": [
         "gwe-mwe",
         "gwf-wel",
+        "gwf-welg",
         "gwt-mwt"
       ],
       "keyword to indicate that the list of zero-depth-gradient boundary information will be written to the listing file immediately after it is read.": [
@@ -5330,6 +5484,9 @@
       "is the volumetric inflow rate. A positive value indicates inflow to the stream.  Negative values are not allows. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "chf-flw",
         "swf-flw"
+      ],
+      "is the volumetric well rate. A positive value indicates recharge (injection) and a negative value indicates discharge (extraction).": [
+        "gwf-welg"
       ],
       "is the volumetric well rate. A positive value indicates recharge (injection) and a negative value indicates discharge (extraction). If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-wel"
@@ -5421,6 +5578,9 @@
   },
   "rbot": {
     "period": {
+      "is the elevation of the bottom of the riverbed.": [
+        "gwf-rivg"
+      ],
       "is the elevation of the bottom of the riverbed.  If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-riv"
       ]
@@ -5457,6 +5617,25 @@
       ],
       "line of information that is parsed into a keyword and values.  Keyword values that can be used to start the REACHSETTING string include: STATUS, TEMPERATURE, RAINFALL, EVAPORATION, RUNOFF, and AUXILIARY.  These settings are used to assign the temperature of associated with the corresponding flow terms.  Temperatures cannot be specified for all flow terms.  For example, the Streamflow Package supports a `DIVERSION` flow term.  Diversion water will be routed using the calculated temperature of the reach.": [
         "gwe-sfe"
+      ]
+    }
+  },
+  "readarraygrid": {
+    "options": {
+      "indicates that array-based grid input will be used for the constant head package.  This keyword must be specified to use array-based grid input.  When READARRAYGRID is specified, values must be provided for every cell within a model grid, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. No data cells should contain the value DNODATA (3.0E+30).": [
+        "gwf-chdg"
+      ],
+      "indicates that array-based grid input will be used for the drain package.  This keyword must be specified to use array-based grid input.  When READARRAYGRID is specified, values must be provided for every cell within a model grid, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. No data cells should contain the value DNODATA (3.0E+30). ": [
+        "gwf-drng"
+      ],
+      "indicates that array-based grid input will be used for the general-head boundary package.  This keyword must be specified to use array-based grid input.  When READARRAYGRID is specified, values must be provided for every cell within a model grid, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. No data cells should contain the value DNODATA (3.0E+30). ": [
+        "gwf-ghbg"
+      ],
+      "indicates that array-based grid input will be used for the river package.  This keyword must be specified to use array-based grid input.  When READARRAYGRID is specified, values must be provided for every cell within a model grid, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. No data cells should contain the value DNODATA (3.0E+30).": [
+        "gwf-rivg"
+      ],
+      "indicates that array-based grid input will be used for the well boundary package.  This keyword must be specified to use array-based grid input.  When READARRAYGRID is specified, values must be provided for every cell within a model grid, even those cells that have an IDOMAIN value less than one.  Values assigned to cells with IDOMAIN values less than one are not used and have no effect on simulation results. No data cells should contain the value DNODATA (3.0E+30).": [
+        "gwf-welg"
       ]
     }
   },
@@ -5619,7 +5798,7 @@
   },
   "rtp": {
     "packagedata": {
-      "real value that defines the bottom elevation of the reach.": [
+      "real value that defines the top elevation of the streambed of a reach.": [
         "gwf-sfr"
       ]
     }
@@ -5757,6 +5936,7 @@
       "keyword to indicate that constant-head flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-chd",
         "gwf-chd",
+        "gwf-chdg",
         "olf-chd",
         "swf-chd"
       ],
@@ -5766,7 +5946,8 @@
         "swf-cdb"
       ],
       "keyword to indicate that drain flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
-        "gwf-drn"
+        "gwf-drn",
+        "gwf-drng"
       ],
       "keyword to indicate that energy source loading flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-esl"
@@ -5781,7 +5962,8 @@
         "gwf-evta"
       ],
       "keyword to indicate that general-head boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
-        "gwf-ghb"
+        "gwf-ghb",
+        "gwf-ghbg"
       ],
       "keyword to indicate that inflow flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "chf-flw",
@@ -5815,7 +5997,8 @@
         "gwf-rcha"
       ],
       "keyword to indicate that river flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
-        "gwf-riv"
+        "gwf-riv",
+        "gwf-rivg"
       ],
       "keyword to indicate that stream reach flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwf-sfr"
@@ -5827,6 +6010,7 @@
       "keyword to indicate that well flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
         "gwe-mwe",
         "gwf-wel",
+        "gwf-welg",
         "gwt-mwt"
       ],
       "keyword to indicate that zero-depth-gradient boundary flow terms will be written to the file specified with `BUDGET FILEOUT` in Output Control.": [
@@ -5948,7 +6132,7 @@
   },
   "shuffle": {
     "options": {
-      "is the keyword used to turn on the netcdf variable shuffle filter when the deflate option is also set. The shuffle filter has the effect of storing the first byte of all of a variable's values in a chunk contiguously, followed by all the second bytes, etc. This can be an optimization for compression with certain types of data.": [
+      "is the keyword used to turn on the NetCDF variable shuffle filter when the deflate option is also set. The shuffle filter has the effect of storing the first byte of all of a variable's values in a chunk contiguously, followed by all the second bytes, etc. This can be an optimization for compression with certain types of data.": [
         "utl-ncf"
       ]
     }
@@ -6187,6 +6371,9 @@
       ]
     },
     "period": {
+      "is the head in the river.": [
+        "gwf-rivg"
+      ],
       "is the head in the river. If the Options block includes a TIMESERIESFILE entry (see the `Time-Variable Input` section), values can be obtained from a time series by entering the time-series name in place of a numeric value.": [
         "gwf-riv"
       ],
@@ -6741,9 +6928,16 @@
       ]
     }
   },
+  "track_dropped": {
+    "options": {
+      "keyword to indicate that particle tracking output is to be written when a particle is dropped to the water table via DRY_TRACKING_METHOD DROP.": [
+        "prt-oc"
+      ]
+    }
+  },
   "track_exit": {
     "options": {
-      "keyword to indicate that particle tracking output is to be written when a particle exits a feature (a model, cell, or subcell)": [
+      "keyword to indicate that particle tracking output is to be written when a particle exits a grid feature (e.g. model, cell)": [
         "prt-oc"
       ]
     }
@@ -6751,6 +6945,13 @@
   "track_release": {
     "options": {
       "keyword to indicate that particle tracking output is to be written when a particle is released": [
+        "prt-oc"
+      ]
+    }
+  },
+  "track_subfeature_exit": {
+    "options": {
+      "keyword to indicate that particle tracking output is to be written when a particle exits a sub-grid-scale feature. Such features are considered implementation details of the tracking algorithm employed for particular grid types, and reporting for exit events from such features is disabled by default.": [
         "prt-oc"
       ]
     }
