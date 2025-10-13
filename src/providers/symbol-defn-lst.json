@@ -5,6 +5,7 @@
   "BUY",
   "CDB",
   "CHD",
+  "CHDG",
   "CHFGWF",
   "CNC",
   "CND",
@@ -19,6 +20,7 @@
   "DISV1D",
   "DISV2D",
   "DRN",
+  "DRNG",
   "DSP",
   "EMS",
   "ESL",
@@ -29,6 +31,7 @@
   "FLW",
   "FMI",
   "GHB",
+  "GHBG",
   "GNC",
   "GWEGWE",
   "GWFGWE",
@@ -65,6 +68,7 @@
   "RCH",
   "RCHA",
   "RIV",
+  "RIVG",
   "SFE",
   "SFR",
   "SFRTAB",
@@ -84,5 +88,6 @@
   "UZT",
   "VSC",
   "WEL",
+  "WELG",
   "ZDG"
 ]
