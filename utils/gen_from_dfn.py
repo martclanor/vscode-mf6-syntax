@@ -96,6 +96,7 @@ FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
 
 IGNORED_FIELDS: frozenset[str] = frozenset(
     {
+        "default",
         "default_value",
         "deprecated",
         "extended",
