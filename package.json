@@ -199,16 +199,16 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
-    "@types/node": "^24.5.2",
-    "@types/vscode": "^1.104.0",
-    "@vscode/test-cli": "^0.0.11",
+    "@eslint/js": "^9.37.0",
+    "@types/node": "^24.7.2",
+    "@types/vscode": "^1.105.0",
+    "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.2",
-    "eslint": "^9.36.0",
+    "eslint": "^9.37.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.44.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },
