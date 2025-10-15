@@ -1,17 +1,54 @@
 # Changelog
 
-## 0.4.0-beta
+## [Unreleased]
 
-- feat: MF6 input file symbol definition
-- feat: MF6 output list file syntax highlighting
-- feat: MF6 output list file symbol definition
-- chore(deps): bump tmp from 0.2.3 to 0.2.4 in the npm_and_yarn group
-- chore(deps-dev): bump the npm-all group across 1 directory with 6 updates
-- chore: add template for auto-generated release notes
-- chore(deps): sync vscode devDependency to engines.vscode
-- docs(readme): separate demo images/gif for different features
-- chore(deps): remove template for auto-generated release notes
+### Commits
+- Regroup refactor commits
+- Use CHANGELOG.md in gh release notes
+- Specify tag pattern
+- Remove New Contributors section
+- Fix spacing
+- Remove unnecessary comments in git-cliff config
+- Remove author
+- Revert "Remove commit preprocessor"
+- Add github remote
+- Add spacer before full changelog footer
+- Prefer Commits over Others
+- Remove commit preprocessor
+- Ignore Bump and Release commits on changelog
+- Remove extra notes on changelog template
+- Skip auto-format on CHANGELOG.md
+- Update commit parsers
 
+### Features
+- Add hover for recarrays in [#155](https://github.com/martclanor/vscode-mf6-syntax/pull/155)
+- Mark non-converging timesteps in [#151](https://github.com/martclanor/vscode-mf6-syntax/pull/151)
+
+### Internal Changes & Maintenance
+- Bump the npm-all group across 1 directory with 7 updates
+- Bump the gha-all group across 1 directory with 3 updates in [#160](https://github.com/martclanor/vscode-mf6-syntax/pull/160)
+- Update dfn files to MODFLOW 6.6.3 in [#157](https://github.com/martclanor/vscode-mf6-syntax/pull/157)
+- Bump tar-fs in [#154](https://github.com/martclanor/vscode-mf6-syntax/pull/154)
+- Bump the npm-all group across 1 directory with 6 updates in [#153](https://github.com/martclanor/vscode-mf6-syntax/pull/153)
+- Bump the gha-all group across 1 directory with 2 updates in [#148](https://github.com/martclanor/vscode-mf6-syntax/pull/148)
+
+### Refactor
+- Read other data from dfn for syntax highlighting in [#152](https://github.com/martclanor/vscode-mf6-syntax/pull/152)
+
+## [0.4.0] - 2025-08-18
+
+### Features
+- MF6 output list file symbol definition in [#137](https://github.com/martclanor/vscode-mf6-syntax/pull/137)
+- MF6 output list file syntax highlighting in [#132](https://github.com/martclanor/vscode-mf6-syntax/pull/132)
+- MF6 input file symbol definition in [#133](https://github.com/martclanor/vscode-mf6-syntax/pull/133)
+
+### Internal Changes & Maintenance
+- Remove template for auto-generated release notes in [#143](https://github.com/martclanor/vscode-mf6-syntax/pull/143)
+- Separate demo images/gif for different features in [#141](https://github.com/martclanor/vscode-mf6-syntax/pull/141)
+- Sync vscode devDependency to engines.vscode in [#140](https://github.com/martclanor/vscode-mf6-syntax/pull/140)
+- Add template for auto-generated release notes in [#139](https://github.com/martclanor/vscode-mf6-syntax/pull/139)
+- Bump the npm-all group across 1 directory with 6 updates in [#138](https://github.com/martclanor/vscode-mf6-syntax/pull/138)
+- Bump tmp from 0.2.3 to 0.2.4 in the npm_and_yarn group in [#135](https://github.com/martclanor/vscode-mf6-syntax/pull/135)
 
 ## [0.3.1] - 2025-08-02
 
@@ -225,6 +262,8 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[unreleased]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..HEAD
+[0.4.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.1..0.4.0
 [0.3.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.0..0.3.1
 [0.3.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.2.2..0.3.0
 [0.2.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.2.1..0.2.2
