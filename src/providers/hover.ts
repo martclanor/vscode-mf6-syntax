@@ -2,6 +2,8 @@ import * as vscode from "vscode";
 import * as path from "path";
 import * as hoverKeywordJson from "./hover-keyword.json";
 import * as hoverBlockJson from "./hover-block.json";
+import * as hoverRecarrayJson from "./hover-recarray.json";
+import * as fs from "fs";
 
 interface HoverKeywordStructure {
   [keyword: string]: {
@@ -14,6 +16,12 @@ interface HoverKeywordStructure {
 interface HoverBlockStructure {
   [block: string]: {
     [dfn: string]: string; // block structure definition
+  };
+}
+
+interface HoverRecarrayStructure {
+  [block: string]: {
+    [rec: string]: string[]; // dfn_name
   };
 }
 
@@ -35,6 +43,132 @@ function findEnclosingBlock(
 
 function getFileExtension(document: vscode.TextDocument): string {
   return path.extname(document.fileName).slice(1).toLowerCase();
+}
+
+function getRepeatCellid(document: vscode.TextDocument): number | undefined {
+  const dirPath = path.dirname(document.fileName);
+  const files = fs.readdirSync(dirPath);
+  for (const file of files) {
+    const filePath = path.join(dirPath, file);
+    if (fs.statSync(filePath).isFile()) {
+      const ext = path.extname(file).toLowerCase();
+      if (ext === ".dis") {
+        // layer, row, column (need 2 extra counts)
+        return 2;
+      } else if (ext === ".disv") {
+        // layer, cellid (need 1 extra count)
+        return 1;
+      }
+    }
+  }
+  return undefined;
+}
+
+function getExcludeRecItems(
+  block: string,
+  document: vscode.TextDocument,
+  position: vscode.Position,
+): string[] {
+  let excludeRecItems: string[] = ["boundname", "aux"];
+  if (block === "period") {
+    let i = 0;
+    while (i < position.line) {
+      const line = document.lineAt(i).text.trim();
+      if (/^end\s+options/i.test(line)) {
+        break;
+      }
+      if (/^boundnames$/i.test(line)) {
+        excludeRecItems = excludeRecItems.filter(
+          (item) => item !== "boundname",
+        );
+      }
+      if (/^auxiliary/i.test(line)) {
+        excludeRecItems = excludeRecItems.filter((item) => item !== "aux");
+      }
+      i++;
+    }
+  }
+  return excludeRecItems;
+}
+
+function getWordIndex(lineText: string, wordRange: vscode.Range): number {
+  // Get wordIndex based on number of spaces before word excluding spaces in quotes
+  let wordIndex = 0;
+  let inSingleQuotes = false;
+  let inDoubleQuotes = false;
+  let inWhiteSpaces = false;
+  const firstNonSpace = lineText.search(/\S/);
+  if (firstNonSpace === -1) {
+    return 0;
+  }
+  for (let i = firstNonSpace; i < wordRange.start.character; i++) {
+    const char = lineText[i];
+    if (char === "'" && !inDoubleQuotes) {
+      inSingleQuotes = !inSingleQuotes;
+      inWhiteSpaces = false;
+    } else if (char === '"' && !inSingleQuotes) {
+      inDoubleQuotes = !inDoubleQuotes;
+      inWhiteSpaces = false;
+    } else if (/\s/.test(char) && !inSingleQuotes && !inDoubleQuotes) {
+      if (!inWhiteSpaces) {
+        wordIndex++;
+        inWhiteSpaces = true;
+      }
+    } else {
+      inWhiteSpaces = false;
+    }
+  }
+  return wordIndex;
+}
+
+function getKeywordRecarray(
+  hoverRecarray: HoverRecarrayStructure,
+  block: string,
+  fileExtension: string,
+  wordIndex: number,
+  repeatCellid: number,
+  excludeRecItems: string[],
+): string | undefined {
+  for (const [rec, dfns] of Object.entries(hoverRecarray[block])) {
+    // Exit early if no matching dfn
+    const filteredDfns = dfns.filter((dfn) => {
+      const parts = dfn.split("-");
+      return parts.length > 1 && parts[1] === fileExtension;
+    });
+    if (filteredDfns.length == 0) {
+      continue;
+    }
+
+    const recItems = rec.split(",");
+
+    // Repeat cellid items for dis (twice) and disv (once)
+    if (repeatCellid) {
+      const expandedRecItems: string[] = [];
+      recItems.forEach((item) => {
+        expandedRecItems.push(item);
+        if (item.includes("cellid")) {
+          for (let i = 0; i < repeatCellid; i++) {
+            expandedRecItems.push(item);
+          }
+        }
+      });
+      recItems.splice(0, recItems.length, ...expandedRecItems);
+    }
+
+    const filteredRecItems = recItems.filter(
+      (item) => !excludeRecItems.includes(item),
+    );
+
+    if (wordIndex < filteredRecItems.length) {
+      const recKeyword = filteredRecItems[wordIndex];
+      if (recKeyword) {
+        if (filteredDfns.length > 0) {
+          return recKeyword;
+        }
+      }
+    }
+  }
+  return undefined;
 }
 
 function findMatchingDfns<T extends { [key: string]: string | string[] }>(
@@ -101,29 +235,81 @@ function formatKeywordHover(
 }
 
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
-  hoverData: HoverKeywordStructure = hoverKeywordJson as HoverKeywordStructure;
+  hoverKeyword: HoverKeywordStructure =
+    hoverKeywordJson as HoverKeywordStructure;
+  hoverRecarray: HoverRecarrayStructure =
+    hoverRecarrayJson as HoverRecarrayStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
     position: vscode.Position,
   ) {
-    const wordRange = document.getWordRangeAtPosition(position, /\S+/);
+    // Consider single quotes or double quotes to find the words
+    const wordRange = document.getWordRangeAtPosition(
+      position,
+      /(?<=['"])[^'"]*(?=['"])|[^'"\s]+/,
+    );
     if (!wordRange) {
       return undefined;
     }
-    const keyword = document.getText(wordRange).toLowerCase();
+    const keyword = document.getText(wordRange);
+    const keywordLower = keyword.toLowerCase();
     const block = findEnclosingBlock(document, position);
+    if (!block) {
+      return undefined;
+    }
+    const fileExtension = getFileExtension(document);
 
     if (
-      block &&
-      keyword in this.hoverData &&
-      this.hoverData[keyword]?.[block]
+      keywordLower in this.hoverKeyword &&
+      this.hoverKeyword[keywordLower]?.[block]
     ) {
-      const blockData = this.hoverData[keyword][block];
-      const fileExtension = getFileExtension(document);
+      const blockData = this.hoverKeyword[keywordLower][block];
       const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
       const hoverValue = formatKeywordHover(
-        keyword,
+        keywordLower,
+        block,
+        matchingDfns,
+        blockData,
+      );
+      return new vscode.Hover(new vscode.MarkdownString(hoverValue, true));
+    } else if (block in this.hoverRecarray) {
+      const lineText = document.lineAt(position.line).text;
+      if (lineText.startsWith("#")) {
+        return undefined;
+      }
+      const wordIndex = getWordIndex(lineText, wordRange);
+      const repeatCellid = getRepeatCellid(document);
+      if (!repeatCellid) {
+        return undefined;
+      }
+
+      const excludeRecItems: string[] = getExcludeRecItems(
+        block,
+        document,
+        position,
+      );
+
+      const keywordRecarray = getKeywordRecarray(
+        this.hoverRecarray,
+        block,
+        fileExtension,
+        wordIndex,
+        repeatCellid,
+        excludeRecItems,
+      );
+      if (
+        !keywordRecarray ||
+        !(keywordRecarray in this.hoverKeyword) ||
+        !(block in this.hoverKeyword[keywordRecarray])
+      ) {
+        return undefined;
+      }
+
+      const blockData = this.hoverKeyword[keywordRecarray][block];
+      const matchingDfns = findMatchingDfns(blockData, fileExtension, true);
+      const hoverValue = formatKeywordHover(
+        keywordRecarray,
         block,
         matchingDfns,
         blockData,
@@ -137,7 +323,7 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 }
 
 export class MF6HoverBlockProvider implements vscode.HoverProvider {
-  hoverData: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
+  hoverBlock: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
 
   public async provideHover(
     document: vscode.TextDocument,
@@ -153,9 +339,9 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
     }
 
     const block = document.getText(wordRange).toLowerCase();
-    if (block in this.hoverData) {
+    if (block in this.hoverBlock) {
       let hoverValue: string | undefined = undefined;
-      const blockData = this.hoverData[block];
+      const blockData = this.hoverBlock[block];
       const fileExtension = getFileExtension(document);
       const matchingDfns = findMatchingDfns(blockData, fileExtension);
 

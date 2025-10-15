@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
 
@@ -34,6 +34,24 @@ jobs:
       - name: Package extension
         run: npm run package
 
+      - name: Extract version changelog
+        id: extract_changelog
+        run: |
+          VERSION="${{ github.ref_name }}"
+          # Extract the section for current version from CHANGELOG.md
+          CHANGELOG_CONTENT=$(awk -v ver="$VERSION" '
+            # Start capturing after finding the version header
+            $0 ~ "^## \\[" ver "\\]" {flag=1; next}
+            # Stop capturing when we hit the next version header
+            flag && $0 ~ "^## \\[" {flag=0}
+            # Print lines while flag is true
+            flag {print}
+          ' CHANGELOG.md)
+          # Save changelog to output, handling multiline strings
+          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG_CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create release
         if: ${{ github.ref_type == 'tag' }}
         env:
@@ -42,4 +60,4 @@ jobs:
           gh release create ${{ github.ref_name }} *.vsix \
           --title ${{ github.ref_name }}-beta \
           --draft \
-          --generate-notes
+          --notes "${{ steps.extract_changelog.outputs.CHANGELOG }}"

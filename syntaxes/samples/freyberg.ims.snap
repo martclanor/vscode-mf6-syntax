@@ -26,7 +26,8 @@
 >	under_relaxation none
 #^ source.mf6
 # ^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
-#                 ^^^^^^ source.mf6
+#                 ^ source.mf6
+#                  ^^^^ source.mf6 entity.name.function.mf6
 >end nonlinear
 #^^^ source.mf6 keyword.control.mf6
 #   ^ source.mf6
@@ -55,11 +56,13 @@
 >	scaling_method none
 #^ source.mf6
 # ^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
-#               ^^^^^^ source.mf6
+#               ^ source.mf6
+#                ^^^^ source.mf6 entity.name.function.mf6
 >	REORDERING_METHOD none
 #^ source.mf6
 # ^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
-#                  ^^^^^^ source.mf6
+#                  ^ source.mf6
+#                   ^^^^ source.mf6 entity.name.function.mf6
 >	relaxation_factor 0.97
 #^ source.mf6
 # ^^^^^^^^^^^^^^^^^ source.mf6 entity.name.function.mf6
