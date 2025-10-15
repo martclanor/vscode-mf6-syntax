@@ -1,31 +1,14 @@
 # Changelog
 
-## [Unreleased]
-
-### Commits
-- Regroup refactor commits
-- Use CHANGELOG.md in gh release notes
-- Specify tag pattern
-- Remove New Contributors section
-- Fix spacing
-- Remove unnecessary comments in git-cliff config
-- Remove author
-- Revert "Remove commit preprocessor"
-- Add github remote
-- Add spacer before full changelog footer
-- Prefer Commits over Others
-- Remove commit preprocessor
-- Ignore Bump and Release commits on changelog
-- Remove extra notes on changelog template
-- Skip auto-format on CHANGELOG.md
-- Update commit parsers
+## [0.5.0] - 2025-10-15
 
 ### Features
 - Add hover for recarrays in [#155](https://github.com/martclanor/vscode-mf6-syntax/pull/155)
 - Mark non-converging timesteps in [#151](https://github.com/martclanor/vscode-mf6-syntax/pull/151)
 
 ### Internal Changes & Maintenance
-- Bump the npm-all group across 1 directory with 7 updates
+- Use git-cliff for auto-generation of changelog in [#161](https://github.com/martclanor/vscode-mf6-syntax/pull/161)
+- Bump the npm-all group across 1 directory with 7 updates in [#158](https://github.com/martclanor/vscode-mf6-syntax/pull/158)
 - Bump the gha-all group across 1 directory with 3 updates in [#160](https://github.com/martclanor/vscode-mf6-syntax/pull/160)
 - Update dfn files to MODFLOW 6.6.3 in [#157](https://github.com/martclanor/vscode-mf6-syntax/pull/157)
 - Bump tar-fs in [#154](https://github.com/martclanor/vscode-mf6-syntax/pull/154)
@@ -262,7 +245,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
-[unreleased]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..HEAD
+[0.5.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..0.5.0
 [0.4.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.1..0.4.0
 [0.3.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.0..0.3.1
 [0.3.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.2.2..0.3.0
