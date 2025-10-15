@@ -42,7 +42,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
       - name: Install project dependencies
@@ -68,7 +68,7 @@ jobs:
       - name: Download DFN files from MF6 repository
         run: utils/download-dfn.sh
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
       - name: Regenerate from templates
         run: uv run utils/gen_from_dfn.py
       - name: Check for changes
@@ -80,7 +80,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
       - name: Install dependencies
@@ -94,7 +94,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: "20"
       - name: Install dependencies
