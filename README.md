@@ -13,6 +13,8 @@ This VS Code extension provides rich language features for [MODFLOW 6](https://m
 
 ## Features
 
+_Note: data files used below are from the [**FloPy GitHub repository**](https://github.com/modflowpy/flopy)_
+
 ---
 
 ### Syntax highlighting
