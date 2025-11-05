@@ -39,7 +39,7 @@ export async function goToParent() {
 
       if (
         new RegExp(
-          `(?:'|\\s)${fileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?=\\s|$)`,
+          `(?:'|\\s)${fileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?=\\s|'|$)`,
           "m",
         ).test(content)
       ) {
