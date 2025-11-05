@@ -37,7 +37,12 @@ export async function goToParent() {
       const contentBytes = await vscode.workspace.fs.readFile(otherFileUri);
       const content = Buffer.from(contentBytes).toString("utf-8");
 
-      if (content.includes(fileName)) {
+      if (
+        new RegExp(
+          `(?:'|\\s)${fileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?=\\s|$)`,
+          "m",
+        ).test(content)
+      ) {
         const parentDocument =
           await vscode.workspace.openTextDocument(otherFileUri);
         await vscode.window.showTextDocument(parentDocument);
