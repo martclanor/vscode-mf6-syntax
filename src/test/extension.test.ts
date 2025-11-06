@@ -202,6 +202,17 @@ suite("Extension Test Suite", () => {
     const gwfDisTempFileUri = vscode.Uri.joinPath(tempDirUri, "test_model.dis");
     const gwfDisFileContent = Buffer.from("BEGIN\nLENGTH_UNITS\nEND");
     await vscode.workspace.fs.writeFile(gwfDisTempFileUri, gwfDisFileContent);
+    const dummyGwfNamTempFileUri = vscode.Uri.joinPath(
+      tempDirUri,
+      "dummy_test_model.nam",
+    );
+    const dummyGwfNamFileContent = Buffer.from(
+      "BEGIN packages\nDIS6 dummy_test_model.dis dis\nEND",
+    );
+    await vscode.workspace.fs.writeFile(
+      dummyGwfNamTempFileUri,
+      dummyGwfNamFileContent,
+    );
     const gwfNamTempFileUri = vscode.Uri.joinPath(tempDirUri, "test_model.nam");
     const gwfNamFileContent = Buffer.from(
       "BEGIN packages\nDIS6 test_model.dis dis\nEND",
@@ -217,6 +228,7 @@ suite("Extension Test Suite", () => {
       const gwfDisDocument =
         await vscode.workspace.openTextDocument(gwfDisTempFileUri);
       await vscode.window.showTextDocument(gwfDisDocument);
+      // Should not go to dummy gwf which has partial filename match only
       await goToParent(); // gwf-dis to gwf-nam
       assert.strictEqual(
         vscode.window.activeTextEditor?.document.fileName,
