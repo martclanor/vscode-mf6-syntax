@@ -12,6 +12,10 @@ export async function goToParent() {
       );
       return null;
     }
+    const fileNameRegex = new RegExp(
+      `(?:'|\\s)${fileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?=\\s|'|$)`,
+      "m",
+    );
     const dirUri = vscode.Uri.joinPath(fileUri, "..");
     const filesInDir = await vscode.workspace.fs.readDirectory(dirUri);
     const config = vscode.workspace.getConfiguration("mf6Syntax");
@@ -37,12 +41,7 @@ export async function goToParent() {
       const contentBytes = await vscode.workspace.fs.readFile(otherFileUri);
       const content = Buffer.from(contentBytes).toString("utf-8");
 
-      if (
-        new RegExp(
-          `(?:'|\\s)${fileName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?=\\s|'|$)`,
-          "m",
-        ).test(content)
-      ) {
+      if (fileNameRegex.test(content)) {
         const parentDocument =
           await vscode.workspace.openTextDocument(otherFileUri);
         await vscode.window.showTextDocument(parentDocument);
