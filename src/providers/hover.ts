@@ -70,7 +70,11 @@ function getExcludeRecItems(
   position: vscode.Position,
 ): string[] {
   let excludeRecItems: string[] = ["boundname", "aux"];
-  if (block === "period") {
+  if (
+    block === "period" ||
+    block === "exchangedata" ||
+    block === "packagedata"
+  ) {
     let i = 0;
     while (i < position.line) {
       const line = document.lineAt(i).text.trim();
