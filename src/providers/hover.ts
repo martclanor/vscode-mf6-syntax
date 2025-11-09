@@ -29,6 +29,9 @@ function findEnclosingBlock(
   document: vscode.TextDocument,
   position: vscode.Position,
 ): string | undefined {
+  if (isBlockDeclaration(document, position)) {
+    return undefined;
+  }
   for (let i = position.line - 1; i >= 0; i--) {
     const line = document.lineAt(i).text.trim();
     if (line.toLowerCase().startsWith("begin")) {
@@ -205,12 +208,13 @@ function findMatchingDfns<T extends { [key: string]: string | string[] }>(
 function isBlockDeclaration(
   document: vscode.TextDocument,
   position: vscode.Position,
-  wordRange: vscode.Range,
 ): boolean {
-  const lineText = document.lineAt(position.line).text;
-  const textBefore = lineText.slice(0, wordRange.start.character);
-  const prevWord = textBefore.trim().split(/\s+/).pop()?.toLowerCase();
-  return prevWord === "begin" || prevWord === "end";
+  const firstWord = document
+    .lineAt(position.line)
+    .text.trim()
+    .toLowerCase()
+    .split(/\s+/)[0];
+  return firstWord === "begin" || firstWord === "end";
 }
 
 function formatKeywordHover(
@@ -338,7 +342,7 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
       return undefined;
     }
 
-    if (!isBlockDeclaration(document, position, wordRange)) {
+    if (!isBlockDeclaration(document, position)) {
       return undefined;
     }
 
