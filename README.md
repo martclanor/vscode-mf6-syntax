@@ -33,19 +33,19 @@ _Note: data files used below are from the [**FloPy GitHub repository**](https://
 
 ---
 
-### Document symbols
-
-- for integration with VS Code features such as [go-to-symbol](https://code.visualstudio.com/docs/editing/editingevolved#_go-to-symbol), [outline view](https://code.visualstudio.com/docs/getstarted/userinterface#_outline-view), [breadcrumbs](https://code.visualstudio.com/docs/getstarted/userinterface#_breadcrumbs), [sticky scroll](https://code.visualstudio.com/docs/getstarted/userinterface#_sticky-scroll), [minimap](https://code.visualstudio.com/docs/getstarted/userinterface#_minimap), etc.
-
-![symbol-defn](images/demo_symbol_defn.gif)
-
----
-
 ### Go-to-definition
 
 - via `Ctrl + click` or `Go To Definition` keybinding (default: `F12`)
 
 ![go-to-defn](images/demo_go_to_defn.gif)
+
+---
+
+### Document symbols
+
+- for integration with VS Code features such as [go-to-symbol](https://code.visualstudio.com/docs/editing/editingevolved#_go-to-symbol), [outline view](https://code.visualstudio.com/docs/getstarted/userinterface#_outline-view), [breadcrumbs](https://code.visualstudio.com/docs/getstarted/userinterface#_breadcrumbs), [sticky scroll](https://code.visualstudio.com/docs/getstarted/userinterface#_sticky-scroll), [minimap](https://code.visualstudio.com/docs/getstarted/userinterface#_minimap), etc.
+
+![symbol-defn](images/demo_symbol_defn.gif)
 
 ---
 
@@ -61,14 +61,14 @@ _Note: data files used below are from the [**FloPy GitHub repository**](https://
 
 ## Commands
 
-- `MF6 Syntax: Set language to MF6`
-  - useful if extension is not activated automatically (based on file extension)
 - `MF6 Syntax: Go to parent file`
   - opens the parent file of the current MF6 file, if it exists
   - for example:
     - if `freyberg.dis` file is active, it opens `freyberg.nam`
     - if `freyberg.nam` file is active, it opens `mfsim.nam`
     - if `mfsim.nam` file is active, no-op since it is the top-level file
+- `MF6 Syntax: Set language to MF6`
+  - useful if extension is not activated automatically (based on file extension)
 
 ## Settings
 
