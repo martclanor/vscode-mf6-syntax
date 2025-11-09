@@ -29,6 +29,10 @@ function findEnclosingBlock(
   document: vscode.TextDocument,
   position: vscode.Position,
 ): string | undefined {
+  const currentLine = document.lineAt(position.line).text.trim().toLowerCase();
+  if (currentLine.startsWith("begin") || currentLine.startsWith("end")) {
+    return undefined;
+  }
   for (let i = position.line - 1; i >= 0; i--) {
     const line = document.lineAt(i).text.trim();
     if (line.toLowerCase().startsWith("begin")) {
