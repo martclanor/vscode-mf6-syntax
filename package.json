@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Provides rich language features for MODFLOW 6",
   "categories": [
     "Other"
