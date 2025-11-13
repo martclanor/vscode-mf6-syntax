@@ -1,7 +1,7 @@
 {
   "name": "mf6-syntax",
   "displayName": "MODFLOW 6 Syntax",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Provides rich language features for MODFLOW 6",
   "categories": [
     "Other"
@@ -22,7 +22,7 @@
   "publisher": "mart-clanor",
   "main": "./out/extension.js",
   "scripts": {
-    "changelog": "git-cliff -o CHANGELOG.md",
+    "changelog": "git-cliff --bump -o CHANGELOG.md",
     "dfn:download": "utils/download-dfn.sh",
     "lockfile:check": "utils/check-lockfile.sh",
     "grammar:test": "vscode-tmgrammar-snap syntaxes/samples/*",
@@ -200,17 +200,17 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.37.0",
-    "@types/node": "^24.7.2",
+    "@eslint/js": "^9.38.0",
+    "@types/node": "^24.8.1",
     "@types/vscode": "^1.105.0",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.6.2",
-    "eslint": "^9.37.0",
+    "eslint": "^9.38.0",
     "git-cliff": "^2.10.1",
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.0",
+    "typescript-eslint": "^8.46.1",
     "vscode-test": "^1.6.1",
     "vscode-tmgrammar-test": "^0.1.3"
   },

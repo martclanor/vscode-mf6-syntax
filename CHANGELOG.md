@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.1] - 2025-11-13
+
+### Bug Fixes
+- Set no enclosing block for block declarations in [#170](https://github.com/martclanor/vscode-mf6-syntax/pull/170)
+- Include other blocks when checking for bn and aux in [#169](https://github.com/martclanor/vscode-mf6-syntax/pull/169)
+- Match entire filename strictly in [#167](https://github.com/martclanor/vscode-mf6-syntax/pull/167)
+
+### Internal Changes & Maintenance
+- Update project description in [#172](https://github.com/martclanor/vscode-mf6-syntax/pull/172)
+- Improve feature demo in [#164](https://github.com/martclanor/vscode-mf6-syntax/pull/164)
+- Auto-bump version in changelog in [#168](https://github.com/martclanor/vscode-mf6-syntax/pull/168)
+- Bump the npm-all group with 4 updates in [#163](https://github.com/martclanor/vscode-mf6-syntax/pull/163)
+
 ## [0.5.0] - 2025-10-15
 
 ### Features
@@ -245,6 +258,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.5.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.0..0.5.1
 [0.5.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..0.5.0
 [0.4.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.1..0.4.0
 [0.3.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.0..0.3.1
