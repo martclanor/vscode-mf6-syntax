@@ -9,6 +9,10 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     /start timestep kper="(?<spd>\d+)" kstp="(?<ts>\d+)"/i;
   private static readonly noConvRegex =
     /FAILED TO MEET SOLVER CONVERGENCE|did not converge/;
+  private static readonly totalIterRegex =
+    /\s*(?<value>\d+)\s+TOTAL ITERATIONS/i;
+  private static readonly percentDiscrepancyRegex =
+    /.*PERCENT DISCREPANCY\s*=\s*(?<value>[+-]?\d+(\.\d+)?)/i;
 
   public async provideDocumentSymbols(
     document: vscode.TextDocument,
@@ -35,7 +39,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     // Capture stress period and timestep symbols
     i = symbols[symbols.length - 1].range.end.line + 1;
     while (i < document.lineCount) {
-      const spd = this.parseSpd(document, i);
+      const spd = this.parseSpd(document, i, header.isMfsimLst);
       if (!spd) {
         i++;
         continue;
@@ -47,12 +51,15 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
   }
 
   private parseHeader(document: vscode.TextDocument): {
+    isMfsimLst: boolean;
     symbol: vscode.DocumentSymbol;
     endLine: number;
   } {
     const endRange = MF6LstSymbolProvider.findHeaderPackageEnd(document);
     const range = this.createRange(document, 0, endRange);
     return {
+      // Non-mfsim lst files have model name on line 2 and version on line 3
+      isMfsimLst: document.lineAt(2).text.trim().startsWith("VERSION"),
       symbol: new vscode.DocumentSymbol(
         "MF6-LST",
         "header",
@@ -129,6 +136,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
   private parseSpd(
     document: vscode.TextDocument,
     beginRange: number,
+    isMfsimLst: boolean,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
     const spdMatch = MF6LstSymbolProvider.matchSpdTs(document, beginRange);
     if (!spdMatch) {
@@ -144,7 +152,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
         i++;
         continue;
       }
-      const tsStat = MF6LstSymbolProvider.checkTs(document, i + 1);
+      const tsStat = MF6LstSymbolProvider.checkTs(document, i + 1, isMfsimLst);
       const tsRange = this.createRange(document, i, tsStat.tsEnd);
       if (tsMatch.spd === spdMatch.spd) {
         const tsDisplayName = tsStat.noConv
@@ -153,7 +161,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
         timesteps.push(
           new vscode.DocumentSymbol(
             tsDisplayName,
-            "",
+            tsStat.detail,
             vscode.SymbolKind.Method,
             tsRange,
             tsRange,
@@ -220,18 +228,36 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
   private static checkTs(
     document: vscode.TextDocument,
     startLine: number,
-  ): { tsEnd: number; noConv: boolean } {
+    isMfsimLst: boolean,
+  ): { tsEnd: number; noConv: boolean; detail: string } {
     let noConv: boolean = false;
+    let regex;
+    let detailPrefix;
+    if (isMfsimLst) {
+      regex = MF6LstSymbolProvider.totalIterRegex;
+      detailPrefix = "iters: ";
+    } else {
+      regex = MF6LstSymbolProvider.percentDiscrepancyRegex;
+      detailPrefix = "disc: ";
+    }
+    let detail = "";
     for (let i = startLine; i < document.lineCount; i++) {
       const lineText = document.lineAt(i).text;
       if (!noConv && lineText.search(this.noConvRegex) !== -1) {
         noConv = true;
       }
+      const detailMatch = lineText.match(regex);
+      if (detailMatch?.groups?.value) {
+        detail = detailPrefix + detailMatch.groups.value;
+        if (!isMfsimLst) {
+          detail += "%";
+        }
+      }
       const match = MF6LstSymbolProvider.matchSpdTs(document, i);
       if (match) {
-        return { tsEnd: i - 1, noConv: noConv };
+        return { tsEnd: i - 1, noConv: noConv, detail: detail };
       }
     }
-    return { tsEnd: document.lineCount - 1, noConv: noConv };
+    return { tsEnd: document.lineCount - 1, noConv: noConv, detail: detail };
   }
 }
