@@ -254,12 +254,16 @@ suite("Extension Test Suite", () => {
     symbol: vscode.DocumentSymbol,
     expectedName: string,
     expectedRange: [number, number, number, number],
+    expectedDetail: string = "",
   ) {
     assert.strictEqual(symbol.name, expectedName);
     assert.strictEqual(symbol.range.start.line, expectedRange[0]);
     assert.strictEqual(symbol.range.start.character, expectedRange[1]);
     assert.strictEqual(symbol.range.end.line, expectedRange[2]);
     assert.strictEqual(symbol.range.end.character, expectedRange[3]);
+    if (expectedDetail !== "") {
+      assert.strictEqual(symbol.detail, expectedDetail);
+    }
   }
 
   test("MF6SymbolProvider should provide document symbols", async () => {
@@ -339,7 +343,17 @@ END non-existing-block`,
     assertSymbol(symbols[5], "RIV", [137, 0, 148, 0]);
     assertSymbol(symbols[6], "RCH", [149, 0, 192, 0]);
     assertSymbol(symbols[7], "spd 1", [193, 0, 306, 0]);
-    assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
-    assertSymbol(symbols[7].children[1], "ts 2 ❌", [249, 0, 306, 0]);
+    assertSymbol(
+      symbols[7].children[0],
+      "ts 1",
+      [193, 0, 248, 0],
+      "disc: 0.00%",
+    );
+    assertSymbol(
+      symbols[7].children[1],
+      "ts 2 ❌",
+      [249, 0, 306, 0],
+      "disc: 0.00%",
+    );
   });
 });
