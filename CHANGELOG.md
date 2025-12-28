@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.2] - 2025-12-28
+
+### Internal Changes & Maintenance
+- Remove unused vscode-test dependency in [#182](https://github.com/martclanor/vscode-mf6-syntax/pull/182)
+- Bump @types/node from 24.10.4 to 25.0.3 in the npm-all group across 1 directory in [#180](https://github.com/martclanor/vscode-mf6-syntax/pull/180)
+- Bump jws in [#178](https://github.com/martclanor/vscode-mf6-syntax/pull/178)
+- Bump actions/checkout from 5 to 6 in the gha-all group in [#176](https://github.com/martclanor/vscode-mf6-syntax/pull/176)
+- Bump js-yaml from 3.14.1 to 3.14.2 in [#175](https://github.com/martclanor/vscode-mf6-syntax/pull/175)
+
 ## [0.5.1] - 2025-11-13
 
 ### Bug Fixes
@@ -258,6 +267,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.5.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.1..0.5.2
 [0.5.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.0..0.5.1
 [0.5.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..0.5.0
 [0.4.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.3.1..0.4.0
