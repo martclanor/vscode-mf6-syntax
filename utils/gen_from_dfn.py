@@ -190,9 +190,14 @@ class Section:
         else:
             keyword = Line.from_replace(self.description).key
             # Create replacement dictionary from the original description
-            replacement = ast.literal_eval(
-                self.description.lstrip(f"REPLACE {keyword} ")
-            )
+            replacement_str = self.description.lstrip(f"REPLACE {keyword} ")
+
+            # Fix for typo in 6.0.2 gwf-maw.dfn's cellid description
+            if replacement_str[-1] != "}":
+                match = re.search(r".*\}", replacement_str)
+                replacement_str = match.group(0) if match else "{}"
+
+            replacement = ast.literal_eval(replacement_str)
             # Take new description from common.dfn, then replace placeholders
             desc = common[keyword]
             for key, value in replacement.items():
