@@ -500,16 +500,17 @@ class Dfn:
 
 
 if __name__ == "__main__":
+    # Collect blocks, keywords, valids, and extensions from DFN files
+    extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
+
     for version in Dfn.get_versions():
         Dfn.dfn_path = Path(f"data/dfn/{version}")
         log.info(f"Generating files from DFN's of MODFLOW {version}")
 
-        # Collect blocks, keywords, valids, and extensions from DFN files
-        extensions, blocks, keywords, valids, ftypes, exgtypes = (
-            set() for _ in range(6)
-        )
+        extensions_symbol_defn_lst: set[str] = set()
         for dfn in Dfn.get_dfns():
             extensions.add(dfn.extension)
+            extensions_symbol_defn_lst.add(dfn.extension)
             blocks.update(dfn.blocks)
             keywords.update(dfn.keywords)
             valids.update(dfn.valids)
@@ -517,21 +518,6 @@ if __name__ == "__main__":
                 ftypes.add(dfn.ftype)
             if dfn.is_exgtype:
                 exgtypes.add(dfn.exgtype)
-
-        # Insert collected data into the corresponding Jinja2 templates
-        Dfn.render_template("package.json", extensions=extensions)
-        Dfn.render_template(
-            f"syntaxes/mf6.tmLanguage-{version}.json",
-            blocks=blocks,
-            keywords=keywords,
-            valids=valids,
-            ftypes=ftypes,
-            mtypes=sorted(MTYPES),
-            exgtypes=exgtypes,
-        )
-        Dfn.render_template(
-            f"syntaxes/mf6-lst-{version}.tmLanguage.json", extensions=extensions
-        )
 
         # Export hover keyword and hover block data from DFN files
         Dfn.export_hover_keyword(f"src/providers/hover-keyword-{version}.json")
@@ -541,5 +527,20 @@ if __name__ == "__main__":
         # Export symbol definition data from DFN files
         Dfn.export_symbol_defn(f"src/providers/symbol-defn-{version}.json")
         Dfn.export_symbol_defn_lst(
-            f"src/providers/symbol-defn-lst-{version}.json", data=extensions
+            f"src/providers/symbol-defn-lst-{version}.json",
+            data=extensions_symbol_defn_lst,
         )
+
+    # Insert collected data into the corresponding Jinja2 templates
+    log.info("Rendering jinja templates with collected data")
+    Dfn.render_template("package.json", extensions=extensions)
+    Dfn.render_template(
+        "syntaxes/mf6.tmLanguage.json",
+        blocks=blocks,
+        keywords=keywords,
+        valids=valids,
+        ftypes=ftypes,
+        mtypes=sorted(MTYPES),
+        exgtypes=exgtypes,
+    )
+    Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
