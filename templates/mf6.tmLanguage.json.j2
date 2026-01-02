@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.mf{{ version }}",
+  "scopeName": "source.mf6",
   "patterns": [
     {
       "include": "#comment"
@@ -42,7 +42,7 @@
     "comment": {
       "patterns": [
         {
-          "name": "comment.mf{{ version }}",
+          "name": "comment.mf6",
           "match": "(?<=^|\\s)(#|!|//).*"
         }
       ]
@@ -50,7 +50,7 @@
     "reserved": {
       "patterns": [
         {
-          "name": "keyword.control.mf{{ version }}",
+          "name": "keyword.control.mf6",
           "match": "(?i)(?<=^|\\s)(BEGIN|END)(?=\\s|$)"
         }
       ]
@@ -58,7 +58,7 @@
     "readarrayctrl": {
       "patterns": [
         {
-          "name": "entity.other.attribute-name.mf{{ version }}",
+          "name": "entity.other.attribute-name.mf6",
           "match": "(?i)(?<=^|\\s)(CONSTANT|INTERNAL\\s{1,2}FACTOR)(?=\\s|$)"
         }
       ]
@@ -66,7 +66,7 @@
     "readarrayvar": {
       "patterns": [
         {
-          "name": "entity.other.attribute-name.mf{{ version }}",
+          "name": "entity.other.attribute-name.mf6",
           "match": "(?i)(?<=^|\\s)(FACTOR|\\(BINARY\\)|IPRN)(?=\\s|$)"
         }
       ]
@@ -74,7 +74,7 @@
     "filehandler": {
       "patterns": [
         {
-          "name": "entity.other.attribute-name.mf{{ version }}",
+          "name": "entity.other.attribute-name.mf6",
           "match": "(?i)(?<=^|\\s)(OPEN\\/CLOSE|FILEIN|FILEOUT)(?=\\s|$)"
         }
       ]
@@ -82,7 +82,7 @@
     "exgtype": {
       "patterns": [
         {
-          "name": "entity.name.function.mf{{ version }}",
+          "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)({% for exgtype in exgtypes%}{{ exgtype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
@@ -90,7 +90,7 @@
     "mtype": {
       "patterns": [
         {
-          "name": "entity.name.function.mf{{ version }}",
+          "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)({% for mtype in mtypes%}{{ mtype }}6{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
@@ -98,7 +98,7 @@
     "ftype": {
       "patterns": [
         {
-          "name": "entity.name.function.mf{{ version }}",
+          "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)({% for ftype in ftypes%}{{ ftype }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
@@ -106,7 +106,7 @@
     "block": {
       "patterns": [
         {
-          "name": "entity.name.type.mf{{ version }}",
+          "name": "entity.name.type.mf6",
           "match": "(?i)(?<=\\bBEGIN\\s*|\\bEND\\s*)(?<=^|\\s)({% for block in blocks %}{{ block }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
@@ -114,7 +114,7 @@
     "keyword": {
       "patterns": [
         {
-          "name": "entity.name.function.mf{{ version }}",
+          "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s|\\[)({% for keyword in keywords %}{{ keyword }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$|\\])"
         }
       ]
@@ -122,7 +122,7 @@
     "valid": {
       "patterns": [
         {
-          "name": "entity.name.function.mf{{ version }}",
+          "name": "entity.name.function.mf6",
           "match": "(?i)(?<=^|\\s)({% for valid in valids %}{{ valid }}{% if not loop.last %}|{% endif %}{% endfor %})(?=\\s|$)"
         }
       ]
@@ -130,7 +130,7 @@
     "file": {
       "patterns": [
         {
-          "name": "string.mf{{ version }}",
+          "name": "string.mf6",
           "match": "'.*?\\.[a-zA-Z0-9_-]+'|(?:\\b(?!\\d+\\b)|(?:\\.\\./)+)[a-zA-Z0-9_./-]+\\.[a-zA-Z0-9_-]+(?:\\.[a-zA-Z0-9_-]+)*\\b"
         }
       ]
