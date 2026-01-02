@@ -111,6 +111,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "repeating",
         "support_negative_index",
         "time_series",
+        "valid_values",
     }
 )
 
