@@ -43,10 +43,14 @@ for GIT_REF in "${GIT_REFS[@]}"; do
 
     echo "Fetching from branch '$GIT_REF'..."
     # Use --depth 1 if you only need the latest version, saves bandwidth/time
-    git pull --depth 1 origin "$GIT_REF"
+    git fetch --depth 1 origin "refs/tags/$GIT_REF"
     if [ $? -ne 0 ]; then
-        echo "Error: git pull failed. Check repo URL, branch name, and network connection."
-        # Cleanup is handled by trap
+        echo "Error: git fetch failed for tag '$GIT_REF'."
+        exit 1
+    fi
+    git checkout FETCH_HEAD
+    if [ $? -ne 0 ]; then
+        echo "Error: git checkout failed after fetching tag '$GIT_REF'."
         exit 1
     fi
 
