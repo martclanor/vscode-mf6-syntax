@@ -531,6 +531,10 @@ if __name__ == "__main__":
             data=extensions_symbol_defn_lst,
         )
 
+        # Clear version-specific cached data
+        Dfn.cache = {}
+        Dfn.common = {}
+
     # Insert collected data into the corresponding Jinja2 templates
     log.info("Rendering jinja templates with collected data")
     Dfn.render_template("package.json", extensions=extensions)
