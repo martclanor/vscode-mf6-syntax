@@ -522,6 +522,7 @@ if __name__ == "__main__":
         Dfn.render_template("package.json", extensions=extensions)
         Dfn.render_template(
             f"syntaxes/mf6.tmLanguage-{version}.json",
+            version=version,
             blocks=blocks,
             keywords=keywords,
             valids=valids,
@@ -530,7 +531,9 @@ if __name__ == "__main__":
             exgtypes=exgtypes,
         )
         Dfn.render_template(
-            f"syntaxes/mf6-lst-{version}.tmLanguage.json", extensions=extensions
+            f"syntaxes/mf6-lst.tmLanguage-{version}.json",
+            version=version,
+            extensions=extensions,
         )
 
         # Export hover keyword and hover block data from DFN files

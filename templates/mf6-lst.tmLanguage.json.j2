@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.mf6-lst",
+  "scopeName": "source.mf{{ version }}-lst",
   "patterns": [
     {
       "include": "#body"
@@ -9,7 +9,7 @@
     "body": {
       "patterns": [
         {
-          "name": "comment.mf6-lst",
+          "name": "comment.mf{{ version }}-lst",
           "begin": "^[ \\t]+MODFLOW 6$",
           "patterns": [
             {
@@ -38,12 +38,12 @@
           "end": ".*$",
           "beginCaptures": {
             "0": {
-              "name": "entity.name.function.mf6-lst"
+              "name": "entity.name.function.mf{{ version }}-lst"
             }
           },
           "endCaptures": {
             "0": {
-              "name": "string.mf6-lst"
+              "name": "string.mf{{ version }}-lst"
             }
           }
         }
@@ -56,12 +56,12 @@
           "end": ".*$",
           "beginCaptures": {
             "0": {
-              "name": "keyword.control.mf6-lst"
+              "name": "keyword.control.mf{{ version }}-lst"
             }
           },
           "endCaptures": {
             "0": {
-              "name": "entity.name.type.mf6-lst"
+              "name": "entity.name.type.mf{{ version }}-lst"
             }
           }
         }
@@ -74,12 +74,12 @@
           "end": "\\d+",
           "beginCaptures": {
             "0": {
-              "name": "markup.heading.1.mf6-lst"
+              "name": "markup.heading.1.mf{{ version }}-lst"
             }
           },
           "endCaptures": {
             "0": {
-              "name": "entity.name.type.mf6-lst"
+              "name": "entity.name.type.mf{{ version }}-lst"
             }
           }
         }
@@ -91,13 +91,13 @@
           "match": "^start timestep\\s+kper=\"(\\d+)\"\\s+kstp=\"(\\d+)\".*$",
           "captures": {
             "0": {
-              "name": "markup.heading.1.mf6-lst"
+              "name": "markup.heading.1.mf{{ version }}-lst"
             },
             "1": {
-              "name": "entity.name.type.mf6-lst"
+              "name": "entity.name.type.mf{{ version }}-lst"
             },
             "2": {
-              "name": "entity.name.type.mf6-lst"
+              "name": "entity.name.type.mf{{ version }}-lst"
             }
           }
         }
@@ -106,7 +106,7 @@
     "packages": {
       "patterns": [
         {
-          "name": "markup.heading.1.mf6-lst",
+          "name": "markup.heading.1.mf{{ version }}-lst",
           "match": "^ ({{ extensions | map('upper') | map('replace', '.', '') | join('|') }})\\s*-- .*$"
         }
       ]
