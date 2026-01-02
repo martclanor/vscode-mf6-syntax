@@ -402,7 +402,7 @@ class Dfn:
             output_path.write_text(template.render(**data_sorted))
         else:
             output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
-        log.info(f"Generated from DFN: {output_path}")
+        log.info(f"- {output_path}")
 
     @staticmethod
     def export_hover_keyword(output: str) -> None:
