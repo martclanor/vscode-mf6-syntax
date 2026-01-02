@@ -36,6 +36,7 @@ Usage:
 import ast
 import json
 import logging
+import re
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -265,7 +266,7 @@ class Dfn:
     path: Path
     sections: tuple[Section, ...]
 
-    dfn_path: ClassVar[Path] = Path("data/dfn")
+    dfn_path: ClassVar[Path]
     cache: ClassVar[dict[Path, "Dfn"]] = {}
     common: ClassVar[dict[str, str]] = {}
 
@@ -274,6 +275,12 @@ class Dfn:
         if path in cls.cache:
             return cls.cache[path]
         return cls.cache.setdefault(path, cls(path, cls._read_sections(path)))
+
+    @staticmethod
+    def get_versions() -> list[str]:
+        with open("mf6-versions.txt") as f:
+            versions = [line.strip() for line in f if line.strip()]
+        return versions
 
     @staticmethod
     def _read_sections(path: Path) -> tuple[Section, ...]:
@@ -488,41 +495,51 @@ class Dfn:
     def render_template(output: str, **context) -> None:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
-        ).get_template(f"{Path(output).name}.j2")
+        ).get_template(f"{re.sub(r'-\d+(\.\d+)*', '', Path(output).name)}.j2")
         Dfn.sort_and_export(context, output, template)
 
 
 if __name__ == "__main__":
-    # Collect blocks, keywords, valids, and extensions from DFN files
-    extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
-    for dfn in Dfn.get_dfns():
-        extensions.add(dfn.extension)
-        blocks.update(dfn.blocks)
-        keywords.update(dfn.keywords)
-        valids.update(dfn.valids)
-        if dfn.is_mtype:
-            ftypes.add(dfn.ftype)
-        if dfn.is_exgtype:
-            exgtypes.add(dfn.exgtype)
+    for version in Dfn.get_versions():
+        Dfn.dfn_path = Path(f"data/dfn/{version}")
+        log.info(f"Generating files from DFN's of MODFLOW {version}")
 
-    # Insert collected data into the corresponding Jinja2 templates
-    Dfn.render_template("package.json", extensions=extensions)
-    Dfn.render_template(
-        "syntaxes/mf6.tmLanguage.json",
-        blocks=blocks,
-        keywords=keywords,
-        valids=valids,
-        ftypes=ftypes,
-        mtypes=sorted(MTYPES),
-        exgtypes=exgtypes,
-    )
-    Dfn.render_template("syntaxes/mf6-lst.tmLanguage.json", extensions=extensions)
+        # Collect blocks, keywords, valids, and extensions from DFN files
+        extensions, blocks, keywords, valids, ftypes, exgtypes = (
+            set() for _ in range(6)
+        )
+        for dfn in Dfn.get_dfns():
+            extensions.add(dfn.extension)
+            blocks.update(dfn.blocks)
+            keywords.update(dfn.keywords)
+            valids.update(dfn.valids)
+            if dfn.is_mtype:
+                ftypes.add(dfn.ftype)
+            if dfn.is_exgtype:
+                exgtypes.add(dfn.exgtype)
 
-    # Export hover keyword and hover block data from DFN files
-    Dfn.export_hover_keyword("src/providers/hover-keyword.json")
-    Dfn.export_hover_block("src/providers/hover-block.json")
-    Dfn.export_hover_recarray("src/providers/hover-recarray.json")
+        # Insert collected data into the corresponding Jinja2 templates
+        Dfn.render_template("package.json", extensions=extensions)
+        Dfn.render_template(
+            f"syntaxes/mf6.tmLanguage-{version}.json",
+            blocks=blocks,
+            keywords=keywords,
+            valids=valids,
+            ftypes=ftypes,
+            mtypes=sorted(MTYPES),
+            exgtypes=exgtypes,
+        )
+        Dfn.render_template(
+            f"syntaxes/mf6-lst-{version}.tmLanguage.json", extensions=extensions
+        )
 
-    # Export symbol definition data from DFN files
-    Dfn.export_symbol_defn("src/providers/symbol-defn.json")
-    Dfn.export_symbol_defn_lst("src/providers/symbol-defn-lst.json", data=extensions)
+        # Export hover keyword and hover block data from DFN files
+        Dfn.export_hover_keyword(f"src/providers/hover-keyword-{version}.json")
+        Dfn.export_hover_block(f"src/providers/hover-block-{version}.json")
+        Dfn.export_hover_recarray(f"src/providers/hover-recarray-{version}.json")
+
+        # Export symbol definition data from DFN files
+        Dfn.export_symbol_defn(f"src/providers/symbol-defn-{version}.json")
+        Dfn.export_symbol_defn_lst(
+            f"src/providers/symbol-defn-lst-{version}.json", data=extensions
+        )
