@@ -64,7 +64,7 @@
             {% for version in versions %}"{{ version }}"{% if not loop.last %},
             {% endif %}{% endfor %}
           ],
-          "default": "6.6.3",
+          "default": "{{ versions[-1] }}",
           "description": "The MODFLOW 6 version to use for programmatic language features."
         }
       }
