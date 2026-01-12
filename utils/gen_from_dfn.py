@@ -20,11 +20,11 @@ Generated Files:
     - package.json: Contains extension metadata, including supported file extensions
     - syntaxes/mf6.tmLanguage.json: Defines syntax highlighting config for input files
     - syntaxes/mf6-lst.tmLanguage.json: Defines syntax highlighting config for lst files
-    - src/providers/hover-keyword.json: Provides hover data for MF6 keywords
-    - src/providers/hover-block.json: Provides hover data for MF6 blocks
-    - src/providers/hover-recarray.json: Provides hover data for MF6 recarrays
-    - src/providers/symbol-defn.json: Defines symbols for MF6 input files
-    - src/providers/symbol-defn-lst.json: Defines symbols for MF6 lst files
+    - src/providers/hover-keyword/<version>.json: Provides hover data for MF6 keywords
+    - src/providers/hover-block/<version>.json: Provides hover data for MF6 blocks
+    - src/providers/hover-recarray/<version>.json: Provides hover data for MF6 recarrays
+    - src/providers/symbol-defn/<version>.json: Defines symbols for MF6 input files
+    - src/providers/symbol-defn-lst/<version>.json: Defines symbols for MF6 lst files
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
@@ -526,14 +526,14 @@ if __name__ == "__main__":
                 exgtypes.add(dfn.exgtype)
 
         # Export hover keyword and hover block data from DFN files
-        Dfn.export_hover_keyword(f"src/providers/hover-keyword-{version}.json")
-        Dfn.export_hover_block(f"src/providers/hover-block-{version}.json")
-        Dfn.export_hover_recarray(f"src/providers/hover-recarray-{version}.json")
+        Dfn.export_hover_keyword(f"src/providers/hover-keyword/{version}.json")
+        Dfn.export_hover_block(f"src/providers/hover-block/{version}.json")
+        Dfn.export_hover_recarray(f"src/providers/hover-recarray/{version}.json")
 
         # Export symbol definition data from DFN files
-        Dfn.export_symbol_defn(f"src/providers/symbol-defn-{version}.json")
+        Dfn.export_symbol_defn(f"src/providers/symbol-defn/{version}.json")
         Dfn.export_symbol_defn_lst(
-            f"src/providers/symbol-defn-lst-{version}.json",
+            f"src/providers/symbol-defn-lst/{version}.json",
             data=extensions_symbol_defn_lst,
         )
 
