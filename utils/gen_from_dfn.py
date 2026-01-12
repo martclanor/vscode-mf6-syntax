@@ -543,7 +543,9 @@ if __name__ == "__main__":
 
     # Insert collected data into the corresponding Jinja2 templates
     log.info("Rendering jinja templates with collected data")
-    Dfn.render_template("package.json", extensions=extensions)
+    Dfn.render_template(
+        "package.json", versions=Dfn.get_versions(), extensions=extensions
+    )
     Dfn.render_template(
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,

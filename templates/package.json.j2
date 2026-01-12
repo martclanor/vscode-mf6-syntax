@@ -57,6 +57,15 @@
           "type": "number",
           "default": 50,
           "description": "The maximum file size (in MB) that can be opened through the extension."
+        },
+        "mf6Syntax.mf6Version": {
+          "type": "string",
+          "enum": [
+            {% for version in versions %}"{{ version }}"{% if not loop.last %},
+            {% endif %}{% endfor %}
+          ],
+          "default": "6.6.3",
+          "description": "The MODFLOW 6 version to use for programmatic language features."
         }
       }
     },
