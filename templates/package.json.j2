@@ -61,7 +61,7 @@
         "mf6Syntax.mf6Version": {
           "type": "string",
           "enum": [
-            {% for version in versions %}"{{ version }}"{% if not loop.last %},
+            {% for version in versions[::-1] %}"{{ version }}"{% if not loop.last %},
             {% endif %}{% endfor %}
           ],
           "default": "{{ versions[-1] }}",
