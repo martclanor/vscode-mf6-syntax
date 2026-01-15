@@ -1,8 +1,10 @@
 import * as vscode from "vscode";
-import symbolDefnLstJson from "./symbol-defn-lst.json";
+import { loadJsonData } from "../utils/file-utils";
 
 export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
-  private static readonly symbolDefnLsts: string[] = symbolDefnLstJson;
+  private get symbolDefnLsts(): string[] {
+    return loadJsonData<string[]>("symbol-defn-lst");
+  }
   private static readonly spdTsSimRegex =
     /Solving:\s+Stress period:?\s+(?<spd>\d+)(?:\s+Time step:\s+(?<ts>\d+))?/i;
   private static readonly spdTsGwfRegex =
@@ -50,7 +52,7 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     symbol: vscode.DocumentSymbol;
     endLine: number;
   } {
-    const endRange = MF6LstSymbolProvider.findHeaderPackageEnd(document);
+    const endRange = this.findHeaderPackageEnd(document);
     const range = this.createRange(document, 0, endRange);
     return {
       symbol: new vscode.DocumentSymbol(
@@ -64,16 +66,13 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     };
   }
 
-  private static findHeaderPackageEnd(
+  private findHeaderPackageEnd(
     document: vscode.TextDocument,
     i: number = 1,
   ): number {
     for (; i < document.lineCount; i++) {
       const matchPackage = MF6LstSymbolProvider.matchPackage(document, i);
-      if (
-        matchPackage &&
-        MF6LstSymbolProvider.symbolDefnLsts.includes(matchPackage[1])
-      ) {
+      if (matchPackage && this.symbolDefnLsts.includes(matchPackage[1])) {
         return i - 1;
       }
 
@@ -103,15 +102,12 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     beginRange: number,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
     const match = MF6LstSymbolProvider.matchPackage(document, beginRange);
-    if (!match || !MF6LstSymbolProvider.symbolDefnLsts.includes(match[1])) {
+    if (!match || !this.symbolDefnLsts.includes(match[1])) {
       return null;
     }
     const packageName = match[1];
 
-    const endRange = MF6LstSymbolProvider.findHeaderPackageEnd(
-      document,
-      beginRange + 1,
-    );
+    const endRange = this.findHeaderPackageEnd(document, beginRange + 1);
     const range = this.createRange(document, beginRange, endRange);
 
     return {
