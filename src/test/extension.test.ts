@@ -12,6 +12,7 @@ import {
 import { checkFileExists } from "../utils/file-utils";
 import { mf6ify } from "../commands/mf6-ify";
 import { goToParent } from "../commands/go-to-parent";
+import { loadJsonData } from "../utils/file-utils";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -341,5 +342,34 @@ END non-existing-block`,
     assertSymbol(symbols[7], "spd 1", [193, 0, 306, 0]);
     assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
     assertSymbol(symbols[7].children[1], "ts 2 ❌", [249, 0, 306, 0]);
+  });
+
+  test("Changing mf6Version should change loaded JSON data", async () => {
+    interface SymbolDefnStructure {
+      [block: string]: string[];
+    }
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+
+    // Start with version 6.3.0
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+    const jsonData663 = loadJsonData<SymbolDefnStructure>("symbol-defn");
+
+    // Change to version 6.6.2
+    await config.update(
+      "mf6Version",
+      "6.6.2",
+      vscode.ConfigurationTarget.Global,
+    );
+    const jsonData620 = loadJsonData<SymbolDefnStructure>("symbol-defn");
+
+    assert.notStrictEqual(
+      jsonData663.period.length,
+      jsonData620.period.length,
+      "JSON data for different mf6Version should not be the same",
+    );
   });
 });
