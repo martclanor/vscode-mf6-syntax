@@ -419,4 +419,40 @@ END non-existing-block`,
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
   });
+
+  test("Changing mf6version should change symbol defn", async () => {
+    const provider = new MF6SymbolProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    const tempFileUri = vscode.Uri.joinPath(tempDirUri, "base.ghb");
+    const fileContent = Buffer.from("BEGIN period\naux\nq\nEND period");
+    await vscode.workspace.fs.writeFile(tempFileUri, fileContent);
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+    // Start with version 6.6.3
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+
+    try {
+      const document = await vscode.workspace.openTextDocument(tempFileUri);
+      await vscode.window.showTextDocument(document);
+      const symbols663 = await provider.provideDocumentSymbols(document);
+
+      assert.strictEqual(symbols663[0].children[1].name, "q");
+
+      await config.update(
+        "mf6Version",
+        "6.6.2",
+        vscode.ConfigurationTarget.Global,
+      );
+      const symbols662 = await provider.provideDocumentSymbols(document);
+      assert.strictEqual(symbols662[0].children.length, 1); // 'q' not recognized
+    } finally {
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
+  });
 });
