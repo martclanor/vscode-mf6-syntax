@@ -350,7 +350,7 @@ END non-existing-block`,
     }
     const config = vscode.workspace.getConfiguration("mf6Syntax");
 
-    // Start with version 6.3.0
+    // Start with version 6.6.3
     await config.update(
       "mf6Version",
       "6.6.3",
@@ -388,7 +388,7 @@ END non-existing-block`,
 
     const config = vscode.workspace.getConfiguration("mf6Syntax");
 
-    // Start with version 6.3.0
+    // Start with version 6.6.3
     await config.update(
       "mf6Version",
       "6.6.3",
