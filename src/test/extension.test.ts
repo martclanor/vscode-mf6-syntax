@@ -12,6 +12,7 @@ import {
 import { checkFileExists } from "../utils/file-utils";
 import { mf6ify } from "../commands/mf6-ify";
 import { goToParent } from "../commands/go-to-parent";
+import { loadJsonData } from "../utils/file-utils";
 
 suite("Extension Test Suite", () => {
   vscode.window.showInformationMessage("Start all tests.");
@@ -341,5 +342,117 @@ END non-existing-block`,
     assertSymbol(symbols[7], "spd 1", [193, 0, 306, 0]);
     assertSymbol(symbols[7].children[0], "ts 1", [193, 0, 248, 0]);
     assertSymbol(symbols[7].children[1], "ts 2 ❌", [249, 0, 306, 0]);
+  });
+
+  test("Changing mf6Version should change loaded JSON data", async () => {
+    interface SymbolDefnStructure {
+      [block: string]: string[];
+    }
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+
+    // Start with version 6.6.3
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+    const jsonData663 = loadJsonData<SymbolDefnStructure>("symbol-defn");
+
+    // Change to version 6.6.2
+    await config.update(
+      "mf6Version",
+      "6.6.2",
+      vscode.ConfigurationTarget.Global,
+    );
+    const jsonData620 = loadJsonData<SymbolDefnStructure>("symbol-defn");
+
+    assert.notStrictEqual(
+      jsonData663.period.length,
+      jsonData620.period.length,
+      "JSON data for different mf6Version should not be the same",
+    );
+  });
+
+  test("Changing mf6version should change hover text", async () => {
+    const provider = new MF6HoverBlockProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    // Create source file
+    const chdgTempFileUri = vscode.Uri.joinPath(
+      tempDirUri,
+      "test_hover_block.chdg",
+    );
+    const chdgFileContent = Buffer.from("BEGIN OPTIONS\nEND");
+    await vscode.workspace.fs.writeFile(chdgTempFileUri, chdgFileContent);
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+
+    // Start with version 6.6.3
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+
+    try {
+      const document = await vscode.workspace.openTextDocument(chdgTempFileUri);
+      await vscode.window.showTextDocument(document);
+      await mf6ify();
+      // Position pointing to options block
+      const position = new vscode.Position(0, 7);
+      const hover663 = await provider.provideHover(document, position);
+
+      await config.update(
+        "mf6Version",
+        "6.6.2",
+        vscode.ConfigurationTarget.Global,
+      );
+      const hover662 = await provider.provideHover(document, position);
+
+      assert.notStrictEqual(
+        (hover663?.contents[0] as vscode.MarkdownString).value,
+        (hover662?.contents[0] as vscode.MarkdownString).value,
+        "Hover content for different mf6Version should not be the same",
+      );
+    } finally {
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
+  });
+
+  test("Changing mf6version should change symbol defn", async () => {
+    const provider = new MF6SymbolProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    const tempFileUri = vscode.Uri.joinPath(tempDirUri, "base.ghb");
+    const fileContent = Buffer.from("BEGIN period\naux\nq\nEND period");
+    await vscode.workspace.fs.writeFile(tempFileUri, fileContent);
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+    // Start with version 6.6.3
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+
+    try {
+      const document = await vscode.workspace.openTextDocument(tempFileUri);
+      await vscode.window.showTextDocument(document);
+      const symbols663 = await provider.provideDocumentSymbols(document);
+
+      assert.strictEqual(symbols663[0].children[1].name, "q");
+
+      await config.update(
+        "mf6Version",
+        "6.6.2",
+        vscode.ConfigurationTarget.Global,
+      );
+      const symbols662 = await provider.provideDocumentSymbols(document);
+      assert.strictEqual(symbols662[0].children.length, 1); // 'q' not recognized
+    } finally {
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
   });
 });

@@ -1,0 +1,311 @@
+{
+  "cell2d": {
+    "icell2d,fdc,ncvert,icvert": [
+      "swf-disv1d"
+    ],
+    "icell2d,xc,yc,ncvert,icvert": [
+      "gwe-disu",
+      "gwe-disv",
+      "gwf-disu",
+      "gwf-disv",
+      "gwt-disu",
+      "gwt-disv",
+      "prt-disv",
+      "swf-disv2d"
+    ]
+  },
+  "connectiondata": {
+    "ifno,ic": [
+      "gwf-sfr"
+    ],
+    "ifno,icon,cellid,scrn_top,scrn_bot,hk_skin,radius_skin": [
+      "gwf-maw"
+    ],
+    "ifno,iconn,cellid,claktype,bedleak,belev,telev,connlen,connwidth": [
+      "gwf-lak"
+    ]
+  },
+  "continuous": {
+    "obsname,obstype,id,id2": [
+      "utl-obs"
+    ]
+  },
+  "crosssectiondata": {
+    "xfraction,height,manfraction": [
+      "swf-cxs"
+    ]
+  },
+  "crosssections": {
+    "ifno,tab6,filein,tab6_filename": [
+      "gwf-sfr"
+    ]
+  },
+  "diversions": {
+    "ifno,idv,iconr,cprior": [
+      "gwf-sfr"
+    ]
+  },
+  "exchangedata": {
+    "cellidm1,cellidm2,cond": [
+      "exg-swfgwf"
+    ],
+    "cellidm1,cellidm2,ihc,cl1,cl2,hwva,aux,boundname": [
+      "exg-gwegwe",
+      "exg-gwfgwf",
+      "exg-gwtgwt"
+    ]
+  },
+  "exchanges": {
+    "exgtype,exgfile,exgmnamea,exgmnameb": [
+      "sim-nam"
+    ]
+  },
+  "fileinput": {
+    "pname,spc6,filein,spc6_filename,mixed": [
+      "gwt-ssm"
+    ],
+    "pname,spt6,filein,spt6_filename,mixed": [
+      "gwe-ssm"
+    ]
+  },
+  "gncdata": {
+    "cellidn,cellidm,cellidsj,alphasj": [
+      "gwf-gnc"
+    ]
+  },
+  "models": {
+    "mtype,mfname,mname": [
+      "sim-nam"
+    ]
+  },
+  "outlets": {
+    "outletno,lakein,lakeout,couttype,invert,width,rough,slope": [
+      "gwf-lak"
+    ]
+  },
+  "packagedata": {
+    "cpw,rhow,latheatvap": [
+      "gwe-est"
+    ],
+    "flowtype,filein,fname": [
+      "gwe-fmi",
+      "gwt-fmi",
+      "prt-fmi"
+    ],
+    "icsubno,cellid,cdelay,pcs0,thick_frac,rnb,ssv_cc,sse_cr,theta,kv,h0,boundname": [
+      "gwf-csub"
+    ],
+    "idcxs,nxspoints": [
+      "swf-cxs"
+    ],
+    "ifno,cellid,landflag,ivertcon,surfdep,vks,thtr,thts,thti,eps,boundname": [
+      "gwf-uzf"
+    ],
+    "ifno,cellid,rlen,rwid,rgrd,rtp,rbth,rhk,man,ncon,ustrf,ndv,aux,boundname": [
+      "gwf-sfr"
+    ],
+    "ifno,radius,bottom,strt,condeqn,ngwfnodes,aux,boundname": [
+      "gwf-maw"
+    ],
+    "ifno,strt,aux,boundname": [
+      "gwt-lkt",
+      "gwt-mwt",
+      "gwt-sft",
+      "gwt-uzt"
+    ],
+    "ifno,strt,nlakeconn,aux,boundname": [
+      "gwf-lak"
+    ],
+    "irhospec,drhodc,crhoref,modelname,auxspeciesname": [
+      "gwf-buy"
+    ],
+    "irptno,cellid,xrpt,yrpt,zrpt,boundname": [
+      "prt-prp"
+    ],
+    "iviscspec,dviscdc,cviscref,modelname,auxspeciesname": [
+      "gwf-vsc"
+    ],
+    "lakeno,strt,ktf,rbthcnd,aux,boundname": [
+      "gwe-lke"
+    ],
+    "mawno,strt,ktf,fthk,aux,boundname": [
+      "gwe-mwe"
+    ],
+    "rno,strt,ktf,rbthcnd,aux,boundname": [
+      "gwe-sfe"
+    ],
+    "uzfno,strt,aux,boundname": [
+      "gwe-uze"
+    ]
+  },
+  "packages": {
+    "ftype,fname,pname": [
+      "gwe-nam",
+      "gwf-nam",
+      "gwt-nam",
+      "prt-nam",
+      "swf-nam"
+    ],
+    "mname,pname": [
+      "gwf-mvr"
+    ]
+  },
+  "partitions": {
+    "mname,mrank": [
+      "utl-hpc"
+    ]
+  },
+  "period": {
+    "bndno,spcsetting": [
+      "utl-spc"
+    ],
+    "bndno,sptsetting": [
+      "utl-spt"
+    ],
+    "cellid,bhead,cond,aux,boundname": [
+      "gwf-ghb"
+    ],
+    "cellid,conc,aux,boundname": [
+      "gwt-cnc"
+    ],
+    "cellid,elev,cond,aux,boundname": [
+      "gwf-drn"
+    ],
+    "cellid,head,aux,boundname": [
+      "gwf-chd",
+      "swf-chd"
+    ],
+    "cellid,idcxs,width,aux,boundname": [
+      "swf-cdb"
+    ],
+    "cellid,idcxs,width,slope,rough,aux,boundname": [
+      "swf-zdg"
+    ],
+    "cellid,q,aux,boundname": [
+      "gwf-wel",
+      "swf-flw"
+    ],
+    "cellid,recharge,aux,boundname": [
+      "gwf-rch"
+    ],
+    "cellid,senerrate,aux,boundname": [
+      "gwe-esl"
+    ],
+    "cellid,sig0": [
+      "gwf-csub"
+    ],
+    "cellid,smassrate,aux,boundname": [
+      "gwt-src"
+    ],
+    "cellid,stage,cond,rbot,aux,boundname": [
+      "gwf-riv"
+    ],
+    "cellid,surface,rate,depth,pxdp,petm,petm0,aux,boundname": [
+      "gwf-evt"
+    ],
+    "cellid,temp,aux,boundname": [
+      "gwe-ctp"
+    ],
+    "cellid,tvksetting": [
+      "utl-tvk"
+    ],
+    "cellid,tvssetting": [
+      "utl-tvs"
+    ],
+    "cellid1,cellid2,hydchr": [
+      "gwf-hfb"
+    ],
+    "ifno,finf,pet,extdp,extwc,ha,hroot,rootact,aux": [
+      "gwf-uzf"
+    ],
+    "ifno,laksetting": [
+      "gwt-lkt"
+    ],
+    "ifno,mawsetting": [
+      "gwf-maw"
+    ],
+    "ifno,mwtsetting": [
+      "gwt-mwt"
+    ],
+    "ifno,reachsetting": [
+      "gwt-sft"
+    ],
+    "ifno,sfrsetting": [
+      "gwf-sfr"
+    ],
+    "ifno,uztsetting": [
+      "gwt-uzt"
+    ],
+    "lakeno,laksetting": [
+      "gwe-lke"
+    ],
+    "mawno,mwesetting": [
+      "gwe-mwe"
+    ],
+    "mname1,pname1,id1,mname2,pname2,id2,mvrtype,value": [
+      "gwf-mvr"
+    ],
+    "number,laksetting": [
+      "gwf-lak"
+    ],
+    "releasesetting": [
+      "prt-prp"
+    ],
+    "rno,reachsetting": [
+      "gwe-sfe"
+    ],
+    "uzfno,uzesetting": [
+      "gwe-uze"
+    ]
+  },
+  "perioddata": {
+    "iperats,dt0,dtmin,dtmax,dtadj,dtfailadj": [
+      "utl-ats"
+    ],
+    "perlen,nstp,tsmult": [
+      "sim-tdis"
+    ]
+  },
+  "solutiongroup": {
+    "slntype,slnfname,slnmnames": [
+      "sim-nam"
+    ]
+  },
+  "sources": {
+    "pname,srctype,auxname": [
+      "gwe-ssm",
+      "gwt-ssm"
+    ]
+  },
+  "table": {
+    "stage,volume,sarea,barea": [
+      "utl-laktab"
+    ],
+    "xfraction,height,manfraction": [
+      "utl-sfrtab"
+    ]
+  },
+  "tables": {
+    "ifno,tab6,filein,tab6_filename": [
+      "gwf-lak"
+    ]
+  },
+  "timeseries": {
+    "ts_time,ts_array": [
+      "utl-ts"
+    ]
+  },
+  "vertices": {
+    "iv,xv,yv": [
+      "gwe-disu",
+      "gwe-disv",
+      "gwf-disu",
+      "gwf-disv",
+      "gwt-disu",
+      "gwt-disv",
+      "prt-disv",
+      "swf-disv1d",
+      "swf-disv2d"
+    ]
+  }
+}

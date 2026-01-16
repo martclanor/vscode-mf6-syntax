@@ -1,0 +1,147 @@
+{
+  "cell2d": {
+    "gwf-disu": "```\n# Structure of CELL2D block in GWF-DISU\nBEGIN CELL2D\n  <icell2d> <xc> <yc> <ncvert> <icvert(ncvert)>\n  <icell2d> <xc> <yc> <ncvert> <icvert(ncvert)>\n  ...\nEND CELL2D\n```",
+    "gwf-disv": "```\n# Structure of CELL2D block in GWF-DISV\nBEGIN CELL2D\n  <icell2d> <xc> <yc> <ncvert> <icvert(ncvert)>\n  <icell2d> <xc> <yc> <ncvert> <icvert(ncvert)>\n  ...\nEND CELL2D\n```"
+  },
+  "connectiondata": {
+    "gwf-disu": "```\n# Structure of CONNECTIONDATA block in GWF-DISU\nBEGIN CONNECTIONDATA\n  IAC <iac(nodes)>\n  JA <ja(nja)>\n  IHC <ihc(nja)>\n  CL12 <cl12(nja)>\n  HWVA <hwva(nja)>\n  [ANGLDEGX <angldegx(nja)>]\nEND CONNECTIONDATA\n```",
+    "gwf-lak": "```\n# Structure of CONNECTIONDATA block in GWF-LAK\nBEGIN CONNECTIONDATA\n  <lakeno> <iconn> <cellid(ncelldim)> <claktype> <bedleak> <belev> <telev> <connlen> <connwidth>\n  <lakeno> <iconn> <cellid(ncelldim)> <claktype> <bedleak> <belev> <telev> <connlen> <connwidth>\n  ...\nEND CONNECTIONDATA\n```",
+    "gwf-maw": "```\n# Structure of CONNECTIONDATA block in GWF-MAW\nBEGIN CONNECTIONDATA\n  <wellno> <icon> <cellid(ncelldim)> <scrn_top> <scrn_bot> <hk_skin> <radius_skin>\n  <wellno> <icon> <cellid(ncelldim)> <scrn_top> <scrn_bot> <hk_skin> <radius_skin>\n  ...\nEND CONNECTIONDATA\n```",
+    "gwf-sfr": "```\n# Structure of CONNECTIONDATA block in GWF-SFR\nBEGIN CONNECTIONDATA\n  <rno> <ic(ncon(rno))>\n  <rno> <ic(ncon(rno))>\n  ...\nEND CONNECTIONDATA\n```"
+  },
+  "continuous": {
+    "utl-obs": "```\n# Structure of CONTINUOUS block in UTL-OBS\nBEGIN CONTINUOUS\n  FILEOUT <obs_output_file_name> [BINARY]\n  <obsname> <obstype> <id> [<id2>]\n  <obsname> <obstype> <id> [<id2>]\n  ...\nEND CONTINUOUS\n```"
+  },
+  "dimensions": {
+    "exg-gwfgwf": "```\n# Structure of DIMENSIONS block in EXG-GWFGWF\nBEGIN DIMENSIONS\n  NEXG <nexg>\nEND DIMENSIONS\n```",
+    "gwf-chd": "```\n# Structure of DIMENSIONS block in GWF-CHD\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-dis": "```\n# Structure of DIMENSIONS block in GWF-DIS\nBEGIN DIMENSIONS\n  NLAY <nlay>\n  NROW <nrow>\n  NCOL <ncol>\nEND DIMENSIONS\n```",
+    "gwf-disu": "```\n# Structure of DIMENSIONS block in GWF-DISU\nBEGIN DIMENSIONS\n  NODES <nodes>\n  NJA <nja>\n  [NVERT <nvert>]\nEND DIMENSIONS\n```",
+    "gwf-disv": "```\n# Structure of DIMENSIONS block in GWF-DISV\nBEGIN DIMENSIONS\n  NLAY <nlay>\n  NCPL <ncpl>\n  NVERT <nvert>\nEND DIMENSIONS\n```",
+    "gwf-drn": "```\n# Structure of DIMENSIONS block in GWF-DRN\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-evt": "```\n# Structure of DIMENSIONS block in GWF-EVT\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\n  NSEG <nseg>\nEND DIMENSIONS\n```",
+    "gwf-ghb": "```\n# Structure of DIMENSIONS block in GWF-GHB\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-gnc": "```\n# Structure of DIMENSIONS block in GWF-GNC\nBEGIN DIMENSIONS\n  NUMGNC <numgnc>\n  NUMALPHAJ <numalphaj>\nEND DIMENSIONS\n```",
+    "gwf-hfb": "```\n# Structure of DIMENSIONS block in GWF-HFB\nBEGIN DIMENSIONS\n  MAXHFB <maxhfb>\nEND DIMENSIONS\n```",
+    "gwf-lak": "```\n# Structure of DIMENSIONS block in GWF-LAK\nBEGIN DIMENSIONS\n  NLAKES <nlakes>\n  NOUTLETS <noutlets>\n  NTABLES <ntables>\nEND DIMENSIONS\n```",
+    "gwf-laktab": "```\n# Structure of DIMENSIONS block in GWF-LAKTAB\nBEGIN DIMENSIONS\n  NROW <nrow>\n  NCOL <ncol>\nEND DIMENSIONS\n```",
+    "gwf-maw": "```\n# Structure of DIMENSIONS block in GWF-MAW\nBEGIN DIMENSIONS\n  NMAWWELLS <nmawwells>\nEND DIMENSIONS\n```",
+    "gwf-mvr": "```\n# Structure of DIMENSIONS block in GWF-MVR\nBEGIN DIMENSIONS\n  MAXMVR <maxmvr>\n  MAXPACKAGES <maxpackages>\nEND DIMENSIONS\n```",
+    "gwf-rch": "```\n# Structure of DIMENSIONS block in GWF-RCH\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-riv": "```\n# Structure of DIMENSIONS block in GWF-RIV\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-sfr": "```\n# Structure of DIMENSIONS block in GWF-SFR\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "gwf-uzf": "```\n# Structure of DIMENSIONS block in GWF-UZF\nBEGIN DIMENSIONS\n  NUZFCELLS <nuzfcells>\n  NTRAILWAVES <ntrailwaves>\n  NWAVESETS <nwavesets>\nEND DIMENSIONS\n```",
+    "gwf-wel": "```\n# Structure of DIMENSIONS block in GWF-WEL\nBEGIN DIMENSIONS\n  MAXBOUND <maxbound>\nEND DIMENSIONS\n```",
+    "sim-tdis": "```\n# Structure of DIMENSIONS block in SIM-TDIS\nBEGIN DIMENSIONS\n  NPER <nper>\nEND DIMENSIONS\n```"
+  },
+  "diversions": {
+    "gwf-sfr": "```\n# Structure of DIVERSIONS block in GWF-SFR\nBEGIN DIVERSIONS\n  <rno> <idv> <iconr> <cprior>\n  <rno> <idv> <iconr> <cprior>\n  ...\nEND DIVERSIONS\n```"
+  },
+  "exchangedata": {
+    "exg-gwfgwf": "```\n# Structure of EXCHANGEDATA block in EXG-GWFGWF\nBEGIN EXCHANGEDATA\n  <cellidm1> <cellidm2> <ihc> <cl1> <cl2> <hwva> [<aux(naux)>]\n  <cellidm1> <cellidm2> <ihc> <cl1> <cl2> <hwva> [<aux(naux)>]\n  ...\nEND EXCHANGEDATA\n```"
+  },
+  "exchanges": {
+    "sim-nam": "```\n# Structure of EXCHANGES block in SIM-NAM\nBEGIN EXCHANGES\n  <exgtype> <exgfile> <exgmnamea> <exgmnameb>\n  <exgtype> <exgfile> <exgmnamea> <exgmnameb>\n  ...\nEND EXCHANGES\n```"
+  },
+  "gncdata": {
+    "gwf-gnc": "```\n# Structure of GNCDATA block in GWF-GNC\nBEGIN GNCDATA\n  <cellidn> <cellidm> <cellidsj(numalphaj)> <alphasj(numalphaj)>\n  <cellidn> <cellidm> <cellidsj(numalphaj)> <alphasj(numalphaj)>\n  ...\nEND GNCDATA\n```"
+  },
+  "griddata": {
+    "gwf-dis": "```\n# Structure of GRIDDATA block in GWF-DIS\nBEGIN GRIDDATA\n  DELR <delr(ncol)>\n  DELC <delc(nrow)>\n  TOP <top(ncol, nrow)>\n  BOTM\n      <botm(ncol, nrow, nlay)> -- READARRAY\n  [IDOMAIN\n      <idomain(ncol, nrow, nlay)> -- READARRAY]\nEND GRIDDATA\n```",
+    "gwf-disu": "```\n# Structure of GRIDDATA block in GWF-DISU\nBEGIN GRIDDATA\n  TOP <top(nodes)>\n  BOT <bot(nodes)>\n  AREA <area(nodes)>\nEND GRIDDATA\n```",
+    "gwf-disv": "```\n# Structure of GRIDDATA block in GWF-DISV\nBEGIN GRIDDATA\n  TOP <top(1, ncpl)>\n  BOTM\n      <botm(nlay, ncpl)> -- READARRAY\n  [IDOMAIN\n      <idomain(nlay, ncpl)> -- READARRAY]\nEND GRIDDATA\n```",
+    "gwf-ic": "```\n# Structure of GRIDDATA block in GWF-IC\nBEGIN GRIDDATA\n  STRT\n      <strt(nodes)> -- READARRAY\nEND GRIDDATA\n```",
+    "gwf-npf": "```\n# Structure of GRIDDATA block in GWF-NPF\nBEGIN GRIDDATA\n  ICELLTYPE\n      <icelltype(nodes)> -- READARRAY\n  K\n      <k(nodes)> -- READARRAY\n  [K22\n      <k22(nodes)> -- READARRAY]\n  [K33\n      <k33(nodes)> -- READARRAY]\n  [WETDRY\n      <wetdry(nodes)> -- READARRAY]\n  [ANGLE1\n      <angle1(nodes)> -- READARRAY]\n  [ANGLE2\n      <angle2(nodes)> -- READARRAY]\n  [ANGLE3\n      <angle3(nodes)> -- READARRAY]\nEND GRIDDATA\n```",
+    "gwf-sto": "```\n# Structure of GRIDDATA block in GWF-STO\nBEGIN GRIDDATA\n  ICONVERT\n      <iconvert(nodes)> -- READARRAY\n  SS\n      <ss(nodes)> -- READARRAY\n  SY\n      <sy(nodes)> -- READARRAY\nEND GRIDDATA\n```"
+  },
+  "linear": {
+    "sln-ims": "```\n# Structure of LINEAR block in SLN-IMS\nBEGIN LINEAR\n  INNER_MAXIMUM <inner_maximum>\n  INNER_HCLOSE <inner_hclose>\n  <inner_rclose> [<rclose_option>]\n  LINEAR_ACCELERATION <linear_acceleration>\n  [RELAXATION_FACTOR <relaxation_factor>]\n  [PRECONDITIONER_LEVELS <preconditioner_levels>]\n  [PRECONDITIONER_DROP_TOLERANCE <preconditioner_drop_tolerance>]\n  [NUMBER_ORTHOGONALIZATIONS <number_orthogonalizations>]\n  [SCALING_METHOD <scaling_method>]\n  [REORDERING_METHOD <reordering_method>]\nEND LINEAR\n```"
+  },
+  "models": {
+    "sim-nam": "```\n# Structure of MODELS block in SIM-NAM\nBEGIN MODELS\n  <mtype> <mfname> <mname>\n  <mtype> <mfname> <mname>\n  ...\nEND MODELS\n```"
+  },
+  "nonlinear": {
+    "sln-ims": "```\n# Structure of NONLINEAR block in SLN-IMS\nBEGIN NONLINEAR\n  OUTER_HCLOSE <outer_hclose>\n  OUTER_MAXIMUM <outer_maximum>\n  [UNDER_RELAXATION <under_relaxation>]\n  [UNDER_RELAXATION_THETA <under_relaxation_theta>]\n  [UNDER_RELAXATION_KAPPA <under_relaxation_kappa>]\n  [UNDER_RELAXATION_GAMMA <under_relaxation_gamma>]\n  [UNDER_RELAXATION_MOMENTUM <under_relaxation_momentum>]\n  [BACKTRACKING_NUMBER <backtracking_number>]\n  [BACKTRACKING_TOLERANCE <backtracking_tolerance>]\n  [BACKTRACKING_REDUCTION_FACTOR <backtracking_reduction_factor>]\n  [BACKTRACKING_RESIDUAL_LIMIT <backtracking_residual_limit>]\nEND NONLINEAR\n```"
+  },
+  "options": {
+    "exg-gwfgwf": "```\n# Structure of OPTIONS block in EXG-GWFGWF\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [CELL_AVERAGING <cell_averaging>]\n  [VARIABLECV [DEWATERED]]\n  [NEWTON]\n  [GNC6 FILEIN <gnc6_filename>]\n  [MVR6 FILEIN <mvr6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
+    "gwf-chd": "```\n# Structure of OPTIONS block in GWF-CHD\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
+    "gwf-dis": "```\n# Structure of OPTIONS block in GWF-DIS\nBEGIN OPTIONS\n  [LENGTH_UNITS <length_units>]\n  [NOGRB]\n  [XORIGIN <xorigin>]\n  [YORIGIN <yorigin>]\n  [ANGROT <angrot>]\nEND OPTIONS\n```",
+    "gwf-disu": "```\n# Structure of OPTIONS block in GWF-DISU\nBEGIN OPTIONS\n  [LENGTH_UNITS <length_units>]\n  [NOGRB]\n  [XORIGIN <xorigin>]\n  [YORIGIN <yorigin>]\n  [ANGROT <angrot>]\nEND OPTIONS\n```",
+    "gwf-disv": "```\n# Structure of OPTIONS block in GWF-DISV\nBEGIN OPTIONS\n  [LENGTH_UNITS <length_units>]\n  [NOGRB]\n  [XORIGIN <xorigin>]\n  [YORIGIN <yorigin>]\n  [ANGROT <angrot>]\nEND OPTIONS\n```",
+    "gwf-drn": "```\n# Structure of OPTIONS block in GWF-DRN\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\nEND OPTIONS\n```",
+    "gwf-evt": "```\n# Structure of OPTIONS block in GWF-EVT\nBEGIN OPTIONS\n  [FIXED_CELL]\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [SURF_RATE_SPECIFIED]\nEND OPTIONS\n```",
+    "gwf-evta": "```\n# Structure of OPTIONS block in GWF-EVTA\nBEGIN OPTIONS\n  READASARRAYS\n  [FIXED_CELL]\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TAS6 FILEIN <tas6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
+    "gwf-ghb": "```\n# Structure of OPTIONS block in GWF-GHB\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\nEND OPTIONS\n```",
+    "gwf-gnc": "```\n# Structure of OPTIONS block in GWF-GNC\nBEGIN OPTIONS\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [EXPLICIT]\nEND OPTIONS\n```",
+    "gwf-hfb": "```\n# Structure of OPTIONS block in GWF-HFB\nBEGIN OPTIONS\n  [PRINT_INPUT]\nEND OPTIONS\n```",
+    "gwf-lak": "```\n# Structure of OPTIONS block in GWF-LAK\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_STAGE]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [STAGE FILEOUT <stagefile>]\n  [BUDGET FILEOUT <budgetfile>]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\n  [SURFDEP <surfdep>]\n  [TIME_CONVERSION <time_conversion>]\n  [LENGTH_CONVERSION <length_conversion>]\nEND OPTIONS\n```",
+    "gwf-maw": "```\n# Structure of OPTIONS block in GWF-MAW\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_HEAD]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [HEAD FILEOUT <headfile>]\n  [BUDGET FILEOUT <budgetfile>]\n  [NO_WELL_STORAGE]\n  [FLOWING_WELLS]\n  [SHUTDOWN_THETA <shutdown_theta>]\n  [SHUTDOWN_KAPPA <shutdown_kappa>]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\nEND OPTIONS\n```",
+    "gwf-mvr": "```\n# Structure of OPTIONS block in GWF-MVR\nBEGIN OPTIONS\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [MODELNAMES]\n  [BUDGET FILEOUT <budgetfile>]\nEND OPTIONS\n```",
+    "gwf-nam": "```\n# Structure of OPTIONS block in GWF-NAM\nBEGIN OPTIONS\n  [LIST <list>]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [NEWTON [UNDER_RELAXATION]]\nEND OPTIONS\n```",
+    "gwf-npf": "```\n# Structure of OPTIONS block in GWF-NPF\nBEGIN OPTIONS\n  [SAVE_FLOWS]\n  [ALTERNATIVE_CELL_AVERAGING <alternative_cell_averaging>]\n  [THICKSTRT]\n  [VARIABLECV [DEWATERED]]\n  [PERCHED]\n  [REWET <wetfct> <iwetit> <ihdwet>]\n  [XT3D [RHS]]\nEND OPTIONS\n```",
+    "gwf-oc": "```\n# Structure of OPTIONS block in GWF-OC\nBEGIN OPTIONS\n  [BUDGET FILEOUT <budgetfile>]\n  [HEAD FILEOUT <headfile>]\n  [HEAD PRINT_FORMAT <formatrecord>]\n  <columns> <width> <digits> <format>\nEND OPTIONS\n```",
+    "gwf-rch": "```\n# Structure of OPTIONS block in GWF-RCH\nBEGIN OPTIONS\n  [FIXED_CELL]\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
+    "gwf-rcha": "```\n# Structure of OPTIONS block in GWF-RCHA\nBEGIN OPTIONS\n  READASARRAYS\n  [FIXED_CELL]\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TAS6 FILEIN <tas6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\nEND OPTIONS\n```",
+    "gwf-riv": "```\n# Structure of OPTIONS block in GWF-RIV\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\nEND OPTIONS\n```",
+    "gwf-sfr": "```\n# Structure of OPTIONS block in GWF-SFR\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_STAGE]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [STAGE FILEOUT <stagefile>]\n  [BUDGET FILEOUT <budgetfile>]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\n  [MAXIMUM_ITERATIONS <maximum_iterations>]\n  [MAXIMUM_DEPTH_CHANGE <maximum_depth_change>]\n  [UNIT_CONVERSION <unit_conversion>]\nEND OPTIONS\n```",
+    "gwf-sto": "```\n# Structure of OPTIONS block in GWF-STO\nBEGIN OPTIONS\n  [SAVE_FLOWS]\n  [STORAGECOEFFICIENT]\nEND OPTIONS\n```",
+    "gwf-uzf": "```\n# Structure of OPTIONS block in GWF-UZF\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [BUDGET FILEOUT <budgetfile>]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\n  [SIMULATE_ET]\n  [LINEAR_GWET]\n  [SQUARE_GWET]\n  [SIMULATE_GWSEEP]\n  [UNSAT_ETWC]\n  [UNSAT_ETAE]\nEND OPTIONS\n```",
+    "gwf-wel": "```\n# Structure of OPTIONS block in GWF-WEL\nBEGIN OPTIONS\n  [AUXILIARY <auxiliary(naux)>]\n  [AUXMULTNAME <auxmultname>]\n  [BOUNDNAMES]\n  [PRINT_INPUT]\n  [PRINT_FLOWS]\n  [SAVE_FLOWS]\n  [AUTO_FLOW_REDUCE <auto_flow_reduce>]\n  [TS6 FILEIN <ts6_filename>]\n  [OBS6 FILEIN <obs6_filename>]\n  [MOVER]\nEND OPTIONS\n```",
+    "sim-nam": "```\n# Structure of OPTIONS block in SIM-NAM\nBEGIN OPTIONS\n  [CONTINUE]\n  [NOCHECK]\n  [MEMORY_PRINT_OPTION <memory_print_option>]\nEND OPTIONS\n```",
+    "sim-tdis": "```\n# Structure of OPTIONS block in SIM-TDIS\nBEGIN OPTIONS\n  [TIME_UNITS <time_units>]\n  [START_DATE_TIME <start_date_time>]\nEND OPTIONS\n```",
+    "sln-ims": "```\n# Structure of OPTIONS block in SLN-IMS\nBEGIN OPTIONS\n  [PRINT_OPTION <print_option>]\n  [COMPLEXITY <complexity>]\n  [CSV_OUTPUT FILEOUT <csvfile>]\nEND OPTIONS\n```",
+    "utl-obs": "```\n# Structure of OPTIONS block in UTL-OBS\nBEGIN OPTIONS\n  [PRECISION <precision>]\n  [DIGITS <digits>]\n  [PRINT_INPUT]\nEND OPTIONS\n```"
+  },
+  "outlets": {
+    "gwf-lak": "```\n# Structure of OUTLETS block in GWF-LAK\nBEGIN OUTLETS\n  <outletno> <lakein> <lakeout> <couttype> <invert> <width> <rough> <slope>\n  <outletno> <lakein> <lakeout> <couttype> <invert> <width> <rough> <slope>\n  ...\nEND OUTLETS\n```"
+  },
+  "packagedata": {
+    "gwf-lak": "```\n# Structure of PACKAGEDATA block in GWF-LAK\nBEGIN PACKAGEDATA\n  <lakeno> <strt> <nlakeconn> [<aux(naux)>] [<boundname>]\n  <lakeno> <strt> <nlakeconn> [<aux(naux)>] [<boundname>]\n  ...\nEND PACKAGEDATA\n```",
+    "gwf-maw": "```\n# Structure of PACKAGEDATA block in GWF-MAW\nBEGIN PACKAGEDATA\n  <wellno> <radius> <bottom> <strt> <condeqn> <ngwfnodes> [<aux(naux)>] [<boundname>]\n  <wellno> <radius> <bottom> <strt> <condeqn> <ngwfnodes> [<aux(naux)>] [<boundname>]\n  ...\nEND PACKAGEDATA\n```",
+    "gwf-sfr": "```\n# Structure of PACKAGEDATA block in GWF-SFR\nBEGIN PACKAGEDATA\n  <rno> <cellid(ncelldim)> <rlen> <rwid> <rgrd> <rtp> <rbth> <rhk> <man> <ncon> <ustrf> <ndv> [<aux(naux)>] [<boundname>]\n  <rno> <cellid(ncelldim)> <rlen> <rwid> <rgrd> <rtp> <rbth> <rhk> <man> <ncon> <ustrf> <ndv> [<aux(naux)>] [<boundname>]\n  ...\nEND PACKAGEDATA\n```",
+    "gwf-uzf": "```\n# Structure of PACKAGEDATA block in GWF-UZF\nBEGIN PACKAGEDATA\n  <cellid(ncelldim)> <landflag> <ivertcon> <surfdep> <vks> <thtr> <thts> <thti> <eps> [<boundname>]\n  <cellid(ncelldim)> <landflag> <ivertcon> <surfdep> <vks> <thtr> <thts> <thti> <eps> [<boundname>]\n  ...\nEND PACKAGEDATA\n```"
+  },
+  "packages": {
+    "gwf-mvr": "```\n# Structure of PACKAGES block in GWF-MVR\nBEGIN PACKAGES\n  [<mname>] <pname>\n  [<mname>] <pname>\n  ...\nEND PACKAGES\n```",
+    "gwf-nam": "```\n# Structure of PACKAGES block in GWF-NAM\nBEGIN PACKAGES\n  <ftype> <fname> [<pname>]\n  <ftype> <fname> [<pname>]\n  ...\nEND PACKAGES\n```"
+  },
+  "period": {
+    "gwf-chd": "```\n# Structure of PERIOD block in GWF-CHD\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <head> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <head> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-drn": "```\n# Structure of PERIOD block in GWF-DRN\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <elev> <cond> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <elev> <cond> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-evt": "```\n# Structure of PERIOD block in GWF-EVT\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <surface> <rate> <depth> <pxdp(nseg-1)> <petm(nseg-1)> [<petm0>] [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <surface> <rate> <depth> <pxdp(nseg-1)> <petm(nseg-1)> [<petm0>] [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-evta": "```\n# Structure of PERIOD block in GWF-EVTA\nBEGIN PERIOD <iper>\n  [IEVT <ievt(ncol*nrow; ncpl)>]\n  SURFACE <surface(ncol*nrow; ncpl)>\n  RATE <rate(ncol*nrow; ncpl)>\n  DEPTH <depth(ncol*nrow; ncpl)>\n  AUX(IAUX) <aux(iaux)(ncol*nrow; ncpl)>\nEND PERIOD\n```",
+    "gwf-ghb": "```\n# Structure of PERIOD block in GWF-GHB\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <bhead> <cond> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <bhead> <cond> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-hfb": "```\n# Structure of PERIOD block in GWF-HFB\nBEGIN PERIOD <iper>\n  <cellid1(ncelldim)> <cellid2(ncelldim)> <hydchr>\n  <cellid1(ncelldim)> <cellid2(ncelldim)> <hydchr>\n  ...\nEND PERIOD\n```",
+    "gwf-lak": "```\n# Structure of PERIOD block in GWF-LAK\nBEGIN PERIOD <iper>\n  <lakeno> <laksetting>\n  <lakeno> <laksetting>\n  ...\n  AUXILIARY <auxname> <auxval>\n  <outletno> <outletsetting>\n  <outletno> <outletsetting>\n  ...\nEND PERIOD\n```",
+    "gwf-maw": "```\n# Structure of PERIOD block in GWF-MAW\nBEGIN PERIOD <iper>\n  <wellno> <mawsetting>\n  <wellno> <mawsetting>\n  ...\n  FLOWING_WELL <fwelev> <fwcond>\n  SHUT_OFF <minrate> <maxrate>\n  RATE_SCALING <pump_elevation> <scaling_length>\n  AUXILIARY <auxname> <auxval>\nEND PERIOD\n```",
+    "gwf-mvr": "```\n# Structure of PERIOD block in GWF-MVR\nBEGIN PERIOD <iper>\n  [<mname1>] <pname1> <id1> [<mname2>] <pname2> <id2> <mvrtype> <value>\n  [<mname1>] <pname1> <id1> [<mname2>] <pname2> <id2> <mvrtype> <value>\n  ...\nEND PERIOD\n```",
+    "gwf-oc": "```\n# Structure of PERIOD block in GWF-OC\nBEGIN PERIOD <iper>\n  [SAVE <rtype> <ocsetting>]\n  [PRINT <rtype> <ocsetting>]\nEND PERIOD\n```",
+    "gwf-rch": "```\n# Structure of PERIOD block in GWF-RCH\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <recharge> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <recharge> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-rcha": "```\n# Structure of PERIOD block in GWF-RCHA\nBEGIN PERIOD <iper>\n  [IRCH <irch(ncol*nrow; ncpl)>]\n  RECHARGE <recharge(ncol*nrow; ncpl)>\n  [AUX <aux(ncol*nrow; ncpl)>]\nEND PERIOD\n```",
+    "gwf-riv": "```\n# Structure of PERIOD block in GWF-RIV\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <stage> <cond> <rbot> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <stage> <cond> <rbot> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```",
+    "gwf-sfr": "```\n# Structure of PERIOD block in GWF-SFR\nBEGIN PERIOD <iper>\n  <rno> <sfrsetting>\n  <rno> <sfrsetting>\n  ...\n  DIVERSION <idv> <divrate>\n  AUXILIARY <auxname> <auxval>\nEND PERIOD\n```",
+    "gwf-sto": "```\n# Structure of PERIOD block in GWF-STO\nBEGIN PERIOD <iper>\n  [STEADY-STATE]\n  [TRANSIENT]\nEND PERIOD\n```",
+    "gwf-uzf": "```\n# Structure of PERIOD block in GWF-UZF\nBEGIN PERIOD <iper>\n  <uzfno> <finf> <pet> <extdp> <extwc> <ha> <hroot> <rootact> [<aux(naux)>]\n  <uzfno> <finf> <pet> <extdp> <extwc> <ha> <hroot> <rootact> [<aux(naux)>]\n  ...\nEND PERIOD\n```",
+    "gwf-wel": "```\n# Structure of PERIOD block in GWF-WEL\nBEGIN PERIOD <iper>\n  <cellid(ncelldim)> <q> [<aux(naux)>] [<boundname>]\n  <cellid(ncelldim)> <q> [<aux(naux)>] [<boundname>]\n  ...\nEND PERIOD\n```"
+  },
+  "perioddata": {
+    "sim-tdis": "```\n# Structure of PERIODDATA block in SIM-TDIS\nBEGIN PERIODDATA\n  <perlen> <nstp> <tsmult>\n  <perlen> <nstp> <tsmult>\n  ...\nEND PERIODDATA\n```"
+  },
+  "solutiongroup": {
+    "sim-nam": "```\n# Structure of SOLUTIONGROUP block in SIM-NAM\nBEGIN SOLUTIONGROUP <group_num>\n  [MXITER <mxiter>]\n  <slntype> <slnfname> <slnmnames(nslnmod)>\n  <slntype> <slnfname> <slnmnames(nslnmod)>\n  ...\nEND SOLUTIONGROUP\n```"
+  },
+  "table": {
+    "gwf-laktab": "```\n# Structure of TABLE block in GWF-LAKTAB\nBEGIN TABLE\n  <stage> <volume> <sarea> [<barea>]\n  <stage> <volume> <sarea> [<barea>]\n  ...\nEND TABLE\n```"
+  },
+  "tables": {
+    "gwf-lak": "```\n# Structure of TABLES block in GWF-LAK\nBEGIN TABLES\n  <lakeno> TAB6 FILEIN <tab6_filename>\n  <lakeno> TAB6 FILEIN <tab6_filename>\n  ...\nEND TABLES\n```"
+  },
+  "timing": {
+    "sim-nam": "```\n# Structure of TIMING block in SIM-NAM\nBEGIN TIMING\n  TDIS6 <tdis6>\nEND TIMING\n```"
+  },
+  "vertices": {
+    "gwf-disu": "```\n# Structure of VERTICES block in GWF-DISU\nBEGIN VERTICES\n  <iv> <xv> <yv>\n  <iv> <xv> <yv>\n  ...\nEND VERTICES\n```",
+    "gwf-disv": "```\n# Structure of VERTICES block in GWF-DISV\nBEGIN VERTICES\n  <iv> <xv> <yv>\n  <iv> <xv> <yv>\n  ...\nEND VERTICES\n```"
+  }
+}

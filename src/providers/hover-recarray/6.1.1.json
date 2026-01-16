@@ -1,0 +1,154 @@
+{
+  "cell2d": {
+    "icell2d,xc,yc,ncvert,icvert": [
+      "gwf-disu",
+      "gwf-disv"
+    ]
+  },
+  "connectiondata": {
+    "lakeno,iconn,cellid,claktype,bedleak,belev,telev,connlen,connwidth": [
+      "gwf-lak"
+    ],
+    "rno,ic": [
+      "gwf-sfr"
+    ],
+    "wellno,icon,cellid,scrn_top,scrn_bot,hk_skin,radius_skin": [
+      "gwf-maw"
+    ]
+  },
+  "continuous": {
+    "obsname,obstype,id,id2": [
+      "utl-obs"
+    ]
+  },
+  "diversions": {
+    "rno,idv,iconr,cprior": [
+      "gwf-sfr"
+    ]
+  },
+  "exchangedata": {
+    "cellidm1,cellidm2,ihc,cl1,cl2,hwva,aux": [
+      "exg-gwfgwf"
+    ]
+  },
+  "exchanges": {
+    "exgtype,exgfile,exgmnamea,exgmnameb": [
+      "sim-nam"
+    ]
+  },
+  "gncdata": {
+    "cellidn,cellidm,cellidsj,alphasj": [
+      "gwf-gnc"
+    ]
+  },
+  "models": {
+    "mtype,mfname,mname": [
+      "sim-nam"
+    ]
+  },
+  "outlets": {
+    "outletno,lakein,lakeout,couttype,invert,width,rough,slope": [
+      "gwf-lak"
+    ]
+  },
+  "packagedata": {
+    "icsubno,cellid,cdelay,pcs0,thick_frac,rnb,ssv_cc,sse_cr,theta,kv,h0,boundname": [
+      "gwf-csub"
+    ],
+    "iuzno,cellid,landflag,ivertcon,surfdep,vks,thtr,thts,thti,eps,boundname": [
+      "gwf-uzf"
+    ],
+    "lakeno,strt,nlakeconn,aux,boundname": [
+      "gwf-lak"
+    ],
+    "rno,cellid,rlen,rwid,rgrd,rtp,rbth,rhk,man,ncon,ustrf,ndv,aux,boundname": [
+      "gwf-sfr"
+    ],
+    "wellno,radius,bottom,strt,condeqn,ngwfnodes,aux,boundname": [
+      "gwf-maw"
+    ]
+  },
+  "packages": {
+    "ftype,fname,pname": [
+      "gwf-nam"
+    ],
+    "mname,pname": [
+      "gwf-mvr"
+    ]
+  },
+  "period": {
+    "cellid,bhead,cond,aux,boundname": [
+      "gwf-ghb"
+    ],
+    "cellid,elev,cond,aux,boundname": [
+      "gwf-drn"
+    ],
+    "cellid,head,aux,boundname": [
+      "gwf-chd"
+    ],
+    "cellid,q,aux,boundname": [
+      "gwf-wel"
+    ],
+    "cellid,recharge,aux,boundname": [
+      "gwf-rch"
+    ],
+    "cellid,sig0": [
+      "gwf-csub"
+    ],
+    "cellid,stage,cond,rbot,aux,boundname": [
+      "gwf-riv"
+    ],
+    "cellid,surface,rate,depth,pxdp,petm,petm0,aux,boundname": [
+      "gwf-evt"
+    ],
+    "cellid1,cellid2,hydchr": [
+      "gwf-hfb"
+    ],
+    "iuzno,finf,pet,extdp,extwc,ha,hroot,rootact,aux": [
+      "gwf-uzf"
+    ],
+    "mname1,pname1,id1,mname2,pname2,id2,mvrtype,value": [
+      "gwf-mvr"
+    ],
+    "number,laksetting": [
+      "gwf-lak"
+    ],
+    "rno,sfrsetting": [
+      "gwf-sfr"
+    ],
+    "wellno,mawsetting": [
+      "gwf-maw"
+    ]
+  },
+  "perioddata": {
+    "perlen,nstp,tsmult": [
+      "sim-tdis"
+    ]
+  },
+  "solutiongroup": {
+    "slntype,slnfname,slnmnames": [
+      "sim-nam"
+    ]
+  },
+  "table": {
+    "stage,volume,sarea,barea": [
+      "utl-lak-tab"
+    ]
+  },
+  "tables": {
+    "lakeno,tab6,filein,tab6_filename": [
+      "gwf-lak"
+    ]
+  },
+  "timeseries": {
+    "ts_time,ts_array": [
+      "utl-ts"
+    ]
+  },
+  "vertices": {
+    "iv,xv,yv": [
+      "gwf-disu",
+      "gwf-disv"
+    ]
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "cell2d": {
+    "icell2d,xc,yc,ncvert,icvert": [
+      "gwf-disu",
+      "gwf-disv",
+      "gwt-disu",
+      "gwt-disv"
+    ]
+  },
+  "connectiondata": {
+    "ifno,ic": [
+      "gwf-sfr"
+    ],
+    "ifno,icon,cellid,scrn_top,scrn_bot,hk_skin,radius_skin": [
+      "gwf-maw"
+    ],
+    "ifno,iconn,cellid,claktype,bedleak,belev,telev,connlen,connwidth": [
+      "gwf-lak"
+    ]
+  },
+  "continuous": {
+    "obsname,obstype,id,id2": [
+      "utl-obs"
+    ]
+  },
+  "crosssections": {
+    "ifno,tab6,filein,tab6_filename": [
+      "gwf-sfr"
+    ]
+  },
+  "diversions": {
+    "ifno,idv,iconr,cprior": [
+      "gwf-sfr"
+    ]
+  },
+  "exchangedata": {
+    "cellidm1,cellidm2,ihc,cl1,cl2,hwva,aux,boundname": [
+      "exg-gwfgwf",
+      "exg-gwtgwt"
+    ]
+  },
+  "exchanges": {
+    "exgtype,exgfile,exgmnamea,exgmnameb": [
+      "sim-nam"
+    ]
+  },
+  "fileinput": {
+    "pname,spc6,filein,spc6_filename,mixed": [
+      "gwt-ssm"
+    ]
+  },
+  "gncdata": {
+    "cellidn,cellidm,cellidsj,alphasj": [
+      "gwf-gnc"
+    ]
+  },
+  "models": {
+    "mtype,mfname,mname": [
+      "sim-nam"
+    ]
+  },
+  "outlets": {
+    "outletno,lakein,lakeout,couttype,invert,width,rough,slope": [
+      "gwf-lak"
+    ]
+  },
+  "packagedata": {
+    "flowtype,filein,fname": [
+      "gwt-fmi"
+    ],
+    "icsubno,cellid,cdelay,pcs0,thick_frac,rnb,ssv_cc,sse_cr,theta,kv,h0,boundname": [
+      "gwf-csub"
+    ],
+    "ifno,cellid,landflag,ivertcon,surfdep,vks,thtr,thts,thti,eps,boundname": [
+      "gwf-uzf"
+    ],
+    "ifno,cellid,rlen,rwid,rgrd,rtp,rbth,rhk,man,ncon,ustrf,ndv,aux,boundname": [
+      "gwf-sfr"
+    ],
+    "ifno,radius,bottom,strt,condeqn,ngwfnodes,aux,boundname": [
+      "gwf-maw"
+    ],
+    "ifno,strt,aux,boundname": [
+      "gwt-lkt",
+      "gwt-mwt",
+      "gwt-sft",
+      "gwt-uzt"
+    ],
+    "ifno,strt,nlakeconn,aux,boundname": [
+      "gwf-lak"
+    ],
+    "irhospec,drhodc,crhoref,modelname,auxspeciesname": [
+      "gwf-buy"
+    ],
+    "iviscspec,dviscdc,cviscref,modelname,auxspeciesname": [
+      "gwf-vsc"
+    ]
+  },
+  "packages": {
+    "ftype,fname,pname": [
+      "gwf-nam",
+      "gwt-nam"
+    ],
+    "mname,pname": [
+      "gwf-mvr"
+    ]
+  },
+  "period": {
+    "bndno,spcsetting": [
+      "utl-spc"
+    ],
+    "cellid,bhead,cond,aux,boundname": [
+      "gwf-ghb"
+    ],
+    "cellid,conc,aux,boundname": [
+      "gwt-cnc"
+    ],
+    "cellid,elev,cond,aux,boundname": [
+      "gwf-drn"
+    ],
+    "cellid,head,aux,boundname": [
+      "gwf-chd"
+    ],
+    "cellid,q,aux,boundname": [
+      "gwf-wel"
+    ],
+    "cellid,recharge,aux,boundname": [
+      "gwf-rch"
+    ],
+    "cellid,sig0": [
+      "gwf-csub"
+    ],
+    "cellid,smassrate,aux,boundname": [
+      "gwt-src"
+    ],
+    "cellid,stage,cond,rbot,aux,boundname": [
+      "gwf-riv"
+    ],
+    "cellid,surface,rate,depth,pxdp,petm,petm0,aux,boundname": [
+      "gwf-evt"
+    ],
+    "cellid,tvksetting": [
+      "utl-tvk"
+    ],
+    "cellid,tvssetting": [
+      "utl-tvs"
+    ],
+    "cellid1,cellid2,hydchr": [
+      "gwf-hfb"
+    ],
+    "ifno,finf,pet,extdp,extwc,ha,hroot,rootact,aux": [
+      "gwf-uzf"
+    ],
+    "ifno,laksetting": [
+      "gwt-lkt"
+    ],
+    "ifno,mawsetting": [
+      "gwf-maw"
+    ],
+    "ifno,mwtsetting": [
+      "gwt-mwt"
+    ],
+    "ifno,reachsetting": [
+      "gwt-sft"
+    ],
+    "ifno,sfrsetting": [
+      "gwf-sfr"
+    ],
+    "ifno,uztsetting": [
+      "gwt-uzt"
+    ],
+    "mname1,pname1,id1,mname2,pname2,id2,mvrtype,value": [
+      "gwf-mvr"
+    ],
+    "number,laksetting": [
+      "gwf-lak"
+    ]
+  },
+  "perioddata": {
+    "iperats,dt0,dtmin,dtmax,dtadj,dtfailadj": [
+      "utl-ats"
+    ],
+    "perlen,nstp,tsmult": [
+      "sim-tdis"
+    ]
+  },
+  "solutiongroup": {
+    "slntype,slnfname,slnmnames": [
+      "sim-nam"
+    ]
+  },
+  "sources": {
+    "pname,srctype,auxname": [
+      "gwt-ssm"
+    ]
+  },
+  "table": {
+    "stage,volume,sarea,barea": [
+      "utl-laktab"
+    ],
+    "xfraction,height,manfraction": [
+      "utl-sfrtab"
+    ]
+  },
+  "tables": {
+    "ifno,tab6,filein,tab6_filename": [
+      "gwf-lak"
+    ]
+  },
+  "timeseries": {
+    "ts_time,ts_array": [
+      "utl-ts"
+    ]
+  },
+  "vertices": {
+    "iv,xv,yv": [
+      "gwf-disu",
+      "gwf-disv",
+      "gwt-disu",
+      "gwt-disv"
+    ]
+  }
+}
