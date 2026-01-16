@@ -372,4 +372,51 @@ END non-existing-block`,
       "JSON data for different mf6Version should not be the same",
     );
   });
+
+  test("Changing mf6version should change hover text", async () => {
+    const provider = new MF6HoverBlockProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    // Create source file
+    const chdgTempFileUri = vscode.Uri.joinPath(
+      tempDirUri,
+      "test_hover_block.chdg",
+    );
+    const chdgFileContent = Buffer.from("BEGIN OPTIONS\nEND");
+    await vscode.workspace.fs.writeFile(chdgTempFileUri, chdgFileContent);
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+
+    // Start with version 6.3.0
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+
+    try {
+      const document = await vscode.workspace.openTextDocument(chdgTempFileUri);
+      await vscode.window.showTextDocument(document);
+      await mf6ify();
+      // Position pointing to options block
+      const position = new vscode.Position(0, 7);
+      const hover663 = await provider.provideHover(document, position);
+
+      await config.update(
+        "mf6Version",
+        "6.6.2",
+        vscode.ConfigurationTarget.Global,
+      );
+      const hover662 = await provider.provideHover(document, position);
+
+      assert.notStrictEqual(
+        (hover663?.contents[0] as vscode.MarkdownString).value,
+        (hover662?.contents[0] as vscode.MarkdownString).value,
+        "Hover content for different mf6Version should not be the same",
+      );
+    } finally {
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
+  });
 });
