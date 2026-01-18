@@ -442,7 +442,7 @@ END non-existing-block`,
       await vscode.window.showTextDocument(document);
       const symbols663 = await provider.provideDocumentSymbols(document);
 
-      assert.strictEqual(symbols663[0].children[1].name, "q");
+      assert.strictEqual(symbols663[0].children[1].name, "q"); // 'q' recognized in 6.6.3
 
       await config.update(
         "mf6Version",
@@ -450,7 +450,7 @@ END non-existing-block`,
         vscode.ConfigurationTarget.Global,
       );
       const symbols662 = await provider.provideDocumentSymbols(document);
-      assert.strictEqual(symbols662[0].children.length, 1); // 'q' not recognized
+      assert.strictEqual(symbols662[0].children.length, 1); // 'q' not recognized in 6.6.2
     } finally {
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
@@ -484,7 +484,7 @@ END non-existing-block`,
       await vscode.window.showTextDocument(document);
       const symbolsLst663 = await provider.provideDocumentSymbols(document);
 
-      assert.strictEqual(symbolsLst663[1].name, "CHDG");
+      assert.strictEqual(symbolsLst663[1].name, "CHDG"); // 'CHDG' recognized in 6.6.3
 
       await config.update(
         "mf6Version",
@@ -492,7 +492,7 @@ END non-existing-block`,
         vscode.ConfigurationTarget.Global,
       );
       const symbolsLst662 = await provider.provideDocumentSymbols(document);
-      assert.strictEqual(symbolsLst662.length, 1); // 'CHDG' not recognized
+      assert.strictEqual(symbolsLst662.length, 1); // 'CHDG' not recognized in 6.6.2
     } finally {
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
