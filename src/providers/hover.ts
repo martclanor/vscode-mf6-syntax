@@ -1,9 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
-import * as hoverKeywordJson from "./hover-keyword.json";
-import * as hoverBlockJson from "./hover-block.json";
-import * as hoverRecarrayJson from "./hover-recarray.json";
 import * as fs from "fs";
+import { loadJsonData } from "../utils/file-utils";
 
 interface HoverKeywordStructure {
   [keyword: string]: {
@@ -243,11 +241,12 @@ function formatKeywordHover(
 }
 
 export class MF6HoverKeywordProvider implements vscode.HoverProvider {
-  hoverKeyword: HoverKeywordStructure =
-    hoverKeywordJson as HoverKeywordStructure;
-  hoverRecarray: HoverRecarrayStructure =
-    hoverRecarrayJson as HoverRecarrayStructure;
-
+  private get hoverKeyword(): HoverKeywordStructure {
+    return loadJsonData<HoverKeywordStructure>("hover-keyword");
+  }
+  private get hoverRecarray(): HoverRecarrayStructure {
+    return loadJsonData<HoverRecarrayStructure>("hover-recarray");
+  }
   public async provideHover(
     document: vscode.TextDocument,
     position: vscode.Position,
@@ -331,7 +330,9 @@ export class MF6HoverKeywordProvider implements vscode.HoverProvider {
 }
 
 export class MF6HoverBlockProvider implements vscode.HoverProvider {
-  hoverBlock: HoverBlockStructure = hoverBlockJson as HoverBlockStructure;
+  private get hoverBlock(): HoverBlockStructure {
+    return loadJsonData<HoverBlockStructure>("hover-block");
+  }
 
   public async provideHover(
     document: vscode.TextDocument,

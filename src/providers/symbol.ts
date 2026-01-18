@@ -1,16 +1,18 @@
 import * as vscode from "vscode";
-import * as symbolDefnJson from "./symbol-defn.json";
+import { loadJsonData } from "../utils/file-utils";
 
 interface SymbolDefnStructure {
   [block: string]: string[]; // block name to readarray names
 }
 
 export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
-  private static readonly symbolDefns: SymbolDefnStructure =
-    symbolDefnJson as SymbolDefnStructure;
-  private static readonly blockNames: Set<string> = new Set(
-    Object.keys(MF6SymbolProvider.symbolDefns),
-  );
+  private get symbolDefns(): SymbolDefnStructure {
+    return loadJsonData<SymbolDefnStructure>("symbol-defn");
+  }
+  private get blockNames(): Set<string> {
+    return new Set(Object.keys(this.symbolDefns));
+  }
+
   private static readonly beginRegex =
     /^begin\s+(?<blockName>\w+)(?:\s+(?<suffix>.+))?/i;
   private static readonly endRegex =
@@ -66,7 +68,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     }
 
     const blockName = beginMatch.groups.blockName;
-    if (!MF6SymbolProvider.isValidBlockName(blockName)) {
+    if (!this.isValidBlockName(blockName)) {
       return null;
     }
 
@@ -95,7 +97,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     beginRange: number,
   ): { symbol: vscode.DocumentSymbol; endLine: number } | null {
     // No readarray in block at all
-    if (!MF6SymbolProvider.symbolDefns[block.name]) {
+    if (!this.symbolDefns[block.name]) {
       return null;
     }
 
@@ -106,7 +108,7 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
       .toLowerCase();
 
     // readarray not in block
-    if (!MF6SymbolProvider.symbolDefns[block.name].includes(readarrayName)) {
+    if (!this.symbolDefns[block.name].includes(readarrayName)) {
       return null;
     }
 
@@ -160,8 +162,8 @@ export class MF6SymbolProvider implements vscode.DocumentSymbolProvider {
     return startLine;
   }
 
-  private static isValidBlockName(blockName: string): boolean {
-    return MF6SymbolProvider.blockNames.has(blockName.toLowerCase());
+  private get isValidBlockName(): (blockName: string) => boolean {
+    return (blockName: string) => this.blockNames.has(blockName.toLowerCase());
   }
 
   private static findBlockEnd(

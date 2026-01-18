@@ -3,5 +3,5 @@
 .ruff_cache/**
 out/
 .vscode-test/
-src/providers/*.json
+src/providers/**/*.json
 CHANGELOG.md
