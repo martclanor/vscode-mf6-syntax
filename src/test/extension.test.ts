@@ -455,4 +455,46 @@ END non-existing-block`,
       await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
     }
   });
+
+  test("Changing mf6version should change lst symbol defn", async () => {
+    const provider = new MF6LstSymbolProvider();
+    const tempDirUri = vscode.Uri.file(path.join(os.tmpdir(), "temp"));
+    await vscode.workspace.fs.createDirectory(tempDirUri);
+
+    const tempFileUri = vscode.Uri.joinPath(tempDirUri, "base.lst");
+    const fileContent =
+      Buffer.from(`                                   MODFLOW 6
+                U.S. GEOLOGICAL SURVEY MODULAR HYDROLOGIC MODEL
+                         PARTICLE TRACKING MODEL (PRT)
+                            VERSION 6.6.3 09/29/2025
+
+                            CHDG --`);
+    await vscode.workspace.fs.writeFile(tempFileUri, fileContent);
+
+    const config = vscode.workspace.getConfiguration("mf6Syntax");
+    // Start with version 6.6.3
+    await config.update(
+      "mf6Version",
+      "6.6.3",
+      vscode.ConfigurationTarget.Global,
+    );
+
+    try {
+      const document = await vscode.workspace.openTextDocument(tempFileUri);
+      await vscode.window.showTextDocument(document);
+      const symbolsLst663 = await provider.provideDocumentSymbols(document);
+
+      assert.strictEqual(symbolsLst663[1].name, "CHDG");
+
+      await config.update(
+        "mf6Version",
+        "6.6.2",
+        vscode.ConfigurationTarget.Global,
+      );
+      const symbolsLst662 = await provider.provideDocumentSymbols(document);
+      assert.strictEqual(symbolsLst662.length, 1); // 'CHDG' not recognized
+    } finally {
+      await vscode.workspace.fs.delete(tempDirUri, { recursive: true });
+    }
+  });
 });
