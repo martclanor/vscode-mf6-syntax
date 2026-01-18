@@ -73,3 +73,5 @@ _Note: data files used below are from the [**FloPy GitHub repository**](https://
 ## Settings
 
 - `mf6Syntax.maxFileSizeMB`: Maximum file size (in MB) that can be opened through the go-to-definition feature or go-to-parent command (default: `50MB`).
+
+- `mf6Syntax.mf6Version`: Specifies the MF6 version used for programmatic language features such as hover and symbol definitions.
