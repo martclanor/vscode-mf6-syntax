@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.6.0] - 2026-01-18
+
+### Features
+- Show iter/discrepancy info in outline view in [#184](https://github.com/martclanor/vscode-mf6-syntax/pull/184)
+- Add support for all mf6 versions in [#186](https://github.com/martclanor/vscode-mf6-syntax/pull/186)
+
+### Internal Changes & Maintenance
+- Update vscode engine in [#189](https://github.com/martclanor/vscode-mf6-syntax/pull/189)
+- Bump the npm-all group across 1 directory with 3 updates in [#188](https://github.com/martclanor/vscode-mf6-syntax/pull/188)
+- Bump qs from 6.14.0 to 6.14.1 in [#185](https://github.com/martclanor/vscode-mf6-syntax/pull/185)
+
 ## [0.5.2] - 2025-12-28
 
 ### Internal Changes & Maintenance
@@ -267,6 +278,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.6.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.2..0.6.0
 [0.5.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.1..0.5.2
 [0.5.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.0..0.5.1
 [0.5.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.4.0..0.5.0
