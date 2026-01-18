@@ -61,7 +61,9 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     const range = this.createRange(document, 0, endRange);
     return {
       // Non-mfsim lst files have model name on line 2 and version on line 3
-      isMfsimLst: document.lineAt(2).text.trim().startsWith("VERSION"),
+      isMfsimLst:
+        document.lineCount > 2 &&
+        document.lineAt(2).text.trim().startsWith("VERSION"),
       symbol: new vscode.DocumentSymbol(
         "MF6-LST",
         "header",
