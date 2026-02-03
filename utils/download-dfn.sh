@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # --- Configuration ---
 REPO_URL="https://github.com/MODFLOW-ORG/modflow6"
