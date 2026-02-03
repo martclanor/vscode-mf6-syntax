@@ -435,8 +435,10 @@ class Dfn:
             }
             # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
-                lambda s: not s.is_dev_option
-                and (not s.in_record or s.block_variable or s.is_rec)
+                lambda s: (
+                    not s.is_dev_option
+                    and (not s.in_record or s.block_variable or s.is_rec)
+                )
             ):
                 if not hover[section.block][dfn.name]:
                     hover[section.block][dfn.name] = section.get_block_begin()
