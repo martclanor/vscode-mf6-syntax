@@ -92,7 +92,6 @@ FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
     "netcdf": Line.parse_bool,
     "block_variable": Line.parse_bool,
     "just_data": Line.parse_bool,
-    "prerelease": Line.parse_bool,
 }
 
 IGNORED_FIELDS: frozenset[str] = frozenset(
@@ -112,6 +111,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "support_negative_index",
         "time_series",
         "valid_values",
+        "prerelease",
     }
 )
 
@@ -136,7 +136,6 @@ class Section:
     netcdf: bool = False
     just_data: bool = False
     block_variable: bool = False
-    prerelease: bool = False
 
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
