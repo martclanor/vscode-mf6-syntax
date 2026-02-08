@@ -29,6 +29,7 @@ jobs:
             echo "API response was: $RESPONSE" >&2
             exit 1
           fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
       - name: Check if version exists
         id: check_version
