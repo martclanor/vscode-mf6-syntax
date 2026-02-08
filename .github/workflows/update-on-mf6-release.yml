@@ -23,10 +23,8 @@ jobs:
 
       - name: Get latest MODFLOW 6 release
         id: get_latest_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          RESPONSE=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" "https://api.github.com/repos/MODFLOW-ORG/modflow6/releases/latest")
+          RESPONSE=$(curl -s "https://api.github.com/repos/MODFLOW-ORG/modflow6/releases/latest")
           LATEST_TAG=$(echo "$RESPONSE" | jq -r .tag_name)
           if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "null" ]; then
             echo "Failed to retrieve a valid latest tag from GitHub API." >&2
