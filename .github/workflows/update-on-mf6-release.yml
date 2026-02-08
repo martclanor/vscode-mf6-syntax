@@ -33,6 +33,19 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Check for existing branch
+        if: steps.check_version.outputs.exists == 'false'
+        id: check_branch
+        run: |
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME"; then
+            echo "Branch $BRANCH_NAME already exists. Exiting."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branch $BRANCH_NAME does not exist. Proceeding."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Update mf6-versions.txt
         if: steps.check_version.outputs.exists == 'false'
         run: |
