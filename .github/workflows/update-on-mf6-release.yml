@@ -71,7 +71,7 @@ jobs:
           git checkout -b $BRANCH_NAME
           git push --set-upstream origin $BRANCH_NAME
           PR_URL=$(gh pr create \
-            --title "chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}" \
+            --title "chore(mf6): add support for MODFLOW ${{ steps.get_latest_release.outputs.latest_tag }}" \
             --body "This updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
             --base develop \
             --draft)
