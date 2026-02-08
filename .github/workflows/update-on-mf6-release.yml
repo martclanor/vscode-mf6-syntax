@@ -63,10 +63,10 @@ jobs:
           echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "Add support for MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}"
-          git push
           git push --set-upstream origin $BRANCH_NAME
 
       - name: Create Draft Pull Request
@@ -75,7 +75,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push --set-upstream origin $BRANCH_NAME
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
           PR_URL=$(gh pr create \
             --title "chore(mf6): add support for MODFLOW ${{ steps.get_latest_release.outputs.latest_tag }}" \
             --body "This updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
