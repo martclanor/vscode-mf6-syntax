@@ -1,0 +1,106 @@
+# This workflow checks for new releases of MODFLOW 6 and updates the extension accordingly.
+
+name: Update on MODFLOW 6 Release
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  update-mf6:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Get latest MODFLOW 6 release
+        id: get_latest_release
+        run: |
+          RESPONSE=$(curl -s "https://api.github.com/repos/MODFLOW-ORG/modflow6/releases/latest")
+          LATEST_TAG=$(echo "$RESPONSE" | jq -r .tag_name)
+          if [ -z "$LATEST_TAG" ] || [ "$LATEST_TAG" = "null" ]; then
+            echo "Failed to retrieve a valid latest tag from GitHub API." >&2
+            echo "API response was: $RESPONSE" >&2
+            exit 1
+          fi
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Check if version exists
+        id: check_version
+        run: |
+          if grep -Fxq "${{ steps.get_latest_release.outputs.latest_tag }}" mf6-versions.txt; then
+            echo "Version ${{ steps.get_latest_release.outputs.latest_tag }} already exists."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "New version ${{ steps.get_latest_release.outputs.latest_tag }} found."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for existing branch
+        if: steps.check_version.outputs.exists == 'false'
+        id: check_branch
+        run: |
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME"; then
+            echo "Branch $BRANCH_NAME already exists. Exiting."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branch $BRANCH_NAME does not exist. Proceeding."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Draft Pull Request
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
+        id: create_pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b $BRANCH_NAME
+          git push --set-upstream origin $BRANCH_NAME
+          PR_URL=$(gh pr create \
+            --title "chore(mf6): add support for MODFLOW ${{ steps.get_latest_release.outputs.latest_tag }}" \
+            --body "This updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
+            --base develop \
+            --draft)
+          echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Install uv
+        if: steps.create_pr.outputs.pr_url != ''
+        uses: astral-sh/setup-uv@v7
+
+      - name: Update files and commit
+        id: update_files
+        if: steps.create_pr.outputs.pr_url != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git checkout ${{ steps.create_pr.outputs.branch_name }}
+          echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
+          ./utils/download-dfn.sh
+          if uv run python utils/gen_from_dfn.py; then
+            echo "gen_from_dfn=true" >> $GITHUB_OUTPUT
+          else
+            echo "gen_from_dfn=false" >> $GITHUB_OUTPUT
+          fi
+          git add .
+          git commit -m "Add support for MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}"
+          git push
+
+      - name: Mark Pull Request as Ready for Review
+        if: steps.create_pr.outputs.pr_url != '' && steps.update_files.outputs.gen_from_dfn == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr ready ${{ steps.create_pr.outputs.pr_url }}
