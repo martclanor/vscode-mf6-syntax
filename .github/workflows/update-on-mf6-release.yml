@@ -59,7 +59,6 @@ jobs:
         if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         run: |
           echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
-          sort -V -r -o mf6-versions.txt mf6-versions.txt
 
       - name: Download updated DFN files
         if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
