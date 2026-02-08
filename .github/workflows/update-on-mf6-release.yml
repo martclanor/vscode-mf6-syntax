@@ -96,7 +96,7 @@ jobs:
             echo "gen_from_dfn=false" >> $GITHUB_OUTPUT
           fi
           git add .
-          git commit -m "feat: Update sources for MODFLOW 6 ${{ steps.get_latest_release.outputs.latest_tag }}"
+          git commit -m "Add support for MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}"
           git push
 
       - name: Mark Pull Request as Ready for Review
