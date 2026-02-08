@@ -48,25 +48,25 @@ jobs:
           fi
 
       - name: Update mf6-versions.txt
-        if: steps.check_version.outputs.exists == 'false'
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         run: |
           echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
           sort -V -r -o mf6-versions.txt mf6-versions.txt
 
       - name: Download updated DFN files
-        if: steps.check_version.outputs.exists == 'false'
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         run: ./utils/download-dfn.sh
 
       - name: Install uv
-        if: steps.check_version.outputs.exists == 'false'
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         uses: astral-sh/setup-uv@v7
 
       - name: Regenerate from templates
-        if: steps.check_version.outputs.exists == 'false'
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         run: uv run utils/gen_from_dfn.py
 
       - name: Create Pull Request
-        if: steps.check_version.outputs.exists == 'false'
+        if: steps.check_version.outputs.exists == 'false' && steps.check_branch.outputs.exists == 'false'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
