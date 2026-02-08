@@ -63,7 +63,7 @@ jobs:
           git add .
           git commit -m "Update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}"
           git push --set-upstream origin $BRANCH_NAME
-          gh pr create
-            --title "chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}"
-            --body "This PR updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}."
+          gh pr create \
+            --title "chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}" \
+            --body "This PR updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
             --base develop
