@@ -1,3 +1,5 @@
+# This workflow checks for new releases of MODFLOW 6 and updates the extension accordingly.
+
 name: Update on MODFLOW 6 Release
 
 on:
