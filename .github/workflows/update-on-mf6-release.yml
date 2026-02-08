@@ -78,6 +78,9 @@ jobs:
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Update files and commit
         if: steps.create_pr.outputs.pr_url != ''
         env:
