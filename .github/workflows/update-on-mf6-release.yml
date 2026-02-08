@@ -1,0 +1,64 @@
+name: Update on MODFLOW 6 Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update-mf6:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Get latest MODFLOW 6 release
+        id: get_latest_release
+        run: |
+          LATEST_TAG=$(curl -s "https://api.github.com/repos/MODFLOW-ORG/modflow6/releases/latest" | jq -r .tag_name)
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Check if version exists
+        id: check_version
+        run: |
+          if grep -q "${{ steps.get_latest_release.outputs.latest_tag }}" mf6-versions.txt; then
+            echo "Version ${{ steps.get_latest_release.outputs.latest_tag }} already exists."
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "New version ${{ steps.get_latest_release.outputs.latest_tag }} found."
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update mf6-versions.txt
+        if: steps.check_version.outputs.exists == 'false'
+        run: |
+          echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
+          sort -V -r -o mf6-versions.txt mf6-versions.txt
+
+      - name: Download updated DFN files
+        if: steps.check_version.outputs.exists == 'false'
+        run: ./utils/download-dfn.sh
+
+      - name: Install uv
+        if: steps.check_version.outputs.exists == 'false'
+        uses: astral-sh/setup-uv@v7
+
+      - name: Regenerate from templates
+        run: uv run utils/gen_from_dfn.py
+
+      - name: Create Pull Request
+        if: steps.check_version.outputs.exists == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "Update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}"
+          git push --set-upstream origin $BRANCH_NAME
+          gh pr create
+            --title "chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}"
+            --body "This PR updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}."
+            --base develop
