@@ -71,10 +71,10 @@ jobs:
           git checkout -b $BRANCH_NAME
           git commit --allow-empty -m "Initial commit for MODFLOW 6 ${{ steps.get_latest_release.outputs.latest_tag }}"
           git push --set-upstream origin $BRANCH_NAME
-          PR_URL=$(gh pr create
-            --title "Draft: chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}"
-            --body "This PR updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}."
-            --base develop
+          PR_URL=$(gh pr create \
+            --title "Draft: chore(mf6): update to add MF6 ${{ steps.get_latest_release.outputs.latest_tag }}" \
+            --body "This PR updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
+            --base develop \
             --draft)
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
