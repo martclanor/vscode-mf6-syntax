@@ -67,7 +67,6 @@ jobs:
           git checkout -b $BRANCH_NAME
           git add .
           git commit -m "Add support for MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}"
-          git push
           git push --set-upstream origin $BRANCH_NAME
 
       - name: Create Draft Pull Request
