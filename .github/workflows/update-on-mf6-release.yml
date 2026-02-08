@@ -82,6 +82,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
 
       - name: Update files and commit
+        id: update_files
         if: steps.create_pr.outputs.pr_url != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,13 +90,17 @@ jobs:
           git checkout ${{ steps.create_pr.outputs.branch_name }}
           echo "${{ steps.get_latest_release.outputs.latest_tag }}" >> mf6-versions.txt
           ./utils/download-dfn.sh
-          uv run python utils/gen_from_dfn.py
+          if uv run python utils/gen_from_dfn.py; then
+            echo "gen_from_dfn=true" >> $GITHUB_OUTPUT
+          else
+            echo "gen_from_dfn=false" >> $GITHUB_OUTPUT
+          fi
           git add .
           git commit -m "feat: Update sources for MODFLOW 6 ${{ steps.get_latest_release.outputs.latest_tag }}"
           git push
 
       - name: Mark Pull Request as Ready for Review
-        if: steps.create_pr.outputs.pr_url != ''
+        if: steps.create_pr.outputs.pr_url != '' && steps.update_files.outputs.gen_from_dfn == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
