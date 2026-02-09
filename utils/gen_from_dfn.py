@@ -99,6 +99,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "default",
         "default_value",
         "deprecated",
+        "developmode",
         "extended",
         "jagged_array",
         "longname",
