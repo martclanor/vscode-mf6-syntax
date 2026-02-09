@@ -92,7 +92,6 @@ FIELD_PARSERS: dict[str, Callable[[Line], str | bool]] = {
     "netcdf": Line.parse_bool,
     "block_variable": Line.parse_bool,
     "just_data": Line.parse_bool,
-    "prerelease": Line.parse_bool,
 }
 
 IGNORED_FIELDS: frozenset[str] = frozenset(
@@ -100,6 +99,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "default",
         "default_value",
         "deprecated",
+        "developmode",
         "extended",
         "jagged_array",
         "longname",
@@ -112,6 +112,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "support_negative_index",
         "time_series",
         "valid_values",
+        "prerelease",
     }
 )
 
@@ -136,7 +137,6 @@ class Section:
     netcdf: bool = False
     just_data: bool = False
     block_variable: bool = False
-    prerelease: bool = False
 
     @classmethod
     def from_dfn(cls, data: str) -> "Section":
@@ -435,8 +435,10 @@ class Dfn:
             }
             # Exclude dev_options and sections that are handled in the inner loop
             for section in dfn.get_sections(
-                lambda s: not s.is_dev_option
-                and (not s.in_record or s.block_variable or s.is_rec)
+                lambda s: (
+                    not s.is_dev_option
+                    and (not s.in_record or s.block_variable or s.is_rec)
+                )
             ):
                 if not hover[section.block][dfn.name]:
                     hover[section.block][dfn.name] = section.get_block_begin()
