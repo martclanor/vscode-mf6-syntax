@@ -61,6 +61,7 @@
         "mf6Syntax.mf6Version": {
           "type": "string",
           "enum": [
+            "6.7.0",
             "6.6.3",
             "6.6.2",
             "6.6.1",
@@ -83,7 +84,7 @@
             "6.0.1",
             "6.0.0"
           ],
-          "default": "6.6.3",
+          "default": "6.7.0",
           "description": "The MODFLOW 6 version to use for programmatic language features."
         }
       }
