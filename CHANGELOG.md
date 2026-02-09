@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.1] - 2026-02-09
+
+### Internal Changes & Maintenance
+- Add support for MODFLOW 6.7.0 in [#208](https://github.com/martclanor/vscode-mf6-syntax/pull/208)
+- Fix branch name var in update mf6 ci in [#207](https://github.com/martclanor/vscode-mf6-syntax/pull/207)
+- Commit on mf6-versions.txt before draft PR in [#205](https://github.com/martclanor/vscode-mf6-syntax/pull/205)
+- Bump the npm-all group across 1 directory with 7 updates in [#198](https://github.com/martclanor/vscode-mf6-syntax/pull/198)
+- Bump lodash from 4.17.21 to 4.17.23 in [#192](https://github.com/martclanor/vscode-mf6-syntax/pull/192)
+- Pin ci node-version in [#204](https://github.com/martclanor/vscode-mf6-syntax/pull/204)
+- Create CI to update on mf6 release in [#197](https://github.com/martclanor/vscode-mf6-syntax/pull/197)
+- Update shebang for better portability in [#196](https://github.com/martclanor/vscode-mf6-syntax/pull/196)
+- Ignore pre-release field in [#194](https://github.com/martclanor/vscode-mf6-syntax/pull/194)
+- Update ruff in [#195](https://github.com/martclanor/vscode-mf6-syntax/pull/195)
+
 ## [0.6.0] - 2026-01-18
 
 ### Features
@@ -278,6 +292,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.6.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.0..0.6.1
 [0.6.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.2..0.6.0
 [0.5.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.1..0.5.2
 [0.5.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.0..0.5.1
