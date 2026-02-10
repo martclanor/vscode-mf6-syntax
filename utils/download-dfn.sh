@@ -43,7 +43,7 @@ for GIT_REF in "${GIT_REFS[@]}"; do
 
     echo "Fetching from branch '$GIT_REF'..."
     # Use --depth 1 if you only need the latest version, saves bandwidth/time
-    git fetch --quiet --depth 1 origin "refs/tags/$GIT_REF"
+    git fetch --quiet --depth 1 origin "$GIT_REF"
     if [ $? -ne 0 ]; then
         echo "Error: git fetch failed for tag '$GIT_REF'."
         exit 1
