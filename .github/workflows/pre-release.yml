@@ -86,12 +86,12 @@ jobs:
             --label "automated pr")
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
 
-      - name: Enable Auto-Merge
+      - name: Merge Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
         run: |
-          gh pr merge --auto --squash "$PR_URL"
+          gh pr merge --squash "$PR_URL"
 
   create-pre-release:
     needs: update-and-pr
