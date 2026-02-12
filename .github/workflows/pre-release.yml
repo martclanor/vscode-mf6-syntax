@@ -99,4 +99,5 @@ jobs:
           gh release create "$TAG_NAME" \
             --prerelease \
             --title "Pre-release ${{ needs.update-and-pr.outputs.date }}" \
+            --draft \
             --notes "Automated pre-release based on daily updates."
