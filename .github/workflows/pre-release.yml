@@ -44,7 +44,6 @@ jobs:
             git checkout -b "$BRANCH_NAME"
             fi
 
-
       - name: Append develop to mf6-versions.txt
         run: |
           if ! [ -f mf6-versions.txt ] || ! grep -qx "develop" mf6-versions.txt; then
