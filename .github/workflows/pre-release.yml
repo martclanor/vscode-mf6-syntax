@@ -67,7 +67,11 @@ jobs:
       - name: Commit generated files
         run: |
           git add .
-          git commit -m "Generate from DFN" || echo "No changes to commit"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Generate from DFN"
+          fi
 
       - name: Push changes
         run: git push --force-with-lease origin ${{ steps.setup_branch.outputs.branch_name }}
