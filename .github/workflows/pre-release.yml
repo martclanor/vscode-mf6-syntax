@@ -70,7 +70,7 @@ jobs:
           git commit -m "Generate from DFN" || echo "No changes to commit"
 
       - name: Push changes
-        run: git push --force origin ${{ steps.setup_branch.outputs.branch_name }}
+        run: git push --force-with-lease origin ${{ steps.setup_branch.outputs.branch_name }}
 
       - name: Create Pull Request
         id: create_pr
