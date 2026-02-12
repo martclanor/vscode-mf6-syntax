@@ -36,12 +36,14 @@ jobs:
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          if git rev-parse --verify --quiet "refs/heads/$BRANCH_NAME"; then
+            if git ls-remote --heads origin "$BRANCH_NAME" | grep -q "$BRANCH_NAME"; then
+            git fetch origin "$BRANCH_NAME"
             git checkout "$BRANCH_NAME"
             git rebase main
-          else
+            else
             git checkout -b "$BRANCH_NAME"
-          fi
+            fi
+
 
       - name: Append develop to mf6-versions.txt
         run: |
