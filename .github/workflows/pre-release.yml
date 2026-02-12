@@ -55,6 +55,9 @@ jobs:
             echo "\"develop\" is already present in mf6-versions.txt; nothing to append."
           fi
 
+      - name: Download DFN data
+        run: bash utils/download-dfn.sh
+
       - name: Install uv
         uses: astral-sh/setup-uv@v7
 
