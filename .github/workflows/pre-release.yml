@@ -47,9 +47,13 @@ jobs:
 
       - name: Append develop to mf6-versions.txt
         run: |
-          echo "develop" >> mf6-versions.txt
-          git add mf6-versions.txt
-          git commit -m "Append develop as mf6-version"
+          if ! [ -f mf6-versions.txt ] || ! grep -qx "develop" mf6-versions.txt; then
+            echo "develop" >> mf6-versions.txt
+            git add mf6-versions.txt
+            git commit -m "Append develop as mf6-version"
+          else
+            echo "\"develop\" is already present in mf6-versions.txt; nothing to append."
+          fi
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
