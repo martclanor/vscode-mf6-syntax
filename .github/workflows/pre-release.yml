@@ -45,11 +45,13 @@ jobs:
           fi
 
       - name: Append develop to mf6-versions.txt
+        id: version_update
         run: |
           if ! [ -f mf6-versions.txt ] || ! grep -qx "develop" mf6-versions.txt; then
             echo "develop" >> mf6-versions.txt
             git add mf6-versions.txt
             git commit -m "Append develop as mf6-version"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           else
             echo "\"develop\" is already present in mf6-versions.txt; nothing to append."
           fi
@@ -64,18 +66,22 @@ jobs:
         run: uv run utils/gen_from_dfn.py
 
       - name: Commit generated files
+        id: gen_update
         run: |
           git add .
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Generate from DFN"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Push changes
+        if: steps.gen_update.outputs.has_changes == 'true'
         run: git push --force-with-lease origin ${{ steps.setup_branch.outputs.branch_name }}
 
       - name: Create Pull Request
+        if: steps.gen_update.outputs.has_changes == 'true'
         id: create_pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,6 +96,7 @@ jobs:
           echo "pr_url=$PR_URL" >> $GITHUB_OUTPUT
 
       - name: Merge Pull Request
+        if: steps.gen_update.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
