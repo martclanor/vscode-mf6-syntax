@@ -119,13 +119,22 @@ jobs:
         with:
           ref: main
 
-      - name: Create GitHub Pre-Release
+      - name: Create or Update GitHub Pre-Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: pre-release-${{ needs.update-and-pr.outputs.date }}
         run: |
-          gh release create "$TAG_NAME" \
-            --target pre-release \
-            --title "Pre-release ${{ needs.update-and-pr.outputs.date }}" \
-            --draft \
-            --notes "Automated pre-release based on daily updates."
+          # Check if release already exists
+          if gh release view "$TAG_NAME" &>/dev/null; then
+            echo "Release $TAG_NAME already exists, updating..."
+            gh release edit "$TAG_NAME" \
+              --title "Pre-release ${{ needs.update-and-pr.outputs.date }}" \
+              --notes "Automated pre-release based on daily updates."
+          else
+            echo "Creating new release $TAG_NAME..."
+            gh release create "$TAG_NAME" \
+              --target pre-release \
+              --title "Pre-release ${{ needs.update-and-pr.outputs.date }}" \
+              --draft \
+              --notes "Automated pre-release based on daily updates."
+          fi
