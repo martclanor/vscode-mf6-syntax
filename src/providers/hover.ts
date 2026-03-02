@@ -349,12 +349,11 @@ export class MF6HoverBlockProvider implements vscode.HoverProvider {
 
     const block = document.getText(wordRange).toLowerCase();
     if (block in this.hoverBlock) {
-      let hoverValue: string | undefined = undefined;
       const blockData = this.hoverBlock[block];
       const fileExtension = getFileExtension(document);
       const matchingDfns = findMatchingDfns(blockData, fileExtension);
 
-      hoverValue = matchingDfns
+      const hoverValue = matchingDfns
         .map((dfn) => blockData[dfn])
         .join("\n```\n\n\n```\n");
 

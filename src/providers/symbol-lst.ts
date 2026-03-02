@@ -22,12 +22,11 @@ export class MF6LstSymbolProvider implements vscode.DocumentSymbolProvider {
     const symbols: vscode.DocumentSymbol[] = [];
 
     // Capture header symbols
-    let i = 0;
     const header = this.parseHeader(document);
     symbols.push(header.symbol);
 
     // Capture package symbols
-    i = header.endLine;
+    let i = header.endLine;
     while (i < document.lineCount) {
       const pkg = this.parsePackage(document, i);
       if (!pkg) {
