@@ -8,12 +8,6 @@ VERSIONS_FILE="$PWD/mf6-versions.txt"
 
 readarray -t GIT_REFS < "$VERSIONS_FILE"
 
-# --- Check for git ---
-if ! command -v git &> /dev/null; then
-    echo "Error: git is not installed. Please install git and try again."
-    exit 1
-fi
-
 # --- Loop over all specified git references ---
 for GIT_REF in "${GIT_REFS[@]}"; do
     echo "--- Downloading DFNs from MODFLOW $GIT_REF ---"
