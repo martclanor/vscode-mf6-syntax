@@ -45,12 +45,12 @@ for GIT_REF in "${GIT_REFS[@]}"; do
     # Use --depth 1 if you only need the latest version, saves bandwidth/time
     git fetch --quiet --depth 1 origin "$GIT_REF"
     if [ $? -ne 0 ]; then
-        echo "Error: git fetch failed for tag '$GIT_REF'."
+        echo "Error: git fetch failed for '$GIT_REF'."
         exit 1
     fi
     git checkout --quiet FETCH_HEAD
     if [ $? -ne 0 ]; then
-        echo "Error: git checkout failed after fetching tag '$GIT_REF'."
+        echo "Error: git checkout failed after fetching '$GIT_REF'."
         exit 1
     fi
 
