@@ -95,7 +95,7 @@ jobs:
           BRANCH_NAME: ${{ steps.setup_branch.outputs.branch_name }}
         run: |
           # Check if a PR already exists for this branch
-          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --base pre-release --state open --json url --jq '.[0].url')
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --base pre-release --state open --json url --jq '.[0].url // empty')
           if [ -n "$EXISTING_PR" ]; then
             echo "Reusing existing PR: $EXISTING_PR"
             echo "pr_url=$EXISTING_PR" >> $GITHUB_OUTPUT
