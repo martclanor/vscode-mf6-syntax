@@ -7,8 +7,9 @@ permissions:
 on:
   push:
     paths:
+      - "package.json.j2"
       - "package.json"
-      - "package-lock.json"
+      - "templates/package-lock.json"
 
 jobs:
   check-lockfile:
