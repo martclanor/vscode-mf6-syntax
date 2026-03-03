@@ -76,12 +76,19 @@ jobs:
             echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Check combined changes
+        id: combined_changes
+        run: |
+          if [[ "${{ steps.version_update.outputs.has_changes }}" == "true" ]] || [[ "${{ steps.gen_update.outputs.has_changes }}" == "true" ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Push changes
-        if: steps.gen_update.outputs.has_changes == 'true'
+        if: steps.combined_changes.outputs.has_changes == 'true'
         run: git push --force-with-lease origin ${{ steps.setup_branch.outputs.branch_name }}
 
       - name: Create Pull Request
-        if: steps.gen_update.outputs.has_changes == 'true'
+        if: steps.combined_changes.outputs.has_changes == 'true'
         id: create_pr
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -103,7 +110,7 @@ jobs:
           fi
 
       - name: Merge Pull Request
-        if: steps.gen_update.outputs.has_changes == 'true'
+        if: steps.combined_changes.outputs.has_changes == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
