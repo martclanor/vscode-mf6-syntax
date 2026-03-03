@@ -115,7 +115,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
         run: |
-          gh pr merge --squash "$PR_URL"
+          gh pr merge --squash --yes --delete-branch "$PR_URL"
 
   create-pre-release:
     needs: update-and-pr
