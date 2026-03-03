@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       date: ${{ steps.date.outputs.date }}
+      has_changes: ${{ steps.combined_changes.outputs.has_changes }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -119,6 +120,7 @@ jobs:
 
   create-pre-release:
     needs: update-and-pr
+    if: needs.update-and-pr.outputs.has_changes == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
