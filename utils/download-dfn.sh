@@ -8,12 +8,6 @@ VERSIONS_FILE="$PWD/mf6-versions.txt"
 
 readarray -t GIT_REFS < "$VERSIONS_FILE"
 
-# --- Check for git ---
-if ! command -v git &> /dev/null; then
-    echo "Error: git is not installed. Please install git and try again."
-    exit 1
-fi
-
 # --- Loop over all specified git references ---
 for GIT_REF in "${GIT_REFS[@]}"; do
     echo "--- Downloading DFNs from MODFLOW $GIT_REF ---"
@@ -43,14 +37,14 @@ for GIT_REF in "${GIT_REFS[@]}"; do
 
     echo "Fetching from branch '$GIT_REF'..."
     # Use --depth 1 if you only need the latest version, saves bandwidth/time
-    git fetch --quiet --depth 1 origin "refs/tags/$GIT_REF"
+    git fetch --quiet --depth 1 origin "$GIT_REF"
     if [ $? -ne 0 ]; then
-        echo "Error: git fetch failed for tag '$GIT_REF'."
+        echo "Error: git fetch failed for '$GIT_REF'."
         exit 1
     fi
     git checkout --quiet FETCH_HEAD
     if [ $? -ne 0 ]; then
-        echo "Error: git checkout failed after fetching tag '$GIT_REF'."
+        echo "Error: git checkout failed after fetching '$GIT_REF'."
         exit 1
     fi
 

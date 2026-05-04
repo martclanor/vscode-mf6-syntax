@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.2] - 2026-05-04
+
+### Bug Fixes
+- Resolve eslint errors in [#217](https://github.com/martclanor/vscode-mf6-syntax/pull/217)
+
+### Internal Changes & Maintenance
+- Set min version for serialize-javascript in [#233](https://github.com/martclanor/vscode-mf6-syntax/pull/233)
+- Migrate from pre-commit to prek in [#232](https://github.com/martclanor/vscode-mf6-syntax/pull/232)
+- Bump flatted from 3.3.3 to 3.4.2 in [#222](https://github.com/martclanor/vscode-mf6-syntax/pull/222)
+- Bump picomatch in [#225](https://github.com/martclanor/vscode-mf6-syntax/pull/225)
+- Bump lodash from 4.17.23 to 4.18.1 in [#228](https://github.com/martclanor/vscode-mf6-syntax/pull/228)
+- Bump undici from 7.21.0 to 7.25.0 in [#231](https://github.com/martclanor/vscode-mf6-syntax/pull/231)
+- Clean download-dfn script in [#219](https://github.com/martclanor/vscode-mf6-syntax/pull/219)
+- Check lockfile on package.json template update in [#218](https://github.com/martclanor/vscode-mf6-syntax/pull/218)
+- Bump the npm-all group with 5 updates in [#211](https://github.com/martclanor/vscode-mf6-syntax/pull/211)
+- Bump qs from 6.14.1 to 6.15.0 in [#214](https://github.com/martclanor/vscode-mf6-syntax/pull/214)
+- Bump minimatch from 3.1.2 to 3.1.5 in [#216](https://github.com/martclanor/vscode-mf6-syntax/pull/216)
+- Set node and npm versions in [#215](https://github.com/martclanor/vscode-mf6-syntax/pull/215)
+- Allow dfn download of non-tag git reference in [#210](https://github.com/martclanor/vscode-mf6-syntax/pull/210)
+
 ## [0.6.1] - 2026-02-09
 
 ### Internal Changes & Maintenance
@@ -292,6 +312,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.6.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.1..0.6.2
 [0.6.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.0..0.6.1
 [0.6.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.2..0.6.0
 [0.5.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.1..0.5.2
