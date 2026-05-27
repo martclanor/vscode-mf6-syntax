@@ -512,7 +512,7 @@ if __name__ == "__main__":
     extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
 
     for version in Dfn.get_versions():
-        Dfn.dfn_path = Path(f"data/dfn/{version}")
+        Dfn.dfn_path = Path(f"data/dfns/{version}")
         log.info(f"Generating files from DFN's of MODFLOW {version}")
 
         extensions_symbol_defn_lst: set[str] = set()
