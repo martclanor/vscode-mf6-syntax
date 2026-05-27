@@ -12,7 +12,7 @@ from modflow_devtools.dfns import fetch_dfns
 
 if __name__ == "__main__":
     with open("mf6-versions.txt") as f:
-        for version in (line.strip() for line in f):
+        for version in (line.strip() for line in f if line.strip()):
             fetch_dfns(
                 owner="MODFLOW-ORG",
                 repo="modflow6",
