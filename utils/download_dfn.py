@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.13"
 # dependencies = [
-#     "modflow-devtools[dfn] @ git+https://github.com/MODFLOW-ORG/modflow-devtools.git@develop",
+#     "modflow-devtools[ecosystem] @ git+https://github.com/MODFLOW-ORG/modflow-devtools.git@develop",
 # ]
 # ///
 
