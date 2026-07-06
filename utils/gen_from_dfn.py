@@ -44,6 +44,7 @@ from pathlib import Path
 from typing import Callable, ClassVar, Generator, Optional, overload
 
 from jinja2 import Environment, FileSystemLoader, Template
+from modflow_devtools.dfns import Dfns
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
@@ -513,20 +514,33 @@ if __name__ == "__main__":
     extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
 
     for version in Dfn.get_versions():
-        Dfn.dfn_path = Path(f"data/dfns/{version}")
+        if version != "6.7.0":
+            continue
+
+        spec = Dfns.load(f"data/dfns/{version}")
         log.info(f"Generating files from DFN's of MODFLOW {version}")
 
         extensions_symbol_defn_lst: set[str] = set()
-        for dfn in Dfn.get_dfns():
-            extensions.add(dfn.extension)
-            extensions_symbol_defn_lst.add(dfn.extension)
-            blocks.update(dfn.blocks)
-            keywords.update(dfn.keywords)
-            valids.update(dfn.valids)
-            if dfn.is_mtype:
-                ftypes.add(dfn.ftype)
-            if dfn.is_exgtype:
-                exgtypes.add(dfn.exgtype)
+        for component in spec.components.values():
+            extensions.add(component.name.split("-")[-1])
+            extensions_symbol_defn_lst.add(component.name.split("-")[-1])
+
+            if component.blocks:
+                for block in component.blocks.values():
+                    blocks.add(block.name)
+
+                    for field in block.fields.values():
+                        keywords.add(field.name)
+                        if valid := getattr(field, "valid", None):
+                            valids.update(valid)
+
+            type, package = component.name.split("-")
+            if type in MTYPES:
+                ftypes.add(f"{package}6")
+
+            if type == "exg":
+                models = [package[i : i + 3] for i in range(0, len(package), 3)]
+                exgtypes.add("-".join(f"{chunk}6" for chunk in models))
 
         # Export hover keyword and hover block data from DFN files
         Dfn.export_hover_keyword(f"src/providers/hover-keyword/{version}.json")
