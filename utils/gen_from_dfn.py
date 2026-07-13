@@ -38,6 +38,7 @@ import ast
 import json
 import logging
 import re
+import warnings
 from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
@@ -48,6 +49,8 @@ from modflow_devtools.dfns import Dfns
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
+
+warnings.filterwarnings("ignore", message=".*modflow_devtools.dfns.*experimental.*")
 
 
 @dataclass(frozen=True, slots=True)
