@@ -269,23 +269,13 @@ class Section:
         )
 
 
-@dataclass
-class Dfn:
+class MF6SyntaxDfns(Dfns):
     """Abstraction of each DFN file. DFN files are definition files from MODFLOW 6 which
     contains metadata for each block and keyword in the MF6 input files."""
 
-    path: Path
-    sections: tuple[Section, ...]
-
-    dfn_path: ClassVar[Path]
-    cache: ClassVar[dict[Path, "Dfn"]] = {}
+    dfn_path: ClassVar[Path] = Path()
+    cache: ClassVar[dict[Path, "MF6SyntaxDfns"]] = {}
     common: ClassVar[dict[str, str]] = {}
-
-    @classmethod
-    def load(cls, path: Path) -> "Dfn":
-        if path in cls.cache:
-            return cls.cache[path]
-        return cls.cache.setdefault(path, cls(path, cls._read_sections(path)))
 
     @staticmethod
     def get_versions() -> list[str]:
@@ -362,20 +352,14 @@ class Dfn:
         return f".{self.name.partition('-')[-1]}"
 
     @staticmethod
-    def get_dfns() -> Generator["Dfn", None, None]:
-        return (
-            Dfn.load(filename)
-            for filename in Dfn.dfn_path.glob("*.dfn")
-            if filename.name != "common.dfn"
-        )
-
-    @staticmethod
     def get_common() -> dict[str, str]:
-        if Dfn.common:
-            return Dfn.common
-        for section in Dfn.load(Dfn.dfn_path / "common.dfn").get_sections():
-            Dfn.common[section.name] = section.description
-        return Dfn.common
+        if MF6SyntaxDfns.common:
+            return MF6SyntaxDfns.common
+        for section in MF6SyntaxDfns.load(
+            MF6SyntaxDfns.dfn_path / "common.dfn"
+        ).get_sections():
+            MF6SyntaxDfns.common[section.name] = section.description
+        return MF6SyntaxDfns.common
 
     @staticmethod
     @overload
@@ -401,14 +385,16 @@ class Dfn:
         elif isinstance(data, str):
             return data
         # Recursive case: apply function to the dictionary values
-        return {key: Dfn._sort_data(value) for key, value in sorted(data.items())}
+        return {
+            key: MF6SyntaxDfns._sort_data(value) for key, value in sorted(data.items())
+        }
 
     @staticmethod
     def sort_and_export(
         data: dict | set, output: str, template: Optional[Template] = None
     ) -> None:
         output_path = Path(output)
-        data_sorted = Dfn._sort_data(data)
+        data_sorted = MF6SyntaxDfns._sort_data(data)
         if template is not None and isinstance(data_sorted, dict):
             output_path.write_text(template.render(**data_sorted))
         else:
@@ -434,7 +420,7 @@ class Dfn:
         hover: defaultdict[str, defaultdict[str, str]] = defaultdict(
             lambda: defaultdict(str)
         )
-        for dfn in Dfn.get_dfns():
+        for dfn in MF6SyntaxDfns.get_dfns():
             section_in_record = {
                 (s.name, s.block): s for s in dfn.get_sections(lambda s: s.in_record)
             }
@@ -477,50 +463,52 @@ class Dfn:
                     hover[block][dfn_name], block, dfn_name
                 )
 
-        Dfn.sort_and_export(hover, output)
+        MF6SyntaxDfns.sort_and_export(hover, output)
 
     @staticmethod
     def export_hover_recarray(output: str) -> None:
         hover: defaultdict[str, dict[str, list[str]]] = defaultdict(
             lambda: defaultdict(list)
         )
-        for dfn in Dfn.get_dfns():
+        for dfn in MF6SyntaxDfns.get_dfns():
             for section in dfn.get_sections(lambda s: s.is_recarray):
                 hover[section.block][",".join(section.recs)].append(dfn.name)
 
-        Dfn.sort_and_export(hover, output)
+        MF6SyntaxDfns.sort_and_export(hover, output)
 
     @staticmethod
     def export_symbol_defn(output: str) -> None:
         symbol_defn: defaultdict[str, set[str]] = defaultdict(set)
-        for dfn in Dfn.get_dfns():
+        for dfn in MF6SyntaxDfns.get_dfns():
             for section in dfn.get_sections():
                 _ = symbol_defn[section.block]
                 if section.is_readarray:
                     symbol_defn[section.block].add(section.name)
-        Dfn.sort_and_export(symbol_defn, output)
+        MF6SyntaxDfns.sort_and_export(symbol_defn, output)
 
     @staticmethod
     def export_symbol_defn_lst(output: str, data: set) -> None:
-        Dfn.sort_and_export({item.upper().strip(".") for item in data}, output)
+        MF6SyntaxDfns.sort_and_export(
+            {item.upper().strip(".") for item in data}, output
+        )
 
     @staticmethod
     def render_template(output: str, **context) -> None:
         template = Environment(
             loader=FileSystemLoader("templates"), keep_trailing_newline=True
         ).get_template(f"{re.sub(r'-\d+(\.\d+)*', '', Path(output).name)}.j2")
-        Dfn.sort_and_export(context, output, template)
+        MF6SyntaxDfns.sort_and_export(context, output, template)
 
 
 if __name__ == "__main__":
     # Collect blocks, keywords, valids, and extensions from DFN files
     extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
 
-    for version in Dfn.get_versions():
+    for version in MF6SyntaxDfns.get_versions():
         if version != "6.7.0":
             continue
 
-        spec = Dfns.load(f"data/dfns/{version}")
+        spec = MF6SyntaxDfns.load(f"data/dfns/{version}")
         log.info(f"Generating files from DFN's of MODFLOW {version}")
 
         extensions_symbol_defn_lst: set[str] = set()
@@ -558,15 +546,15 @@ if __name__ == "__main__":
         )
 
         # Clear version-specific cached data
-        Dfn.cache = {}
-        Dfn.common = {}
+        MF6SyntaxDfns.cache = {}
+        MF6SyntaxDfns.common = {}
 
     # Insert collected data into the corresponding Jinja2 templates
     log.info("Rendering jinja templates with collected data")
-    Dfn.render_template(
-        "package.json", versions=Dfn.get_versions(), extensions=extensions
+    MF6SyntaxDfns.render_template(
+        "package.json", versions=MF6SyntaxDfns.get_versions(), extensions=extensions
     )
-    Dfn.render_template(
+    MF6SyntaxDfns.render_template(
         "syntaxes/mf6.tmLanguage.json",
         blocks=blocks,
         keywords=keywords,
