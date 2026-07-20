@@ -401,19 +401,34 @@ class MF6SyntaxDfns(Dfns):
             output_path.write_text(json.dumps(data_sorted, indent=2) + "\n")
         log.info(f"- {output_path}")
 
-    @staticmethod
-    def export_hover_keyword(output: str) -> None:
+    def export_hover_keyword(self, output: str) -> None:
         hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
             defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
         )
+        for component in spec.components.values():
+            if component.blocks:
+                for block in component.blocks.values():
+                    for field in block.fields.values():
+                        if field.type == "record":
+                            for field_inner in field.fields.values():
+                                hover[field_inner.name][block.name][
+                                    field_inner.description
+                                ].append(component.name)
+                        elif field.type == "list":
+                            if field.item.type == "record":
+                                field_inners = field.item.fields.values()
+                            elif field.item.type == "union":
+                                field_inners = field.item.arms.values()
+                            for field_inner in field_inners:
+                                hover[field_inner.name][block.name][
+                                    field_inner.description
+                                ].append(component.name)
+                        else:
+                            hover[field.name][block.name][field.description].append(
+                                component.name
+                            )
 
-        for dfn in Dfn.get_dfns():
-            for section in dfn.get_sections(lambda s: not s.is_rec):
-                hover[section.name][section.block][
-                    section.get_hover_keyword(Dfn.get_common())
-                ].append(dfn.name)
-
-        Dfn.sort_and_export(hover, output)
+        MF6SyntaxDfns.sort_and_export(hover, output)
 
     @staticmethod
     def export_hover_block(output: str) -> None:
@@ -534,7 +549,7 @@ if __name__ == "__main__":
                 exgtypes.add("-".join(f"{chunk}6" for chunk in models))
 
         # Export hover keyword and hover block data from DFN files
-        Dfn.export_hover_keyword(f"src/providers/hover-keyword/{version}.json")
+        spec.export_hover_keyword(f"src/providers/hover-keyword/{version}.json")
         Dfn.export_hover_block(f"src/providers/hover-block/{version}.json")
         Dfn.export_hover_recarray(f"src/providers/hover-recarray/{version}.json")
 
