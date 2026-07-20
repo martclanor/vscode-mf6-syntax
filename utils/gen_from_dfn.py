@@ -537,11 +537,11 @@ if __name__ == "__main__":
                         if valid := getattr(field, "valid", None):
                             valids.update(valid)
 
-            type, package = component.name.split("-")
-            if type in MTYPES:
+            type_, package = component.name.split("-")
+            if type_ in MTYPES:
                 ftypes.add(f"{package}6")
 
-            if type == "exg":
+            if type_ == "exg":
                 models = [package[i : i + 3] for i in range(0, len(package), 3)]
                 exgtypes.add("-".join(f"{chunk}6" for chunk in models))
 
