@@ -28,7 +28,7 @@ Generated Files:
 
 Usage:
     - Download DFN files from the MODFLOW 6 repository using:
-        utils/download-dfn.sh
+        uv run utils/download_dfn.py
     - Run this script to generate the output files:
         uv run utils/gen_from_dfn.py
 """
@@ -512,7 +512,7 @@ if __name__ == "__main__":
     extensions, blocks, keywords, valids, ftypes, exgtypes = (set() for _ in range(6))
 
     for version in Dfn.get_versions():
-        Dfn.dfn_path = Path(f"data/dfn/{version}")
+        Dfn.dfn_path = Path(f"data/dfns/{version}")
         log.info(f"Generating files from DFN's of MODFLOW {version}")
 
         extensions_symbol_defn_lst: set[str] = set()

@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.6.3] - 2026-07-20
+
+### Internal Changes & Maintenance
+- Sync vscode engine version with dev dependency in [#254](https://github.com/martclanor/vscode-mf6-syntax/pull/254)
+- Bump the npm-all group across 1 directory with 10 updates in [#245](https://github.com/martclanor/vscode-mf6-syntax/pull/245)
+- Bump tmp from 0.2.5 to 0.2.7 in [#239](https://github.com/martclanor/vscode-mf6-syntax/pull/239)
+- Bump undici from 7.25.0 to 7.28.0 in [#242](https://github.com/martclanor/vscode-mf6-syntax/pull/242)
+- Bump form-data from 4.0.5 to 4.0.6 in [#243](https://github.com/martclanor/vscode-mf6-syntax/pull/243)
+- Bump qs from 6.15.0 to 6.15.3 in [#246](https://github.com/martclanor/vscode-mf6-syntax/pull/246)
+- Bump js-yaml from 4.1.1 to 4.3.0 in [#247](https://github.com/martclanor/vscode-mf6-syntax/pull/247)
+- Bump markdown-it from 14.1.1 to 14.3.0 in [#250](https://github.com/martclanor/vscode-mf6-syntax/pull/250)
+- Bump fast-uri from 3.1.0 to 3.1.3 in [#251](https://github.com/martclanor/vscode-mf6-syntax/pull/251)
+- Bump the gha-all group across 1 directory with 2 updates in [#252](https://github.com/martclanor/vscode-mf6-syntax/pull/252)
+- Prefer ecosystem dep group for modflow-devtools in [#248](https://github.com/martclanor/vscode-mf6-syntax/pull/248)
+
+### Refactor
+- Delegate downloading of dfns to modflow-devtools in [#238](https://github.com/martclanor/vscode-mf6-syntax/pull/238)
+
 ## [0.6.2] - 2026-05-04
 
 ### Bug Fixes
@@ -312,6 +330,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.6.3]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.2..0.6.3
 [0.6.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.1..0.6.2
 [0.6.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.0..0.6.1
 [0.6.0]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.5.2..0.6.0

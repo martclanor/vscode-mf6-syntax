@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get latest MODFLOW 6 release
         id: get_latest_release
@@ -94,7 +94,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./utils/download-dfn.sh
+          uv run python utils/download_dfn.py
           if uv run python utils/gen_from_dfn.py; then
             echo "gen_from_dfn=true" >> $GITHUB_OUTPUT
           else
