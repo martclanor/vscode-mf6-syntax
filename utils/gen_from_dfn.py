@@ -402,31 +402,39 @@ class MF6SyntaxDfns(Dfns):
         log.info(f"- {output_path}")
 
     def export_hover_keyword(self, output: str) -> None:
-        hover: defaultdict[str, defaultdict[str, defaultdict[str, list[str]]]] = (
-            defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
+        hover: defaultdict[str, defaultdict[str, defaultdict[str, set[str]]]] = (
+            defaultdict(lambda: defaultdict(lambda: defaultdict(set)))
         )
+
+        def append(hover_dict, field):
+            if field.type == "record":
+                for field_inner in field.fields.values():
+                    hover_dict[field_inner.name][block.name][
+                        field_inner.description
+                    ].add(component.name)
+                    hover_dict = append(hover_dict, field_inner)
+            elif field.type == "list":
+                if field.item.type == "record":
+                    field_inners = field.item.fields.values()
+                elif field.item.type == "union":
+                    field_inners = field.item.arms.values()
+                for field_inner in field_inners:
+                    hover_dict = append(hover_dict, field_inner)
+            elif field.type == "union":
+                field_inners = field.arms.values()
+                for field_inner in field_inners:
+                    hover_dict = append(hover_dict, field_inner)
+            else:
+                hover_dict[field.name][block.name][field.description].add(
+                    component.name
+                )
+            return hover_dict
+
         for component in spec.components.values():
             if component.blocks:
                 for block in component.blocks.values():
                     for field in block.fields.values():
-                        if field.type == "record":
-                            for field_inner in field.fields.values():
-                                hover[field_inner.name][block.name][
-                                    field_inner.description
-                                ].append(component.name)
-                        elif field.type == "list":
-                            if field.item.type == "record":
-                                field_inners = field.item.fields.values()
-                            elif field.item.type == "union":
-                                field_inners = field.item.arms.values()
-                            for field_inner in field_inners:
-                                hover[field_inner.name][block.name][
-                                    field_inner.description
-                                ].append(component.name)
-                        else:
-                            hover[field.name][block.name][field.description].append(
-                                component.name
-                            )
+                        hover = append(hover, field)
 
         MF6SyntaxDfns.sort_and_export(hover, output)
 
