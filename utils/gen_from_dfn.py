@@ -38,9 +38,10 @@ import json
 import logging
 import re
 from collections import defaultdict
+from collections.abc import Callable, Generator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, ClassVar, Generator, Optional, overload
+from typing import ClassVar, overload
 
 from jinja2 import Environment, FileSystemLoader, Template
 
@@ -113,6 +114,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "time_series",
         "valid_values",
         "prerelease",
+        "mf6dimension",
     }
 )
 
@@ -306,7 +308,7 @@ class Dfn:
             return tuple(Section.from_dfn(d) for d in data)
 
     def get_sections(
-        self, filter_fn: Optional[Callable[[Section], bool]] = None
+        self, filter_fn: Callable[[Section], bool] | None = None
     ) -> Generator[Section, None, None]:
         if filter_fn is None:
             yield from self.sections
@@ -400,7 +402,7 @@ class Dfn:
 
     @staticmethod
     def sort_and_export(
-        data: dict | set, output: str, template: Optional[Template] = None
+        data: dict | set, output: str, template: Template | None = None
     ) -> None:
         output_path = Path(output)
         data_sorted = Dfn._sort_data(data)
