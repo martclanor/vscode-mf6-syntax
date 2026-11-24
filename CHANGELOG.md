@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.4] - 2026-11-24
+
+### Bug Fixes
+- Allow uv to read inline deps in [#281](https://github.com/martclanor/vscode-mf6-syntax/pull/281)
+
+### Internal Changes & Maintenance
+- Skip downloading cached DFN versions in [#283](https://github.com/martclanor/vscode-mf6-syntax/pull/283)
+- Consider support to new mf6 version as feat in [#282](https://github.com/martclanor/vscode-mf6-syntax/pull/282)
+- Resize png icon to 1024x1024 in [#280](https://github.com/martclanor/vscode-mf6-syntax/pull/280)
+- Add support for MODFLOW 6.8.2 in [#277](https://github.com/martclanor/vscode-mf6-syntax/pull/277)
+- Add support for MODFLOW 6.8.1 in [#269](https://github.com/martclanor/vscode-mf6-syntax/pull/269)
+- Add support for MODFLOW 6.8.0 in [#265](https://github.com/martclanor/vscode-mf6-syntax/pull/265)
+- Update project dependencies and ci in [#278](https://github.com/martclanor/vscode-mf6-syntax/pull/278)
+
 ## [0.6.3] - 2026-07-20
 
 ### Internal Changes & Maintenance
@@ -253,7 +267,6 @@
 ## [0.0.5] - 2025-02-02
 
 ### Commits
-- Format repo with prettier in [#10](https://github.com/martclanor/vscode-mf6-syntax/pull/10)
 - Add codespell
 - Ignore other folders in packaging
 - Simplify ruff workflow
@@ -330,6 +343,7 @@
 - Add files from VSC extension generator
 - Initial commit
 
+[0.6.4]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.3..0.6.4
 [0.6.3]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.2..0.6.3
 [0.6.2]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.1..0.6.2
 [0.6.1]: https://github.com/martclanor/vscode-mf6-syntax/compare/0.6.0..0.6.1
