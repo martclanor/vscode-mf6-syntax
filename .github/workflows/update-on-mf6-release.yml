@@ -77,7 +77,7 @@ jobs:
         run: |
           BRANCH_NAME="update-modflow6-${{ steps.get_latest_release.outputs.latest_tag }}"
           PR_URL=$(gh pr create \
-            --title "chore(mf6): add support for MODFLOW ${{ steps.get_latest_release.outputs.latest_tag }}" \
+            --title "feat(mf6): add support for MODFLOW ${{ steps.get_latest_release.outputs.latest_tag }}" \
             --body "This updates the extension to support MODFLOW 6 version ${{ steps.get_latest_release.outputs.latest_tag }}." \
             --base develop \
             --draft)
