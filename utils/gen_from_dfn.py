@@ -114,6 +114,7 @@ IGNORED_FIELDS: frozenset[str] = frozenset(
         "time_series",
         "valid_values",
         "prerelease",
+        "mf6dimension",
     }
 )
 
