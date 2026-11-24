@@ -86,7 +86,7 @@ jobs:
 
       - name: Install uv
         if: steps.create_pr.outputs.pr_url != ''
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v10
 
       - name: Update files and commit
         id: update_files
