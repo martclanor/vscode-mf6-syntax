@@ -94,8 +94,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          uv run python utils/download_dfn.py
-          if uv run python utils/gen_from_dfn.py; then
+          uv run utils/download_dfn.py
+          if uv run utils/gen_from_dfn.py; then
             echo "gen_from_dfn=true" >> $GITHUB_OUTPUT
           else
             echo "gen_from_dfn=false" >> $GITHUB_OUTPUT
